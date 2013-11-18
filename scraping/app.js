@@ -6,6 +6,8 @@ var path = require('path');
 var fs = require('fs');
 var YQL = require("yql");
 var mongoose = require('mongoose');
+var scrap = require('scrap');
+
 
 /** Modules **/
 var brand = require('./lib/brand.js');
@@ -60,10 +62,27 @@ app.get('/', function(req,res){
 });
 
 
+/** 
+	Needed to choose a different module to use for scraping since YQL abides by the robots.txt file 
+	Scrape is used here instead
+**/
 app.get('/brandsoftheworldScrape',function(req,res){
 
-	brand.Brand.find({},function(err, objs){
-		console.log("Log from db: " + JSON.stringify(objs));
+	//query the db and pull out only the brandNames
+	var brandList = brand.Brand.find().select('brandName').exec(function(err,obj){
+
+		//for each of the brandNames search brandsoftheworld and capture the first 20 logo images
+		for(var j=0; j<obj.length;j++){
+			scrap("http://www.brandsoftheworld.com/search/logo?search_api_views_fulltext="+obj[j].brandName, function(err, $) {
+			  	
+			  	var logosDivs = $('.logos').children('ul li a img');
+
+			  	for(var i=0; i<logosDivs.length ; i++){
+					console.log(logosDivs[i].attribs.src)
+			  	}
+
+			});
+		}
 	});
 
 });
@@ -72,7 +91,7 @@ app.get('/brandsoftheworldScrape',function(req,res){
 	Scrapes each page of www.brandprofiles.com and pulls out each logo for the first five pages
 **/
 app.get('/brandprofilesScrape', function(req,res){
-	var DOWNLOAD_DIR = './files/'
+	var DOWNLOAD_DIR = './files/';
 	var logos = undefined;
 
 	function downloadImage(index, page, totalLogos){
