@@ -1,18 +1,128 @@
-<html>
-<head>
-	<title>HueBrand</title>
-</head>
-<body>
-	<div>
-		<p>Search for your color, brand, industry or attribute!</p>
-		<form id="main_query" action="query" method="post">
-			<input type="textbox" name="query_text">
-			<input type="radio" name="query_type" value="color">Color</input>
-			<input type="radio" name="query_type" value="brandName">Brand Name</input>
-			<input type="radio" name="query_type" value="attribute">Attribute</input>
-			<input type="radio" name="query_type" value="industry">Industry</input>
-			<input type="submit" value="Submit"></input>
-		</form>
-	</div>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>HueBrand</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Heroic Features' Template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">HueBrand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+    
+    <div class="container">
+
+      <div class="jumbotron hero-spacer">
+        <h1>HueBrand</h1>
+        <p>We give insight into brands logos and color choices.</p>
+      </div>
+      
+      <hr>
+      
+      <div class="row">
+        <div class="col-lg-12">
+           <h3>Choose your type of search </h3>
+        </div>
+      </div><!-- /.row -->
+      
+      <div class="row text-center">
+
+        <div class="col-lg-3 col-md-6 hero-feature">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Brand</h3>
+              <p><a href="/brand/" class="btn btn-primary">Search</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 hero-feature">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Color</h3>
+              <p><input type='textarea' id='colorTextArea'><a href="#" id='colorSearchBtn' class="btn btn-primary">Search</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 hero-feature">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Attribute</h3>
+              <p><a href="#" class="btn btn-primary">Search</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 hero-feature">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Industry</h3>
+              <p><a href="#" class="btn btn-primary">Search</a></p>
+            </div>
+          </div>
+        </div>
+
+
+      </div><!-- /.row -->
+      
+      <hr>
+
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; Company 2013 &middot; Facebook &middot; Twitter &middot; Google+</p>
+          </div>
+        </div>
+      </footer>
+      
+    </div><!-- /.container -->
+
+  <!-- javascript -->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $('#colorSearchBtn').on('click',function(event){
+        var searchQ = $('#colorTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/color/" + searchQ;
+      })
+    })
+
+
+  </script>
+
+  </body>
+
 </html>
