@@ -3,9 +3,10 @@ var mongoose = require('mongoose');
 /************************
 	Define Schema
 ************************/
-exports.Brand = mongoose.model('Brand', new mongoose.Schema({
 
-	brandName : String,
+var brandSchema = new mongoose.Schema({
+
+	brandName : {type: String},
 	industryName : String,
 	fortuneRank : Number,
 	location : {
@@ -27,7 +28,12 @@ exports.Brand = mongoose.model('Brand', new mongoose.Schema({
 	brandManualFileName : String,
 	website: String
 
-}));
+})
+
+brandSchema.index({brandName: 1, location:{country:1}},{unique:true})
+
+exports.Brand = mongoose.model('Brand', brandSchema );
+
 
 
 //sample data for testing
@@ -50,13 +56,20 @@ exports.seed = function() {
 }
 
 exports.addPotentialLogos = function(name, logoURLs){
-	exports.Brand.update({ brandName : name}, {$set: {logoPotentialList: logoURLs}}, function(err, numUpdated, raw){
+	exports.Brand.update({ brandName : name}, {$pushAll: {logoPotentialList: logoURLs}}, function(err, numUpdated, raw){
 		if(err){
 			console.log("Error updating " + err);
 		}
-		console.log("The number of updated records is : " + numUpdated);
+		console.log("The number of updated records for " + name + " is : " + numUpdated);
 		console.log('The raw response from Mongo was ', raw);
 
 	})
 }
 
+exports.addBrands = function(brandsList){
+	
+	exports.Brand.create(brandsList, function(err){
+		if(err) console.log("Something went wrong!!" + err);
+		else console.log("Success in storing brands to db! : " + arguments[1]);
+	})
+}

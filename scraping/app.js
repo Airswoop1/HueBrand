@@ -9,6 +9,8 @@ var mongoose = require('mongoose');
 var scrap = require('scrap');
 var request = require('request');
 var cheerio = require('cheerio');
+var phantom = require('phantom');
+var portscanner = require('portscanner');
 
 
 	/** Modules **/
@@ -57,7 +59,7 @@ app.configure('development', function(){
 });
 
 //seed the db with mock data
-brand.seed();
+//brand.seed();
 color.seed();
 industry.seed();
 
@@ -80,36 +82,61 @@ app.get('/brandsoftheworldScrape',function(req,res){
 			console.log("There was an error! " + err);
 		}
 		else{
-			console.log("obj : " + JSON.stringify(obj));
 			//for each of the brandNames search brandsoftheworld and capture the first 20 logo images
 			for(j=0 ; j < obj.length; j++){
 				brandList.push(obj[j].brandName);
 			}
-
-			logoScrape(brandList, 0)
+			var urlArray = Array(); 
+			logoScrape(brandList, 0, 0)
 		}
 	});
 			
-	var logoScrape = function(blist, count){
-		if(count < blist.length){
+	var logoScrape = function(blist, pg, ind){
+			var pageSymbol;
 
-			var urlArray = Array();
+			urlArray = [];
 
-			scrap("http://www.brandsoftheworld.com/search/logo?search_api_views_fulltext="+blist[count], function(err, $) {
+			if(pg===0){ 
+				pageSymbol = '';
+			}
+			else{
+				pageSymbol = '&page=' + pg;	
+			} 
 
-			  	var logosDivs = $('.logos').children('ul li a img');
+			request("http://www.brandsoftheworld.com/search/logo?search_api_views_fulltext=" + blist[ind] + pageSymbol, function(error, response, body){
 
-			  	for(var i=0; i < logosDivs.length ; i++){
-					urlArray.push(logosDivs[i].attribs.src);
+				if(error)	{
+					console.log("something went wrong! " + error);
+				}
+				var $ = cheerio.load(body);
+
+			  	//var logosDivs = $('.logos').children('ul').children('li').children('a').children('img');
+			  	var logosDivs = $('.logos ul li a img').each(function(index, element){
+			  		urlArray.push($(this).attr('src'));
+			  	});
+
+
+			  	if(urlArray.length){
+				  	brand.addPotentialLogos(blist[ind], urlArray);
+
+				  	var nextButton = $('.pager-next');
+				  	
+				  	if(nextButton){ 
+				  		logoScrape(blist, pg+1, ind);
+				  	}
+				  	else if(ind+1 < blist.length) {				  		 
+				  		logoScrape(blist,0,ind+1);
+				  	}
+			  	}
+			  	else{
+			  		console.log("No logos found for " + blist[ind]);
+			  		logoScrape(blist,0,ind+1);
 			  	}
 
-			  	brand.addPotentialLogos(blist[count], urlArray);
-
-			  	logoScrape(blist,count+1);
-
 			});
-		}
-	}	
+		
+	}
+
 });
 
 app.get('/bloombergCompanyScrape', function(req,res){
@@ -121,16 +148,20 @@ app.get('/bloombergCompanyScrape', function(req,res){
 
 	var scrapeBrandNames = function(alphabetArray, ind, pg){
 
+
 		if(alphabetArray[ind] === 'a'){
 		var pgSymbol;
 		if(pg===0) pgSymbol = '';
 		else pgSymbol = pg + '/';
 
-		request("http://www.bloomberg.com/markets/countmpanies/a-z/a/", function(error, response, body){
+		request("http://www.bloomberg.com/markets/companies/a-z/a/", function(error, response, body){
 			
 			if(error){
 				console.log("Something went wrong! " + error );
 			}
+			console.log("response : " + JSON.stringify(response));
+			console.log("body : " + body);
+			var $ = cheerio.load(body);
 
 			var arrayOfBrands = Array();
 
@@ -150,19 +181,7 @@ app.get('/bloombergCompanyScrape', function(req,res){
 			})
 
 			console.log("array of brands is:  " + arrayOfBrands);
-/*
-			brand.Brand.create(arrayOfBrands, function(err){
-				if(err){
-					console.log("Something went wrong!!" + err);
-				}
-				else{
-					var pageCheck = $('.disabled.next_page');
-					if(pageCheck.length) scrapeBrandNames(alphabetArray, ind, pg+1);
-					else scrapeBrandNames(alphabetArray, ind+1, 0);
-				}
-			})*/
 
-			
 			});
 		}
 	}
@@ -170,8 +189,73 @@ app.get('/bloombergCompanyScrape', function(req,res){
 
 })
 
+/****************************************/
+
+app.get('/bloombergPhantom', function(req,res){
+	
+	var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+	var index = 0;
+	var page = 0;
+
+	var bloombergBrands = function(ind, pg){
+
+		var pgSymbol = pg + '/';
+
+		portscanner.findAPortNotInUse(12300, 13000, 'localhost', function(error, portNum) {
+  
+		phantom.create(function(ph) {
+		
+		return ph.createPage(function(page) {
+
+	      return page.open("http://www.bloomberg.com/markets/companies/a-z/"+alphabet[ind]+"/"+pgSymbol, function(status) {
+	      
+			console.log("opened site? ", status);         
+	 
+	            page.injectJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function() {
+	                //jQuery Loaded.
+					//set timeout for 2seconds
+	                setTimeout(function() {
+	                    return page.evaluate(function() {
 
 
+	 
+							var arrayOfBrands = Array();
+							console.log("evaluating page after jquery injection");
+							$('.name').each(function(){
+
+							  var bName = $(this)[0].children[0].children[0].innerText;
+							  var brandStockSym = $(this).next()[0].innerText;
+							  var brandCountry = $(this).next().next()[0].innerText;
+							  var brandCategory = $(this).next().next().next().next()[0].innerText;
+							  var entry = {brandName:bName, industryName: brandCategory, location: {country: brandCountry}, stockSymbol: brandStockSym};
+
+							  arrayOfBrands.push(entry);
+							})
+
+							var pageCheck = $('.disabled.next_page');
+							if(pageCheck.length) return {barray: arrayOfBrands, end:0}
+							else return {barray: arrayOfBrands, end:1}
+
+	                    }, function(result) {
+
+							brand.addBrands(result.barray);
+	                        ph.exit();
+
+							if(result.end) bloombergBrands(ind,pg+1);
+							else if(alphabet[ind]!== 'z') bloombergBrands(ind+1,1)
+
+	                    });
+	                }, 2000);
+	 
+	            });
+	    });
+	    });
+	},{port:portNum});
+	})
+	}
+	bloombergBrands(0,1);
+
+})
 /***
 	Scrapes each page of www.brandprofiles.com and pulls out each logo for the first five pages
 **/
