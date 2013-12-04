@@ -9,9 +9,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 /** Modules **/
-var brand = require('../scraping/lib/brand.js');
-var color = require('../scraping/lib/color.js');
-var industry = require('../scraping/lib/industry.js');
+	var brand = require('./lib/brand.js');
+	var color = require('./lib/color.js');
+	var industry = require('./lib/industry.js');
+
 
 /** Server and DB Init **/
 var app = express();
@@ -69,44 +70,13 @@ app.get('/', function(req,res){
 
 app.get('/logoShuffle', function(req, res){
 
-
-var brandSchema = new mongoose.Schema({
-
-	brandName : {type: String},
-	industryName : String,
-	fortuneRank : Number,
-	location : {	
-		address: String,
-		city: String,
-		state: String,
-		zip: Number,
-		country: String
-	},
-	marketCap : Number,
-	relativeSize : String, //Startup?, Small, Medium, or Large
-	yearFounded : Number,
-	stockSymbol : String,
-	parentCompany : String,
-	associatedColors : [{ name: String, ratio: Number }],
-	logoFileName : String,
-	logoPotentialList : [String],
-	logoHistory : [{ year : String, fileName : String }],
-	brandManualFileName : String,
-	website: String
-
-})
-
-	var mybrand = mongoose.model('Brand', brandSchema);
-
-	mybrand.find({'brandName' : 'Apple Inc' },function(err, obj){
+	brand.find({brandName: /Apple/i , location : {country: 'USA'}},function(err, obj){
 		if(err) console.log("There was an error"+err);
 		else{
 			console.log(obj);
 		}
 	})
 
-	console.log(brand);
-	console.log('uhhhhh...');
 
 });
 
@@ -118,6 +88,7 @@ app.get('/color/:query',function(req,res){
 	}
 	else{
 		console.log('querying db... with ' + req.params.query);
+
 		//TODO function for querying db based on color selected
 		color.Color.find({ colorName: req.params.query }, function(err, c){
 			console.log("returning from find function");

@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
+var fs = require('fs');
+var csv = require('csv');
+
 
 exports.Color = mongoose.model('Color', new mongoose.Schema({
 
@@ -7,10 +10,10 @@ exports.Color = mongoose.model('Color', new mongoose.Schema({
 	RrgbValue : Number,
 	GrgbValue : Number,
 	BrgbValue : Number,
-	v1 : Number,
-	v2 : Number,
-	v3 : Number,
-	v4 : Number,
+	hValue : Number,
+	sValue : Number,
+	vValue : Number,
+	lValue : Number,
 	shade : String,
 	attributes : [String],
 	complementaryColors : [String], //should these be names or Id's?
@@ -35,4 +38,40 @@ exports.seed = function() {
 		console.log("Database seeded with colors");
 	});
 	
+}
+
+exports.populate = function(){
+	var colorArray = Array();
+	csv()
+	.from.path(__dirname+'/golden_units.csv', {delimiter: ','})
+	.transform(function(row){
+		row.unshift(row.pop());
+		return row
+	})
+	.on('record', function(row, index){
+		var newRow = row.join(",").split(",");
+		
+		var colorObj = {
+			shade : newRow[0],
+			colorName : newRow[1].trim(),
+			RrgbValue : newRow[2],
+			GrgbValue : newRow[3],
+			BrgbValue : newRow[4],
+			hValue : newRow[5],
+			sValue : newRow[6],
+			vValue : newRow[7],
+			lValue : newRow[8],
+			colorFamily :  newRow[9]
+			}
+		var c = new exports.Color(colorObj);
+		c.save();
+
+	})
+	.on('close', function(count){
+		console.log("number of lines processed "+count)
+	})
+	.on('error', function(error){
+		console.log("there was an error" + error.message)
+	});
+	console.log("db seeded with colors!"); 
 }

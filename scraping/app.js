@@ -65,9 +65,9 @@ industry.seed();
 
 /** Routers **/
 app.get('/', function(req,res){
+	//color.populate();
 	res.render('index');
 });
-
 
 
 /** 
@@ -258,6 +258,11 @@ app.get('/bloombergPhantom', function(req,res){
 
 })
 
+/*
+	Scrape Bloomberg for the market cap based on company ticker ID
+	Need to figure out issues of country of operation vs country of stock exchange
+		Just because a company is traded in the US does not mean that it is headquartered here
+*/
 app.get('/bloombergUSMarketCap', function(req,res){
 
 	var companyObjArray = Array();
@@ -267,12 +272,12 @@ app.get('/bloombergUSMarketCap', function(req,res){
 		else{
 			for(var i=0; i < obj.length; i++ ){
 				if(!obj[i].marketCap){
-
-					companyObjArray.push(obj[i]);
+					if(obj[i].marketCap !== 0)
+						companyObjArray.push(obj[i]);
 				}
 			}
 			console.log(companyObjArray)
-		//bloombergUSMarketCap(companyObjArray, 0);
+		bloombergUSMarketCap(companyObjArray, 0);
 
 		}
 	})
@@ -319,8 +324,15 @@ app.get('/bloombergUSMarketCap', function(req,res){
 							if(result.marketCap !== "-1"){
 								var stripMktCap = result.marketCap.replace(/,/g, "");
 								var numMktCap = parseFloat(stripMktCap);
-								console.log("Storing data for company: " + companies[ind].brandName + " with marketCap= " + numMktCap );
-								brand.storeMarketCap(companies[ind]._id, numMktCap);
+								if(!isNaN(numMktCap)){
+									console.log("Storing data for company: " + companies[ind].brandName + " with marketCap= " + numMktCap );
+									brand.storeMarketCap(companies[ind]._id, numMktCap);	
+								}
+								else{
+									console.log("Market cap not available for " + companies[ind].brandName)
+									brand.storeMarketCap(companies[ind]._id, -1)
+								}
+								
 							}
 							else{
 								console.log("No market cap found for : " + companies[ind]);
