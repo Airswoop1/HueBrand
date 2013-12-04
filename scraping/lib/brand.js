@@ -9,7 +9,7 @@ var brandSchema = new mongoose.Schema({
 	brandName : {type: String},
 	industryName : String,
 	fortuneRank : Number,
-	location : {
+	location : {	
 		address: String,
 		city: String,
 		state: String,
@@ -73,3 +73,16 @@ exports.addBrands = function(brandsList){
 		else console.log("Success in storing brands to db! : " + arguments[1]);
 	})
 }
+
+exports.storeMarketCap = function(companyID, mktCap){
+	exports.Brand.update({ _id : companyID }, {marketCap : mktCap}, function(err, numUpdated, raw){
+		if(err){
+			console.log("Error updating " + err);
+		}
+		else{
+			console.log("updated market cap " + raw);
+		}
+
+	});
+}
+

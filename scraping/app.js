@@ -69,6 +69,7 @@ app.get('/', function(req,res){
 });
 
 
+
 /** 
 	Needed to choose a different module to use for scraping since YQL abides by the robots.txt file 
 	Scrape is used here instead
@@ -256,6 +257,92 @@ app.get('/bloombergPhantom', function(req,res){
 	bloombergBrands(0,1);
 
 })
+
+app.get('/bloombergUSMarketCap', function(req,res){
+
+	var companyObjArray = Array();
+
+	brand.Brand.find( { location: {country: 'USA'} }, function(err, obj){
+		if(err) console.log('There was an error! ' + err);
+		else{
+			for(var i=0; i < obj.length; i++ ){
+				if(!obj[i].marketCap){
+
+					companyObjArray.push(obj[i]);
+				}
+			}
+			console.log(companyObjArray)
+		//bloombergUSMarketCap(companyObjArray, 0);
+
+		}
+	})
+
+
+	var bloombergUSMarketCap = function(companies, ind){
+
+		portscanner.findAPortNotInUse(12300, 24400, 'localhost', function(error, portNum) {
+  
+		phantom.create(function(ph) {
+		
+		return ph.createPage(function(page) {
+
+	      return page.open("http://www.bloomberg.com/quote/"+companies[ind].stockSymbol, function(status) {
+	        console.log("the page opened is : http://www.bloomberg.com/quote/"+companies[ind].stockSymbol);
+			console.log("opened site? ", status);         
+	 		page.onConsoleMessage = function (msg) { console.log(msg); };
+	 //           page.injectJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function() {
+	   //             console.log("jquery loaded!");
+						//jQuery Loaded.
+					//set timeout for 5seconds
+	                setTimeout(function() {
+
+	                    return page.evaluate(function(companies, ind) {
+
+							var marketCap = $('.key_stat_data tbody tr:first').next().next().next().next().next().next().children('.company_stat').text()
+							
+							var tableDivs  = $('.key_stat_data tbody');
+
+							return {marketCap : marketCap}
+
+							
+							if(marketCap.length){
+								return { marketCap : marketCap };
+							}
+							else{
+								return {marketCap : "-1"};
+							}
+
+
+
+	                    }, function(result) {
+							
+							if(result.marketCap !== "-1"){
+								var stripMktCap = result.marketCap.replace(/,/g, "");
+								var numMktCap = parseFloat(stripMktCap);
+								console.log("Storing data for company: " + companies[ind].brandName + " with marketCap= " + numMktCap );
+								brand.storeMarketCap(companies[ind]._id, numMktCap);
+							}
+							else{
+								console.log("No market cap found for : " + companies[ind]);
+							}
+
+							ph.exit()                        
+
+							if( ind+1 < companies.length) bloombergUSMarketCap(companies,ind+1);
+
+	                    });
+	                }, 5000);
+	 
+	         //   });
+	    });
+	    });
+	},{port:portNum});
+	})
+	}
+
+})
+
+
 /***
 	Scrapes each page of www.brandprofiles.com and pulls out each logo for the first five pages
 **/

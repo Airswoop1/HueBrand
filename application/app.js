@@ -67,6 +67,49 @@ app.get('/', function(req,res){
 
 });
 
+app.get('/logoShuffle', function(req, res){
+
+
+var brandSchema = new mongoose.Schema({
+
+	brandName : {type: String},
+	industryName : String,
+	fortuneRank : Number,
+	location : {	
+		address: String,
+		city: String,
+		state: String,
+		zip: Number,
+		country: String
+	},
+	marketCap : Number,
+	relativeSize : String, //Startup?, Small, Medium, or Large
+	yearFounded : Number,
+	stockSymbol : String,
+	parentCompany : String,
+	associatedColors : [{ name: String, ratio: Number }],
+	logoFileName : String,
+	logoPotentialList : [String],
+	logoHistory : [{ year : String, fileName : String }],
+	brandManualFileName : String,
+	website: String
+
+})
+
+	var mybrand = mongoose.model('Brand', brandSchema);
+
+	mybrand.find({'brandName' : 'Apple Inc' },function(err, obj){
+		if(err) console.log("There was an error"+err);
+		else{
+			console.log(obj);
+		}
+	})
+
+	console.log(brand);
+	console.log('uhhhhh...');
+
+});
+
 app.get('/color/:query',function(req,res){
 
 	if(!req.params.query){
@@ -132,8 +175,8 @@ app.get('/attributes/:query*',function(req,res){
 	//Note there may be potential for multiple attributes to be selected.
 
 	res.render('attribute', {
+		attributeName: {},
 		associatedColors: {
-			attributeName: {},
 			colors: {},
 			combinations:{}
 		},

@@ -2,11 +2,15 @@ var mongoose = require('mongoose');
 
 exports.Color = mongoose.model('Color', new mongoose.Schema({
 
-	colorId : String,
 	colorName : String,
 	colorFamily : String,
-	rgbValue : String,
-	labValue : String,
+	RrgbValue : Number,
+	GrgbValue : Number,
+	BrgbValue : Number,
+	v1 : Number,
+	v2 : Number,
+	v3 : Number,
+	v4 : Number,
 	shade : String,
 	attributes : [String],
 	complementaryColors : [String], //should these be names or Id's?
@@ -17,8 +21,8 @@ exports.Color = mongoose.model('Color', new mongoose.Schema({
 
 
 var colors = [
-	{colorId:1, colorName:'rose', colorFamily:'red', rgb:'206,70,118', labValue: null, shade:'light',attributes: ['happy','love', 'romantic', 'caring'], complementaryColors:['light blue', 'purple'], swatchFileName:'rose.png', descriptionFileName:'rose_desc.txt'},
-	{colorId:2, colorName:'chartreuse', colorFamily:'yellow', rgbValue:'127,255,0', labValue:null, shade:'medium', attributes:['exciting', 'new', 'everlasting'], complementaryColors:['orange', 'blue'], swatchFileName:'chartreuse.png', descriptionFileName:'chartreuse_desc.txt' }
+	{ colorName:'rose', colorFamily:'red', RrgbValue:127,GrgbValue:223,BrgbValue:2, shade:'light',attributes: ['happy','love', 'romantic', 'caring'], complementaryColors:['light blue', 'purple'], swatchFileName:'rose.png', descriptionFileName:'rose_desc.txt'},
+	{ colorName:'chartreuse', colorFamily:'yellow', RrgbValue:127,GrgbValue:123,BrgbValue:0, shade:'medium', attributes:['exciting', 'new', 'everlasting'], complementaryColors:['orange', 'blue'], swatchFileName:'chartreuse.png', descriptionFileName:'chartreuse_desc.txt' }
 ]
 
 exports.seed = function() {
