@@ -17,6 +17,7 @@ var portscanner = require('portscanner');
 	var brand = require('./lib/brand.js');
 	var color = require('./lib/color.js');
 	var industry = require('./lib/industry.js');
+	var scrape = require('./lib/scrape.js');
 
 
 /** Server and DB Init **/
@@ -60,7 +61,7 @@ app.configure('development', function(){
 
 //seed the db with mock data
 //brand.seed();
-color.seed();
+//color.seed();
 industry.seed();
 
 /** Routers **/
@@ -68,6 +69,12 @@ app.get('/', function(req,res){
 	//color.populate();
 	res.render('index');
 });
+
+app.get('/logopedia', function(req, res){
+
+	scrape.logopediaScrape();
+
+})
 
 
 /** 

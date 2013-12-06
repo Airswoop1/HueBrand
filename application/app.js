@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 /** Modules **/
-	var brand = require('./lib/brand.js');
+	var brand = require('./lib/brandapp.js');
 	var color = require('./lib/color.js');
 	var industry = require('./lib/industry.js');
 
@@ -64,7 +64,18 @@ app.configure('development', function(){
 ****************/
 app.get('/', function(req,res){
 
-	res.render('index');
+	color.Color.find({}, function(err, c){
+			
+			if(err){
+				console.log('color loading found! ' + err);
+				res.render('index',{messsage: "Error on load"})
+			}
+			else{
+				res.render('index',{
+					colors: c
+				});
+		}
+	})
 
 });
 
@@ -87,9 +98,7 @@ app.get('/color/:query',function(req,res){
 		res.render('error',{})
 	}
 	else{
-		console.log('querying db... with ' + req.params.query);
 
-		//TODO function for querying db based on color selected
 		color.Color.find({ colorName: req.params.query }, function(err, c){
 			console.log("returning from find function");
 			if(err){
@@ -98,18 +107,10 @@ app.get('/color/:query',function(req,res){
 			}
 			else{
 				console.log("found results for query! : " + JSON.stringify(c));
+
 				res.render('color',{
-					industries: {},
-					colorFamily: c.colorFamily,
-					topColors: {},
-					colorCombinations: c.complementaryColors,
-					logos: {},
-					locations : {}, 
-					attributes : {
-						name: {},
-						rgbValue:{} 
-					},
-					description: {}
+					result : c,
+					queryName : req.params.query
 				});
 			}
 		})

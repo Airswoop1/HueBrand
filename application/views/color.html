@@ -3,7 +3,21 @@
 	<title>Color</title>
 </head>
 <body>
-	<h1>Color Query for </h1>
-	
+	<h1>Color Query for <%= queryName%></h1>
+
+	<% for(var i=0; i<result.length; i++){ %>
+		<div style='width:250px;height:200px;float:left'>
+			<p><%=result[i].colorName%> (<%=result[i].shade%>)</p>
+			<p>Within Color Family <%=result[i].colorFamily %></p>
+			<div style='border:2px solid black; 
+						height:100px; 
+						width:100px;
+						background-color:rgb(
+						<%=result[i].RrgbValue%>,
+						<%=result[i].GrgbValue%>,
+						<%=result[i].BrgbValue%>)'></div>
+
+		</div>
+	<%}%>
 </body>
 </html>

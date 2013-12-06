@@ -55,40 +55,52 @@
         </div>
       </div><!-- /.row -->
       
-      <div class="row text-center">
+      <div class="row">
 
-        <div class="col-lg-3 col-md-6 hero-feature">
+        <div class="">
           <div class="thumbnail">
             <div class="caption">
               <h3>Brand</h3>
-              <p><a href="/brand/" class="btn btn-primary">Search</a></p>
+              <p><input type='textarea' id='brandTextArea'><a href="#" id='brandSearchBtn' class="btn btn-primary">Search</a></p>
+
             </div>
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-6 hero-feature">
+        <div class="">
           <div class="thumbnail">
             <div class="caption">
               <h3>Color</h3>
+              <div style='width=100%;height:100px;border:2px solid black'>
+                <%for(var i=0;i<colors.length;i++){%>
+                  <a href="http://localhost:8002/color/<%=colors[i].colorName%>">
+                    <div style='float:left;width:8px;height:8px;border:.5px solid black;background-color:rgb(
+                      <%=colors[i].RrgbValue%>,
+                      <%=colors[i].GrgbValue%>,
+                      <%=colors[i].BrgbValue%>)
+                    '>
+                    </div></a>
+                <%}%>
+              </div>
               <p><input type='textarea' id='colorTextArea'><a href="#" id='colorSearchBtn' class="btn btn-primary">Search</a></p>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-6 hero-feature">
+        <div class="">
           <div class="thumbnail">
             <div class="caption">
               <h3>Attribute</h3>
-              <p><a href="#" class="btn btn-primary">Search</a></p>
+              <p><input type='textarea' id='attributeTextArea'><a href="#" id='attributeSearchBtn' class="btn btn-primary">Search</a></p>
             </div>
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-6 hero-feature">
+        <div class="">
           <div class="thumbnail">
             <div class="caption">
               <h3>Industry</h3>
-              <p><a href="#" class="btn btn-primary">Search</a></p>
+              <p><input type='textarea' id='industryTextArea'><a href="#" id='industrySearchBtn' class="btn btn-primary">Search</a></p>            
             </div>
           </div>
         </div>
@@ -101,7 +113,7 @@
       <footer>
         <div class="row">
           <div class="col-lg-12">
-            <p>Copyright &copy; Company 2013 &middot; Facebook &middot; Twitter &middot; Google+</p>
+            <p>Copyright &copy; HueU 2013 &middot; Facebook &middot; Twitter &middot; Google+</p>
           </div>
         </div>
       </footer>
@@ -117,6 +129,21 @@
         var searchQ = $('#colorTextArea').val();
         console.log("The search query is " + searchQ); 
         window.location.href = "http://localhost:8002/color/" + searchQ;
+      })
+      $('#brandSearchBtn').on('click',function(event){
+        var searchQ = $('#brandTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/brand/" + searchQ;
+      })
+      $('#attributeSearchBtn').on('click',function(event){
+        var searchQ = $('#attributeTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/attribute/" + searchQ;
+      })
+      $('#industrySearchBtn').on('click',function(event){
+        var searchQ = $('#industryTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/industry/" + searchQ;
       })
     })
 
