@@ -13,11 +13,12 @@ var phantom = require('phantom');
 var portscanner = require('portscanner');
 
 
-	/** Modules **/
-	var brand = require('./lib/brand.js');
-	var color = require('./lib/color.js');
-	var industry = require('./lib/industry.js');
-	var scrape = require('./lib/scrape.js');
+/** Modules **/
+var brand = require('./lib/brand.js');
+var color = require('./lib/color.js');
+var industry = require('./lib/industry.js');
+var scrape = require('./lib/scrape.js');
+var bloom = require('./lib/bloombergCompanies.js');
 
 
 /** Server and DB Init **/
@@ -61,25 +62,48 @@ app.configure('development', function(){
 
 //seed the db with mock data
 //brand.seed();
-//color.seed();
-industry.seed();
+//color.seed();	
+//industry.seed();
+
+/****************************
+function: bloom.populate() 
+Populates data from /lib/bloombergCompanies.csv into the db
+Approximately 21,000 companies exist in the csv file
+bloom object is defined in /lib/bloombergCompanies.js
+Note *This is separate from the brand object*
+*****************************/
+//bloom.populate();
+
+/****************************
+function: color.populate() 
+Populates data from /lib/golden_units.csv into the db
+color object is defined in /lib/color.js
+*****************************/
+//color.populate();
+
+
+/************************
+TODO: Complete function for logopedia scrape
+function: logopediaScrape()
+Grab all logos and labels from logos.wikia.com/wiki/Logopedia
+We will be using this datasource and cross referencing with the 
+data on public companies from bloomberg to match current and 
+historical logos.
+*************************/
+//scrape.logopediaScrape();
+
 
 /** Routers **/
 app.get('/', function(req,res){
-	//color.populate();
 	res.render('index');
 });
 
-app.get('/logopedia', function(req, res){
-
-	scrape.logopediaScrape();
-
-})
-
-
 /** 
-	Needed to choose a different module to use for scraping since YQL abides by the robots.txt file 
-	Scrape is used here instead
+	Route: /brandsoftheworldScrape
+	Used to scrape logos from www.brandsoftheworld.com based on a search
+	query using the companies in the brands database.
+	Note *companies with special characters and spaces not taken into account
+		correctly so the data is not completely accurate* 
 **/
 app.get('/brandsoftheworldScrape',function(req,res){
 	var brandList = Array()
@@ -147,58 +171,13 @@ app.get('/brandsoftheworldScrape',function(req,res){
 
 });
 
-app.get('/bloombergCompanyScrape', function(req,res){
 
-	var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-	var pageNum = 0;
-	var index = 0;
-
-
-	var scrapeBrandNames = function(alphabetArray, ind, pg){
-
-
-		if(alphabetArray[ind] === 'a'){
-		var pgSymbol;
-		if(pg===0) pgSymbol = '';
-		else pgSymbol = pg + '/';
-
-		request("http://www.bloomberg.com/markets/companies/a-z/a/", function(error, response, body){
-			
-			if(error){
-				console.log("Something went wrong! " + error );
-			}
-			console.log("response : " + JSON.stringify(response));
-			console.log("body : " + body);
-			var $ = cheerio.load(body);
-
-			var arrayOfBrands = Array();
-
-			var brandsnamelist = $('.name')
-
-			console.log("brands name list : "+ brandsnamelist);
-
-			$('.name').each(function(){
-				console.log("getting into the each function!");
-			  var bName = $(this)[0].children[0].children[0].innerText;
-			  var brandStockSym = $(this).next()[0].innerText;
-			  var brandCountry = $(this).next().next()[0].innerText;
-			  var brandCategory = $(this).next().next().next().next()[0].innerText;
-			  var entry = {brandName:bName, industryName: brandCategory, location: {country: brandCountry}, stockSymbol: brandStockSym};
-			  console.log("The brand Name is"+ bName);
-			  arrayOfBrands.push(entry);
-			})
-
-			console.log("array of brands is:  " + arrayOfBrands);
-
-			});
-		}
-	}
-	scrapeBrandNames(alphabet, index, pageNum)
-
-})
-
-/****************************************/
-
+/*****************************
+	Route: /bloombergPhantom
+	Used to pull all bloomberg company names, stock symbol, sub-industry
+	and country. 
+	Note *This is not the same data used in the bloom.populate() function above*
+*****************************/
 app.get('/bloombergPhantom', function(req,res){
 	
 	var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -265,11 +244,14 @@ app.get('/bloombergPhantom', function(req,res){
 
 })
 
-/*
-	Scrape Bloomberg for the market cap based on company ticker ID
-	Need to figure out issues of country of operation vs country of stock exchange
-		Just because a company is traded in the US does not mean that it is headquartered here
-*/
+/******************************************
+	Route: /bloombergUSMarketCap
+	Used to scrape Bloomberg for the market cap based on company ticker ID
+	Note  *Issues arose with companies not having a marketCap because they 
+	weren't publicly listed yet. Also function was randomly stopping potentially
+	due to limits on the bloomberg website based on the same IP address*
+
+*******************************************/
 app.get('/bloombergUSMarketCap', function(req,res){
 
 	var companyObjArray = Array();
@@ -362,9 +344,10 @@ app.get('/bloombergUSMarketCap', function(req,res){
 })
 
 
-/***
-	Scrapes each page of www.brandprofiles.com and pulls out each logo for the first five pages
-**/
+/************************************
+	Route: /brandprofilesScrape
+	Used to scrape each page of www.brandprofiles.com and pulls out each logo for the first five pages
+***********************************/
 app.get('/brandprofilesScrape', function(req,res){
 	var DOWNLOAD_DIR = './files/';
 	var logos = undefined;
@@ -407,12 +390,13 @@ app.get('/brandprofilesScrape', function(req,res){
 
 	//call function to download all files from page
 	downloadImage(0,1,0);
+});
 
-	//currently does nothing
-	res.render('index',{});
 
-	});
 
+/************************
+	Initialize server
+************************/
 server.listen(serverPort, function(req, res) {
 	console.log('listening on port ' + serverPort);
 });

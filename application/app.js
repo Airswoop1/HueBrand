@@ -9,6 +9,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema
 
 /** Modules **/
+/*****************************
+	Note:  Unfortunately you cannot access the modules hosted in the
+	../../scraping/lib/ folder so we need to replicate them here 
+****************************/
 	var brand = require('./lib/brandapp.js');
 	var color = require('./lib/color.js');
 	var industry = require('./lib/industry.js');
@@ -79,17 +83,6 @@ app.get('/', function(req,res){
 
 });
 
-app.get('/logoShuffle', function(req, res){
-
-	brand.find({brandName: /Apple/i , location : {country: 'USA'}},function(err, obj){
-		if(err) console.log("There was an error"+err);
-		else{
-			console.log(obj);
-		}
-	})
-
-
-});
 
 app.get('/color/:query',function(req,res){
 
