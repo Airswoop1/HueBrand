@@ -22,7 +22,12 @@ var bloombergComp = new mongoose.Schema({
 	GICSSubIndName: String,
 	country: String,
 	state: String,
-	desc: String
+	desc: String,
+	associatedColors : [{ name: String, ratio: Number, colorFamily: String }],
+	logoFileName : String,
+	logoPotentialList : [String],
+	logoHistory : [{ year : String, fileName : String }],
+	brandManualFileName : String,
 
 })
 //lost 372 companies due to duplicates***
@@ -32,8 +37,6 @@ exports.bloombergCompany = mongoose.model('bloombergCompany', bloombergComp );
 
 
 exports.populate = function(){
-
-
 
 	csv()
 	.from.path(__dirname+'/companies.csv', {delimiter: ','})

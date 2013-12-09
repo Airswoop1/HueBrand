@@ -21,7 +21,7 @@ var brandSchema = new mongoose.Schema({
 	yearFounded : Number,
 	stockSymbol : String,
 	parentCompany : String,
-	associatedColors : [{ name: String, ratio: Number }],
+	associatedColors : [{ name: String, ratio: Number, colorFamily: String }],
 	logoFileName : String,
 	logoPotentialList : [String],
 	logoHistory : [{ year : String, fileName : String }],

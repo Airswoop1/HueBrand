@@ -3,6 +3,48 @@
 	<title>Brand</title>
 </head>
 <body>
-	<h1>Brand Query for </h1>
+	<h2>Brand Query for <a href="<%= brandResult.website %>"><%= queryName%></a></h2>
+
+	<div style='width:800px;height: 150px;'>
+		<h3>Colors used in Logo</h3>
+		<% for(var i=0; i<brandResult.associatedColors.length; i++){ %>
+			<div style='float:left'>
+				<div style='border:2px solid black; 
+							height:100px; 
+							width:100px;
+							background-color:rgb(
+							<%=brandResult.associatedColors[i].RrgbValue %>,
+							<%=brandResult.associatedColors[i].GrgbValue %>,
+							<%=brandResult.associatedColors[i].BrgbValue %>)'></div>
+
+			</div>
+		<%}%>
+	</div>
+	<div style='width:800px;'>
+		<h3>Logo History</h3>
+		<% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
+			<div style='float:left;'>
+				<p>Year : <%= brandResult.logoHistory[i].year %></p>
+				<img src="/logos/<%=brandResult.logoHistory[i].fileName%>" style='height:auto;width:150px'>
+			</div>
+		<%}%>
+	</div>
+	<div style='width:800px;float:left'>
+		<h3>Company Description</h3>
+		<p style='width:500px'><%= brandResult.desc %></p>
+		<p>Market Cap Rank : #<%= brandResult.marketCap%></p>
+		<p>Market Cap : <% var calcMktCap = parseFloat(brandResult.marketCap/1000000).toFixed(2); %><%= calcMktCap %></p>
+	</div>
+
+	<div>
+		<h4>List of Others in Industry</h4>
+		<ul>
+			<% for(var i=0; i<industryResult.length; i++){ %>
+				<% if(industryResult[i].shortName!==brandResult.shortName){ %>
+				<li><a href="http://<%= industryResult[i].website%>"><%= industryResult[i].shortName %></a> - <% var calcMktCap = parseFloat(industryResult[i].marketCap/1000000).toFixed(2); %> <%= calcMktCap %>M </li>
+			<%}}%>
+		</ul>
+	</div>
+
 </body>
 </html>

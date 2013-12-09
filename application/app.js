@@ -16,6 +16,7 @@ var Schema = mongoose.Schema
 	var brand = require('./lib/brandapp.js');
 	var color = require('./lib/color.js');
 	var industry = require('./lib/industry.js');
+	var bloom = require('./lib/bloombergCompanies.js');
 
 
 /** Server and DB Init **/
@@ -113,26 +114,41 @@ app.get('/color/:query',function(req,res){
 
 app.get('/brand/:query',function(req,res){
 
-	//TODO function for querying db based on brand selected
+if(!req.params.query){
+		console.log("error! on /brand/query ");
+		res.render('error',{})
+	}
+	else{
+		console.log("/" + req.params.query + "/")
+		bloom.bloombergCompany.find({ shortName: eval("/" + req.params.query + "/i") }, function(err, b){
+			if(err){
+				console.log('brand query not found! ' + err);
+				res.render('index',{messsage: "Brand query for " + req.params.query + " not found!"})
+			}
+			else{
 
-	res.render('brand', {
-		colorsUsed: {},
-		logoBio: {},
-		industry: {},
-		industryLogos: {},
-		industryColors: {},
-		similarLogos: {},
-		companyLocaton: {},
-		industryLocation: {},
-		brandAttributes: {
-			name:{},
-			rgbValue:{}
-		}
+				var brandResults  = b[0];
 
+				var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResults.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
 
-	});
+				industryQuery.exec(function(err, obj){
+					console.log(obj)
+					//TODO: Check here if multiple companies exist for query
+					res.render('brand',{
+						brandResult : brandResults,
+						industryResult: obj,
+						queryName : req.params.query
+					});
 
-});
+				})
+				
+			}// \else
+
+		})//\ bloom.find()
+
+	}// \else
+
+})// \app.get
 
 app.get('/attributes/:query*',function(req,res){
 

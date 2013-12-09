@@ -18,7 +18,8 @@ exports.Color = mongoose.model('Color', new mongoose.Schema({
 	attributes : [String],
 	complementaryColors : [String], //should these be names or Id's?
 	swatchFileName : String,
-	descriptionFileName : String
+	descriptionFileName : String,
+	
 
 }));
 
