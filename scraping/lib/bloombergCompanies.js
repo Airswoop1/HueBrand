@@ -28,6 +28,7 @@ var bloombergComp = new mongoose.Schema({
 	logoPotentialList : [String],
 	logoHistory : [{ year : String, fileName : String }],
 	brandManualFileName : String,
+	displayName : String
 
 })
 //lost 372 companies due to duplicates***

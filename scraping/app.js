@@ -19,6 +19,9 @@ var color = require('./lib/color.js');
 var industry = require('./lib/industry.js');
 var scrape = require('./lib/scrape.js');
 var bloom = require('./lib/bloombergCompanies.js');
+var colorExtract = require('./lib/colorExtraction.js');
+var imageDownload = require('./lib/imageDownload.js');
+
 
 
 /** Server and DB Init **/
@@ -92,6 +95,12 @@ historical logos.
 *************************/
 //scrape.logopediaScrape();
 
+
+colorExtract.extract('bank_of_china.png', function(err, obj){
+	console.log(obj);
+});
+
+//imageDownload.populate();
 
 /** Routers **/
 app.get('/', function(req,res){
