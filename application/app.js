@@ -51,7 +51,7 @@ app.configure(function(){
   app.use(express.methodOverride());
 
 	app.use(app.router);
-	app.use(express.static(path.join(__dirname, 'public')));
+	app.use(express.static(__dirname + '/public'));
 
 	app.use(function(err, req, res, next){
   		console.error(err.stack);
@@ -73,10 +73,10 @@ app.get('/', function(req,res){
 			
 			if(err){
 				console.log('color loading found! ' + err);
-				res.render('index',{messsage: "Error on load"})
+				res.send(500, "Something broke!")
 			}
 			else{
-				res.render('index',{
+				res.render('index', {
 					colors: c
 				});
 		}
@@ -97,7 +97,7 @@ app.get('/color/:query',function(req,res){
 			console.log("returning from find function");
 			if(err){
 				console.log('color query not found! ' + err);
-				res.render('index',{messsage: "Color query for " + req.params.query + " not found!"})
+				res.send(500, "Something broke!")
 			}
 			else{
 				console.log("found results for query! : " + JSON.stringify(c));
@@ -123,23 +123,38 @@ if(!req.params.query){
 		bloom.bloombergCompany.find({ shortName: eval("/" + req.params.query + "/i") }, function(err, b){
 			if(err){
 				console.log('brand query not found! ' + err);
-				res.render('index',{messsage: "Brand query for " + req.params.query + " not found!"})
+				res.send(500, "Something broke!")
 			}
 			else{
 
 				var brandResults  = b[0];
-
 				var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResults.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
+				industryQuery.exec(function(err, industry){
+					if(err){
+						console.log("There was an error! : " + err)
+						res.send(500, "Something broke!")
+					}
+					//if the colors have yet to be defined
+					if(typeof brandResults.associatedColors[0] !== 'undefined'){
+						var colorQuery = bloom.bloombergCompany.find({'associatedColors.colorFamily': eval("'" + brandResults.associatedColors[0].colorFamily + "'") });
 
-				industryQuery.exec(function(err, obj){
-					console.log(obj)
-					//TODO: Check here if multiple companies exist for query
-					res.render('brand',{
-						brandResult : brandResults,
-						industryResult: obj,
-						queryName : req.params.query
-					});
-
+						colorQuery.exec(function(err, colors){
+							if(err){
+								console.log("There was an error! : " + err)
+								res.send(500, "Something broke!")
+							}
+							console.log(colors);
+							res.render('brand1',{
+								brandResult : brandResults,
+								industryResult: industry,
+								colorResult: colors,
+								queryName : req.params.query
+							});
+						})
+					}
+					else{
+						res.send(500, "Something broke!")
+					}
 				})
 				
 			}// \else

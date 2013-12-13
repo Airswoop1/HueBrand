@@ -6,6 +6,7 @@ import sys
 
 import color_palette as cp
 import color_match
+#import images2gif 
 
 SENSITIVITY = 30
 MAX_COLORS = 5

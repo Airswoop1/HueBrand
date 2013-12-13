@@ -96,9 +96,7 @@ historical logos.
 //scrape.logopediaScrape();
 
 
-colorExtract.extract('bank_of_china.png', function(err, obj){
-	console.log(obj);
-});
+
 
 //imageDownload.populate();
 
@@ -106,6 +104,13 @@ colorExtract.extract('bank_of_china.png', function(err, obj){
 app.get('/', function(req,res){
 	res.render('index');
 });
+
+app.get('/logoColorExtraction',function(req,res){
+	bloom.bloombergCompany.find({logoFileName : {$exists : true}}, function(err, obj){
+		var ind = 1;
+		colorExtract.extract(ind, obj);
+	})
+})
 
 /** 
 	Route: /brandsoftheworldScrape

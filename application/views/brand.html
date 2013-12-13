@@ -3,7 +3,7 @@
 	<title>Brand</title>
 </head>
 <body>
-	<h2>Brand Query for <a href="<%= brandResult.website %>"><%= queryName%></a></h2>
+	<h2>Brand Query for <a href="http://<%= brandResult.website %>"><%= queryName%></a></h2>
 
 	<div style='width:800px;height: 150px;'>
 		<h3>Colors used in Logo</h3>
@@ -32,7 +32,7 @@
 	<div style='width:800px;float:left'>
 		<h3>Company Description</h3>
 		<p style='width:500px'><%= brandResult.desc %></p>
-		<p>Market Cap Rank : #<%= brandResult.marketCap%></p>
+		<p>Market Cap Rank : #<%= brandResult.marketCapRank %></p>
 		<p>Market Cap : <% var calcMktCap = parseFloat(brandResult.marketCap/1000000).toFixed(2); %><%= calcMktCap %></p>
 	</div>
 
