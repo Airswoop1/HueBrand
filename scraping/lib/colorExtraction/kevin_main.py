@@ -1,12 +1,15 @@
 import csv
 import Image
 import ImageDraw
+#import images2gif
 import json
 import sys
+import os
+import numpy as np
 
 import color_palette as cp
 import color_match
-#import images2gif 
+
 
 SENSITIVITY = 30
 MAX_COLORS = 5
@@ -26,7 +29,11 @@ def get_images_color_and_name_for_url(url):
 
 
 def get_image_color_and_name_from_image_file(name):
-    im = Image.open(name)
+    if name.endswith('gif'):
+        frames = readGif(name, False)
+        im = frames[0]
+    else:
+        im = Image.open(name)
     imageColors = cp.histogram_for_image_and_rect(im, 'all', MAX_COLORS, SENSITIVITY)
     if imageColors is not None:
         process_image_and_colors(im, imageColors)
@@ -143,6 +150,53 @@ def main_file_exp():
     #image_name = 'CAT_Logo.jpg'
     full_path = path+image_name
     get_image_color_and_name_from_image_file(full_path)
+
+
+def readGif(filename, asNumpy=True):
+    """ readGif(filename, asNumpy=True)
+
+    Read images from an animated GIF file.  Returns a list of numpy
+    arrays, or, if asNumpy is false, a list if PIL images.
+
+    """
+
+    # Check Numpy
+    if np is None:
+        raise RuntimeError("Need Numpy to read animated gif files.")
+
+    # Check whether it exists
+    if not os.path.isfile(filename):
+        raise IOError('File not found: '+str(filename))
+
+    # Load file using PIL
+    pilIm = Image.open(filename)
+    pilIm.seek(0)
+
+    # Read all images inside
+    images = []
+    try:
+        while True:
+            # Get image as numpy array
+            tmp = pilIm.convert() # Make without palette
+            a = np.asarray(tmp)
+            if len(a.shape)==0:
+                raise MemoryError("Too little memory to convert PIL image to array")
+            # Store, and next
+            images.append(a)
+            pilIm.seek(pilIm.tell()+1)
+    except EOFError:
+        pass
+
+    # Convert to normal PIL images if needed
+    if not asNumpy:
+        images2 = images
+        images = []
+        for index,im in enumerate(images2):
+            tmp = Image.fromarray(im)
+            images.append(tmp)
+
+    # Done
+    return images
 
 
 main_file_exp()

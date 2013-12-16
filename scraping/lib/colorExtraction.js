@@ -4,7 +4,8 @@ var bloom = require('./bloombergCompanies.js');
 var child;
 
 exports.extract = function(index, logosList){
-	if(logosList[index].logoFileName.indexOf(".gif")<0 && logosList[index].logoFileName.indexOf(".svg")<0 && logosList[index].displayName !== 'Inditex' && logosList[index].displayName !== 'Sanofi' ){
+	if(logosList[index].logoFileName.indexOf(".gif")>0 ){
+		//&& logosList[index].logoFileName.indexOf(".svg")<0 && logosList[index].displayName !== 'Inditex' && logosList[index].displayName !== 'Sanofi' ){
 		console.log("Extracting color for: " + logosList[index].logoFileName );
 		child = exec("python ./lib/colorExtraction/kevin_main.py " + logosList[index].logoFileName, function (error, stdout, stderr) {
 			 if (error !== null) {

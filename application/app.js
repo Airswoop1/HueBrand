@@ -119,16 +119,25 @@ if(!req.params.query){
 		res.render('error',{})
 	}
 	else{
-		console.log("/" + req.params.query + "/")
-		bloom.bloombergCompany.find({ shortName: eval("/" + req.params.query + "/i") }, function(err, b){
+		console.log("The evaluated eval : "+ eval("/" + req.params.query + "/"));
+		bloom.bloombergCompany.find({ 'shortName': eval("/" + req.params.query + "/i"), logoFileName : {$exists : true} }, function(err, b){
 			if(err){
 				console.log('brand query not found! ' + err);
 				res.send(500, "Something broke!")
 			}
 			else{
-
-				var brandResults  = b[0];
+				console.log("length of b : " + b.length)
+				if(b.length>1){
+					res.render('index', {
+						potentialBrands : b
+					})
+				}
+				else{
+					var brandResults  = b[0];	
+				
+				
 				var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResults.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
+				
 				industryQuery.exec(function(err, industry){
 					if(err){
 						console.log("There was an error! : " + err)
@@ -144,7 +153,7 @@ if(!req.params.query){
 								res.send(500, "Something broke!")
 							}
 							console.log(colors);
-							res.render('brand1',{
+							res.render('brand',{
 								brandResult : brandResults,
 								industryResult: industry,
 								colorResult: colors,
@@ -158,6 +167,7 @@ if(!req.params.query){
 				})
 				
 			}// \else
+			}
 
 		})//\ bloom.find()
 

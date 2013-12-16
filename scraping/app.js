@@ -11,6 +11,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var phantom = require('phantom');
 var portscanner = require('portscanner');
+var countrynames = require('countrynames');
 
 
 /** Modules **/
@@ -110,6 +111,10 @@ app.get('/logoColorExtraction',function(req,res){
 		var ind = 1;
 		colorExtract.extract(ind, obj);
 	})
+})
+
+app.get('/countries', function(req,res){
+	console.log("The code for GB is : "+countrynames.getName('GB'));
 })
 
 /** 

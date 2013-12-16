@@ -48,7 +48,7 @@ exports.populate = function(){
 		var dispName = row[3]
 		var uri = row[5];
 		//download(uri, fileName, searchName, dispName);
-		
+
 	})
 	.on('close', function(count){
 		console.log("number of lines processed "+count)

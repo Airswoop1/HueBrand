@@ -40,6 +40,23 @@
       </div><!-- /.container -->
     </nav>
     
+
+    <%if(typeof potentialBrands !== 'undefined'){%>
+      <div class="container">
+
+        <div class="jumbotron">
+          <h3>Which brand did you mean?</h3>
+          <ul>
+            <%for(var i=0; i<potentialBrands.length; i++ ){ %>
+              <li><a href="http://localhost:8002/brand/<%=potentialBrands[i].shortName%>"><%=potentialBrands[i].shortName%></a></li>
+            <%}%>
+          </ul>
+
+        </div>
+
+      </div>
+
+    <%}else{%>
     <div class="container">
 
       <div class="jumbotron hero-spacer">
@@ -121,7 +138,7 @@
     </div><!-- /.container -->
 
   <!-- javascript -->
-  <script src="js/jquery.js"></script>
+  <script src="js/jQuery-1.9.1.js"></script>
   <script src="js/bootstrap.js"></script>
   <script type="text/javascript">
     $(function(){
@@ -149,7 +166,7 @@
 
 
   </script>
-
+<%}%>
   </body>
 
 </html>
