@@ -94,7 +94,7 @@ We will be using this datasource and cross referencing with the
 data on public companies from bloomberg to match current and 
 historical logos.
 *************************/
-//scrape.logopediaScrape();
+scrape.logopediaScrape();
 
 
 
