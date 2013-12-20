@@ -94,12 +94,29 @@ We will be using this datasource and cross referencing with the
 data on public companies from bloomberg to match current and 
 historical logos.
 *************************/
-scrape.logopediaScrape();
+//scrape.logopediaScrape();
 
 
+/************************
+function: modifyName()
+Modify all entries in the databse that do not have
+the displayName key by capitalizing only the first 
+letter in each word of the company's shortName. 
+*************************/
+//bloom.modifyName();
 
 
+/************************
+function: populate()
+Takes an updated companies list that has manually
+modified company names (displayNames) and urls for 
+company logos and allows for downloading the logo
+and then saving it back to the database.
+*************************/
 //imageDownload.populate();
+
+//scrape.collectLogos();
+
 
 /** Routers **/
 app.get('/', function(req,res){
@@ -111,10 +128,6 @@ app.get('/logoColorExtraction',function(req,res){
 		var ind = 1;
 		colorExtract.extract(ind, obj);
 	})
-})
-
-app.get('/countries', function(req,res){
-	console.log("The code for GB is : "+countrynames.getName('GB'));
 })
 
 /** 

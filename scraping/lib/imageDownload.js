@@ -3,19 +3,22 @@ var csv = require('csv'),
     request = require('request'),
     mongoose = require('mongoose'),
     bloom = require('./bloombergCompanies.js'),
-    colorExtract = require('./colorExtraction.js');
+    colorExtract = require('./colorExtraction.js'),
+    logopedia = ('./scrape.js').logopediaModel;
 
 
-var saveToDB = function(logoFile, companyName, sName){
-	var query = {shortName : companyName};
-	var update = {logoFileName : logoFile, displayName : sName};
-	console.log("Going to update " + companyName + " with logo file " + logoFile + " and displayName as " + sName);	
+var saveToDB = function(logoFile, sName, dName){
+	var query = {shortName : sName};
+	var update = {logoFileName : logoFile, displayName : dName};
+	
+	console.log("Going to update " + sName + " with logo file " + logoFile + " and displayName as " + dName);	
+	
 	bloom.bloombergCompany.findOneAndUpdate(query, update, function(){
-		console.log("DB Updated for " + sName);
+		console.log("DB Updated for " + dName);
 	})
 }
 
-var download = function(uri, logoFileName, companyNameProper, companyShortName){
+exports.download = function(uri, logoFileName, sName, companyShortName){
   request.head(uri, function(err, res, body){
     console.log('content-type:', res.headers['content-type']);
     console.log('content-length:', res.headers['content-length']);
@@ -29,7 +32,7 @@ var download = function(uri, logoFileName, companyNameProper, companyShortName){
 
     request(uri).pipe(fs.createWriteStream('../Logos/'+logoFileName));
 
-    saveToDB(logoFileName, companyNameProper, companyShortName);
+    saveToDB(logoFileName, sName, companyShortName);
   });
 };
 
@@ -47,7 +50,7 @@ exports.populate = function(){
 		var fileName = row[3].toLowerCase().split(' ').join('_');
 		var dispName = row[3]
 		var uri = row[5];
-		//download(uri, fileName, searchName, dispName);
+		exports.download(uri, fileName, searchName, dispName);
 
 	})
 	.on('close', function(count){
@@ -57,4 +60,10 @@ exports.populate = function(){
 		console.log("there was an error" + error.message)
 	});
 	console.log("Images downloaded!"); 
+}
+
+exports.logopediaDownload = function(){
+	
+
+
 }

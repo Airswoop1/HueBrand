@@ -26,15 +26,17 @@ function drawLocations(map) {
     else{
       var address = "'" + indObjArray[i].location.city + ", " + indObjArray[i].location.state + ", " + indObjArray[i].location.country + "'"
     }
-
+    var logoFileLocation = "../Logos/" + indObjArray[i].logoFileName;
+    console.log(logoFileLocation)
     geocoder.geocode( { 'address': address }, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          /*map.setCenter(results[0].geometry.location);
+          map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
+              icon: logoFileLocation,
               map: map,
               position: results[0].geometry.location
-          });*/
-          var colorOptions = {
+          });
+         /* var colorOptions = {
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
             strokeWeight: 2,
@@ -45,7 +47,7 @@ function drawLocations(map) {
             radius: 1000000
           };
           // Add the circle for this city to the map.
-          cityCircle = new google.maps.Circle(colorOptions);
+          cityCircle = new google.maps.Circle(colorOptions);*/
             map.setOptions({
               zoom: 2,
               center: results[0].geometry.location

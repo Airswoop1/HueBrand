@@ -102,3 +102,32 @@ exports.populate = function(){
 	console.log("db seeded with bloomberg companies!"); 
 
 }
+
+function toTitleCase(str)
+{
+    return str.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+exports.modifyName = function(){
+	
+	var stream = exports.bloombergCompany.find({displayName : {$exists: false}}).sort({marketCap: -1}).stream()
+	stream.on('data', function (doc) {
+	  stream.pause()
+	 console.log(doc.shortName);
+	  var str = toTitleCase(doc.shortName);
+	  doc.displayName = str;
+
+	  doc.save(function(err){
+	  	if(err) console.log("Error! " + err)
+	  	console.log("updated : " + str);
+	  	stream.resume();
+	  })
+
+	  
+	}).on('error', function (err) {
+	  // handle the error
+	}).on('close', function () {
+	  // the stream is closed
+	});
+
+}
