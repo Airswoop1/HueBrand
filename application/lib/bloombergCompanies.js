@@ -22,26 +22,31 @@ var bloombergComp = new mongoose.Schema({
 	country: String,
 	state: String,
 	desc: String,
-	associatedColors : [{ 
-		colorName: String,
-		ratio: Number, 
-		colorFamily: String,
-		RrgbValue: Number,
-		GrgbValue: Number,
-		BrgbValue: Number,
-		hValue: Number,
-		sValue: Number,
-		lValue: Number,
-		vValue: Number,
-		shade: String
-		}],
+	associatedColors : [{
+		colorName : String,
+		colorFamily : String,
+		RrgbValue : Number,
+		GrgbValue : Number,
+		BrgbValue : Number,
+		hValue : Number,
+		sValue : Number,
+		vValue : Number,
+		lValue : Number,
+		shade : String,
+		attributes : [String],
+		complementaryColors : [String], //should these be names or Id's?
+		swatchFileName : String,
+		descriptionFileName : String,
+	}],
+	//primary color?
 	logoFileName : String,
 	logoPotentialList : [String],
 	logoHistory : [{ year : String, fileName : String }],
 	brandManualFileName : String,
+	displayName : String
 
 })
-
+//lost 372 companies due to duplicates***
 bloombergComp.index({shortName: 1},{unique:true})
 
 exports.bloombergCompany = mongoose.model('bloombergCompany', bloombergComp );

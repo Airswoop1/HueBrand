@@ -1,35 +1,66 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+	bloom = require('./bloombergCompanies.js');
 
-/************************
-	Define Schema
-************************/
+exports.queryBrand = function(req,res){
 
-var brandSchema = new mongoose.Schema({
+if(!req.params.query){
+		console.log("error! on /brand/query ");
+		res.render('error',{})
+	}
+	else{
 
-	brandName : {type: String},
-	industryName : String,
-	fortuneRank : Number,
-	location : {	
-		address: String,
-		city: String,
-		state: String,
-		zip: Number,
-		country: String
-	},
-	marketCap : Number,
-	relativeSize : String, //Startup?, Small, Medium, or Large
-	yearFounded : Number,
-	stockSymbol : String,
-	parentCompany : String,
-	associatedColors : [{ name: String, ratio: Number }],
-	logoFileName : String,
-	logoPotentialList : [String],
-	logoHistory : [{ year : String, fileName : String }],
-	brandManualFileName : String,
-	website: String
+		bloom.bloombergCompany.find({ 'shortName': eval("/" + req.params.query + "/i"), logoFileName : {$exists : true} }, function(err, b){
+			if(err){
+				console.log('brand query not found! ' + err);
+				res.send(500, "Something broke!")
+			}
+			else{
 
-})
+				if(b.length>1){
+					res.render('index', {
+						potentialBrands : b
+					})
+				}
+				else{
+					var brandResults  = b[0];	
+				
+				
+				var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResults.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
+				
+				industryQuery.exec(function(err, industry){
+					if(err){
+						console.log("There was an error! : " + err)
+						res.send(500, "Something broke!")
+					}
+					//if the colors have yet to be defined
+					if(typeof brandResults.associatedColors[0] !== 'undefined'){
+						var colorQuery = bloom.bloombergCompany.find({'associatedColors.colorFamily': eval("'" + brandResults.associatedColors[0].colorFamily + "'") });
 
-brandSchema.index({brandName: 1, location:{country:1}},{unique:true})
+						colorQuery.exec(function(err, colors){
+							if(err){
+								console.log("There was an error! : " + err)
+								res.send(500, "Something broke!")
+							}
+							console.log(colors);
+							res.render('brand',{
+								brandResult : brandResults,
+								industryResult: industry,
+								colorResult: colors,
+								queryName : req.params.query
+							});
+						})
+					}
+					else{
+						res.send(500, "Something broke!")
+					}
+				})
+				
+			}// \else
+			}
 
-exports.Brand = mongoose.model('Brand', brandSchema );
+		})//\ bloom.find()
+
+	}// \else
+
+}// end Of Function
+

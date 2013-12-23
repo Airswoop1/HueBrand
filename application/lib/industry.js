@@ -10,3 +10,16 @@ exports.Industry = mongoose.model('Industry', new mongoose.Schema({
 	colorCombinations : [String],
 
 }));
+
+exports.queryIndustry = function(req,res){
+
+	res.render('industry',{
+		topColors : {},
+		colorPallette: {},
+		logoCloud: {},
+		colorRatio: {},
+		colorMap: {},
+		topAttributes: {}
+	})
+
+}
