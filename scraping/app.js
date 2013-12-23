@@ -23,8 +23,6 @@ var bloom = require('./lib/bloombergCompanies.js');
 var colorExtract = require('./lib/colorExtraction.js');
 var imageDownload = require('./lib/imageDownload.js');
 
-
-
 /** Server and DB Init **/
 var app = express();
 var server = http.createServer(app);

@@ -35,17 +35,20 @@ dbcon.once('open', function callback () {
 var serverPort = 8002;
 
 //render html files instead of ejs files.
-//app.engine('html', require('ejs').renderFile);
+app.engine('html', require('ejs').renderFile);
+
 
 /** App & Express Configuration **/ 
 app.configure(function(){
   app.set('port', serverPort);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
+
+  //app.set('view engine', 'ejs');
+  app.set('view engine', 'html');
   app.set('view options', {layout: false});
   
   app.use(express.favicon());
-  app.use(express.logger('dev'));
+  //app.use(express.logger('dev'));
   
   app.use(express.bodyParser());
   app.use(express.methodOverride());
