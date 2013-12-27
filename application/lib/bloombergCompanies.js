@@ -50,3 +50,16 @@ var bloombergComp = new mongoose.Schema({
 bloombergComp.index({shortName: 1},{unique:true})
 
 exports.bloombergCompany = mongoose.model('bloombergCompany', bloombergComp );
+
+exports.AllCompanies={};
+function getAllCompanies(){
+	exports.bloombergCompany.find({},{displayName:1,GICSSectorName:1},function(err,results){
+		if(err){
+			console.log("Error in retreiving all companies from db")
+		}
+		else{
+			exports.AllCompanies = results;
+		}
+	})
+}
+getAllCompanies();

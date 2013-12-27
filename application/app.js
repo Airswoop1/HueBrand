@@ -7,6 +7,7 @@ var express = require('express'),
     YQL = require('yql'),
     mongoose = require('mongoose'),
     expressValidator = require('express-validator'),
+    io = require('socket.io'),
     Schema = mongoose.Schema;
 
 /** Modules **/
@@ -33,6 +34,11 @@ dbcon.once('open', function callback () {
 });
 
 var serverPort = 8002;
+
+/********
+Socket.IO init
+********/
+//io.listen(serverPort);
 
 //render html files instead of ejs files.
 app.engine('html', require('ejs').renderFile);

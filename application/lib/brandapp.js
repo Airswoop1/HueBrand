@@ -41,12 +41,13 @@ if(!req.params.query){
 								console.log("There was an error! : " + err)
 								res.send(500, "Something broke!")
 							}
-							console.log(colors);
+							console.log(bloom.AllCompanies);
 							res.render('brand',{
 								brandResult : brandResults,
 								industryResult: industry,
 								colorResult: colors,
-								queryName : req.params.query
+								queryName : req.params.query,
+								allCompanies : bloom.AllCompanies
 							});
 						})
 					}
