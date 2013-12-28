@@ -538,6 +538,7 @@
 
 
     <!--  Module - Logo Timeline  -->
+    <%if(brandResult.logoHistory.length>0){%>
     <div class="container-fluid" id="logotimeline">
       <div class="span12 well">
         <div class="title" >
@@ -596,7 +597,7 @@
         </div>
       </div>
     </div>
-
+    <%}%>
     <!--  Module - Industry Logo Cloud  -->
      <div class="container-fluid" id="logocloud" style="margin-bottom:200px;">
       <div class="span12 well">
@@ -624,8 +625,22 @@
           </div>
 
           <div class="logoCloudContainer">
-
-            <div class="first">
+            <% for(var i=0; i<industryResult.length; i++){ %>
+              <% if(industryResult[i].shortName!==brandResult.shortName){ %>
+              <div class='<%=industryResult[i].GICSIndName%>' >
+                  <%if(typeof industryResult[i].logoFileName !== 'undefined'){%>
+                  <img class='logo' src="../logos/<%=industryResult[i].logoFileName%>" width='250px'>
+                  <%}%>
+                  <p>
+                      <a href="http://<%= industryResult[i].website%>">
+                          <%= industryResult[i].shortName %>
+                      </a> 
+                      - <% var calcMktCap = parseFloat(industryResult[i].marketCap/1000000).toFixed(2); %> 
+                      <%= calcMktCap %>M
+                  </p>
+              </div>
+              <%}}%>
+            <!--<div class="first">
               <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
             </div>
             
@@ -655,7 +670,7 @@
             
             <div class="first">
               <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>  
+            </div>  -->
             
           </div>
 
