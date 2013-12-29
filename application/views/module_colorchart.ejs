@@ -1,0 +1,44 @@
+  <!--  Module - Color Combinations  -->
+
+    <div class="container-fluid" id="colorchart">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+            <i class="fa fa-bar-chart-o"></i>
+            Color Combinations
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Information on the Common Color Combinations">
+                  <i class="fa fa-info-circle"></i>
+                </button>
+              </div>
+            </span>
+        </div>
+        <div class="well-content">
+           <ul id="colorchart-data">
+           
+            <li id="combo-color1" style="background:rgb(117,117,117);width: 26.6%;"></li>
+            <li id="combo-color2" style="background:rgb(141,182,0);width: 6.6%;"></li>
+            <li id="combo-color3" style="background:rgb(255,90,54);width: 26.6%;"></li>
+            <li id="combo-color4" style="background:rgb(8,146,208);width: 6.6%;"></li>
+            <li id="combo-color5" style="background:rgb(85,85,85);width: 9.6%;"></li>
+            <li id="combo-color6" style="background:rgb(255,86,0);width: 23.6%;"></li>
+       
+          </ul>
+          <ul class="logocolors-selected">
+            <li class="logocolors-selected-color">
+              <div style="background-color:rgb( 255, 90, 54);height:50px"></div>
+            </li>
+            <li class="logocolors-selected-colorname">
+              <span style="font-weight:900;text-transform:uppercase;font-size:15px;">Color Name:</span>
+              <span style="font-weight:400;text-transform:uppercase;font-size:15px;"><%=brandResult.associatedColors[0].colorName%></span>
+            </li>
+            <li class="logocolors-selected-colorpercentage">
+              <span style="font-weight:900;text-transform:uppercase;font-size:15px;">Percentage:</span>
+              <span style="font-weight:400;text-transform:uppercase;font-size:15px;">%</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>

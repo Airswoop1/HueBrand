@@ -1,0 +1,57 @@
+<!--  Module - Company Information  -->
+    <div class="container-fluid" id="companyinfo">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+            <i class="fa fa-file-text-o"></i>
+            Company Information
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Information on the Company Goes Here in Table Format">
+                  <i class="fa fa-info-circle"></i>
+                </button>
+              </div>
+            </span>
+        </div>
+        <div class="well-content">
+          <table id="companyinfo-data">
+            <thead></thead>
+            <tbody>
+              <tr class="header">
+                <td style="width:200px;">Company Name</td>
+                <td><%= brandResult.shortName %></td>
+              </tr>
+              <tr class="odd">
+                <td>Description</td>
+                <td><%= brandResult.desc %></td>
+              </tr>
+              <tr class="even">
+                <td>Market Cap. Rank</td>
+                <td>#<%= brandResult.marketCapRank%></td>
+              </tr>
+              <tr class="odd">
+                <td>Market Cap.</td>
+                <td>$<%var calcMktCap = parseFloat(brandResult.marketCap/1000000).toFixed(2);%><%= calcMktCap %> Million</td>
+              </tr>
+              <tr class="even">
+                <td>Sector</td>
+                <td><%=brandResult.GICSSectorName%></td>
+              </tr>
+              <tr class="odd">
+                <td>Industry</td>
+                <td><%= brandResult.GICSIndName%></td>
+              </tr>
+              <tr class="even">
+                <td>Sub-Industry</td>
+                <td><%= brandResult.GICSSubIndName%></td>
+              </tr>
+              <tr class="odd">
+                <td>Website</td>
+                <td><a href="<%= brandResult.website%>">http://<%= brandResult.website%></a></td>
+              </tr>
+            </tbody>
+          </table>     
+        </div>
+      </div>
+    </div>
