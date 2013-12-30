@@ -25,7 +25,7 @@ var users = [
             created: Date.now()
         }
         ]
-for(var i=0; i<users.length;i++){
+/*for(var i=0; i<users.length;i++){
   exports.userModel.create(users[i], function(error, result){
     if(error){
       console.log("error in loading users to db " + util.inspect(error))
@@ -34,7 +34,8 @@ for(var i=0; i<users.length;i++){
       console.log("Loaded users into db : " + result);
     }
   })
-}
+}*/
+
 exports.index = function(req,res){
 	
 	color.Color.find({}, function(err, c){

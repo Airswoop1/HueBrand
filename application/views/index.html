@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>HueBrand</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS for the 'Heroic Features' Template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">HueBrand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+    
+
+    <%if(typeof potentialBrands !== 'undefined'){%>
+      <div class="container">
+
+        <div class="jumbotron">
+          <h3>Which brand did you mean?</h3>
+          <ul>
+            <%for(var i=0; i<potentialBrands.length; i++ ){ %>
+              <li><a href="http://localhost:8002/brand/<%=potentialBrands[i].shortName%>"><%=potentialBrands[i].shortName%></a></li>
+            <%}%>
+          </ul>
+
+        </div>
+
+      </div>
+
+    <%}
+    else if(typeof colorResults !== 'undefined'){%>
+        <div class='jumbotron'>
+          <h3>Which color did you mean?</h3>
+          <ul>
+            <%for(var i=0; i<colorResults.length; i++ ){ %>
+              <li><a href="http://localhost:8002/color/<%=colorResults[i].colorName%>"><%=colorResults[i].colorName%></a></li>
+              <%}%>
+          </ul>
+        </div>
+
+      <%}else{%>
+    <div class="container">
+
+      <div class="jumbotron hero-spacer">
+        <h1>HueBrand</h1>
+        <p>We give insight into brands logos and color choices.</p>
+      </div>
+      
+      <hr>
+      
+      <div class="row">
+        <div class="col-lg-12">
+           <h3>Choose your type of search </h3>
+        </div>
+      </div><!-- /.row -->
+      
+      <div class="row">
+
+        <div class="">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Brand</h3>
+              <p><input type='textarea' id='brandTextArea'><a href="#" id='brandSearchBtn' class="btn btn-primary">Search</a></p>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Color</h3>
+              <div style='width=100%;height:100px;border:2px solid black'>
+                <%for(var i=0;i<colors.length;i++){%>
+                  <a href="http://localhost:8002/color/<%=colors[i].colorName%>">
+                    <div style='float:left;width:8px;height:8px;border:.5px solid black;background-color:rgb(
+                      <%=colors[i].RrgbValue%>,
+                      <%=colors[i].GrgbValue%>,
+                      <%=colors[i].BrgbValue%>)
+                    '>
+                    </div></a>
+                <%}%>
+              </div>
+              <p><input type='textarea' id='colorTextArea'><a href="#" id='colorSearchBtn' class="btn btn-primary">Search</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Attribute</h3>
+              <p><input type='textarea' id='attributeTextArea'><a href="#" id='attributeSearchBtn' class="btn btn-primary">Search</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="thumbnail">
+            <div class="caption">
+              <h3>Industry</h3>
+              <p><input type='textarea' id='industryTextArea'><a href="#" id='industrySearchBtn' class="btn btn-primary">Search</a></p>            
+            </div>
+          </div>
+        </div>
+
+
+      </div><!-- /.row -->
+      
+      <hr>
+
+      <footer>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Copyright &copy; HueU 2013 &middot; Facebook &middot; Twitter &middot; Google+</p>
+          </div>
+        </div>
+      </footer>
+      
+    </div><!-- /.container -->
+
+  <!-- javascript -->
+  <script src="js/jQuery-1.9.1.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      $('#colorSearchBtn').on('click',function(event){
+        var searchQ = $('#colorTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/color/" + searchQ;
+      })
+      $('#brandSearchBtn').on('click',function(event){
+        var searchQ = $('#brandTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/brand/" + searchQ;
+      })
+      $('#attributeSearchBtn').on('click',function(event){
+        var searchQ = $('#attributeTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/attribute/" + searchQ;
+      })
+      $('#industrySearchBtn').on('click',function(event){
+        var searchQ = $('#industryTextArea').val();
+        console.log("The search query is " + searchQ); 
+        window.location.href = "http://localhost:8002/industry/" + searchQ;
+      })
+    })
+
+
+  </script>
+<%}%>
+  </body>
+
+</html>
