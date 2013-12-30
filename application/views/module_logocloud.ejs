@@ -26,37 +26,16 @@
 
           <div class="logoCloudContainer">
 
-            <div class="first">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>
-            
-            <div class="third">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>  
-
-            <div class="second">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>
-            
-            <div class="fourth">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>
-
-            <div class="first">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>
-
-            <div class="second">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>
-
-            <div class="third">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>  
-            
-            <div class="first">
-              <img src="../Logos/<%= brandResult.logoFileName%>" alt="image">
-            </div>  
+            <% for(var i=0; i<industryResult.length; i++){ %>
+                    <% if(industryResult[i].shortName!==brandResult.shortName){ %>
+                    <div class='<% var calcMktCap = parseFloat(industryResult[i].marketCap/1000000).toFixed(2); %><%= calcMktCap %>M' >
+                        <%if(typeof industryResult[i].logoFileName !== 'undefined'){%>
+                        <img class='logo' src="../Logos/<%=industryResult[i].logoFileName%>" width='250px'>
+                        <%}%>
+                        </p>
+                    </div>
+                    <%}}%>
+ 
             
           </div>
 

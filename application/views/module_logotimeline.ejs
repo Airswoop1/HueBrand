@@ -16,43 +16,30 @@
         </div>
         <!-- Content - Timeline -->
         <div class="well-content">
+
           <ul id='timeline-logos'>
+
+           <% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
+
             <li class='timeline-logo'>
-              <input class='radio' id='timeline-logo-1' name='timeline-logo' type='radio' checked>
+
+
+        <!-- Figure out how to control what item has its radio checked, it has to be the first one -->
+        
+              <input class='radio' id='timeline-logo-<%= [i] %>' name='timeline-logo' type='radio' checked>
               <div class="relative">
-                <label for='timeline-logo-1'>
-                  <img src="http://bit.ly/1flOHbI">
+                <label for='timeline-logo-<%= [i] %>'>
+                  <img src="../Logos/<%= brandResult.logoHistory[i].fileName%>">
                 </label>
-                <span class='date'>2008</span>
+                <span class='date'><%= brandResult.logoHistory[i].year%></span>
                 <span class='circle'></span>
               </div>
               <div class='content'>
               </div>
             </li>
-              <li class='timeline-logo'>
-                <input class='radio' id='timeline-logo-2' name='timeline-logo' type='radio'>
-                <div class="relative">
-                  <label for='timeline-logo-2'>
-                    <img src="http://bit.ly/1czUozM">
-                  </label>
-                  <span class='date'>2011</span>
-                  <span class='circle'></span>
-                </div>
-              <div class='content'>
-              </div>
-            </li>
-              <li class='timeline-logo'>
-                <input class='radio' id='timeline-logo-3' name='timeline-logo' type='radio'>
-                <div class="relative">
-                  <label for='timeline-logo-3'>
-                    <img src="http://bit.ly/1hjDWrN">
-                  </label>
-                  <span class='date'>2013</span>
-                  <span class='circle'></span>
-                </div>
-                <div class='content'>
-                </div>
-              </li>
+
+          <%}%>   
+
           </ul>
         </div>
       </div>

@@ -13,6 +13,7 @@ body {
 	font-family: 'Arimo'!important;
 }
 
+/*
 body:after {
     content:'';
     position:fixed;
@@ -26,6 +27,7 @@ body:after {
 	background: -webkit-linear-gradient(bottom, white, transparent);
 	background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 1)), to(transparent));
 }
+*/
 
 .fa-info-circle {
 	font-size:20px;
@@ -45,7 +47,7 @@ body:after {
 .page-wrap .well { 
 	background: #fff;
 	padding: 0; 
-	opacity: 0;
+	opacity: 1;
 }
 
 .page-wrap .well .title {
@@ -510,7 +512,7 @@ ul, menu, dir {
 	font-weight:700;
 }
 
-/* Module - Logo Colors */
+/* Module - Logo Colors Old 
 #logocolors .fa-bar-chart-o {
 	font-size:20px;
 	margin-right:10px
@@ -538,7 +540,6 @@ ul, menu, dir {
 	-ms-transition:.5s;
 	-moz-transition:.5s;
 	-webkit-transition:.5s;
-	/* ...and now for the proper property */
 	transition:.5s;
 }
 
@@ -580,6 +581,109 @@ ul, menu, dir {
 .logocolors-selected-colorpercentage {
 	line-height: 45px!important;
 }
+
+*/
+
+
+/* Module - Logo Colors New */
+
+#logocolors .fa-bar-chart-o {
+	
+}
+
+#logocolors .fa-bar-chart-o {
+	font-size:20px;
+	margin-right:10px
+}
+
+#logocolors .span12 .well-content {
+	border-bottom-left-radius:5px;
+	padding:0px;
+	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF);
+	height: 230px;
+}
+
+/* Image Box Style */
+#logocolors .box {
+	border-right: 1px solid rgb(233, 233, 233);
+	cursor: pointer;
+	height: 160px;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 16.66%;
+	margin: 0px;
+	box-shadow: #fff 0px 0px 0px 0px;
+}
+
+#logocolors .box img {
+	position: absolute;
+	left: 0;
+		-webkit-transition: all 300ms ease-out;
+		-moz-transition: all 300ms ease-out;
+		-o-transition: all 300ms ease-out;
+		-ms-transition: all 300ms ease-out;	
+	transition: all 300ms ease-out;
+}
+
+/* Caption Common Style */
+#logocolors .box .caption {
+	background-color: rgba(0,0,0,0.8);
+	position: absolute;
+	color: #fff;
+	z-index: 100;
+		-webkit-transition: all 500ms ease-out;
+		-moz-transition: all 500ms ease-out;
+		-o-transition: all 500ms ease-out;
+		-ms-transition: all 500ms ease-out;	
+		transition: all 500ms ease-out;
+	left: 0;
+}
+
+
+/** Caption 1: Simple **/
+#logocolors .box .simple-caption {
+	height:125px;
+	width: 100%;
+	display: block;
+	bottom: -80px;
+	padding-top:10px;
+}
+
+#logocolors .box .colorname{
+	padding-top:10px;
+	text-align: center;
+	font-family:'Lato';
+	font-weight: 500;
+}
+
+#logocolors .box .colormoreinfo{
+	font-family:'Lato';
+}
+
+#logocolors .box .colormoreinfo ul{
+	line-height: 25pt;
+	padding-left:20px;
+	font-family:'Lato';
+	padding-top:10px;
+}
+
+#logocolors .box .colormoreinfo ul li{
+	font-family:'Lato';
+	line-height:18px;
+	padding-left: 20px;
+	font-size:11px;
+}
+
+/** Simple Caption :hover Behaviour **/
+#logocolors .box:hover .simple-caption {
+	-moz-transform: translateY(-80%);
+	-o-transform: translateY(-80%);
+	-webkit-transform: translateY(-50%);
+	opacity: 1;
+	transform: translateY(-50%);
+}
+
 
 /* Module - Company Brand Manual */
 
@@ -805,6 +909,8 @@ ul, menu, dir {
 	padding: 0;
 	display: table;
 	padding-bottom:27px;
+	margin-bottom: 20px!important;
+	padding-bottom: 0px!important;
 }
 
 #timeline-logos {
@@ -814,7 +920,7 @@ ul, menu, dir {
 }
 
 #logotimeline .span12 {
-	width: 770px;
+	width: 810px;
 }
 
 #logotimeline .fa-clock-o {
@@ -1055,7 +1161,7 @@ ul, menu, dir {
 }
 
 .logoCloudContainer img {
-    width:80%;
+   
     padding:20px;
 }
 
