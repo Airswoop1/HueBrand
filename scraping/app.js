@@ -115,6 +115,7 @@ and then saving it back to the database.
 
 //scrape.collectLogos();
 
+scrape.matchLogoWithCompany();
 
 /** Routers **/
 app.get('/', function(req,res){

@@ -1,11 +1,62 @@
 var csv = require('csv'),
 	fs = require('fs'),
-    request = require('request'),
-    mongoose = require('mongoose'),
-    bloom = require('./bloombergCompanies.js'),
-    colorExtract = require('./colorExtraction.js'),
-    logopedia = ('./scrape.js').logopediaModel;
+	util = require('util'),
+  request = require('request'),
+  mongoose = require('mongoose'),
+  bloom = require('./bloombergCompanies.js'),
+  colorExtract = require('./colorExtraction.js'),
+  logopedia = ('./scrape.js').logopediaModel;
 
+exports.downloadFavicon = function(){
+	var favstream = bloom.bloombergCompany.find().stream();
+
+	favstream.on('data', function(doc){
+		favstream.pause();
+		try{
+			var url = "http://" + doc.website + "/favicon.ico"
+			request.head(url, function(err, res, body){
+				if(err){
+					console.log("Problem getting favicon header " + err)
+					console.log("No favicon downloaded for " + doc.shortName);
+					favstream.resume();
+
+				}
+				else{
+					if(res.statusCode === 200 && res.headers['content-type'] === 'image/x-icon'){
+						console.log("downloading favicon for " + doc.shortName);
+
+						var faviconName = doc.displayName.replace(/[^A-Z0-9]+/ig, "_").toLowerCase();
+						faviconName = faviconName + '.ico'
+						request(url).pipe(fs.createWriteStream('../Logos/favicon/'+faviconName));
+						doc.faviconFileName = faviconName;
+						doc.save();
+						favstream.resume();
+
+					}
+					else{
+						console.log("no favicon to download for :  " + doc.shortName);
+						favstream.resume();
+
+					}
+
+				}
+
+			})
+		}catch(e){
+			console.log("error on favicon download " + e);
+			console.log("No favicon downloaded for " + doc.shortName);
+			favstream.resume();
+		}
+	}).on('error', function(error){
+		//handle error
+		console.log("error on downloading favicon stream " + error);
+
+	}).on('close', function(){
+		console.log("Stream for favicon downloading closed");
+
+	});
+
+}
 
 var saveToDB = function(logoFile, sName, dName){
 	var query = {shortName : sName};

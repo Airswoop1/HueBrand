@@ -20,6 +20,76 @@ Logopedia.index({logoName: 1}, {unique:true});
 
 exports.logopediaModel = mongoose.model('logopedia', Logopedia)
 
+exports.matchLogoWithCompany = function(){
+
+	var stream = exports.logopediaModel.find({logosData :{$not :{$size : 0 }}}).stream();
+
+	stream.on('data', function (doc) { 
+		stream.pause();
+	
+		var lName = doc.logoName.replace('/','\\/');
+
+		var bloomQuery = bloom.bloombergCompany.find({'shortName': eval("/" + lName+ "/i")})
+	
+		bloomQuery.exec(function(err, obj){
+
+			if(obj.length > 1){
+				prompt.start();
+				var properties = ['#0 None of these'];
+				prompt.message = "Pick company that best matches " + doc.logoName + " " + doc.logoURL;
+
+				for(var i=0; i<obj.length;i++){
+					var mystring = '#'+(i+1)+' '+obj[i].shortName + ' - ' + obj[i].website;
+					properties.push(mystring);
+				}
+				
+				properties.join(' ');
+				console.log(properties);
+				prompt.get({
+					name : 'choice',
+					"description" : properties,
+					validator : /\d+/
+				},function(err, result){
+					
+					if(result.choice === '0'){	
+						console.log("No match for " + doc.logoName)
+						doc.bloombergMatch = 'N'
+						doc.save();
+					}
+					else{
+						console.log("Match for " + doc.logoName);
+						console.log(obj[parseInt(result.choice)-1].shortName);
+						doc.bloombergMatch = obj[parseInt(result.choice)-1].shortName;
+						doc.save();
+					}
+					stream.resume();
+				});
+
+			}
+			else if(obj.length === 1){
+				console.log("Match for " + doc.logoName)
+				doc.bloombergMatch = obj.shortName;
+				doc.save();
+				stream.resume();
+			}
+			else{
+				console.log("No match for " + doc.logoName)
+				doc.bloombergMatch = 'N'
+				doc.save();
+				stream.resume();
+			}
+
+		})	
+
+
+	}).on('error', function (err) {
+	  // handle the error
+	}).on('close', function () {
+	  // the stream is closed
+	});
+
+}
+
 exports.collectLogos = function(){
 	
 	var stream = exports.logopediaModel.find().stream();
