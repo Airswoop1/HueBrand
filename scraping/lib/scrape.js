@@ -27,7 +27,7 @@ exports.matchLogoWithCompany = function(){
 	stream.on('data', function (doc) { 
 		stream.pause();
 	
-		var lName = doc.logoName.replace('/','\\/');
+		var lName = doc.logoName.replace('/','\/');
 
 		var bloomQuery = bloom.bloombergCompany.find({'shortName': eval("/" + lName+ "/i")})
 	

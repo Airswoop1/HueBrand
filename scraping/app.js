@@ -12,6 +12,7 @@ var cheerio = require('cheerio');
 var phantom = require('phantom');
 var portscanner = require('portscanner');
 var countrynames = require('countrynames');
+var util = require('util');
 
 
 /** Modules **/
@@ -27,6 +28,8 @@ var imageDownload = require('./lib/imageDownload.js');
 var app = express();
 var server = http.createServer(app);
 mongoose.connect('mongodb://localhost/huebrand');
+var io = require('socket.io').listen(server);
+
 
 var dbcon = mongoose.connection;
 dbcon.on('error', console.error.bind(console, 'connection error:'));
@@ -115,12 +118,97 @@ and then saving it back to the database.
 
 //scrape.collectLogos();
 
-scrape.matchLogoWithCompany();
+//scrape.matchLogoWithCompany();
+
+var logopediaArray = []
+var logosQ = scrape.logopediaModel.find({logosData :{$not :{$size : 0 }}});
+logosQ.exec(function(err, obj){
+	if(err){
+		console.log("error populating logopedias array " + err);
+	}
+	else{
+		logopediaArray = obj;
+		console.log("logopedias array populated!");
+	}
+	
+})
+
+
+
+var index = -1;
+io.set('log level', 1);
+io.sockets.on('connection', function(socket){
+	
+	socket.on('next-logo', function(data){
+		//send next logopedia/bloomberg matches
+		console.log('next-logo called!!');
+		index++;
+
+		var getLogos = function(retObj){
+			if(!retObj){
+				setTimeout(bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos),1000)
+			}
+			else{
+				if(retObj.length === 1){
+					console.log("saving match to the db!");
+					setTimeout(bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos),1000)
+				}
+				else{
+					console.log("sending logo to the page for " +  logopediaArray[index].logoName)
+					socket.emit('new-logo', {
+						logopediaTitle : logopediaArray[index].logoName,
+						logopediaURL : logopediaArray[index].logoURL,
+						bloombergCompanies : retObj
+					});
+				}
+			}
+		}
+
+		bloom.bloombergQuery(logopediaArray[index].logoName, getLogos);
+
+	});
+
+	socket.on('database-search', function(data){
+		//search database for potential matches when logopedia search against bloomberg doesn't come up with good option
+		var getOtherLogos = function(retObj){
+			if(!retObj){
+				socket.emit('no-query-response',{})
+			}
+			else{
+				socket.emit('new-query-response',{
+					'newQ' : retObj
+				})
+			}
+		}
+
+		bloom.bloombergQuery(data.query, getOtherLogos)
+
+	});
+
+	socket.on('match', function(data){
+		console.log("we have a match " + util.inspect(data));
+	});
+
+	socket.on('no-match', function(data){
+		//no bloomberg company matches logo
+		console.log("we don't have a match " + util.inspect(data));
+		console.log(socket.id);
+	})
+
+	socket.on('disconnect', function(data){
+		//close 
+	})
+	socket.emit('connect', {});
+})
 
 /** Routers **/
 app.get('/', function(req,res){
 	res.render('index');
 });
+
+app.get('/logoSelection',function(req,res){
+	res.render('logos');
+})
 
 app.get('/logoColorExtraction',function(req,res){
 	bloom.bloombergCompany.find({logoFileName : {$exists : true}}, function(err, obj){

@@ -41,7 +41,7 @@ var bloombergComp = new mongoose.Schema({
 	}],
 	//primary color?
 	logoFileName : String,
-	logoPotentialList : [String],
+	logoPotentialList : [{ year : String, fileName : String }],
 	logoHistory : [{ year : String, fileName : String }],
 	brandManualFileName : String,
 	displayName : String
@@ -130,4 +130,26 @@ exports.modifyName = function(){
 	  // the stream is closed
 	});
 
+}
+
+function escapeRegExpChars(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+
+exports.bloombergQuery = function(logopediaName, callback){
+
+	var lName = escapeRegExpChars(logopediaName).replace('/','\\/');
+
+	var bloomQuery = exports.bloombergCompany.find({'shortName': eval("/" + lName + "/i")})
+
+	bloomQuery.exec(function(err, obj){
+
+			if(obj.length >= 1){
+				callback(obj);
+			}
+			else{
+				callback(null);
+			}
+
+		})
 }
