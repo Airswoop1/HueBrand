@@ -1,64 +1,22 @@
+<!-- [header.ejs] - Includes all CSS Files -->
+<!-- Parent is a Search Result Page: Either attribute, brand, color, or industry.html -->
 
-<!--  Footer  -->
 </div>
-	<div class="navbar navbar-fixed-bottom" style="min-height:25px;height:25px;">
-      <div class="container" style="width:1000px;font-size:10px;font-family:'Lato';">
-	        <a href="#" style="color:#fff;">About</a> |
-	        <a href="#" style="color:#fff;">Contact</a> |
-	        <a href="#" style="color:#fff;">Terms</a> |
-	        <a href="#" style="color:#fff;">Privacy</a>
-	        <p class="pull-right" style="color:white!important;font-family:'Lato';font-size:10px;">
-	          <a href="#" style="color:#fff;">Hue Group © 2014</a>
-	        </p>
-        </div>
-      </div>
-	</div>
+	
+<div class="navbar navbar-fixed-bottom" style="min-height:25px;height:25px;color:#000;">
+    <div class="container" style="width:1000px;color:#000;font-size:10px;font-family:'Lato';">
+        <a href="#" style="color:#000;">About</a> |
+        <a href="#" style="color:#000;">Contact</a> |
+        <a href="#" style="color:#000;">Terms</a> |
+        <a href="#" style="color:#000;">Privacy</a>
+        <p class="pull-right" style="color:white!important;font-family:'Lato';font-size:10px;">
+          <a href="#" style="color:#000;">Hue Group © 2014</a>
+        </p>
+    </div>
+</div>
   
 </body>
 
-<script>
-   // Get Pixels of Logo
- 
-    var img= document.getElementById('logo'),
-        new_img = new Image();
-
-    new_img.onload = function() {
-        var img_width  = this.width,
-            img_height = this.height;
-        
-        document.getElementById('logopixels').innerHTML = '' + img_width + 'PX x ' + img_height + 'PX';
-    }
-
-    new_img.src = img.src;
-
-    // Isotope
-    $(window).load(function(){
-        var $container = $('.logoCloudContainer');
-        $container.isotope({
-            filter: '*',
-            animationOptions: {
-                duration: 750,
-                easing: 'linear',
-                queue: false
-            }
-        });
-     
-        $('.logoCloudFilter a').click(function(){
-            $('.logoCloudFilter .current').removeClass('current');
-            $(this).addClass('current');
-     
-            var selector = $(this).attr('data-filter');
-            $container.isotope({
-                filter: selector,
-                animationOptions: {
-                    duration: 750,
-                    easing: 'linear',
-                    queue: false
-                }
-             });
-             return false;
-        }); 
-    });
-</script>
+<% include js_last %>
 
 </html>

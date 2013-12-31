@@ -453,7 +453,7 @@
                             <a href="http://<%= colorResult[i].website%>">
                                 <%= colorResult[i].shortName %>
                             </a> 
-                            -   
+                            - <% var calcMktCap = parseFloat(colorResult[i].marketCap/1000000).toFixed(2); %> 
                             <%= calcMktCap %>M
                         </p>
                     </div>

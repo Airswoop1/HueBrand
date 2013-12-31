@@ -109,7 +109,7 @@ ul, menu, dir {
 /* Top Navigation Bar */
 
 .navbar {
-	background-color: rgba(0, 0, 0, 0.85)!important;
+	background-color: rgba(243, 243, 243, 0.329412)!important;
 }
 
 .navbar-right .dropdown-menu {
@@ -118,7 +118,7 @@ ul, menu, dir {
 }
 
 .navbar-brand {
-	color: #fff!important;
+	color: #000!important;
 	padding: 15px!important;
 	margin: 0;
 	font-weight: 200!important;
@@ -145,8 +145,9 @@ ul, menu, dir {
 .navbar-default .navbar-nav>.active>a, 
 .navbar-default .navbar-nav>.active>a:hover, 
 .navbar-default .navbar-nav>.active>a:focus {
-	color: #FFF!important;
-	background-color: #000!important;
+	color: #000!important;
+	background-color: rgba(233, 233, 233, 0.9)!important;
+
 }
 
 .pull-right {
@@ -655,6 +656,7 @@ ul, menu, dir {
 	text-align: center;
 	font-family:'Lato';
 	font-weight: 500;
+	font-size: 13px;
 }
 
 #logocolors .box .colormoreinfo{
