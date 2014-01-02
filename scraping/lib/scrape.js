@@ -12,7 +12,8 @@ var Logopedia = mongoose.Schema({
 		url : String,
 		date : String
 	}],
-	redirect : String
+	redirect : String,
+	bloombergMatch : String
 
 })
 

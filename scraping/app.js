@@ -120,6 +120,7 @@ and then saving it back to the database.
 
 //scrape.matchLogoWithCompany();
 
+
 var logopediaArray = []
 var logosQ = scrape.logopediaModel.find({logosData :{$not :{$size : 0 }}});
 logosQ.exec(function(err, obj){
@@ -187,12 +188,44 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('match', function(data){
 		console.log("we have a match " + util.inspect(data));
+		var updateCondition = {
+			'logoName' : data.logopediaTitle,
+			'logoURL' : data.logopediaURL
+		}
+		var update = {
+			'bloombergMatch' : data.bloombergMatch.shortName
+		}
+		console.log("update and update condition are : ");
+		console.log(updateCondition)
+		console.log(update);
+		scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
+			if(err){ 
+				console.log("Cannot store in logopedia db " + err);
+			}
+			else{
+				console.log("stored match to logopedia db!");
+			}
+		});
+
 	});
 
 	socket.on('no-match', function(data){
-		//no bloomberg company matches logo
-		console.log("we don't have a match " + util.inspect(data));
-		console.log(socket.id);
+		console.log("we don't have a match for " + data.logopediaTitle);
+		var updateCondition = {
+			'logoName' : data.logopediaTitle,
+			'logoURL' : data.logopediaURL
+		}
+		var update = {
+			'bloombergMatch' : 'N'
+		}
+		scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
+			if(err){ 
+				console.log("Cannot store in logopedia db " + err);
+			}
+			else{
+				console.log("stored no match to logopedia db!");
+			}
+		});
 	})
 
 	socket.on('disconnect', function(data){
@@ -201,7 +234,9 @@ io.sockets.on('connection', function(socket){
 	socket.emit('connect', {});
 })
 
-/** Routers **/
+/************ 
+	Routers 
+**************/
 app.get('/', function(req,res){
 	res.render('index');
 });
@@ -216,6 +251,8 @@ app.get('/logoColorExtraction',function(req,res){
 		colorExtract.extract(ind, obj);
 	})
 })
+
+
 
 /** 
 	Route: /brandsoftheworldScrape
