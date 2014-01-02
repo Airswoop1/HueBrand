@@ -13,7 +13,8 @@ var Logopedia = mongoose.Schema({
 		date : String
 	}],
 	redirect : String,
-	bloombergMatch : String
+	bloombergMatch : String,
+	logoType : String
 
 })
 

@@ -77,15 +77,18 @@
 	  	$('#matchButton').on('click', function(event){
 	  			var inputText = $('#inputBox').val();
 	  			var company = currentBloom[parseInt(inputText,10)-1];
-
+	  			var lType = $('input:radio[name=typeOfLogo]:checked').val();
+	  			alert(lType);
 	  			if( inputText !== '' && company!== undefined ){
 	  					socket.emit('match',{
 	  						'logopediaTitle': currentLogopedia.logopediaTitle,
 	  						'logopediaURL' : currentLogopedia.logopediaURL,
-	  						'bloombergMatch' : company
+	  						'bloombergMatch' : company,
+	  						'logoType' : lType
 	  					})
 	  					socket.emit('next-logo');
-	  					$('$inputBox').val('');
+	  					$('#inputBox').val('');
+	  					$('#primeRadio').prop('checked',true)
 	  				}
 	  				else{
 	  					alert("Not a valid selection for match ");
@@ -103,13 +106,12 @@
 
 	  	$('#querySearchButton').on('click', function(){
 	  		var dbQ = $('#queryBox').val()
-	  		
 	  		socket.emit('database-search', {
 	  			"query" : dbQ
 	  		})
-
 	  		$('#queryBox').val('');
-	  	})
+	  	});
+
 
 	  	socket.emit('next-logo');	
 
@@ -145,7 +147,10 @@
 			<button type='button' id='noMatchButton'>No Match</button>
 			|
 			<input type='text' name='query' id='queryBox'>
-			<button type='button' id='querySearchButton'></button>
+			<button type='button' id='querySearchButton'>Query DB</button>
+			|
+			Primary:<input type='radio' name='typeOfLogo' value='primary' id='primeRadio' checked>
+			Secondary:<input type='radio' name='typeOfLogo' value='secondary'>
 		</div>
 
 </body>

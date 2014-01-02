@@ -147,6 +147,7 @@ io.sockets.on('connection', function(socket){
 
 		var getLogos = function(retObj){
 			if(!retObj){
+				console.log("no match found!");
 				setTimeout(bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos),1000)
 			}
 			else{
@@ -193,7 +194,8 @@ io.sockets.on('connection', function(socket){
 			'logoURL' : data.logopediaURL
 		}
 		var update = {
-			'bloombergMatch' : data.bloombergMatch.shortName
+			'bloombergMatch' : data.bloombergMatch.shortName,
+			'logoType' : data.logoType
 		}
 		console.log("update and update condition are : ");
 		console.log(updateCondition)
