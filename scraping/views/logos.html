@@ -65,7 +65,7 @@
 		  	for(var i=0;i<cArr.length; i++){
 		  		$('#bloomberg-container').append(
 		  			"<div style='height:300px; width:300px'>\
-		  				<h4>" + (i+1) + " " + cArr[i].shortName + "</h4>\
+		  				<h4><a target='_blank' href='http://"+cArr[i].website+"'>" + (i+1) + " " + cArr[i].shortName + "</a></h4>\
 		  				<iframe src='http://" + cArr[i].website + "' width='250' height='250'></iframe>\
 		  			</div>"
 		  			)
@@ -78,7 +78,7 @@
 	  			var inputText = $('#inputBox').val();
 	  			var company = currentBloom[parseInt(inputText,10)-1];
 	  			var lType = $('input:radio[name=typeOfLogo]:checked').val();
-	  			alert(lType);
+
 	  			if( inputText !== '' && company!== undefined ){
 	  					socket.emit('match',{
 	  						'logopediaTitle': currentLogopedia.logopediaTitle,

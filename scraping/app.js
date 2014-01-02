@@ -122,7 +122,7 @@ and then saving it back to the database.
 
 
 var logopediaArray = []
-var logosQ = scrape.logopediaModel.find({logosData :{$not :{$size : 0 }}});
+var logosQ = scrape.logopediaModel.find({$and: [{logosData :{$not :{$size : 0 }}}, {bloombergMatch: {$exists:false}}]});
 logosQ.exec(function(err, obj){
 	if(err){
 		console.log("error populating logopedias array " + err);
@@ -147,13 +147,45 @@ io.sockets.on('connection', function(socket){
 
 		var getLogos = function(retObj){
 			if(!retObj){
-				console.log("no match found!");
-				setTimeout(bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos),1000)
+				console.log("no match found!");		
+				var updateCondition = {
+					'logoName' : logopediaArray[index].logoName,
+					'logoURL' : logopediaArray[index].logoURL
+				}
+				var update = {
+					'bloombergMatch' : 'N'
+				}
+				scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
+					if(err){ 
+						console.log("Cannot store in logopedia db " + err);
+					}
+					else{
+						console.log("stored no match to logopedia db!");
+						bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos);
+
+					}
+				});
 			}
 			else{
 				if(retObj.length === 1){
 					console.log("saving match to the db!");
-					setTimeout(bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos),1000)
+					var updateCondition = {
+						'logoName' : logopediaArray[index].logoName,
+						'logoURL' : logopediaArray[index].logoURL
+					}
+					var update = {
+						'bloombergMatch' : retObj[0].shortName
+					}
+					scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
+						if(err){ 
+							console.log("Cannot store in logopedia db " + err);
+						}
+						else{
+							console.log("stored no match to logopedia db!");
+							bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos);
+
+						}
+					});
 				}
 				else{
 					console.log("sending logo to the page for " +  logopediaArray[index].logoName)
