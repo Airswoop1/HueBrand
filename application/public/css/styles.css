@@ -11,7 +11,17 @@
 /*---HEADER Nav---*/
 
 .navbar { 
-	background-color: rgba(255, 255, 255, 0.6)!important; }
+	background-color: #fff!important; }
+
+.navbar-brand {
+	line-height: 30px!important;
+}
+
+.navbar .container {
+	width: 98%;
+	padding-left: 0px;
+	padding-right: 30px;
+}
 
 .nav>li {
 	position: relative;
@@ -25,6 +35,26 @@
 
 /*---MODULES---*/
 
+/* Module - Company Logo */
+ 
+#companylogo .span12 .well-content {
+	padding: 0px;
+	border-bottom-left-radius: 5px;}
+ 
+#companylogo-box {
+	margin: 0px;
+	width: 100%;
+	height: 150px;
+	vertical-align: middle;
+	text-align: center;
+	line-height: 150px;}
+ 
+	#companylogo-box img {
+		display: inline-block;
+		height: 95%;
+		background: #fff;
+		vertical-align: middle; }
+
 /*---FOOTER---*/
 /* [footer.ejs] - Includes Bottom Footer */
 .navbar-fixed-bottom {
@@ -34,7 +64,7 @@
 	color: #000; }
  
 .navbar-fixed-bottom .container {
-	width: 1000px;
+	width: 98%;
 	margin-top:7px; }
 
 .navbar-fixed-bottom .container li {
@@ -44,6 +74,8 @@
 	list-style-type: none; }
 
  
+
+
 /* General */
 body {
 	overflow: auto;
@@ -55,7 +87,10 @@ body {
 	height: 100%;
 	background: #fff!important;
 	color: #777!important;
-	font-family: 'Arimo'!important; }
+	font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif!importantƒ;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: subpixel-antialiased;
+ }
  
 /*
 body:after {
@@ -85,19 +120,19 @@ body:after {
 	.page-wrap .well {
 		padding: 0;
 		background: #fff;
+		border: 1px solid #F5F5F5;
 		opacity: 1; }
  
 		.page-wrap .well .title {
 			padding: 3px 13px 3px 3px;
-			border-bottom: 1px solid rgba(221, 221, 221, 0.3);
-			background-color: rgba(243, 243, 243, 0.33);
+			border-bottom: 1px solid rgba(250, 250, 250, 0.3);
+			background-color: rgba(255, 255, 255, 0.33);
 			color: #373E4E;
 			text-transform: uppercase;
 			font-weight: 400;
 			font-size: 16px; }
- 
+			 
 		.page-wrap .well .well-content {
-			padding: 20px!important;
 			font-weight: 100;
 			font-size: 18px;
 			font-family: 'Arimo';
@@ -145,12 +180,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	font-weight: 200!important;
 	font-size: 26px!important; }
  
-.navbar>.container .navbar-brand {
-	margin-left: -40px!important;
-	padding-bottom: 17px!important;
-	width: 200px;
-	text-align: center;
-	line-height: 30px!important; }
  
 .navbar .container ul li img {
 	margin-right: 10px;
@@ -161,7 +190,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 .navbar-default .navbar-nav>.active>a, 
 .navbar-default .navbar-nav>.active>a:hover, 
 .navbar-default .navbar-nav>.active>a:focus {
-	background-color: rgba(233, 233, 233, 0.9)!important;
+	background-color: #fff!important;
 	color: #000!important; }
  
 .pull-right {
@@ -323,44 +352,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	margin-bottom: -12px;
 	padding: 0px; }
  
-/* Module - Company Logo */
-#companylogo .fa-picture-o {
-	margin-right: 10px;
-	font-size: 20px; }
- 
-#companylogo .span12 .well-content {
-	padding: 0px;
-	border-bottom-left-radius: 5px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF); }
- 
-#companylogo-box {
-	margin: 0px;
-	width: 100%;
-	height: 150px;
-	border: 1px solid rgba(0, 0, 0, 0.0666667);
-	background: rgb(252, 252, 252);
-	vertical-align: middle;
-	text-align: center;
-	line-height: 150px;
-	-webkit-transition: .5s;
-	-moz-transition: .5s;
-	-ms-transition: .5s;
-	-o-transition: .5s;
-	transition: .5s; /* ...and now for the proper property */ }
- 
-	#companylogo-box .fa-download {
-		margin-right: 10px;
-		font-size: 15px; }
- 
-	#companylogo-box:hover {
-		border-color: rgba(0,0,0,0.2);
-		box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
- 
-	#companylogo-box img {
-		display: inline-block;
-		height: 95%;
-		background: #fff;
-		vertical-align: middle; }
+
  
 .selectize-dropdown, .selectize-input, .selectize-input input {
 	font-size: 10px;
@@ -404,8 +396,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	text-align: left;
 	font-size: 12px;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif; }
- 
-	#companyinfo .span12 .well-content { background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF); }
  
 	#companyinfo .fa-file-text-o {
 		margin-right: 10px;
@@ -455,7 +445,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 #logocolors .span12 .well-content {
 	border-bottom-left-radius:5px;
 	padding:0px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF);
 }
  
 #logocolors-data {
@@ -527,7 +516,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 #logocolors .span12 .well-content {
 	padding: 0px;
 	border-bottom-left-radius: 5px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF);
 	height: 230px; }
  
 /* Image Box Style */
@@ -633,9 +621,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	padding: 0px;
 	padding-bottom: 0px!important;
 	height: 106px;
-	border-bottom-left-radius: 5px;
-	background-image:
-	linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF); }
+	border-bottom-left-radius: 5px; }
  
 #topattributes-data {
 	margin: 0px;
@@ -671,7 +657,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 #topindustries .span12 .well-content {
 	padding: 0px;
 	border-bottom-left-radius: 5px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF);
 	height: 106px;
 	display: table;
 	padding-bottom: 0px!important; }
@@ -718,8 +703,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
  
 #colorchart .span12 .well-content {
 	padding: 0px;
-	border-bottom-left-radius: 5px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF); }
+	border-bottom-left-radius: 5px;}
  
 #colorchart-data {
 	overflow: hidden;
@@ -777,25 +761,16 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
  
 #geomap .span12 .well-content {
 	padding: 0px;
-	border-bottom-left-radius: 5px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF); }
+	border-bottom-left-radius: 5px;}
  
 /* Module - Logo Timeline */
-#logotimeline {
-	display: table;
-	margin: 10px 0 0;
-	margin-bottom: 20px!important;
-	padding: 0;
-	padding-bottom: 27px;
-	padding-bottom: 0px!important;
-	list-style: none; }
+#logotimeline {}
  
 #timeline-logos {
 	margin-top: 8px;
 	margin-bottom: 0px;
 	margin-left: 0px; }
  
-#logotimeline .span12 { width: 810px; }
  
 #logotimeline .fa-clock-o {
 	margin-right: 10px;
@@ -811,8 +786,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	overflow-x: scroll;
 	padding: 50px 0px 25px 15px;
 	border-bottom-left-radius: 5px;
-	background-color: #F2F5FA;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF);
+	background-color: #fff;
 	color: #2A2A2A;
 	white-space: nowrap; }
  
@@ -852,7 +826,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	width: 200px;
 	border-width: 2px;
 	border-style: solid;
-	border-color: #e3e3e3;
+	border-color: rgba(245, 243, 243, 0.25);
 	border-radius: 0em;
 	vertical-align: top;
 	transition: width 0.4s linear, max-height 0.4s linear; }
@@ -1021,7 +995,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 #topcolors .span12 .well-content {
 	padding: 0px;
 	border-bottom-left-radius: 5px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF);
 	height: 230px; }
  
 /* Image Box Style */
@@ -1103,7 +1076,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 #colorpalette .span12 .well-content {
 	padding: 0px;
 	border-bottom-left-radius: 5px;
-	background-image: linear-gradient(to bottom, rgba(206, 206, 206, 0.1), #FFFFFF);
 	height: 650px; }
  
 /* Image Box Style */

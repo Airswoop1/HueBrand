@@ -1,19 +1,23 @@
-<!--  Module - Company Information  -->
-    <div class="container-fluid" id="companyinfo">
+<!--  Module - Company Logo  -->
+     <div class="container-fluid" id="companylogo">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
-            Company Information
+            Company Logo
           </button>
             <span class="pull-right muted">
               <div class="tooltips">
-                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Information on the Company Goes Here in Table Format">
-                  <i class="fa fa-info-circle"></i>
-                </button>
               </div>
             </span>
         </div>
         <div class="well-content">
+          <div id="companylogo-box">
+            <a href="../Logos/<%= brandResult.logoFileName%>" download="<%= brandResult.logoFileName%>">
+              <img id="logo" src="../Logos/<%= brandResult.logoFileName%>">
+             </a>
+          </div>
+
+
           <table id="companyinfo-data">
             <thead></thead>
             <tbody>
@@ -50,7 +54,18 @@
                 <td><a href="<%= brandResult.website%>">http://<%= brandResult.website%></a></td>
               </tr>
             </tbody>
-          </table>     
+          </table>   
+           
+          <div style="width: 100%;text-align: center;">
+          <a href="../Logos/<%= brandResult.brandManualFileName%>" download="<%= brandResult.brandManualFileName%>">
+            <button id="buttondownload" style="padding-bottom: 10px;">
+              <div>
+                <i class="fa fa-download" style="font-size: 15px;margin-right: 10px;"></i>  
+                Download <%= brandResult.shortName %>'s Original Brand Manual
+              </div> 
+            </button>
+          </a>
+          </div>
         </div>
       </div>
     </div>

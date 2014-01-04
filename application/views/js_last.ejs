@@ -1,0 +1,46 @@
+<script>
+
+   // Get Pixels of Logo
+ 
+    var img= document.getElementById('logo'),
+        new_img = new Image();
+
+    new_img.onload = function() {
+        var img_width  = this.width,
+            img_height = this.height;
+        
+        document.getElementById('logopixels').innerHTML = '' + img_width + 'PX x ' + img_height + 'PX';
+    }
+
+    new_img.src = img.src;
+
+    // Isotope
+
+    $(window).load(function(){
+        var $container = $('.logoCloudContainer');
+        $container.isotope({
+            filter: '*',
+            animationOptions: {
+                duration: 750,
+                easing: 'linear',
+                queue: false
+            }
+        });
+     
+        $('.logoCloudFilter a').click(function(){
+            $('.logoCloudFilter .current').removeClass('current');
+            $(this).addClass('current');
+     
+            var selector = $(this).attr('data-filter');
+            $container.isotope({
+                filter: selector,
+                animationOptions: {
+                    duration: 750,
+                    easing: 'linear',
+                    queue: false
+                }
+             });
+             return false;
+        }); 
+    });
+</script>
