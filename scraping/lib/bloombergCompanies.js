@@ -153,3 +153,7 @@ exports.bloombergQuery = function(logopediaName, callback){
 
 		})
 }
+
+exports.bloombergUpdate = function(sName, logosArr){
+	exports.bloombergCompany.findOneAndUpdate()
+}

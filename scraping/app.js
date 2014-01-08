@@ -120,6 +120,7 @@ and then saving it back to the database.
 
 //scrape.matchLogoWithCompany();
 
+scrape.refineLogoData();
 
 var logopediaArray = []
 var logosQ = scrape.logopediaModel.find({$and: [{logosData :{$not :{$size : 0 }}}, {bloombergMatch: {$exists:false}}]});

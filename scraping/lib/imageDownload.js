@@ -7,6 +7,25 @@ var csv = require('csv'),
   colorExtract = require('./colorExtraction.js'),
   logopedia = ('./scrape.js').logopediaModel;
 
+exports.downloadLogopediaImages = function(){
+
+	var logopediaStream = logopedia.find({$not: {bloombergMatch:'N'}}).stream();
+
+	logopediaStream
+	.on('data', function(doc){
+
+
+
+	})
+	.on('error', function(error){
+
+	})
+	.on('close', function(){
+
+})
+}
+
+
 exports.downloadFavicon = function(){
 	var favstream = bloom.bloombergCompany.find().stream();
 
