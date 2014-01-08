@@ -13,6 +13,10 @@
 .navbar { 
 	background-color: #fff!important; }
 
+.navbar-default {
+	border-bottom: #FF0808 2px solid!important;
+}
+
 .navbar-brand {
 	line-height: 30px!important;
 }
@@ -29,6 +33,12 @@
 	margin-right: -30px;
 }
 
+.btn {
+	padding: 1px 5px;
+margin-bottom: 0;
+font-size: 15px;
+}
+
 /*---SIDEBAR---*/
 
 /*---CONTENT---*/
@@ -38,29 +48,28 @@
 /* Module - Company Logo */
  
 #companylogo .span12 .well-content {
-	padding: 0px;
+	padding: 20px;
 	border-bottom-left-radius: 5px;}
  
 #companylogo-box {
-	margin: 0px;
-	width: 100%;
-	height: 150px;
-	vertical-align: middle;
-	text-align: center;
-	line-height: 150px;}
+margin: 0px;
+width: 40%;
+line-height: 170px;
+float: left;
+text-align: center;
+height: 210px;
+}
  
 	#companylogo-box img {
-		display: inline-block;
-		height: 95%;
-		background: #fff;
-		vertical-align: middle; }
+	width:70%;	
+	}
 
 /*---FOOTER---*/
 /* [footer.ejs] - Includes Bottom Footer */
 .navbar-fixed-bottom {
 	height: 25px;
 	font: 500 14px 'Lato', sans-serif;
-	border-color: #e7e7e7;
+	border-top: #FF0808 2px solid!important;
 	color: #000; }
  
 .navbar-fixed-bottom .container {
@@ -71,10 +80,17 @@
 	float: left;
 	margin-top:7px;
 	padding-left:2px;
+	padding-right:20px;
 	list-style-type: none; }
 
+.navbar-fixed-bottom .container li a:link{
+	color:#000;
+	font-weight:700; }
  
-
+.navbar-fixed-bottom .pull-right a:link {
+	font-weight:700;
+	color:#000;
+}
 
 /* General */
 body {
@@ -120,17 +136,21 @@ body:after {
 	.page-wrap .well {
 		padding: 0;
 		background: #fff;
-		border: 1px solid #F5F5F5;
+		border: 1px solid #BEBCBC;
 		opacity: 1; }
  
 		.page-wrap .well .title {
 			padding: 3px 13px 3px 3px;
 			border-bottom: 1px solid rgba(250, 250, 250, 0.3);
-			background-color: rgba(255, 255, 255, 0.33);
-			color: #373E4E;
+			background-color: rgba(0,0,0,1);
+			color: #fff!important;
 			text-transform: uppercase;
 			font-weight: 400;
 			font-size: 16px; }
+
+			.page-wrap .well .btn-default {
+				color:#fff;
+			}
 			 
 		.page-wrap .well .well-content {
 			font-weight: 100;
@@ -516,7 +536,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 #logocolors .span12 .well-content {
 	padding: 0px;
 	border-bottom-left-radius: 5px;
-	height: 230px; }
+	height: 140px; }
  
 /* Image Box Style */
 #logocolors .box {
@@ -525,7 +545,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	overflow: hidden;
 	margin: 0px;
 	width: 16.66%;
-	height: 160px;
+	height: 100%;
 	border-right: 1px solid rgb(233, 233, 233);
 	box-shadow: #fff 0px 0px 0px 0px;
 	cursor: pointer; }
@@ -573,13 +593,13 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			padding-top: 10px;
 			padding-left: 20px;
 			font-family: 'Lato';
-			line-height: 25pt; }
+			line-height: 20pt; }
  
 			#logocolors .box .colormoreinfo ul li {
-				padding-left: 20px;
-				font-size: 11px;
+				padding-left: 10px;
+				font-size: 8px;
 				font-family: 'Lato';
-				line-height: 18px; }
+				line-height: 12px; }
  
 	/** Simple Caption :hover Behaviour **/
 #logocolors .box:hover .simple-caption {

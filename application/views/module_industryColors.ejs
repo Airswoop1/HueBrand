@@ -1,0 +1,47 @@
+<!--  Module - Top 3 Colors  -->
+     <div class="container-fluid" id="logocolors">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+           Industry Colors
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+              </div>
+            </span>
+        </div>
+        <div class="well-content">
+        <% var width = (1/brandResult.associatedColors.length)*100 %>
+                    <% for(var i=0; i<brandResult.associatedColors.length; i++){ %>
+              <div id="box-1" class="box" style="background:rgb(
+                    <%=brandResult.associatedColors[i].RrgbValue %>,
+                    <%=brandResult.associatedColors[i].GrgbValue %>,
+                    <%=brandResult.associatedColors[i].BrgbValue %>);
+                    width: <%=width%>%;">
+                  <span class="caption simple-caption">
+                    <span class="colorname">
+                      <center><%=brandResult.associatedColors[i].colorName%></center>
+                    </span>
+                    <span class="colormoreinfo">
+                      <ul>
+                        <li>
+                          <span style="font-weight: 500;">RGB:</span> ( 
+                          <%=brandResult.associatedColors[i].RrgbValue %>,
+                          <%=brandResult.associatedColors[i].GrgbValue %>,
+                          <%=brandResult.associatedColors[i].BrgbValue %> )
+                        </li>
+                        <li>
+                          <span style="font-weight: 500;">HSV:</span> ( 
+                          <%=brandResult.associatedColors[i].hValue.toFixed(0) %>,
+                          <%=brandResult.associatedColors[i].sValue.toFixed(0) %>,
+                          <%=brandResult.associatedColors[i].vValue.toFixed(0) %>,
+                          <%=brandResult.associatedColors[i].lValue.toFixed(0) %>% )
+                        </li>
+                      </ul>
+                    </span>
+                  </span>
+              </div>
+           <%}%>           
+        </div>
+      </div>
+    </div>

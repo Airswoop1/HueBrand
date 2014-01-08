@@ -3,7 +3,7 @@
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
-            Company Logo
+            Company Info
           </button>
             <span class="pull-right muted">
               <div class="tooltips">
@@ -17,55 +17,18 @@
              </a>
           </div>
 
-
-          <table id="companyinfo-data">
-            <thead></thead>
-            <tbody>
-              <tr class="header">
-                <td style="width:200px;">Company Name</td>
-                <td><%= brandResult.shortName %></td>
-              </tr>
-              <tr class="odd">
-                <td>Description</td>
-                <td><%= brandResult.desc %></td>
-              </tr>
-              <tr class="even">
-                <td>Market Cap. Rank</td>
-                <td>#<%= brandResult.marketCapRank%></td>
-              </tr>
-              <tr class="odd">
-                <td>Market Cap.</td>
-                <td>$<%var calcMktCap = parseFloat(brandResult.marketCap/1000000).toFixed(2);%><%= calcMktCap %> Million</td>
-              </tr>
-              <tr class="even">
-                <td>Sector</td>
-                <td><%=brandResult.GICSSectorName%></td>
-              </tr>
-              <tr class="odd">
-                <td>Industry</td>
-                <td><%= brandResult.GICSIndName%></td>
-              </tr>
-              <tr class="even">
-                <td>Sub-Industry</td>
-                <td><%= brandResult.GICSSubIndName%></td>
-              </tr>
-              <tr class="odd">
-                <td>Website</td>
-                <td><a href="<%= brandResult.website%>">http://<%= brandResult.website%></a></td>
-              </tr>
-            </tbody>
-          </table>   
+          <ul style="font-size:11px;line-height:15px;">
+           <li style="list-style-type: square;padding-bottom:10px;"><b><span style="text-transform:capitalize;"><%= brandResult.shortName %></span></b> - <%= brandResult.desc %></font></li>
+           <li style="list-style-type: square;"><b>Stock Symbol</b> - <%= brandResult.stockSymbol %></li>
+           <li style="list-style-type: square;"><b>Industry</b> - <%=brandResult.GICSSectorName%></li>
+           <li style="list-style-type: square;"><b>Headquarters</b> - <%=brandResult.country%></li>
+           <li style="list-style-type: square;"><b>Market Cap Rank</b> - <%= brandResult.marketCapRank%></li>
+           <li style="list-style-type: square;"><b>Market Cap</b> - <%= brandResult.marketCap%></li>
+          </ul>
            
-          <div style="width: 100%;text-align: center;">
-          <a href="../Logos/<%= brandResult.brandManualFileName%>" download="<%= brandResult.brandManualFileName%>">
-            <button id="buttondownload" style="padding-bottom: 10px;">
-              <div>
-                <i class="fa fa-download" style="font-size: 15px;margin-right: 10px;"></i>  
-                Download <%= brandResult.shortName %>'s Original Brand Manual
-              </div> 
-            </button>
-          </a>
-          </div>
+
+           
+     
         </div>
       </div>
     </div>

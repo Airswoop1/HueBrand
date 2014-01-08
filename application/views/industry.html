@@ -1,13 +1,28 @@
 <!-- [industry.html] - Page for Industry Search Results -->
-
 <% include header %>
 <% include sidebar %>
+<div class="row" style="height:50px;margin-top:10px;margin-left:2px;font-size:16px;">
+	<span style="margin-left:0px;">Search by:</span>
+	<span style="margin-left:20px;">Color</span> 
+	<span style="margin-left:20px;">Company</span>
+	<span style="margin-left:20px;font-weight:700;color: #FF0808;">Industry</span>
+	<span style="margin-left:20px;">Attribute</span>
+</div>
+<div class="row" style="font-weight:500;">
+	<div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;">The Industry</div>
+	<div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;">Industry Colors Used</div>
+	<div class="col-md-4" style="padding-bottom:10px;">The Industry Logos</div>
+</div>
 
-  <% include module_logoCloud %>    
-  <% include module_colorChart %>  
-  <% include module_geoMap %>  
-  <% include module_topAttributes %>  
-  <% include module_topColors %>  
-  <% include module_colorPalette %> 
-
-<% include footer %>
+   <div class="row">
+        <div class="col-md-4" style="border-right: 1px solid #eee;">
+        <% include module_industryInfo %> 
+  <% include module_geoMap %> 
+</div>
+        <div class="col-md-4" style="border-right: 1px solid #eee;"><% include module_industryColors %>
+			<% include module_colorPalette %>
+        	<% include module_industryRatio %> </div>
+        <div class="col-md-4">
+			<% include module_logoCloud %>
+</div>
+      </div>

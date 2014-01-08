@@ -11,32 +11,24 @@
             </span>
         </div>
         <!-- Content - Timeline -->
-        <div class="well-content">
+        <div class="well-content" style="padding: 20px;
+font-size: 14px;
+font-weight: 700;">
 
-          <ul id='timeline-logos'>
-
-           <% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
-
-            <li class='timeline-logo'>
-
-
-        <!-- Figure out how to control what item has its radio checked, it has to be the first one -->
-        
-              <input class='radio' id='timeline-logo-<%= [i] %>' name='timeline-logo' type='radio' checked>
-              <div class="relative">
-                <label for='timeline-logo-<%= [i] %>'>
-                  <img src="../Logos/<%= brandResult.logoHistory[i].fileName%>">
-                </label>
-                <span class='date'><%= brandResult.logoHistory[i].year%></span>
-                <span class='circle'></span>
-              </div>
-              <div class='content'>
-              </div>
-            </li>
+          <% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
+          <div style="float:left;margin-right:5px;width:125px;border: 1px rgba(240, 240, 240, 0.47) solid; ">
+            <div style="width: 125px;">
+            <img src="../Logos/<%= brandResult.logoHistory[i].fileName%>" style="height:100px;display: block;
+margin: 0 auto;">
+            </div>
+            <div style="text-align:center;margin-top:10px;font-weight: 700;
+background-color: rgb(250, 250, 250);">
+            <%= brandResult.logoHistory[i].year%>
+            </div>
+          </div>
 
           <%}%>   
 
-          </ul>
         </div>
       </div>
     </div>

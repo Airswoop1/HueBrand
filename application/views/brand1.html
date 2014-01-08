@@ -1,11 +1,11 @@
-<!-- [color.html] - Page for Color Search Results -->
+<!-- [brand.html] - Page for Brand Search Results -->
 
 <% include header %>
 <% include sidebar %>
 <div class="row" style="height:50px;margin-top:10px;margin-left:2px;font-size:16px;">
 	<span style="margin-left:0px;">Search by:</span>
-	<span style="margin-left:20px;font-weight:700;color: #FF0808;1">Color</span> 
-	<span style="margin-left:20px;">Company</span>
+	<span style="margin-left:20px;">Color</span> 
+	<span style="margin-left:20px;font-weight:700;color: #FF0808;">Company</span>
 	<span style="margin-left:20px;">Industry</span>
 	<span style="margin-left:20px;">Attribute</span>
 </div>
@@ -17,14 +17,21 @@
 
    <div class="row">
         <div class="col-md-4" style="border-right: 1px solid #eee;">
-        <% include module_colorInfo %> 
-  <% include module_geoMap %> 
+        <% include module_companyInfo %> 
+  <% include module_logoTimeline %> 
 </div>
-        <div class="col-md-4" style="border-right: 1px solid #eee;"><% include module_colorPalette %>
-			<% include module_valuesUsed %>
-        	<% include module_topColors %> </div>
+        <div class="col-md-4" style="border-right: 1px solid #eee;"><% include module_logoColorsAnalytics %>
+        	<% include module_geoMap %> </div>
         <div class="col-md-4">
-          <% include module_topIndustries %>    
+          <% include module_industryColors %>    
   <% include module_logoCloud %>
 </div>
       </div>
+
+  
+
+
+
+
+
+<% include footer %>
