@@ -5,16 +5,93 @@ var csv = require('csv'),
   mongoose = require('mongoose'),
   bloom = require('./bloombergCompanies.js'),
   colorExtract = require('./colorExtraction.js'),
-  logopedia = ('./scrape.js').logopediaModel;
+	logopedia = require('./scrape.js');
 
 exports.downloadLogopediaImages = function(){
 
-	var logopediaStream = logopedia.find({$not: {bloombergMatch:'N'}}).stream();
+	var counter = 0;
+
+	var logopediaStream = logopedia.logopediaModel.find().stream();
 
 	logopediaStream
 	.on('data', function(doc){
+		
+		logopediaStream.pause();
 
+		if(counter>100){
+			logopediaStream.destroy();
+		}
 
+		if(doc.logosData.length && doc.bloombergMatch !== 'N' && (typeof doc.bloombergMatch !== 'undefined')){
+			counter++;
+			//determine which to download as main logo
+			if(doc.logosData.length === 1){
+				var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_')
+				exports.downloadOne(doc.logosData[0].url, fileName, doc.bloombergMatch);
+
+				logopediaStream.resume();
+			}
+			else{
+				var mainURL = doc.logosData[(doc.logosData.length-1)].url;
+				var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_');
+				exports.downloadOne(mainURL, fileName, doc.bloombergMatch);
+				var logoHistArr = [];
+
+				console.log("Multiple logo files being downloaded for : ");
+				console.log(fileName)
+
+				for(var i=0; i<doc.logosData.length-1;i++){
+					(function(i){					
+
+							var otherLogoFileName = fileName + "_" + doc.logosData[i].date;
+							otherLogoFileName.replace(/[^0-9 \-]+/g,'X')
+							var uri = doc.logosData[i].url;
+
+							request.head(uri, function(err, res, body){
+
+						    if(res.headers['content-type']==='image/jpeg') otherLogoFileName = otherLogoFileName + '.jpeg';
+						    else if(res.headers['content-type']==='image/jpg') otherLogoFileName = otherLogoFileName + '.jpg';
+						    else if(res.headers['content-type']==='image/png') otherLogoFileName = otherLogoFileName + '.png';
+						    else if(res.headers['content-type']==='image/svg+xml') otherLogoFileName = otherLogoFileName + '.svg';
+						    else if(res.headers['content-type']==='image/gif') otherLogoFileName = otherLogoFileName + '.gif';
+
+						    fs.exists('../application/public/Logos/'+otherLogoFileName, function(exists){
+						    	if(exists){
+						    		
+						    		var ind = otherLogoFileName.indexOf('.')
+						    		
+						    		var newFileName = otherLogoFileName.substring(0, ind != -1 ? ind : otherLogoFileName.length);
+						    		
+						    		var extension = otherLogoFileName.substring(ind, otherLogoFileName.length)
+						    		newFileName += '1' + extension;
+						    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
+						    	}
+						    	else{	
+						    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+otherLogoFileName));
+						    	}
+						    	logoHistArr.push({
+										'year' : doc.logosData[i].date,
+										'fileName' : otherLogoFileName
+									})
+						    })
+
+						    
+						  });
+						
+
+					})(i);
+				}
+
+				console.log(logoHistArr);
+
+				logopediaStream.resume();	
+
+			}
+			//name, save to db and download said logos
+
+			//take the remaining logos and name, save to db and download them
+		}
+		logopediaStream.resume()
 
 	})
 	.on('error', function(error){
@@ -25,6 +102,75 @@ exports.downloadLogopediaImages = function(){
 })
 }
 
+exports.downloadOne = function(uri, logoFileName, bloombergName){
+  request.head(uri, function(err, res, body){
+
+    if(res.headers['content-type']==='image/jpeg') logoFileName = logoFileName + '.jpeg';
+    else if(res.headers['content-type']==='image/jpg') logoFileName = logoFileName + '.jpg';
+    else if(res.headers['content-type']==='image/png') logoFileName = logoFileName + '.png';
+    else if(res.headers['content-type']==='image/svg+xml') logoFileName = logoFileName + '.svg';
+    else if(res.headers['content-type']==='image/gif') logoFileName = logoFileName + '.gif';
+
+    fs.exists('../application/public/Logos/'+logoFileName, function(exists){
+    	if(exists){
+    		
+    		var ind = logoFileName.indexOf('.')
+    		
+    		var newFileName = logoFileName.substring(0, ind != -1 ? ind : logoFileName.length);
+    		
+    		var extension = logoFileName.substring(ind, logoFileName.length)
+    		newFileName += '1' + extension;
+    		console.log(newFileName);
+    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
+		    saveOneToDB(newFileName, bloombergName);
+    	}
+    	else{	
+    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+logoFileName));
+		    saveOneToDB(logoFileName, bloombergName);
+    	}
+    })
+
+    
+  });
+};
+
+
+var saveOneToDB = function(logoFile, bloomName){
+	var query = {shortName : bloomName};
+	var update = {logoFileName : logoFile};
+	
+	console.log("Going to update " + bloomName + " with logo file " + logoFile);	
+	
+	bloom.bloombergCompany.findOneAndUpdate(query, update, function(err){
+		if(err) console.log("error saving to db : " + err);
+		console.log("DB Updated for " + bloomName);
+	})
+}
+
+exports.populate = function(){
+	csv()
+	.from.path(__dirname+'/companyLogoList.csv', {delimiter: ','})
+	.transform(function(row){
+		row.unshift(row.pop());
+		return row
+	})
+	.on('record', function(row, index){
+		
+		var searchName = row[2];	
+		var fileName = row[3].toLowerCase().split(' ').join('_');
+		var dispName = row[3]
+		var uri = row[5];
+		exports.download(uri, fileName, searchName, dispName);
+
+	})
+	.on('close', function(count){
+		console.log("number of lines processed "+count)
+	})
+	.on('error', function(error){
+		console.log("there was an error" + error.message)
+	});
+	console.log("Images downloaded!"); 
+}
 
 exports.downloadFavicon = function(){
 	var favstream = bloom.bloombergCompany.find().stream();
@@ -74,66 +220,5 @@ exports.downloadFavicon = function(){
 		console.log("Stream for favicon downloading closed");
 
 	});
-
-}
-
-var saveToDB = function(logoFile, sName, dName){
-	var query = {shortName : sName};
-	var update = {logoFileName : logoFile, displayName : dName};
-	
-	console.log("Going to update " + sName + " with logo file " + logoFile + " and displayName as " + dName);	
-	
-	bloom.bloombergCompany.findOneAndUpdate(query, update, function(){
-		console.log("DB Updated for " + dName);
-	})
-}
-
-exports.download = function(uri, logoFileName, sName, companyShortName){
-  request.head(uri, function(err, res, body){
-    console.log('content-type:', res.headers['content-type']);
-    console.log('content-length:', res.headers['content-length']);
-
-
-    if(res.headers['content-type']==='image/jpeg') logoFileName = logoFileName + '.jpeg';
-    else if(res.headers['content-type']==='image/jpg') logoFileName = logoFileName + '.jpg';
-    else if(res.headers['content-type']==='image/png') logoFileName = logoFileName + '.png';
-    else if(res.headers['content-type']==='image/svg+xml') logoFileName = logoFileName + '.svg';
-    else if(res.headers['content-type']==='image/gif') logoFileName = logoFileName + '.gif';
-
-    request(uri).pipe(fs.createWriteStream('../Logos/'+logoFileName));
-
-    saveToDB(logoFileName, sName, companyShortName);
-  });
-};
-
-
-exports.populate = function(){
-	csv()
-	.from.path(__dirname+'/companyLogoList.csv', {delimiter: ','})
-	.transform(function(row){
-		row.unshift(row.pop());
-		return row
-	})
-	.on('record', function(row, index){
-		
-		var searchName = row[2];	
-		var fileName = row[3].toLowerCase().split(' ').join('_');
-		var dispName = row[3]
-		var uri = row[5];
-		exports.download(uri, fileName, searchName, dispName);
-
-	})
-	.on('close', function(count){
-		console.log("number of lines processed "+count)
-	})
-	.on('error', function(error){
-		console.log("there was an error" + error.message)
-	});
-	console.log("Images downloaded!"); 
-}
-
-exports.logopediaDownload = function(){
-	
-
 
 }

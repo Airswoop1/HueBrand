@@ -145,7 +145,7 @@ def main_file_exp():
     """
     shows image with sampled and snapped strips
     """
-    path = "../Logos/"
+    path = "../application/public/Logos"
     image_name = sys.argv[1];
     #image_name = 'CAT_Logo.jpg'
     full_path = path+image_name
