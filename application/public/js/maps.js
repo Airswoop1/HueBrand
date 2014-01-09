@@ -5,11 +5,24 @@ function initialize() {
 
   // Create the map.
   var mapOptions = {
-    zoom: 1,
-    center: new google.maps.LatLng(37.09024, -95.712891),
+    zoom: 2,
+    center: new google.maps.LatLng(38.723888,-35.762143),
     disableDefaultUI: true,
     scrollwheel: false,
-    mapTypeId: google.maps.MapTypeId.TERRAIN
+    mapTypeId: google.maps.MapTypeId.TERRAIN,
+     styles: [
+      {
+        "stylers": [
+      { "visibility": "simplified" },
+      { "weight": 0.5 },
+      { "saturation": 54 },
+      { "lightness": 0 },
+     { "gamma": .65 },
+       
+    ]
+      },{
+      }
+    ]
   };
 
   var map = new google.maps.Map(document.getElementById('map-canvas'),
