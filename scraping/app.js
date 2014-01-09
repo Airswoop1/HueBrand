@@ -122,7 +122,7 @@ and then saving it back to the database.
 
 //scrape.refineLogoData();
 
-imageDownload.downloadLogopediaImages();
+//imageDownload.downloadLogopediaImages();
 
 var logopediaArray = []
 var logosQ = scrape.logopediaModel.find({$and: [{logosData :{$not :{$size : 0 }}}, {bloombergMatch: {$exists:false}}]});
