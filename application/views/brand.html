@@ -1,13 +1,42 @@
+<!-- [brand.html] - Page for Brand Search Results -->
+
 <% include header %>
 <% include sidebar %>
+<div class="row" style="height:50px;margin-top:10px;margin-left:2px;font-size:16px;">
+  <span style="margin-left:0px;">Search by:</span>
+  <span style="margin-left:20px;">Color</span> 
+  <span style="margin-left:20px;font-weight:700;color: #FF0808;">Company</span>
+  <span style="margin-left:20px;">Industry</span>
+  <span style="margin-left:20px;">Attribute</span>
+</div>
+<div class="row" style="font-weight:500;">
+  <div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;text-align: center;
+  font-size: 24px;">
+    Company
+  </div>
+  <div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;text-align: center;
+  font-size: 24px;">
+    Logo Colors & Meaning
+  </div>
+  <div class="col-md-4" style="padding-bottom:10px;text-align: center;
+  font-size: 24px;">
+    Industry Logos & Colors
+  </div>
+</div>
 
-  <% include module_companylogo %>    
-  <% include module_companyinfo %>  
-  <% include module_companybrandmanual %>  
-  <% include module_logocolors %>  
-  <% include module_logotimeline %>  
-  <% include module_logocloud %> 
-  <% include module_geomap %> 
-  <% include module_topattributes %>
+<div class="row">
+  <div class="col-md-4" style="border-right: 1px solid #eee;">
+    <% include m_brand-info %> 
+    <% include m_brand-logoHistory %> 
+  </div>
+  <div class="col-md-4" style="border-right: 1px solid #eee;">
+    <% include m_brand-logoColorsAnalytics %>
+    <% include m_global-map %> 
+  </div>
+  <div class="col-md-4">
+    <% include m_global-industryColors %>    
+    <% include m_global-logoCloud %>
+  </div>
+</div>
 
 <% include footer %>

@@ -1,10 +1,40 @@
+<!-- [attribute.html] - Page for Industry Search Results -->
 <% include header %>
 <% include sidebar %>
+<div class="row" style="height:50px;margin-top:10px;margin-left:2px;font-size:16px;">
+  <span style="margin-left:0px;">Search by:</span>
+  <span style="margin-left:20px;">Color</span> 
+  <span style="margin-left:20px;">Company</span>
+  <span style="margin-left:20px;">Industry</span>
+  <span style="margin-left:20px;font-weight:700;color: #FF0808;">Attribute</span>
+</div>
+<div class="row" style="font-weight:500;">
+  <div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;text-align: center;
+  font-size: 24px;">
+    Attribute
+  </div>
+  <div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;text-align: center;
+  font-size: 24px;">
+    Colors Used
+  </div>
+  <div class="col-md-4" style="padding-bottom:10px;text-align: center;
+  font-size: 24px;">
+    Industry Logos & Frequency
+  </div>
+</div>
 
-  <% include module_logocloud %>    
-  <% include module_topindustries %>  
-  <% include module_colorchart %>  
-  <% include module_colorgeomap %>  
-  <% include module_topcolors %>
+<div class="row">
+  <div class="col-md-4" style="border-right: 1px solid #eee;">
+    <% include m_attribute-info %> 
+    <% include m_global-map %> 
+  </div>
+  <div class="col-md-4" style="border-right: 1px solid #eee;">
+    <% include m_global-colorTop %>
+    <% include m_attribute-colorCombos %></div>
+  <div class="col-md-4">
+    <% include m_global-topIndustries %>
+    <% include m_global-logoCloud %>
+  </div>
+</div>
 
 <% include footer %>

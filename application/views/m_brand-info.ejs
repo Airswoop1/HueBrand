@@ -1,0 +1,29 @@
+<!--  Module - Company Logo & Information - "Shows the Company's Logo and Data Associated to it" -->
+     <div class="container-fluid" id="companylogo">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+            Company Info
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+              </div>
+            </span>
+        </div>
+        <div class="well-content">
+          <div id="companylogo-box">
+            <a href="../Logos/<%= brandResult.logoFileName%>" download="<%= brandResult.logoFileName%>">
+              <img id="logo" src="../Logos/<%= brandResult.logoFileName%>">
+             </a>
+          </div>
+          <ul style="font-size: 16px;line-height: 22px;">
+           <li style="list-style-type: square;padding-bottom:10px;"><b><span style="text-transform:capitalize;"><%= brandResult.shortName %></span></b> - <%= brandResult.desc %></font></li>
+           <li style="list-style-type: square;"><b>Stock Symbol</b> - <%= brandResult.stockSymbol %></li>
+           <li style="list-style-type: square;"><b>Industry</b> - <%=brandResult.GICSSectorName%></li>
+           <li style="list-style-type: square;"><b>Headquarters</b> - <%=brandResult.country%></li>
+           <li style="list-style-type: square;"><b>Market Cap Rank</b> - <%= brandResult.marketCapRank%></li>
+           <li style="list-style-type: square;"><b>Market Cap</b> - <%= brandResult.marketCap%></li>
+          </ul>
+        </div>
+      </div>
+    </div>
