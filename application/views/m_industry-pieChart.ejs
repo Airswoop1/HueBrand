@@ -1,0 +1,41 @@
+  <!--  Module - Color Pie Chart - "Pie Chart and Legend showing the Percentage of Color Used" -->
+<head>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Color', 'Percentage'],
+        ['Blue',     10],
+        ['Red',      20],
+        ['Orange',  40],
+        ['Green', 20],
+        ['Purple',    10]
+      ]);
+
+      var options = {
+       
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+    <div class="container-fluid" id="colorchart">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+            Color Combinations
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+              </div>
+            </span>
+        </div>
+        <div class="well-content">
+         <div id="piechart" style="width: 593px; height: 300px;"></div>
+        </div>
+      </div>
+    </div>
