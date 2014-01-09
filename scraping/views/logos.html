@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Logo Matching</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	
+	<script>
+	  var socket = io.connect('http://localhost:8003');
+	  var currentBloom = [];
+	  var currentLogopedia = {};
+
+	  socket.on('new-logo', function (data) {
+	    removePrior();
+	    renderTitle(data.logopediaTitle, data.logopediaURL);
+	    renderiFrame(data.logopediaURL);
+	    renderBloomberg(data.bloombergCompanies);
+
+	    currentBloom = data.bloombergCompanies;
+	    currentLogopedia.logopediaTitle = data.logopediaTitle;
+	    currentLogopedia.logopediaURL = data.logopediaURL;
+
+	  });
+
+	  socket.on('new-query-response', function (data) {
+	  		$('#bloomberg-container').empty();
+	  		currentBloom = data.newQ;
+	  		renderBloomberg(data.newQ);
+	  });
+
+	  socket.on('no-query-response', function (data){
+	  	$('#bloomberg-container').empty().append(
+	  		"<p>NO RESULTS MATCHED QUERY</p>");
+	  });
+
+	  function removePrior(){
+	  	$('#inputBox').val('');
+	  	$('#logopedia-title').empty().attr('href','');
+	  	$('#logopedia-iframe').attr('src','');
+	  	$('#bloomberg-container').empty();
+	  }
+
+	  function renderTitle(logoTitle, logoURL){
+	  	$('#logopedia-title').html(logoTitle).attr('href', logoURL);
+
+	  }
+
+	  function renderiFrame(logoURL){
+	  	$('#logopedia-iframe').attr('src', logoURL);
+	  }
+
+	  function renderBloomberg(cArr){
+	  	if(cArr.length>=5){
+	  		for(var i=0;i<cArr.length;i++){
+	  			if(i===0) { $('#bloomberg-container').append("<ul>"); }
+
+	  			$('#bloomberg-container').append(
+	  				"<li><a target='_blank' href='http://"+cArr[i].website+"'>"+ 
+	  				 (i+1) + " " + cArr[i].shortName +"</a></li>"
+	  			)
+	  			if(i === cArr.length-1) { $('#bloomberg-container').append("</ul>"); }
+	  		}
+	  	}
+	  	else{
+		  	for(var i=0;i<cArr.length; i++){
+		  		$('#bloomberg-container').append(
+		  			"<div style='height:300px; width:300px'>\
+		  				<h4><a target='_blank' href='http://"+cArr[i].website+"'>" + (i+1) + " " + cArr[i].shortName + "</a></h4>\
+		  				<iframe src='http://" + cArr[i].website + "' width='250' height='250'></iframe>\
+		  			</div>"
+		  			)
+		  	}
+	  	}
+	  }
+
+	$( document ).ready(function() {
+	  	$('#matchButton').on('click', function(event){
+	  			var inputText = $('#inputBox').val();
+	  			var company = currentBloom[parseInt(inputText,10)-1];
+	  			var lType = $('input:radio[name=typeOfLogo]:checked').val();
+
+	  			if( inputText !== '' && company!== undefined ){
+	  					socket.emit('match',{
+	  						'logopediaTitle': currentLogopedia.logopediaTitle,
+	  						'logopediaURL' : currentLogopedia.logopediaURL,
+	  						'bloombergMatch' : company,
+	  						'logoType' : lType
+	  					})
+	  					socket.emit('next-logo');
+	  					$('#inputBox').val('');
+	  					$('#primeRadio').prop('checked',true)
+	  				}
+	  				else{
+	  					alert("Not a valid selection for match ");
+	  					$('$inputBox').val('');
+	  				}	  		
+	  	})
+
+	  	$('#noMatchButton').on('click', function(event){
+					socket.emit('no-match',{
+						'logopediaTitle': currentLogopedia.logopediaTitle,
+						'logopediaURL' : currentLogopedia.logopediaURL
+					})
+  				socket.emit('next-logo');
+	  	})
+
+	  	$('#querySearchButton').on('click', function(){
+	  		var dbQ = $('#queryBox').val()
+	  		socket.emit('database-search', {
+	  			"query" : dbQ
+	  		})
+	  		$('#queryBox').val('');
+	  	});
+
+
+	  	socket.emit('next-logo');	
+
+	  });
+
+
+	</script>
+
+	<style type="text/css">
+		li{
+			float:left;
+			width:100%;
+			display:block;
+		}
+	</style>
+</head>
+<body>
+
+	<div class='main-container'>
+		
+		<div id='logopedia-container' style='height=650px;width:700px;float:left'>
+			<h4 ><a target='_blank' href="" id='logopedia-title'></a></h4>
+			<iframe id='logopedia-iframe' width="600" height="600" frameborder="1" marginheight="0" marginwidth="0" src=""></iframe>
+		</div>
+
+		<div id='bloomberg-container' style='float:right;width:500px;height:600;'>
+
+		</div>
+	</div>
+		<div id='controls' style='position:absolute;top:0;left:0'>
+			<input type='text' name='selection' id='inputBox'>
+			<button type='button' id='matchButton'>Match</button>
+			<button type='button' id='noMatchButton'>No Match</button>
+			|
+			<input type='text' name='query' id='queryBox'>
+			<button type='button' id='querySearchButton'>Query DB</button>
+			|
+			Primary:<input type='radio' name='typeOfLogo' value='primary' id='primeRadio' checked>
+			Secondary:<input type='radio' name='typeOfLogo' value='secondary'>
+		</div>
+
+</body>
+</html>

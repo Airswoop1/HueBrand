@@ -3,6 +3,7 @@ var portscanner = require('portscanner');
 var request = require('request');
 var cheerio = require('cheerio');
 var mongoose = require('mongoose');
+var util = require('util');
 
 var Logopedia = mongoose.Schema({
 
@@ -12,13 +13,206 @@ var Logopedia = mongoose.Schema({
 		url : String,
 		date : String
 	}],
-	redirect : String
+	redirect : String,
+	bloombergMatch : String,
+	logoType : String,
+	logoCategories : [String],
+	logoClass : String, // ['parent', 'subsidiary', 'brand', 'logo', 'delete']
+	parentCompany: [String]
 
 })
 
 Logopedia.index({logoName: 1}, {unique:true});
 
-exports.logopediaModel = mongoose.model('logopedia', Logopedia)
+exports.logopediaModel = mongoose.model('logopedia', Logopedia);
+
+exports.refineLogoData = function (){
+
+	var stream = exports.logopediaModel.find().stream();
+
+	stream.on('data', function (doc){
+		stream.pause();
+		var url = doc.logoURL
+		request(url, function (error, response, body){
+	  	
+	  	if(error){
+	  		console.log("Error loading page!");
+	  	}
+	  	try{
+		  	var $ = cheerio.load(body);
+		  	
+		  	//grab categories from page for logo
+		  	var catArray = [];
+		  	var categories = $('.WikiaArticleCategories.CategorySelect.articlePage ul.categories li.category.normal')
+		  	for(var i=0; i<categories.length;i++){
+		  		catArray.push(categories[i].attribs['data-name'])
+		  	}
+		  	doc.logoCategories = catArray;
+
+				//grab all Tables Titles into one string
+		  	var tableTitles = $('tbody,tr>th').text();
+		  	//spilt Titles into array
+		  	tableTitles = tableTitles.split('\n');
+
+		  	//grab first occurance of the logos selflink, this will be the logos title
+		  	var selfLink = $('.selflink').first().text();				
+
+		  	//flag for determining whether or not it is a parent
+				var isAParent = false;
+				//variable for cleaned Table Titles Array (without '')
+				var newTableTitlesArray = [];
+
+				/*
+					go through and clean the array, removing '' and flagging whether the 
+					logo is the parent company (isAParent = true)
+				*/
+				if(tableTitles.length){
+					for(var j=0;j<tableTitles.length;j++){
+						
+						tableTitles[j] = tableTitles[j].trim()
+
+						if(tableTitles[j] !== '' && tableTitles[j] !== 'Contents'){
+							newTableTitlesArray.push(tableTitles[j]);
+						}
+
+						if(tableTitles[j]===selfLink && selfLink !== ''){
+							isAParent = true;
+						}
+					}
+				}
+
+				/*
+					grab all of the logo images on the page
+					Used to determine whether the page has any logos at all
+				*/
+				var imageSelection = $('.floatnone a');
+		  	
+		  	//is a parent company
+		  	if(isAParent){
+		  		console.log('Logopedia page for ' + doc.logoName + " is a parent company!");
+		  		doc.logoClass = 'parent';
+
+		  	}
+		  	//has a parent company 
+		  	else if(newTableTitlesArray.length >= 1){
+		  		//has only one parent company
+		  		if(newTableTitlesArray.length === 1){
+		  			//is a brand of parent company 
+		  			console.log('Logopedia page for ' + doc.logoName + " has a parent company " + newTableTitlesArray[0]);
+		  			doc.logoClass = 'brand'
+		  			doc.parentCompany = newTableTitlesArray;
+		  		}
+		  		//has multiple parent companies
+		  		else{
+		  			console.log('Logopedia page for ' + doc.logoName + " has multiple parent companies ");
+		  			for(var i=0; i<newTableTitlesArray.length; i++){
+		  				if(newTableTitlesArray[i]){
+		  					console.log(newTableTitlesArray[i]);
+		  				}
+		  			}
+		  			doc.logoClass = 'brand';
+		  			doc.parentCompany = newTableTitlesArray;
+		  		}
+
+		  	}
+		  	//Just a logo/logos of a company 
+		  	else{
+		  		console.log('Logopedia page for ' + doc.logoName + " is its own logo ");
+		  		doc.logoClass = 'logo';
+		  	}
+		  	doc.save();
+		  	stream.resume();
+		  }
+		  catch(e){
+		  	console.log("error in stream! " + e);
+		  	stream.resume();
+		  }
+	  	
+	  	
+		})
+
+
+	}).on('error', function (err){
+		console.log("Error in stream " + err);
+
+	}).on('close', function (){
+
+		console.log("Stream closed!");
+
+	})	
+
+
+}
+
+exports.matchLogoWithCompany = function(){
+
+	var stream = exports.logopediaModel.find({logosData :{$not :{$size : 0 }}}).stream();
+
+	stream.on('data', function (doc) { 
+		stream.pause();
+	
+		var lName = doc.logoName.replace('/','\/');
+
+		var bloomQuery = bloom.bloombergCompany.find({'shortName': eval("/" + lName+ "/i")})
+	
+		bloomQuery.exec(function(err, obj){
+
+			if(obj.length > 1){
+				prompt.start();
+				var properties = ['#0 None of these'];
+				prompt.message = "Pick company that best matches " + doc.logoName + " " + doc.logoURL;
+
+				for(var i=0; i<obj.length;i++){
+					var mystring = '#'+(i+1)+' '+obj[i].shortName + ' - ' + obj[i].website;
+					properties.push(mystring);
+				}
+				
+				properties.join(' ');
+				console.log(properties);
+				prompt.get({
+					name : 'choice',
+					"description" : properties,
+					validator : /\d+/
+				},function(err, result){
+					
+					if(result.choice === '0'){	
+						console.log("No match for " + doc.logoName)
+						doc.bloombergMatch = 'N'
+						doc.save();
+					}
+					else{
+						console.log("Match for " + doc.logoName);
+						console.log(obj[parseInt(result.choice)-1].shortName);
+						doc.bloombergMatch = obj[parseInt(result.choice)-1].shortName;
+						doc.save();
+					}
+					stream.resume();
+				});
+
+			}
+			else if(obj.length === 1){
+				console.log("Match for " + doc.logoName)
+				doc.bloombergMatch = obj.shortName;
+				doc.save();
+				stream.resume();
+			}
+			else{
+				console.log("No match for " + doc.logoName)
+				doc.bloombergMatch = 'N'
+				doc.save();
+				stream.resume();
+			}
+
+		})	
+
+
+	}).on('error', function (err) {
+	  // handle the error
+	}).on('close', function () {
+	  // the stream is closed
+	});
+
+}
 
 exports.collectLogos = function(){
 	
@@ -26,7 +220,7 @@ exports.collectLogos = function(){
 	stream.on('data', function (doc) {
 	  stream.pause()
 
-	  request(doc.logoURL, function(error, response, body){
+	  request(doc.logoURL, function (error, response, body){
 	  	if(error ){
 	  		console.log("Error! " + error )
 	  		//continue onto next request
