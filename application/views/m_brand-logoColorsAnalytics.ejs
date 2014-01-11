@@ -10,7 +10,7 @@
               </div>
             </span>
         </div>
-        <div class="well-content" style="padding:20px;">
+        <div class="well-content" style="height: 155px;padding:20px;">
         <% var width = (1/brandResult.associatedColors.length)*100 %>
                     <% for(var i=0; i<brandResult.associatedColors.length; i++){ %>
               <div id="box-1" class="box" style="height: 92%;background:rgb(
@@ -46,14 +46,13 @@
         <div class="well-content" style="height: 100px!important;margin-top:-10px;}">
           <div>
             <div style="float: left;
-                width: 160px;
+                width: 30%;
                 text-align: center;
-                margin-top: 10px;
                 border: 1px solid #eee;
-                padding-bottom: 10px;
-                margin-left: 45px;
-                padding-top: 10px;
-                margin-right: 10px;"> 
+               
+                height:77px;
+                margin-left: 2.5%;
+                margin-right: 2.5%;"> 
                 <div style="font-size:11px;padding:10px;line-height:14px;font-weight:700;">
                   Color Percentage used<br> in industry
               </div>  
@@ -61,14 +60,13 @@
             <span style="font-size:30px;font-weight:500">45%</span>
           </div>
           <div style="float: left;
-                margin-top: 8px;
-                width: 160px;
+                width: 30%;
                 text-align: center;
                 border: 1px solid #eee;
                 font-size: 11px;
-                padding: 10px;
+                height:77px;
                 font-weight: 700;
-                margin-right: 10px;"> 
+                margin-right: 2.5%;"> 
                   <div>
                     <div style="font-size:11px;padding:10px;line-height:14px;font-weight:700;">
                     Color used<br> across industries
@@ -77,14 +75,14 @@
                     <div></div>
                     <span style="font-size:30px;font-weight:500">33%</span></div>
              <div style="float: left;
-                width: 160px;
+                width: 30%;
                 text-align: center;
-                margin-top: 10px;
                 border: 1px solid #eee;
                 font-size: 11px;
-                padding: 10px;
+                height:77px;
                 font-weight: 700;
-                margin-right: 10px;"> 
+                padding-right: 0px;
+                margin-right: 2.5%;"> 
                   <div>
                     <div style="font-size:11px;padding:10px;line-height:14px;font-weight:700;">
                       Logo Color <br> combinations used
@@ -94,9 +92,13 @@
                   <span style="font-size:30px;font-weight:500">27%</span></div>
            </div>
         </div>
-        <div style="width: 100%;text-align: center;margin-top: -10px;">
+        <div style="width: 100%;text-align: center;margin-top: -20px;">
           <a href="../Logos/<%= brandResult.brandManualFileName%>" download="<%= brandResult.brandManualFileName%>">
-            <button id="buttondownload" style="padding-bottom: 10px;margin-bottom: 20px;">
+            <button id="buttondownload" style="padding-bottom: 10px;
+margin-bottom: 20px;
+WIDTH: 635PX;
+MARGIN: 20PX;color: #818181;
+BACKGROUND-COLOR: #FFF;">
               <div>
                 <i class="fa fa-download" style="font-size: 15px;margin-right: 10px;"></i>
                 Download <%= brandResult.shortName %>'s Original Brand Manual
