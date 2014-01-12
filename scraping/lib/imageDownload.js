@@ -7,6 +7,54 @@ var csv = require('csv'),
   colorExtract = require('./colorExtraction.js'),
 	logopedia = require('./scrape.js');
 
+var downloadMultiple = function (doc, i, logoHistArr, callback){
+	
+	var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_');
+	var otherLogoFileName = fileName + "_" + doc.logosData[i].date;
+	otherLogoFileName = otherLogoFileName.replace(/[^a-zA-Z 0-9\-\_]+/g,'X').split(' ').join('_');
+
+	var uri = doc.logosData[i].url;
+
+	request.head(uri, function(err, res, body){
+
+  if(res.headers['content-type']==='image/jpeg') otherLogoFileName = otherLogoFileName + '.jpeg';
+  else if(res.headers['content-type']==='image/jpg') otherLogoFileName = otherLogoFileName + '.jpg';
+  else if(res.headers['content-type']==='image/png') otherLogoFileName = otherLogoFileName + '.png';
+  else if(res.headers['content-type']==='image/svg+xml') otherLogoFileName = otherLogoFileName + '.svg';
+  else if(res.headers['content-type']==='image/gif') otherLogoFileName = otherLogoFileName + '.gif';
+
+  fs.exists('../application/public/Logos/'+otherLogoFileName, function(exists){
+  	
+  	if(exists){
+  		
+  		var ind = otherLogoFileName.indexOf('.')
+  		
+  		var newFileName = otherLogoFileName.substring(0, ind != -1 ? ind : otherLogoFileName.length);
+  		
+  		var extension = otherLogoFileName.substring(ind, otherLogoFileName.length)
+  		newFileName += '1' + extension;
+  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
+
+  	}
+  	else{	
+  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+otherLogoFileName));
+  	}
+  	
+  	logoHistArr.push({
+			'year' : doc.logosData[i].date,
+			'fileName' : otherLogoFileName
+		})
+		
+		callback(doc, i, logoHistArr);
+
+
+  })
+
+    
+  });
+
+}
+
 exports.downloadLogopediaImages = function(){
 
 	var counter = 0;
@@ -15,7 +63,7 @@ exports.downloadLogopediaImages = function(){
 
 	logopediaStream
 	.on('data', function(doc){
-		
+		console.log(counter);
 		logopediaStream.pause();
 
 		if(counter>100){
@@ -39,57 +87,21 @@ exports.downloadLogopediaImages = function(){
 
 				console.log("Multiple logo files being downloaded for : ");
 				console.log(fileName)
-
-				for(var i=0; i<doc.logosData.length-1;i++){
-					(function(i){					
-
-							var otherLogoFileName = fileName + "_" + doc.logosData[i].date;
-							otherLogoFileName.replace(/[^0-9 \-]+/g,'X')
-							var uri = doc.logosData[i].url;
-
-							request.head(uri, function(err, res, body){
-
-						    if(res.headers['content-type']==='image/jpeg') otherLogoFileName = otherLogoFileName + '.jpeg';
-						    else if(res.headers['content-type']==='image/jpg') otherLogoFileName = otherLogoFileName + '.jpg';
-						    else if(res.headers['content-type']==='image/png') otherLogoFileName = otherLogoFileName + '.png';
-						    else if(res.headers['content-type']==='image/svg+xml') otherLogoFileName = otherLogoFileName + '.svg';
-						    else if(res.headers['content-type']==='image/gif') otherLogoFileName = otherLogoFileName + '.gif';
-
-						    fs.exists('../application/public/Logos/'+otherLogoFileName, function(exists){
-						    	if(exists){
-						    		
-						    		var ind = otherLogoFileName.indexOf('.')
-						    		
-						    		var newFileName = otherLogoFileName.substring(0, ind != -1 ? ind : otherLogoFileName.length);
-						    		
-						    		var extension = otherLogoFileName.substring(ind, otherLogoFileName.length)
-						    		newFileName += '1' + extension;
-						    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
-						    	}
-						    	else{	
-						    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+otherLogoFileName));
-						    	}
-						    	logoHistArr.push({
-										'year' : doc.logosData[i].date,
-										'fileName' : otherLogoFileName
-									})
-						    })
-
-						    
-						  });
-						
-
-					})(i);
+				var cbFunction = function(d, j, lHA){
+					if(j === d.logosData.length-2){
+						console.log(lHA);
+						logopediaStream.resume()
+					}
+					else{
+						downloadMultiple(d,++j,lHA, cbFunction);
+					}
+					
 				}
 
-				console.log(logoHistArr);
-
-				logopediaStream.resume();	
+				downloadMultiple(doc, 0, logoHistArr, cbFunction)
 
 			}
-			//name, save to db and download said logos
 
-			//take the remaining logos and name, save to db and download them
 		}
 		logopediaStream.resume()
 
