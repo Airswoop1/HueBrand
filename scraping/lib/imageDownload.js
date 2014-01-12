@@ -14,44 +14,48 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 	otherLogoFileName = otherLogoFileName.replace(/[^a-zA-Z 0-9\-\_]+/g,'X').split(' ').join('_');
 
 	var uri = doc.logosData[i].url;
+	try{
+		request.head(uri, function(err, res, body){
 
-	request.head(uri, function(err, res, body){
+	  if(res.headers['content-type']==='image/jpeg') otherLogoFileName = otherLogoFileName + '.jpeg';
+	  else if(res.headers['content-type']==='image/jpg') otherLogoFileName = otherLogoFileName + '.jpg';
+	  else if(res.headers['content-type']==='image/png') otherLogoFileName = otherLogoFileName + '.png';
+	  else if(res.headers['content-type']==='image/svg+xml') otherLogoFileName = otherLogoFileName + '.svg';
+	  else if(res.headers['content-type']==='image/gif') otherLogoFileName = otherLogoFileName + '.gif';
 
-  if(res.headers['content-type']==='image/jpeg') otherLogoFileName = otherLogoFileName + '.jpeg';
-  else if(res.headers['content-type']==='image/jpg') otherLogoFileName = otherLogoFileName + '.jpg';
-  else if(res.headers['content-type']==='image/png') otherLogoFileName = otherLogoFileName + '.png';
-  else if(res.headers['content-type']==='image/svg+xml') otherLogoFileName = otherLogoFileName + '.svg';
-  else if(res.headers['content-type']==='image/gif') otherLogoFileName = otherLogoFileName + '.gif';
+	  fs.exists('../application/public/Logos/'+otherLogoFileName, function(exists){
+	  	
+	  	if(exists){
+	  		
+	  		var ind = otherLogoFileName.indexOf('.')
+	  		
+	  		var newFileName = otherLogoFileName.substring(0, ind != -1 ? ind : otherLogoFileName.length);
+	  		
+	  		var extension = otherLogoFileName.substring(ind, otherLogoFileName.length)
+	  		newFileName += '1' + extension;
+	  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
 
-  fs.exists('../application/public/Logos/'+otherLogoFileName, function(exists){
-  	
-  	if(exists){
-  		
-  		var ind = otherLogoFileName.indexOf('.')
-  		
-  		var newFileName = otherLogoFileName.substring(0, ind != -1 ? ind : otherLogoFileName.length);
-  		
-  		var extension = otherLogoFileName.substring(ind, otherLogoFileName.length)
-  		newFileName += '1' + extension;
-  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
-
-  	}
-  	else{	
-  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+otherLogoFileName));
-  	}
-  	
-  	logoHistArr.push({
-			'year' : doc.logosData[i].date,
-			'fileName' : otherLogoFileName
-		})
-		
-		callback(doc, i, logoHistArr);
+	  	}
+	  	else{	
+	  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+otherLogoFileName));
+	  	}
+	  	
+	  	logoHistArr.push({
+				'year' : doc.logosData[i].date,
+				'fileName' : otherLogoFileName
+			})
+			
+			callback(doc, i, logoHistArr);
 
 
-  })
+	  })
 
     
-  });
+  	});
+	}catch(e){
+		console.log("Error downloading Image! " + e);
+		callback(doc, i, logoHistArr);
+	}
 
 }
 
@@ -63,7 +67,6 @@ exports.downloadLogopediaImages = function(){
 
 	logopediaStream
 	.on('data', function(doc){
-		console.log(counter);
 		logopediaStream.pause();
 
 		if(counter>100){
@@ -89,7 +92,6 @@ exports.downloadLogopediaImages = function(){
 				console.log(fileName)
 				var cbFunction = function(d, j, lHA){
 					if(j === d.logosData.length-2){
-						console.log(lHA);
 						logopediaStream.resume()
 					}
 					else{
@@ -115,35 +117,40 @@ exports.downloadLogopediaImages = function(){
 }
 
 exports.downloadOne = function(uri, logoFileName, bloombergName){
-  request.head(uri, function(err, res, body){
+  try{
+	  request.head(uri, function(err, res, body){
 
-    if(res.headers['content-type']==='image/jpeg') logoFileName = logoFileName + '.jpeg';
-    else if(res.headers['content-type']==='image/jpg') logoFileName = logoFileName + '.jpg';
-    else if(res.headers['content-type']==='image/png') logoFileName = logoFileName + '.png';
-    else if(res.headers['content-type']==='image/svg+xml') logoFileName = logoFileName + '.svg';
-    else if(res.headers['content-type']==='image/gif') logoFileName = logoFileName + '.gif';
+	    if(res.headers['content-type']==='image/jpeg') logoFileName = logoFileName + '.jpeg';
+	    else if(res.headers['content-type']==='image/jpg') logoFileName = logoFileName + '.jpg';
+	    else if(res.headers['content-type']==='image/png') logoFileName = logoFileName + '.png';
+	    else if(res.headers['content-type']==='image/svg+xml') logoFileName = logoFileName + '.svg';
+	    else if(res.headers['content-type']==='image/gif') logoFileName = logoFileName + '.gif';
 
-    fs.exists('../application/public/Logos/'+logoFileName, function(exists){
-    	if(exists){
-    		
-    		var ind = logoFileName.indexOf('.')
-    		
-    		var newFileName = logoFileName.substring(0, ind != -1 ? ind : logoFileName.length);
-    		
-    		var extension = logoFileName.substring(ind, logoFileName.length)
-    		newFileName += '1' + extension;
-    		console.log(newFileName);
-    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
-		    saveOneToDB(newFileName, bloombergName);
-    	}
-    	else{	
-    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+logoFileName));
-		    saveOneToDB(logoFileName, bloombergName);
-    	}
-    })
+	    fs.exists('../application/public/Logos/'+logoFileName, function(exists){
+	    	if(exists){
+	    		
+	    		var ind = logoFileName.indexOf('.')
+	    		
+	    		var newFileName = logoFileName.substring(0, ind != -1 ? ind : logoFileName.length);
+	    		
+	    		var extension = logoFileName.substring(ind, logoFileName.length)
+	    		newFileName += '1' + extension;
+	    		console.log(newFileName);
+	    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
+			    saveOneToDB(newFileName, bloombergName);
+	    	}
+	    	else{	
+	    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+logoFileName));
+			    saveOneToDB(logoFileName, bloombergName);
+	    	}
+	    })
 
-    
-  });
+	    
+	  });
+	}catch(e){
+		console.log("error downloading single logo " + e);
+
+	}
 };
 
 
