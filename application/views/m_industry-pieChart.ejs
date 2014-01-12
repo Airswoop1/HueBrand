@@ -15,6 +15,9 @@
       ]);
 
       var options = {
+      'tooltip' : {
+          trigger: 'none'
+        }
        
       };
 
@@ -34,8 +37,13 @@
               </div>
             </span>
         </div>
-        <div class="well-content">
-         <div id="piechart" style="width: 593px; height: 300px;"></div>
+        <div class="well-content" style="height: 300px;
+overflow: hidden;">
+         <div id="piechart" style="width: 150%;
+height: 150%;
+position: relative;
+margin-top: -75px;
+margin-left: -50px;"></div>
         </div>
       </div>
     </div>

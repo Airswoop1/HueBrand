@@ -1,4 +1,10 @@
 <!--  Module - Logo History - "Provides a Timeline of all Past Logos" -->
+   
+ <% if(brandResult.logoHistory.length > 0){ %>
+              <script>
+               document.getElementById( 'logotimeline' ).style.display = 'none'; 
+              </script>
+ <%}%>
     <div class="container-fluid" id="logotimeline">
       <div class="span12 well">
         <div class="title" >
@@ -11,9 +17,9 @@
             </span>
         </div>
         <!-- Content - Logo History -->
-        <div class="well-content" style="padding: 20px;font-size: 14px;font-weight: 700;">
+        <div class="well-content" style="height:300px;padding: 20px;font-size: 14px;font-weight: 700;">
           <% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
-            <div style="float:left;margin-right:5px;width:125px;border: 1px rgba(240, 240, 240, 0.47) solid; ">
+            <div style="float:left;margin-right:5px;margin-top:50px;width:125px;border: 1px rgba(240, 240, 240, 0.47) solid; ">
               <div style="width: 125px;">
                 <img src="../Logos/<%= brandResult.logoHistory[i].fileName%>" style="height:100px;display: block;margin: 0 auto;">
               </div>
