@@ -23,6 +23,7 @@ var scrape = require('./lib/scrape.js');
 var bloom = require('./lib/bloombergCompanies.js');
 var colorExtract = require('./lib/colorExtraction.js');
 var imageDownload = require('./lib/imageDownload.js');
+var attributes = require('./lib/attributes.js')
 
 /** Server and DB Init **/
 var app = express();
@@ -122,7 +123,9 @@ and then saving it back to the database.
 
 //scrape.refineLogoData();
 
-imageDownload.downloadLogopediaImages();
+//imageDownload.downloadLogopediaImages();
+
+//attributes.importAttributeData();
 
 var logopediaArray = []
 var logosQ = scrape.logopediaModel.find({$and: [{logosData :{$not :{$size : 0 }}}, {bloombergMatch: {$exists:false}}]});
