@@ -61,20 +61,14 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 
 exports.downloadLogopediaImages = function(){
 
-	var counter = 0;
-
 	var logopediaStream = logopedia.logopediaModel.find().stream();
 
 	logopediaStream
 	.on('data', function(doc){
 		logopediaStream.pause();
 
-		if(counter>100){
-			logopediaStream.destroy();
-		}
 
 		if(doc.logosData.length && doc.bloombergMatch !== 'N' && (typeof doc.bloombergMatch !== 'undefined')){
-			counter++;
 			//determine which to download as main logo
 			if(doc.logosData.length === 1){
 				var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_')
