@@ -54,14 +54,12 @@ exports.queryColor = function(req,res){
 						}
 						else{
 							res.render('color',{
-								"queryType" : 'color',
 								"colorResult" : colorObj,
 								"companyResult" : companies,
 								"queryName" : req.params.query,
 								"industryResult" : {},
 								"allCompanies" : {},
-								"brandResult" : {},
-								"queryType" : 'color'
+								"brandResult" : {}
 							});
 						}
 					})

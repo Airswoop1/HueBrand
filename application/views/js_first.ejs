@@ -98,12 +98,14 @@ var formatter = new google.visualization.NumberFormat({
 
 formatter.format(data, 1);
       var options = {
-        tooltip: {trigger: "none"},
+        tooltip: {trigger: "none", textStyle:{
+  fontName: 'Nunito',fontSize: '16' }, isHtml: true},
         legend: { position: "none" },
-      
-  bar: {groupWidth: "80%"},
-       hAxis: {format:'0%', minValue:0, viewWindowMode:'maximized'},
-       
+       bar: {groupWidth: "80%"},
+       hAxis: {format:'0%', minValue:0, viewWindowMode:'maximized', textStyle:{
+  fontName: 'Nunito',fontSize: '16' }},
+       vAxis: {textStyle:{
+  fontName: 'Nunito',fontSize: '16' }},
       };
 
      

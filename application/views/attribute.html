@@ -2,16 +2,22 @@
 <% include header %>
 <% include sidebar %>
 
+
 <div class="row" style="margin-bottom: 10px;">
-<% include m_attribute-info %> 
-<% include m_global-colorTop %>
-<% include m_attribute-colorCombos %> 
+    <% include m_analytics %>
+</div>
+
+<div class="row" style="margin-bottom: 10px;">
+    <% include m_attribute-info %>
+    <% include m_global-colorTop %>
+    <% include m_industry-pieChart %>
 </div>
 
 <div class="row">
-<% include m_global-topIndustries %>
-<% include m_global-map %> 
-<% include m_global-logoCloud %>
+    <% include m_global-colorPalette %> 
+    <% include m_global-map %> 
+    <% include m_global-logoCloud %>
 </div>
 
 <% include footer %>
+

@@ -1,25 +1,11 @@
 <!--  Module - Map - "Shows a Map and Attribtues Associated to Top Colors"  -->
-  <%
-    var mapTitle = '';
-    if(queryType == 'brand'){
-      mapTitle = brandResult.shortName + ' Color Attributes Worldwide';
-    }
-    else if(queryType == 'color'){
-      mapTitle = colorResult.colorName + ' Attributes Associations Worldwide';
-    }
-    else if(queryType == 'attribute'){
-      mapTitle = attributeResult.attributeName + ' Color Associations Worldwide';
-    }
-    else if(queryType == 'industry'){
-      mapTitle = industryResult.industryName + ' Attribute Associations WorldWide'
-    }
-  %>
+
 
     <div class="container-fluid" id="geomap" style="width:45%;float:left;margin-right:10px;margin-bottom:-20px;">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
-            <%= mapTitle %>
+    
           </button>
             <span class="pull-right muted">
               <div class="tooltips">

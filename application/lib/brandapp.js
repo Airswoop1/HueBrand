@@ -43,7 +43,6 @@ if(!req.params.query){
 							}
 
 							res.render('brand',{
-								queryType : 'brand',
 								brandResult : brandResults,
 								industryResult: industry,
 								colorResult: colors,
