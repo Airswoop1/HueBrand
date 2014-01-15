@@ -4,17 +4,13 @@
 
 import Image
 import ImageDraw
-from StringIO import StringIO
-import urllib
-import sys
-import operator
+import colorsys
 import types
 from operator import itemgetter
 from math import sqrt
-import colorsys
-from itertools import groupby
-
+from math import ceil
 import color_match
+
 
 RECT = (0, 0, 100, 100)
 BOX_WIDTH = 40
@@ -24,39 +20,7 @@ FILTER_MODE = 10
 HIST_ELEMENTS = BOX_WIDTH*BOX_HEIGHT
 DEBUG = False
 SNAP_RADIUS = 50
-
-
-def fetch(url):
-    try:
-        img = Image.open(StringIO(urllib.urlopen(url).read()))                
-    except:
-        print 'Error - fail to read image from: '+str(url)
-        return None
-    return img
-
-
-def histogram_for_url(url):
-    
-    im = fetch(url)
-    if im is None:
-        print 'Error - did not fetch image from url: '+str(url)
-        return None
-    
-    rect = (im.size[0]/2-BOX_WIDTH, im.size[1]/2-BOX_HEIGHT-H_MARGIN, im.size[0]/2 + BOX_WIDTH, im.size[1]/2+BOX_HEIGHT-H_MARGIN)
-    #rects = face_detection.detect(im)
-    #rect = face_detection.adjustRects(im, rects)
-    upImList = histogram_for_image_and_rect(im, rect, 5)
-    
-    if upImList is None:
-        print 'Error - histogram is empty with rect: '+str(rect)        
-        return None        
-    #rectDown = (im.size[0]/2-BOX_WIDTH, im.size[1]/2+H_MARGINE, im.size[0]/2 + BOX_WIDTH, im.size[1]/2+2*H_MARGINE)
-    #downImList = histogram_for_image_and_rect(im, rectDown)    
-    #imagesColorLists = [upImList, downImList] 
-    #print 'color lists for Top and Bottom: \n', upImList    
-    
-    return upImList, im
-    
+ALPHA_THRESHOLD = 100
 
 def _crop_image(image, rect):
     try:
@@ -67,57 +31,79 @@ def _crop_image(image, rect):
     return thumb
 
 
-def histogram_for_image_and_rect(image, rect=RECT, max_colors=10, snap_radius=SNAP_RADIUS):
+def histogram_for_image(image, max_colors=10, snap_radius=SNAP_RADIUS):
     """
-    Starting point. receives image and rect to crop
-        and create a histogram/color palette
+    Receives image and create a histogram.
+    Removes transparency and background
     """
-    # Handle transparency if needed
-    if image.mode == 'RGBA':
-        image = _recode_transparency(image)
-
-    if rect is None:
-        rect = (image.size[0]/2-BOX_WIDTH, image.size[1]/2-BOX_HEIGHT-H_MARGIN, image.size[0]/2 + BOX_WIDTH, image.size[1]/2+BOX_HEIGHT-H_MARGIN)
-    if rect == 'all':
-        rect = (0, 0, image.size[0], image.size[1])
-        thumb = image
-    else:
-        thumb = _crop_image(image, rect)
-    
-    if thumb is None:
-        print 'Error - return None for thumb'
-        return None  
-    #thumbSmoth = thumb.filter(ImageFilter.SMOOTH)
-    #thumbMode = thumbSmoth.filter(ImageFilter.ModeFilter(FILTER_MODE))    
 
     # Get dominate colors
-    hist_elements = (rect[2]-rect[0])*(rect[3]-rect[1])
-    hist_colors = _color_histogram_image(thumb, hist_elements)
+    hist_elements = image.size[0] * image.size[1]
+    hist_colors = _color_histogram_image(image, hist_elements)
+    #print 'hist colors: ', hist_colors
 
-    # Remove (1, 2, 3) from dominate colors
-    hist_colors = filter(lambda x: x != (1, 2, 3), hist_colors)
+    # Handle transparency if needed
+    if image.mode == 'RGBA':
+        hist_colors = _remove_transparency_data(hist_colors)
+
+    # Remove opaque background
+    if image.mode == 'RGB':
+        hist_colors = _remove_opaque_background(image, hist_colors)
+
+    # debug validate
+    #_color_histogram_to_image(hist_colors, image.size)
+
+    return hist_colors
+
+
+def get_dominate_colors_from_hist(image, hist_colors=None, max_colors=10, snap_radius=SNAP_RADIUS):
+
+    # Get histogram from image
+    if hist_colors == None:
+        hist_colors = histogram_for_image(image, max_colors, snap_radius)
 
     # Generate image from dominate colors
-    bList = find_dominate_colors(hist_colors, max_colors, snap_radius)
-    #print 'dominate colors: ', bList
-    if not isinstance(bList[0], types.TupleType):
-        return None
+    dominate_colors = find_dominate_colors(hist_colors, max_colors, snap_radius)
+    #print 'dominate colors: ', dominate_colors
+    return dominate_colors
 
-    return bList
+
+def _count_appearance(alist, hist_list):
+
+    hist_dict_list = map(lambda x: {'rgb': x[1], 'hist': x[0]}, hist_list)
+
+    results = []
+    for obj in alist:
+        color = filter(lambda x: x['rgb'] == obj, hist_dict_list)
+        results.append(color[0])
+    #print 'results: ', results
+    return results
 
 
 def _recode_transparency(image):
+    """
+    Gets an image RGBA
+    Returns an RGB with (1, 2, 3) for background
+    One px per color
+    """
+    # Get colors
     alist = image.getcolors(image.size[0] * image.size[1])
     blist = map(itemgetter(1), alist)
-    colorList_T = map(lambda x: _code_transparent_rgb(x), blist)
-    colorList_T.sort(key=itemgetter(0), reverse=True)
+
+    # Remove alpha channel
+    color_list_temp = map(lambda x: _code_transparent_rgb(x), blist)
+    color_list_temp.sort(key=itemgetter(0), reverse=True)
+
+    # Write new image with known background
     size = image.size
     image2 = Image.new('RGB', size, (1, 2, 3))
-    image2.putdata(colorList_T)
+    image2.putdata(color_list_temp)
+    #image2.show()
+
     return image2
 
 
-def _code_transparent_rgb(rgba):
+def _code_transparent_rgb(num, rgba):
     if rgba[3] == 0:
         a = (1, 2, 3, 0)
         return a
@@ -136,28 +122,29 @@ def _histogram_image(image):
 
 def _color_histogram_image(image, n=5):
     """
-    get color returns a list of tuples with appearance and RGB
+    Get color returns a list of tuples with appearance and RGB
     """
-    alist = image.getcolors(image.size[0] * image.size[1])
-    alist.sort(key=itemgetter(0), reverse=True)
-    #print "histogram : ", alist
-    #print "len(histogram) : ", len(alist)
+    hist_list = image.getcolors(image.size[0] * image.size[1])
+    hist_list.sort(key=itemgetter(0), reverse=True)
     if n < 0:
-        n = len(alist)-2
-    colorList = map(itemgetter(1), alist[:n])
+        n = len(hist_list)-2
+    hist_list = hist_list[:n]
 
-    # Remove elements with 0 transparency
-    #colorList_T = filter(lambda x: x[0] > 1, colorList)
-    return colorList
+    # Construct a dictionary rgb:  hist:
+    hist_dict_list = map(lambda x: {'rgb': x[1], 'hist': x[0]}, hist_list)
+    return hist_dict_list
 
 
-def find_dominate_colors(alist=[(255,255,0)], max_colors=10, snap_radius=SNAP_RADIUS):
-    cm = color_match.ColorMatch()
+def find_dominate_colors(alist=[(255, 255, 0)], max_colors=10, snap_radius=SNAP_RADIUS):
+    """
 
+    """
     init_hue = alist[0]
-    init_family_polar = get_color_family_name_polar(init_hue[0], init_hue[1], init_hue[2])
+    if not isinstance(init_hue, types.DictionaryType):
+        init_hue['rgb'] = init_hue
+
+    #init_family_polar = get_color_family_name_polar(init_hue[0], init_hue[1], init_hue[2])
     baseList = [init_hue, ]
-    colorFamilies = [init_family_polar, ]
 
     # Loop on hues in aList
     for i in range(1, len(alist)):
@@ -169,42 +156,28 @@ def find_dominate_colors(alist=[(255,255,0)], max_colors=10, snap_radius=SNAP_RA
 
         # Loop on saved hues in baseList
         for j in range(0, len(baseList)):
-            prev_hue = baseList[j]
-            #prev_family = colorFamilies[j]
-            hue = alist[i]
-            #print 'prev_family: ', prev_family
+            prev_hue = baseList[j]['rgb']
+            hue = alist[i]['rgb']
 
             # Check if data is valid
-            if not isinstance(hue, types.TupleType):
-                print 'ERROR - not Tuple'
-                break
+            if isinstance(hue, types.DictionaryType):
+                hue = hue['rgb']
 
             # Calculate min distance from other pointer and add a match
             distance = sqrt(sum((a-b)**2 for a, b in zip(prev_hue, hue)))
 
             # Check if we had that color family and light
-            #family_polar = get_color_family_name_polar(hue[0], hue[1], hue[2])
-            #print 'hue + family: ', hue, family_polar
-
-            if (distance > snap_radius):
+            if distance > snap_radius:
                 matches = matches+1
             else:
                 continue
 
             if matches == len(baseList):
                 baseList.append(alist[i])
-                #colorFamilies.append(family_polar)
                 if len(baseList) > max_colors:
                     break
 
     return baseList
-
-
-def get_color_family_name_polar(r, g, b):
-    h, s, v = rgb_to_hsv(r, g, b)
-    cm = color_match.ColorMatch()
-    family_polar, si, ei = cm.find_family_color_and_interval_for_h(h)
-    return family_polar
 
 
 def show_image_with_strips(image, aList, bList):
@@ -225,98 +198,174 @@ def show_image_with_strips(image, aList, bList):
         imStrip.paste(strip2, offset2)
 
     # draw and add imStrip to image
-    #draw = ImageDraw.Draw(image)
-    #image.paste(imStrip, (0, 0))
+    draw = ImageDraw.Draw(image)
+    image.paste(imStrip, (0, 0))
 
-    #image.show()
-
-
-def _remove_transparency_data(alist):
-    blist = map(lambda row: row[0] > 0, alist)
-    return blist
+    image.show()
 
 
-def _color_exp():
-    size = (1000,100)
-    bg = Image.new('RGB', size, (0, 255, 0))
-    bg_w, bg_h = bg.size
-    img_w = bg_w/255
-    img_h = bg_h    
+def _remove_transparency_data(hist):
+    # Remove (x, y, z, 0) from dominate colors
+    blist = filter(lambda x: x['rgb'][3] > ALPHA_THRESHOLD, hist)
 
-    for i in range(1, 255):
-        offset = ((bg_w-img_w*i), 0)
-        offset2 = ((bg_w-img_w*i), 50)
-        hsv = colorsys.rgb_to_hsv(i, 100, 100)
-        strip1 = Image.new('RGB', (img_w,img_h/2), (i, 100, 100))
-#         strip2 = Image.new('RGB', (img_w,img_h/2), colorsys.hsv_to_rgb(hsv[0], hsv[1], hsv[2]))
-        rgb = hsvToRGB(hsv[0], hsv[1], hsv[2])
-        rgb1 = (int(rgb[0]), int(rgb[1]), int(rgb[2]))
-        strip2 = Image.new('RGB', (img_w,img_h/2), rgb1)
-        bg.paste(strip1, offset)
-        bg.paste(strip2, offset2)
-    #bg.show()
+    # Remove alpha channel
+    clist = map(lambda x: _remove_alpha(x), blist)
+
+    return clist
 
 
-def hsv_to_rgb(h, s, v):
-    """
-    Convert HSV color space to RGB color space
-    @param h: Hue
-    @param s: Saturation
-    @param v: Value
-    return (r, g, b)  
-    """
-    import math
-    hi = math.floor(h / 60.0) % 6
-    f =  (h / 60.0) - math.floor(h / 60.0)
-    p = v * (1.0 - s)
-    q = v * (1.0 - (f*s))
-    t = v * (1.0 - ((1.0 - f) * s))
-    return {
-        0: (v, t, p),
-        1: (q, v, p),
-        2: (p, v, t),
-        3: (p, q, v),
-        4: (t, p, v),
-        5: (v, p, q),
-    }[hi]
+def _remove_alpha(dict):
+    rgba = dict['rgb']
+    dict['rgb'] = rgba[0:3]
+    return dict
 
 
-def rgb_to_hsv(r, g, b):
-    """
-    Convert RGB color space to HSV color space
-    @param r: Red
-    @param g: Green
-    @param b: Blue
-    return (h, s, v)  
-    """
-    maxc = max(r, g, b)
-    minc = min(r, g, b)
-    colorMap = {
-        id(r): 'r',
-        id(g): 'g',
-        id(b): 'b'
-    }
-    if colorMap[id(maxc)] == colorMap[id(minc)]:
-        h = 0
-    elif colorMap[id(maxc)] == 'r':
-        h = 60.0 * ((g - b) / (maxc - minc)) % 360.0
-    elif colorMap[id(maxc)] == 'g':
-        h = 60.0 * ((b - r) / (maxc - minc)) + 120.0
-    elif colorMap[id(maxc)] == 'b':
-        h = 60.0 * ((r - g) / (maxc - minc)) + 240.0
-    v = maxc
-    if maxc == 0.0:
-        s = 0.0
+def _remove_opaque_background(image, hist):
+    ''' simple method based on intuition  that
+     background is white or black
+    '''
+
+    # Sample corners
+    alist = list(image.getdata())
+    c0 = alist[0]
+    c1 = alist[-1]
+
+    # Remove corners' color or W/B
+    white = (255, 255, 255)
+    black = (0, 0, 0)
+    if c0 == c1:
+        if c0 == white:
+            hist = _remove_color(hist, white, 8)
+        elif c0 == black:
+            hist = _remove_color(hist, black, 6)
+        else:
+            hist = _remove_color(hist, c0, 5)
     else:
-        s = 1.0 - (minc / maxc)
-    return (h, s, v)        
+        hist = _remove_color(hist, c0, 5)
+
+    return hist
 
 
 def draw_image_with_rgb(r, g, b, title='plot'):
     size = (200, 200)
     image = Image.new('RGB', size, (r, g, b))
-    #draw = ImageDraw.Draw(image)
-    #image.show('some', None)
+    draw = ImageDraw.Draw(image)
+    image.show('some', None)
+
+
+def number_of_colors_in_image(image, hist_colors=None):
+    """
+    Input: image
+    Output: Array of dictionaries {"name": "color_name", "percent": "number" }
+    """
+    if hist_colors is None:
+        # Get histogram
+        rect = (0, 0, image.size[0], image.size[1])
+        hist_elements = (rect[2]-rect[0])*(rect[3]-rect[1])
+        hist_colors = histogram_for_image(image, hist_elements)
+
+    # Find color and light
+    temp_dict = {}
+    for color in hist_colors:
+        rgb = color['rgb']
+        hist_cnt = color['hist']
+
+        # Find HSV and L values
+        h, s, v = colorsys.rgb_to_hsv(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0)
+        h1, s1, l = colorsys.rgb_to_hls(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0)
+        h = h*360
+        l = l*100
+        s = s*100
+        v = v*100
+
+        # Find color family base on hsv/hsl
+        color_base = color_match.find_family_color_for_h(h, s, v)
+
+        # Find lightness
+        color_light = color_match.find_color_light(l)
+
+        '''
+        # Using pre-defined color base and light
+        colors = [rgb]
+        hues = cm.hue_entries_for_rgb_list(colors, False)
+        hue = hues[0]
+        color_base = hue['family']
+        color_light = hue['light']
+        '''
+
+        # Structure the result as a dictionary
+        if color_base not in temp_dict:
+            temp_dict[color_base] = {color_light: hist_cnt}
+        else:
+            if color_light not in temp_dict[color_base]:
+                temp_dict[color_base][color_light] = hist_cnt
+            else:
+                temp_dict[color_base][color_light] = temp_dict[color_base][color_light] + hist_cnt
+
+    # Normalize the values in the dictionary to 0-100
+    #norm_dict = normilize_dictionary(temp_dict)
+    return temp_dict, hist_colors
+
+
+def normilize_dictionary(dict):
+    """
+    Find sum of values in the nested dictionary
+    """
+    m = 0
+    for k, v in dict.items():
+        if isinstance(v, types.DictionaryType):
+            for k2, v2 in v.items():
+                m = m + v2
+
+    # Override dict with normal values
+    norm = m
+    s = 0
+    result = {}
+    for k, v in dict.items():
+        if isinstance(v, types.DictionaryType):
+            result[k] = dict[k]
+            for k2, v2 in v.items():
+                result[k][k2] = int(ceil((100.0*v2)/norm))
+
+    return result
+
+
+def _color_histogram_to_image(hist, size):
+    alist = map(lambda x: x['rgb'], hist)
+    image2 = Image.new('RGB', size, (1, 2, 3))
+    image2.putdata(alist)
+    image2.show()
+
+
+def _remove_color(hist, rgb, delta):
+    """
+    Removes rgb +- delta permutations
+    """
+    hist1 = hist
+
+    # Set start point for R
+    startr = rgb[0]
+    endr = startr + delta
+    if rgb[0] > 100:
+        startr = rgb[0] - delta
+        endr = rgb[0] + 1
+
+    for i in range(startr, endr):
+        startg = rgb[1]
+        endg = startg + delta
+        if rgb[1] > 100:
+            startg = rgb[1] - delta
+            endg = rgb[1] + 1
+        for j in range(startg, endg):
+            startb = rgb[2]
+            endb = startb + delta
+            if rgb[2] > 100:
+                startb = rgb[2] - delta
+                endb = rgb[2] + 1
+            for k in range(startb, endb):
+                temp_rgb = (i, j, k)
+                hist1 = filter(lambda x: x['rgb'] != temp_rgb, hist1)
+    return hist1
 
 
 

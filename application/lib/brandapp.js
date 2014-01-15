@@ -43,11 +43,13 @@ if(!req.params.query){
 							}
 
 							res.render('brand',{
+								queryType : 'brand',
 								brandResult : brandResults,
 								industryResult: industry,
 								colorResult: colors,
 								queryName : req.params.query,
-								allCompanies : {}//bloom.AllCompanies
+								allCompanies : {},//bloom.AllCompanies
+								testName : 'Eugene'
 							});
 						})
 					}
