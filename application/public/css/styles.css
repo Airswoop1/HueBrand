@@ -10,6 +10,11 @@
 
 /*---HEADER Nav---*/
 
+a {
+color: #000000;
+text-decoration: none;
+}
+
 .row {
 		font-family: 'Nunito'!important;
 	}
