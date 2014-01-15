@@ -2,19 +2,16 @@
 <% include header %>
 <% include sidebar %>
 
+<div class="row" style="margin-bottom: 10px;">
+<% include m_attribute-info %> 
+<% include m_global-colorTop %>
+<% include m_attribute-colorCombos %> 
+</div>
 
 <div class="row">
-  <div class="col-md-4" >
-    <% include m_attribute-info %> 
-    <% include m_global-map %> 
-  </div>
-  <div class="col-md-4" >
-    <% include m_global-colorTop %>
-    <% include m_attribute-colorCombos %></div>
-  <div class="col-md-4">
-    <% include m_global-topIndustries %>
-    <% include m_global-logoCloud %>
-  </div>
+<% include m_global-topIndustries %>
+<% include m_global-map %> 
+<% include m_global-logoCloud %>
 </div>
 
 <% include footer %>

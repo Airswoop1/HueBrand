@@ -1,20 +1,18 @@
-<!-- [industry.html] - Page for Industry Search Results -->
+<!-- [attribute.html] - Page for Industry Search Results -->
 <% include header %>
 <% include sidebar %>
 
-<div class="row">
-  <div class="col-md-4">
-    <% include m_industry-info %> 
-    <% include m_global-map %>  
-  </div>
-  <div class="col-md-4">
+<div class="row" style="margin-bottom: 10px;">
+    <% include m_industry-info %>
     <% include m_global-colorTop %>
-    <% include m_global-colorPalette %> 
-  </div>
-  <div class="col-md-4">
     <% include m_industry-pieChart %>
-      <% include m_global-logoCloud %>
-  </div>
+</div>
+
+<div class="row">
+    <% include m_global-colorPalette %> 
+    <% include m_global-map %> 
+    <% include m_global-logoCloud %>
 </div>
 
 <% include footer %>
+
