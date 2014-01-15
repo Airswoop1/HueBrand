@@ -18,7 +18,7 @@
 	background-color: #fff!important; }
 
 .navbar-default {
-	border-bottom: #FF0808 2px solid!important;
+	border-bottom: 1px solid rgba(225, 230, 221, 0.15);
 }
 
 .navbar-brand {
