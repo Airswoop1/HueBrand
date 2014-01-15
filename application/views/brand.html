@@ -1,17 +1,19 @@
-<!-- [color.html] - Page for Color Search Results -->
+<!-- [brand.html] - Page for Brand Search Results -->
 
 <% include header %>
 <% include sidebar %>
 
-<div class="row" style="margin-bottom: 10px;">
-  <% include m_industry-info %> 
-  <% include m_global-colorTop %>
-  <% include m_industry-pieChart %>
+<div class="row" style="
+margin-bottom: 10px;">
+    <% include m_brand-info %> 
+    <% include m_brand-logoColorsAnalytics %>
+    <% include m_global-industryColors %> 
 </div>
 <div class="row">
-  <% include m_global-colorPalette %> 
-  <% include m_global-map %>  
-  <% include m_global-logoCloud %>
+    <% include m_brand-logoHistory %> 
+    <% include m_global-map %>
+    <% include m_global-logoCloud %>
+  </div>
 </div>
 
 <% include footer %>

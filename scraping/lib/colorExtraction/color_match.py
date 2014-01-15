@@ -10,8 +10,8 @@ import  math
 from operator import is_not
 from functools import partial
 
-COLOR_NAMES_FILE_NAME = './lib/colorExtraction/golden_units.csv'
-
+#COLOR_NAMES_FILE_NAME = './lib/colorExtraction/golden_units.csv'
+COLOR_NAMES_FILE_NAME = '/Users/airswoop1/CAUS/Development/HueBrand/scraping/lib/colorExtraction/golden_units.csv'
 
 class ColorMatch():
     def __init__(self):

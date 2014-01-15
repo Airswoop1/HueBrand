@@ -23,6 +23,8 @@ var scrape = require('./lib/scrape.js');
 var bloom = require('./lib/bloombergCompanies.js');
 var colorExtract = require('./lib/colorExtraction.js');
 var imageDownload = require('./lib/imageDownload.js');
+var attributes = require('./lib/attributes.js');
+var imageConv = require('./lib/imageConversion.js');
 
 /** Server and DB Init **/
 var app = express();
@@ -116,13 +118,56 @@ and then saving it back to the database.
 *************************/
 //imageDownload.populate();
 
+/********************
+function: collectLogos()
+Uses the logo urls stored in the logopedia collection
+(logoURL) to capture the urls for the actual logos on 
+the page. It then stores the urls for the logos in the
+logosData object along with the date of the logo if
+available
+*********************/
 //scrape.collectLogos();
 
+/********************
+Defunct!
+function: matchLogoWithCompany() 
+Used to cross compare the logopedias companies scraped
+from the logos.wikia pages with the blomberg dataset. 
+Utilizes a command line interface for those where there
+are multiple matches
+*********************/
 //scrape.matchLogoWithCompany();
 
+/********************
+function: refineLogoData()
+Iterates through each entry in the logpedias collection
+and grabs the category data on each logopedias page. Also
+attempts to determine whether a page is a parent, subsidiary,
+brand, or logo of a company 
+*********************/
 //scrape.refineLogoData();
 
+/********************
+function: downloadLogopediaImages()
+Iterates through each logopedias document and for those that
+have a bloomberg match, downloads the logos associated to that
+logopedias page and records the fileNames in the bloomberg collection
+*********************/
 //imageDownload.downloadLogopediaImages();
+
+/********************
+function: importAttributeData()
+Takes the color_country_attributes.csv file and populates the 
+attribute collection with the values
+*********************/
+//attributes.importAttributeData();
+
+/********************
+function: convertSVGs()
+converts the svg image files in application/public/logos/svg to
+png and saves them in application/public/logos
+*********************/
+imageConv.convertSVGs();
 
 var logopediaArray = []
 var logosQ = scrape.logopediaModel.find({$and: [{logosData :{$not :{$size : 0 }}}, {bloombergMatch: {$exists:false}}]});

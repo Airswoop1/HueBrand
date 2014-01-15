@@ -137,21 +137,25 @@ function escapeRegExpChars(text) {
 }
 
 exports.bloombergQuery = function(logopediaName, callback){
+	try{
+		var lName = escapeRegExpChars(logopediaName).replace('/','\\/');
 
-	var lName = escapeRegExpChars(logopediaName).replace('/','\\/');
+		var bloomQuery = exports.bloombergCompany.find({'shortName': eval("/" + lName + "/i")})
 
-	var bloomQuery = exports.bloombergCompany.find({'shortName': eval("/" + lName + "/i")})
+		bloomQuery.exec(function(err, obj){
 
-	bloomQuery.exec(function(err, obj){
+				if(obj.length >= 1){
+					callback(obj);
+				}
+				else{
+					callback(null);
+				}
 
-			if(obj.length >= 1){
-				callback(obj);
-			}
-			else{
-				callback(null);
-			}
-
-		})
+			})
+		}
+		catch(e){
+			callback(null);
+		}
 }
 
 exports.bloombergUpdate = function(sName, logosArr){

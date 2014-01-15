@@ -3,6 +3,7 @@ var exec = require('child_process').exec;
 var bloom = require('./bloombergCompanies.js');
 var child;
 
+
 exports.extract = function(index, logosList){
 	if(logosList[index].logoFileName.indexOf(".svg")<0 && logosList[index].displayName !== 'Inditex' && logosList[index].displayName !== 'Sanofi' ){
 		console.log("Extracting color for: " + logosList[index].logoFileName );

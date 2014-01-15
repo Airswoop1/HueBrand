@@ -66,7 +66,7 @@
 		  		$('#bloomberg-container').append(
 		  			"<div style='height:300px; width:300px'>\
 		  				<h4><a target='_blank' href='http://"+cArr[i].website+"'>" + (i+1) + " " + cArr[i].shortName + "</a></h4>\
-		  				<iframe src='http://" + cArr[i].website + "' width='250' height='250'></iframe>\
+		  				<iframe sandbox='allow-forms allow-scripts' src='http://" + cArr[i].website + "' width='250' height='250'></iframe>\
 		  			</div>"
 		  			)
 		  	}
