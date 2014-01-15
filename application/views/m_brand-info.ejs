@@ -1,5 +1,5 @@
 <!--  Module - Company Logo & Information - "Shows the Company's Logo and Data Associated to it" -->
-     <div class="container-fluid" id="companylogo">
+     <div class="container-fluid" id="companylogo" style="width:33%;float:left;margin-right:10px;">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -16,14 +16,23 @@
               <img id="logo" src="../Logos/<%= brandResult.logoFileName%>">
              </a>
           </div>
-          <ul style="font-size: 16px;line-height: 20px;">
+           <ul style="font-size: 16px;line-height: 20px;">
            <li style="padding-bottom:10px;"><b><span style="text-transform:capitalize;"><%= brandResult.shortName %></span></b> - <%= brandResult.desc %></font></li>
+        <div style="width:80%">
+         
            <li style=""><b>Stock Symbol</b> - <%= brandResult.stockSymbol %></li>
            <li style=""><b>Industry</b> - <%=brandResult.GICSSectorName%></li>
            <li style=""><b>Headquarters</b> - <%=brandResult.country%></li>
            <li style=""><b>Market Cap Rank</b> - <%= brandResult.marketCapRank%></li>
            <li style=""><b>Market Cap</b> - <%= brandResult.marketCap%></li>
+        </div>
           </ul>
+     
+          <div style="float:left;">
+         
+          </div>
+
+
         </div>
       </div>
     </div>

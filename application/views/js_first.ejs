@@ -63,3 +63,53 @@
 
 <!-- JS - Custom -->
 	<script src="/js/main.js"></script>
+	 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+//#Module - Chart
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Color', 'Percentage', { role: 'style' } ],
+        ['Blue',     .10, 'color: blue'],
+        ['Red',      .20, 'color: red'],
+        ['Orange', .40, 'color: orange'],
+        ['Green', .20, 'color: green'],
+        ['Purple',    .10, 'color: purple'],
+      ]);
+
+
+   var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+var formatter = new google.visualization.NumberFormat({
+    fractionDigits: 3,
+    pattern:'#,###%',
+});
+
+formatter.format(data, 1);
+      var options = {
+
+        legend: { position: "none" },
+      
+  bar: {groupWidth: "80%"},
+       hAxis: {format:'0%', minValue:0, viewWindowMode:'maximized'},
+       toolTip : {
+  trigger: 'none'
+},
+      };
+
+     
+
+      var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+      chart.draw(view, options);
+    }
+  </script>
+

@@ -1,38 +1,18 @@
-<!-- [industry.html] - Page for Industry Search Results -->
+<!-- [color.html] - Page for Color Search Results -->
+
 <% include header %>
 <% include sidebar %>
-<div class="row" style="height:50px;margin-top:10px;margin-left:2px;font-size:16px;">
-  <span style="margin-left:0px;">Search by:</span>
-  <span style="margin-left:20px;font-weight:700;color: #FF0808;1">Color</span> 
-  <span style="margin-left:20px;">Company</span>
-  <span style="margin-left:20px;">Industry</span>
-  <span style="margin-left:20px;">Attribute</span>
-</div>
-<div class="row" style="font-weight:500;">
-  <div class="col-md-4" style="padding-bottom:10px;color: #535353;border-right: 1px solid #eee;text-align: center;font-size: 24px;">
-    Industry
-  </div>
-  <div class="col-md-4" style="padding-bottom:10px;color: #535353;border-right: 1px solid #eee;text-align: center;font-size: 24px;">
-    Industry Colors Used</div>
-  <div class="col-md-4" style="padding-bottom:10px;color: #535353;text-align: center;
-  font-size: 24px;">
-    Color Combinations & Industry Logos
-  </div>
-</div>
 
+<div class="row" style="margin-bottom: 10px;">
+  <% include m_industry-info %> 
+  <% include m_global-colorTop %>
+  <% include m_industry-pieChart %>
+</div>
 <div class="row">
-  <div class="col-md-4" style="border-right: 1px solid #eee;">
-    <% include m_industry-info %> 
-    <% include m_global-map %>  
-  </div>
-  <div class="col-md-4" style="border-right: 1px solid #eee;">
-    <% include m_global-colorTop %>
-    <% include m_global-colorPalette %> 
-  </div>
-  <div class="col-md-4">
-    <% include m_industry-pieChart %>
-      <% include m_global-logoCloud %>
-  </div>
+  <% include m_global-colorPalette %> 
+  <% include m_global-map %>  
+  <% include m_global-logoCloud %>
 </div>
 
 <% include footer %>
+

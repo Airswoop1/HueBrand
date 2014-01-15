@@ -2,34 +2,13 @@
 
 <% include header %>
 <% include sidebar %>
-<div class="row" style="height:50px;margin-top:10px;margin-left:2px;font-size:16px;">
-  <span style="margin-left:0px;">Search by:</span>
-  <span style="margin-left:20px;font-weight:700;color: #FF0808;1">Color</span> 
-  <span style="margin-left:20px;">Company</span>
-  <span style="margin-left:20px;">Industry</span>
-  <span style="margin-left:20px;">Attribute</span>
-</div>
-<div class="row" style="font-weight:500;">
-  <div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;text-align: center;
-  font-size: 24px;">
-    Color & Meaning
-  </div>
-  <div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;text-align: center;
-  font-size: 24px;">
-    Color Shades Used
-  </div>
-  <div class="col-md-4" style="padding-bottom:10px;text-align: center;
-  font-size: 24px;">
-    Industry Logos & Top Industries
-  </div>
-</div>
 
 <div class="row">
-  <div class="col-md-4" style="border-right: 1px solid #eee;">
+  <div class="col-md-4" >
     <% include m_color-colorInfo %> 
     <% include m_global-map %> 
   </div>
-  <div class="col-md-4" style="border-right: 1px solid #eee;">
+  <div class="col-md-4" >
     <% include m_global-colorPalette %>
     <% include m_global-industryColors %> 
   </div>
