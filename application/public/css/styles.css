@@ -18,7 +18,8 @@
 	background-color: #fff!important; }
 
 .navbar-default {
-	border-bottom: 1px solid rgba(225, 230, 221, 0.15);
+height: 79px!important;
+border-color: rgba(175, 88, 88, 0.4)!important;
 }
 
 .navbar-brand {
@@ -216,12 +217,12 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	color: #000!important;
 	text-shadow: none;
 	font-weight: 200!important;
-	font-size: 26px!important; }
+	font-size: 40px!important; }
  
  
 .navbar .container ul li img {
 	margin-right: 10px;
-	max-height: 30px;
+	height: 54px;
 	width: auto;
 	vertical-align: middle; }
  
@@ -303,23 +304,25 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	background-image: linear-gradient(rgba(255, 255, 255), rgb(255, 255, 255))!important; }
  
 .selectize-input {
-	margin-top: -10px!important;
-	margin-bottom: -10px;
-	margin-left: -12px!important;
-	padding: 5px;
+	width: 300px!important;
+	margin-left: 1px!important;
+	height: 26px;
+	margin-top: 10px!important;
+	padding: 2px;
 	width: 192px!important;
 	border: 1px solid rgba(204, 204, 204, 0.1)!important;
 	border-radius: 0px!important; }
  
 .selectize-dropdown, .selectize-input, .selectize-input input {
+	width: 300px!important;
 	color: #515151!important;
 	font-size: 12px!important;
+	margin:12px 10px 10px 14px!important;
 	font-family: 'oxygen'!important;-webkit-font-smoothing: subpixel-antialiased;
 	line-height: 20px!important;
 	-webkit-font-smoothing: inherit; }
  
-.selectize-control.multi .selectize-input > div {
-	margin: 1px 11px 3px -5px!important;
+.selectize-control .multi .selectize-input > div {
 	padding: 2px 10px!important;
 	border: 0 solid rgba(0, 0, 0, 0);
 	background: rgba(243, 243, 243, 0.329412)!important;
@@ -1190,5 +1193,10 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		-o-transform: translateY(-80%);
 		transform: translateY(-50%); }
 
+.google-visualization-tooltip {
+	display:none;
+}
 
-	
+#tabs-industries {
+	margin-top: 12px;
+}

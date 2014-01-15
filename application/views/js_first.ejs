@@ -98,7 +98,7 @@ var formatter = new google.visualization.NumberFormat({
 
 formatter.format(data, 1);
       var options = {
-      	tooltip: 'none',
+        tooltip: {trigger: "none"},
         legend: { position: "none" },
       
   bar: {groupWidth: "80%"},
@@ -109,7 +109,7 @@ formatter.format(data, 1);
      
 
       var chart = new google.visualization.BarChart(document.getElementById('piechart'));
-      chart.draw(view, options,  {tooltip: {trigger:'none'}});
+      chart.draw(view, options);
     }
   </script>
 

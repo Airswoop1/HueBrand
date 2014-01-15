@@ -1,27 +1,57 @@
 <!-- Top Navigation Bar  -->
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<style>
+ 
+.selectize-input {
+   width: 297px!important;
+margin-left: 1px!important;
+height: 26px;
+margin-top: 12px!important;
+padding: 2px;
+border: 1px solid rgba(184, 184, 184, 0.5)!important;
+border-radius: 0px!important;
+padding-left: 5px;}
+
+.selectize-dropdown demo-default multi {
+    margin-left: 14px!important;
+    margin-top: 12px;
+    width: 300px;
+}
+
+
+</style>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 75px;padding:10px;">
   <div class="container">
   
 <!-- Top Navigation Bar - Left Part - Company Logo -->
 
     <a class="navbar-brand" href="#">
+    <div style="background-color: red;
+height: 4px;
+width: 79px;
+position: absolute;
+top: 17px;
+left: 33px;"></div>
       <span style="font-weight:900">HUE</span>brand</a>
 
 <!-- Top Navigation Bar - Right Part - Name & Dropdown Menu -->
 
-    <ul class="nav navbar-nav navbar-right">
-    
+    <ul class="nav navbar-nav navbar-right" style="border-left: 1px rgba(0, 0, 0, 0.43) solid;">
+
       <li class="active dropdown">
 
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">                
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 0px;
+padding-left: 19px;">                
             <img src="
             http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/4/000/157/2f0/2b9a518.jpg" height="50px" width="50px">
-            <span style="font-size: 15px;">Leslie Harrington</span> 
+            <span style="font-size: 19px;
+font-family: 'Nunito';
+color: #707070;">Leslie Harrington</span> 
             <b class="caret"></b>
         </a>
 
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu" style="margin-top:15px;">
 
             <li class="dropdown-header">Product Features</li>
             <li><a href="#">Favorites</a></li>
