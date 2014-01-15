@@ -36,10 +36,13 @@ var bloombergComp = new mongoose.Schema({
 		shade : String,
 		attributes : [String],
 		complementaryColors : [String], //should these be names or Id's?
-		swatchFileName : String,
-		descriptionFileName : String,
+		descriptionFileName : String
 	}],
-	//primary color?
+	colorPercentages : [{
+		cpColorFamily : String,
+		cpShade : String,
+		cpPercentage : Number,
+	}],
 	logoFileName : String,
 	logoPotentialList : [{ year : String, fileName : String }],
 	logoHistory : [{ year : String, fileName : String }],

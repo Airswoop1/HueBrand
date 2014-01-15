@@ -167,7 +167,7 @@ function: convertSVGs()
 converts the svg image files in application/public/logos/svg to
 png and saves them in application/public/logos
 *********************/
-imageConv.convertSVGs();
+//imageConv.convertSVGs();
 
 var logopediaArray = []
 var logosQ = scrape.logopediaModel.find({$and: [{logosData :{$not :{$size : 0 }}}, {bloombergMatch: {$exists:false}}]});
@@ -328,9 +328,12 @@ app.get('/logoSelection',function(req,res){
 })
 
 app.get('/logoColorExtraction',function(req,res){
-	bloom.bloombergCompany.find({logoFileName : {$exists : true}}, function(err, obj){
-		var ind = 1;
-		colorExtract.extract(ind, obj);
+	bloom.bloombergCompany.find({$and : [{logoFileName : {$exists : true}}, {associatedColors:{$exists:false}}]}, 
+		function(err, obj){
+		console.log(err);
+		console.log(obj);
+		var ind = 0;
+		//colorExtract.extract(ind, obj);
 	})
 })
 
