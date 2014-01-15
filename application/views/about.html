@@ -14,7 +14,7 @@
   font-size: 24px;">
     Company
   </div>
-<div class="col-md-4" style="padding-bttom:10px;border-right: 1px solid #eee;text-align: center;
+  <div class="col-md-4" style="padding-bottom:10px;border-right: 1px solid #eee;text-align: center;
   font-size: 24px;">
     Logo Colors & Meaning
   </div>
@@ -24,19 +24,33 @@
   </div>
 </div>
 
-
-<div class="row" style="
-margin-bottom: 10px;">
-    <% include m_brand-info %> 
-    <% include m_brand-logoColorsAnalytics %>
-    <% include m_global-industryColors %> 
-</div>
 <div class="row">
+  <div class="col-md-4" style="border-right: 1px solid #eee;">
+    <% include m_brand-info %> 
     <% include m_brand-logoHistory %> 
-    <% include m_global-map %>
+  </div>
+  <div class="col-md-4" style="border-right: 1px solid #eee;">
+    <% include m_brand-logoColorsAnalytics %>
+    <% include m_global-map %> 
+  </div>
+  <div class="col-md-4">
+    <% include m_global-industryColors %>    
     <% include m_global-logoCloud %>
   </div>
 </div>
 
 <% include footer %>
 
+
+
+<div class="container" style="1000px;margin-right: auto;
+margin-left: auto;">
+	<span style="font-size:60px;font-family: Nunito;margin:0px;">
+		About or Contact or Privacy or Legal
+	</span>
+</div>
+
+<div style="1000px;margin-right: auto;
+margin-left: auto;font-size:30px;padding-top:20px;font-family: Nunito;">
+	Color Association Text Goes Here
+</div>

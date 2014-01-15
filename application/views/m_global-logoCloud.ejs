@@ -1,5 +1,5 @@
 <!--  Module - Logo Cloud - "Shows a Cloud of Logos associated to the Brand, Attribute, Industry, Color"  -->
-     <div class="container-fluid" id="logocloud" >
+     <div class="container-fluid" id="logocloud" style="width:41%;float:left;">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -10,13 +10,12 @@
               </div>
             </span>
         </div>
-        <div class="well-content" style="height:280px;">
+        <div class="well-content" style="height:460px;margin-bottom: -20px; ">
          <div class="logoCloudFilter" style="margin-top: 20px;">
-            <a href="#" data-filter="*" class="current" style="margin-left: 20px;">All Market Caps</a>
-            <a href="#" data-filter=".first">5B+</a>
-            <a href="#" data-filter=".second">1B - 5B</a>
-            <a href="#" data-filter=".third">500M - 1B</a>
-            <a href="#" data-filter=".fourth">0-500M</a>
+            <a href="#" data-filter=".firstquartile"  style="margin-left: 20px;">1 - 25</a>
+            <a href="#" data-filter=".secondquartile">26 - 50</a>
+            <a href="#" data-filter=".thirdquartile">51 - 75</a>
+            <a href="#" data-filter=".fourthquartile">76 - 100</a>
         </div>
           <div class="logoCloudContainer">
             <% for(var i=0; i<industryResult.length; i++){ %>

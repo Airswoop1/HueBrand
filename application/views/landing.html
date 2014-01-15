@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">    
+
+<head>
+  <title>
+  HueBrand - Brand Search Results
+  </title>
+  <% include assets %>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/20130409/jquery.cycle2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/20130409/jquery.cycle2.ScrollVert.min.js"></script>
+
+</head>
+
+<body class="body">
+<!-- Top Navigation Bar  -->
+
+<div style="background-color: red;
+height: 6px;
+width: 234px;
+position: absolute;
+top: 65px;
+left: 762px;"></div>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+  
+<!-- Top Navigation Bar - Left Part - Company Logo -->
+    <a class="navbar-brand" style="margin: 0;
+padding: 15px!important;
+color: #FFF!important;
+text-shadow: none;
+font-family:'Oxygen';
+font-weight: 200!important;
+font-size: 120px!important;
+margin-top: 90px;
+margin-left: 36%;">
+      <span style="font-weight:600">HUE</span>brand</a>
+
+<!-- Top Navigation Bar - Right Part - Name & Dropdown Menu -->
+
+    
+  </div>
+</div>
+   
+
+<% include sidebar %>
+<body style="
+  -webkit-animation-name: colors;
+  -webkit-animation-duration: 30s;
+  -webkit-animation-direction: normal;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-name: colors;
+  animation-duration: 30s;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+">
+
+<style>
+
+/* remember to define visible focus styles! 
+:focus {
+  outline: ?????;
+} */
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none; }
+
+del {
+  text-decoration: line-through; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+@-webkit-keyframes slideinanim {
+  0% {
+    -webkit-transform: translate3d(0, -56px, 0em);
+    -moz-transform: translate3d(0, -56px, 0em);
+    -o-transform: translate3d(0, -56px, 0em);
+    transform: translate3d(0, -56px, 0em); }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0em);
+    -moz-transform: translate3d(0, 0, 0em);
+    -o-transform: translate3d(0, 0, 0em);
+    transform: translate3d(0, 0, 0em); } }
+
+@keyframes slideinanim {
+  0% {
+    -webkit-transform: translate3d(0, -56px, 0em);
+    -moz-transform: translate3d(0, -56px, 0em);
+    -o-transform: translate3d(0, -56px, 0em);
+    transform: translate3d(0, -56px, 0em); }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0em);
+    -moz-transform: translate3d(0, 0, 0em);
+    -o-transform: translate3d(0, 0, 0em);
+    transform: translate3d(0, 0, 0em); } }
+
+@-webkit-keyframes colors {
+  0% {
+    background-color: #39f; }
+
+  20% {
+    background-color: #9d2f9b; }
+
+  40% {
+    background-color: #e52b0b; }
+
+  60% {
+    background-color: #f8cb4a; }
+
+  80% {
+    background-color: #8ecb15; }
+
+  100% {
+    background-color: #39f; } }
+
+@keyframes colors {
+  0% {
+    background-color: #39f; }
+
+  25% {
+    background-color: #9d2f9b; }
+
+  50% {
+    background-color: #e52b0b; }
+
+  75% {
+    background-color: #f8cb4a; }
+
+  99% {
+    background-color: #8ecb15; }
+
+  100% {
+    background-color: #39f; } }
+
+.start-indigo {
+  -webkit-animation-delay: -5s;
+  animation-delay: -5s; }
+
+.start-red {
+  -webkit-animation-delay: -10s;
+  animation-delay: -10s; }
+
+.start-yellow {
+  -webkit-animation-delay: -17s;
+  animation-delay: -17s; }
+
+.start-green {
+  -webkit-animation-delay: -25s;
+  animation-delay: -25s; }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
+
+* html .clearfix {
+  zoom: 1; }
+
+
+.splash {
+  -webkit-animation-name: colors;
+  -webkit-animation-duration: 30s;
+  -webkit-animation-direction: normal;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-name: colors;
+  animation-duration: 30s;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; }
+
+
+.hero-page {
+  display: table;
+  width: 100%;
+  height: 350px;
+  -webkit-animation-name: colors;
+  -webkit-animation-duration: 30s;
+  -webkit-animation-direction: normal;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  animation-name: colors;
+  animation-duration: 30s;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; }
+
+.ch-item {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  cursor: default;
+  box-shadow: 
+    inset 0 0 0 25px rgba(255,255,255,0.15),
+    0 1px 2px rgba(0,0,0,0.1);
+    
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+
+.ch-img-1 { 
+  background-size: 100% 100%;
+  background-color:#000;
+  background-repeat:no-repeat;
+  background-position:left top;
+
+}
+
+
+.ch-img-2 { 
+   background-color:#fff;
+  background-size: 100% 100%;
+}
+
+
+
+.ch-img-3 { 
+  background-color: #fff;
+  background-size: 100% ;
+}
+
+
+.ch-img-4 { 
+  background-size: 100% 100%;
+}
+
+.ch-info {
+  position: absolute;
+  background: rgba(0,0,0, 0.95);
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  opacity: 0;
+  
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+  
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -o-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  
+  -webkit-backface-visibility: hidden;
+
+}
+
+.ch-info h3 {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 22px;
+  margin: 0 30px;
+  padding: 45px 0 0 0;
+  height: 140px;
+  font-family: 'Open Sans', Arial, sans-serif;
+  text-shadow: 
+    0 0 1px #fff, 
+    0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ch-info p {
+  color: #fff;
+  padding: 10px 5px;
+  margin: 0 30px;
+  margin-top:140px;
+  font-size: 20px;
+  font-family:'Oxygen';
+  text-transform:uppercase;
+  opacity: 0;
+  -webkit-transition: all 1s ease-in-out 0.4s;
+  -moz-transition: all 1s ease-in-out 0.4s;
+  -o-transition: all 1s ease-in-out 0.4s;
+  -ms-transition: all 1s ease-in-out 0.4s;
+  transition: all 1s ease-in-out 0.4s;
+}
+
+.ch-info p a {
+  display: block;
+  color: #fff;
+  color: rgba(255,255,255,0.7);
+  font-style: normal;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding-top: 10px;
+  font-family: 'Oxygen', Arial, sans-serif;
+}
+
+.ch-info p a:hover {
+  color: #fff222;
+  color: rgba(255,242,34, 0.8);
+}
+
+.ch-item:hover {
+  box-shadow: 
+    inset 0 0 0 30px rgba(255,255,255,0.1),
+    0 1px 2px rgba(0,0,0,0.1);
+}
+.ch-item:hover .ch-info {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.ch-item:hover .ch-info p {
+  opacity: 1;
+}
+
+
+.ch-grid li {
+  width: 330px;
+  height: 330px;
+  display: inline-block;
+  margin: 40px;
+}
+
+.navbar-fixed-top {
+height: 250px;
+
+}
+
+.navbar-default {
+border-bottom: rgba(0, 0, 0, 0.09) 1px solid!important;
+}
+
+.navbar {
+background-color: transparent!important;
+}
+
+.navbar-brand {
+
+}
+
+.page-wrap {
+padding-top: 200px;
+}
+
+
+</style>
+
+
+
+<div class="row" style="font-weight:500;">
+
+</div>
+
+
+<div style="margin-right: auto;
+margin-left: auto;width:1700px;margin-top:100px;">
+    
+<ul class="ch-grid">
+  <li>
+    <div class="cycle-slideshow"  data-cycle-fx=fade data-cycle-speed="5000"
+    data-cycle-timeout=1500  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
+      
+      <div class="ch-item ch-img-1" style="width:330px;height:330px; background-image: url(http://upload.wikimedia.org/wikipedia/commons/a/a5/Apple_gray_logo.png);
+">
+      <div class="ch-info"  style="text-align: center;">
+        <p style="">View on HUEKnew</p>
+      </div>
+      </div>
+
+      <div class="ch-item ch-img-1" style="width:330px;height:330px;background-image: url(http://www.dqmagazine.com/assets/Uploads/_resampled/SetWidth450-microsoft-logo-0.jpg)">
+        <div class="ch-info"  style="text-align: center;">
+        <p style="">View on HUEKnew</p>
+        </div>
+      </div>
+    
+    </div>
+  </li>
+          <li>
+                    <div class="cycle-slideshow" style="" data-cycle-fx=fadeout
+    data-cycle-timeout=4000  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
+            <div class="ch-item ch-img-2" style="height:330px;width:330px;">
+              <span style="position:absolute;text-align:center;top:110px;Color:#000;font-family:'Oxygen';left:45px;font-size:50px;font-weight:500px;">Beau·ti·ful  
+              <div style="font-size:20px;">\ˈbyü-ti-fəl\</div>
+              <div style="font-size:20px;">1. generally pleasing</div></span>
+
+
+              <div class="ch-info"  style="text-align: center;">
+               <p>View on HUEKnew</p>
+              </div>
+            </div>
+
+                      <div class="ch-item ch-img-2" style="height:330px;width:330px;">
+              <span style="position:absolute;text-align:center;top:110px;Color:#000;font-family:'Oxygen';left:45px;font-size:50px;font-weight:500px;">A·maz·ing  
+              <div style="font-size:20px;">uh-mey-zing</div>
+              <div style="font-size:20px;">1. causing great surprise or sudden wonder.</div></span>
+
+
+              <div class="ch-info"  style="text-align: center;">
+               <p>View on HUEKnew</p>
+              </div>
+            </div>
+
+
+
+              </div>
+
+          </li>
+          <li>
+           <div class="cycle-slideshow"  data-cycle-fx=fade
+    data-cycle-timeout=3000  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
+      
+      <div class="ch-item ch-img-3" style="width:330px;height:330px; background-image: url(http://www.huntsgamepreserve.com/sitebuildercontent/sitebuilderpictures/webassets/car-icon.gif);
+">
+      <div class="ch-info"  style="text-align: center;">
+        <p style="">View on HUEKnew</p>
+      </div>
+      </div>
+
+      <div class="ch-item ch-img-3" style="width:330px;height:330px;background-image: url(https://cdn3.iconfinder.com/data/icons/school-and-education-2/56/education_icons_IF-02-512.png)">
+        <div class="ch-info"  style="text-align: center;">
+        <p style="">View on HUEKnew</p>
+        </div>
+      </div>
+    
+    </div>
+          </li>
+          <li>
+           <div class="cycle-slideshow"  data-cycle-fx=fade
+    data-cycle-timeout=2000  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
+      
+      <div class="ch-item ch-img-1" style="width:330px;height:330px; background-color:#9E1515;
+">
+      <div class="ch-info"  style="text-align: center;">
+        <p style="">View on HUEKnew</p>
+      </div>
+      </div>
+
+      <div class="ch-item ch-img-1" style="background-color:#0000FF">
+        <div class="ch-info"  style="text-align: center;">
+        <p style="">View on HUEKnew</p>
+        </div>
+      </div>
+    
+    </div>
+          </li>
+        </ul>
+        
+        <div style="margin-top:-20px;margin-left:-20px;height:100px;font-family:'Oxygen';
+font-weight: 500;font-size:40px;color:#fff;">
+          <div style="width:25%;text-align:center;height:100px;float:left;">Brand </div>
+          <div style="width:25%;text-align:center;height:100px;float:left;">Attribute </div>
+          <div style="width:25%;text-align:center;height:100px;float:left;">Industry</div>
+          <div style="width:25%;text-align:center;height:100px;float:left;">Color</div>
+        </div>
+
+        <div style="border-top: rgba(0, 0, 0, 0.09) 1px solid!important;margin-top:100px;padding-top:20px;color:#fff;font-weight:700px;font-size: 25px;
+color: #fff;
+font-weight: 00px;font-family:'Oxygen';
+
+font-weight: 500;">
+          <span style="padding-left:10px;padding-right:10px;">About</span> | 
+          <span style="padding-left:10px;padding-right:10px;">Legal</span> | 
+          <span style="padding-left:10px;padding-right:10px;">Contact</span> 
+         
+         <span style="float:right;">© <span style="font-weight:700">HUE</span>brand 2014</span>
+
+        </div>
+
+</div>
+
+
