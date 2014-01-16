@@ -5,7 +5,7 @@
                document.getElementById( 'logotimeline' ).style.display = 'none'; 
               </script>
  <%}%>
-    <div class="container-fluid" id="logotimeline" style="width:10%;float:left;margin-right:10px;height:470px;"">
+    <div class="container-fluid" id="logotimeline" style="width:10%;float:left;margin-right:2%;margin-left:2%;height:470px;"">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -17,10 +17,10 @@
             </span>
         </div>
         <!-- Content - Logo History -->
-        <div class="well-content" style="height:300px;padding: 20px;font-size: 14px;font-weight: 700;height:450px;">
+        <div class="well-content" style="height:300px;padding: 5%;font-size: 14px;font-weight: 700;height:450px;">
           <% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
-            <div style="float:left;margin-right:5px;margin-top:10px;width:125px;border: 1px rgba(240, 240, 240, 0.47) solid; ">
-              <div style="width: 125px;">
+            <div style="float:left;margin-right:0px;margin-top:5%;width:99%;border: 1px rgba(240, 240, 240, 0.47) solid; ">
+              <div style="width: 99%">
                 <img src="../Logos/<%= brandResult.logoHistory[i].fileName%>" style="height:100px;display: block;margin: 0 auto;">
               </div>
               <div style="text-align:center;margin-top:10px;font-weight: 700;background-color: rgb(250, 250, 250);">

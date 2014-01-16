@@ -1,5 +1,5 @@
 <!--  Module - Company Logo & Information - "Shows the Company's Logo and Data Associated to it" -->
-     <div class="container-fluid" id="companylogo" style="width:33%;float:left;margin-right:10px;">
+     <div class="container-fluid" id="companylogo" style="float:left;margin-left:2%;margin-right:2%;width:30.66%;">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -10,14 +10,16 @@
               </div>
             </span>
         </div>
-        <div class="well-content" style="height:300px;padding-top:10px;">
+        <div class="well-content" style="height:300px;padding: 5%;
+padding-top: 5%;">
           <div id="companylogo-box" style="">
             <a href="../Logos/<%= brandResult.logoFileName%>" download="<%= brandResult.logoFileName%>">
               <img id="logo" src="../Logos/<%= brandResult.logoFileName%>">
              </a>
           </div>
           <div style="float:left;width:57%">
-           <ul style="font-size: 16px;line-height: 20px;">
+           <ul style="font-size: 12px;
+line-height: 14px;">
            <li style="padding-bottom:10px;"><b><span style="text-transform:capitalize;"><%= brandResult.shortName %></span></b> - <%= brandResult.desc %></font></li>
            </ul>
           </div>

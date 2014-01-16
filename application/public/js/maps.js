@@ -4,7 +4,7 @@ function initialize() {
 
   // Create the map.
   var mapOptions = {
-    zoom: 2,
+    zoom: 1,
     center: new google.maps.LatLng(24.922123, -0.859375),
  mapTypeControl: true,
     mapTypeControlOptions: {
@@ -111,15 +111,11 @@ function initialize() {
     {
         "featureType": "water",
         "stylers": [
-            {
-                "color": "#5f94ff"
-            },
-            {
-                "lightness": 26
-            },
-            {
-                "gamma": 5.86
-            }
+             { "visibility": "simplified" },
+      { "color": "#632929" },
+      { "saturation": -95 },
+      { "gamma": 4.33 },
+      { "lightness": 60 }
         ]
     },
     {},

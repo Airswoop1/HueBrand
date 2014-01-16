@@ -67,7 +67,6 @@
 	<script src="/js/main.js"></script>
 	 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-//#Module - Chart
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
@@ -102,15 +101,15 @@ formatter.format(data, 1);
   fontName: 'Nunito',fontSize: '16' }, isHtml: true},
         legend: { position: "none" },
        bar: {groupWidth: "80%"},
-       hAxis: {format:'0%', minValue:0, viewWindowMode:'maximized', textStyle:{
+       vAxis: {format:'0%', minValue:0, viewWindowMode:'maximized', textStyle:{
   fontName: 'Nunito',fontSize: '16' }},
-       vAxis: {textStyle:{
+       hAxis: {textStyle:{
   fontName: 'Nunito',fontSize: '16' }},
       };
 
      
 
-      var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+      var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
       chart.draw(view, options);
     }
   </script>
