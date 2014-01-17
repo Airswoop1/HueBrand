@@ -832,7 +832,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 #logotimeline p { margin: 0 0 15px; }
  
 #logotimeline .span12 .well-content {
-	overflow-x: scroll;
+
 	padding: 10%;
 	border-bottom-left-radius: 5px;
 	background-color: #fff;
