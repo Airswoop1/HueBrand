@@ -66,7 +66,7 @@ margin-bottom: 0px!important;
 
 /* Module - Company Logo */
  
-#companylogo .span12 .well-content {
+#companylogo-boxgo .span12 .well-content {
 	padding-right: 20px;
 	padding-top:20px;
 	padding-right:20px;
@@ -75,10 +75,11 @@ margin-bottom: 0px!important;
 #companylogo-box {
 margin: 0px;
 width: 43%;
-line-height: 280px;
+line-height: 205px;
 float: left;
 text-align: center;
-height: 280px;
+height: 100%;
+
 }
  
 	#companylogo-box img {
@@ -162,11 +163,11 @@ body:after {
 	.page-wrap .well {
 		padding: 0;
 		background: #fff;
-		border: 1px solid rgba(224, 224, 224, 0.48);
+		border: 1px solid rgba(246, 246, 246, 0.35);;
 		opacity: 1; }
  
 		.page-wrap .well .title {
-			border-bottom: 1px solid rgba(224, 224, 224, 0.48);
+			border-bottom: 1px solid rgba(246, 246, 246, 0.35);;
 			background-color: rgba(12, 13, 19, 0.71);
 			padding: 5px;
 			text-transform: uppercase;
@@ -317,7 +318,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	background-image: linear-gradient(rgba(255, 255, 255), rgb(255, 255, 255))!important; }
  
 .selectize-input {
-	width: 300px!important;
+	width: 230px!important;
 	margin-left: 1px!important;
 	height: 26px;
 	margin-top: 10px!important;
@@ -327,7 +328,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	border-radius: 0px!important; }
  
 .selectize-dropdown, .selectize-input, .selectize-input input {
-	width: 300px!important;
+	width: 230px!important;
 	color: #515151!important;
 	font-size: 12px!important;
 	margin:12px 10px 10px 14px!important;

@@ -18,13 +18,13 @@ padding-top: 5%;">
              </a>
           </div>
           <div style="float:left;width:57%">
-           <ul style="font-size: 12px;
+           <ul style="font-size: 11px;
 line-height: 14px;">
-           <li style="padding-bottom:10px;"><b><span style="text-transform:capitalize;"><%= brandResult.shortName %></span></b> - <%= brandResult.desc %></font></li>
+           <li style=""><b><span style="text-transform:capitalize;"><%= brandResult.shortName %></span></b> - <%= brandResult.desc %></font></li>
            </ul>
           </div>
-        <div style="width:358px;float:left;">
-          <div style="width:80%;float:left;font-size:10px;line-height:18px;">
+        <div style="width:57%;float:left;">
+          <div style="width:80%;float:left;font-size:10px;line-height:12px;">
              <b>Stock Symbol</b> - <%= brandResult.stockSymbol %><br>
              <b>Industry</b> - <%=brandResult.GICSSectorName%><br>
              <b>Headquarters</b> - <%=brandResult.country%><br>
@@ -32,10 +32,12 @@ line-height: 14px;">
              <b>Market Cap</b> - <%= brandResult.marketCap%><br>
 
           </div>
-    <div style="float:left;width:10%;margin-left:-20px;text-align:center;font-size: 12px;">
+    <div style="float:left;width:10%;margin-left:-5px;text-align:center;font-size: 12px;">
           <a href="../Logos/<%= brandResult.brandManualFileName%>" download="<%= brandResult.brandManualFileName%>">
-            <button id="buttondownload" style="margin-top: 0px;padding:10px!important;">
-              <div>
+            <button id="buttondownload" style="margin-top: 0px;padding:2px!important;">
+              <div style="font-size: 8px;
+line-height: 8px;
+padding: 5px;">
                 <i class="fa fa-download" style="font-size: 12px;margin-right: 10px;"></i>
                 Download Brand Manual
               </div> 
@@ -43,7 +45,11 @@ line-height: 14px;">
           </a>
           </div>
       
-             <span style="float:right;font-size: 9px;font-weight: 700;margin-top:5px;margin-right: -40px;">Last Updated: March 28th 2014</span>
+             <span style="float: right;
+font-size: 9px;
+font-weight: 700;
+margin-top: 15px;
+margin-right: -15px;">Last Updated: March 28th 2014</span>
         </div>
           
      
