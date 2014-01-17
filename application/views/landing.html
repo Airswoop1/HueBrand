@@ -13,51 +13,6 @@
 </head>
 
 <body class="body">
-<!-- Top Navigation Bar  -->
-
-<div style="background-color: red;
-height: 10px;
-width: 234px;
-position: absolute;
-top: 61px;
-left: 800px;"></div>
-
-<div class="navbar navbar-default navbar-fixed-top" role="navigation" style="height: 220px!important;">
-  <div class="container">
-  
-<!-- Top Navigation Bar - Left Part - Company Logo -->
-    <a class="navbar-brand" style="margin: 0;
-padding: 15px!important;
-color: #FFF!important;
-text-shadow: none;
-font-family:'Oxygen';
-font-weight: 200!important;
-font-size: 120px!important;
-margin-top: 90px;
-margin-left: 36%;">
-      <span style="font-weight:600">HUE</span>brand</a>
-
-<!-- Top Navigation Bar - Right Part - Name & Dropdown Menu -->
-
-    
-  </div>
-</div>
-   
-
-<% include sidebar %>
-<body style="
-  -webkit-animation-name: colors;
-  -webkit-animation-duration: 30s;
-  -webkit-animation-direction: normal;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  animation-name: colors;
-  animation-duration: 30s;
-  animation-direction: normal;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-">
-
 <style>
 
 /* remember to define visible focus styles! 
@@ -70,130 +25,6 @@ ins {
 
 del {
   text-decoration: line-through; }
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0; }
-
-@-webkit-keyframes slideinanim {
-  0% {
-    -webkit-transform: translate3d(0, -56px, 0em);
-    -moz-transform: translate3d(0, -56px, 0em);
-    -o-transform: translate3d(0, -56px, 0em);
-    transform: translate3d(0, -56px, 0em); }
-
-  100% {
-    -webkit-transform: translate3d(0, 0, 0em);
-    -moz-transform: translate3d(0, 0, 0em);
-    -o-transform: translate3d(0, 0, 0em);
-    transform: translate3d(0, 0, 0em); } }
-
-@keyframes slideinanim {
-  0% {
-    -webkit-transform: translate3d(0, -56px, 0em);
-    -moz-transform: translate3d(0, -56px, 0em);
-    -o-transform: translate3d(0, -56px, 0em);
-    transform: translate3d(0, -56px, 0em); }
-
-  100% {
-    -webkit-transform: translate3d(0, 0, 0em);
-    -moz-transform: translate3d(0, 0, 0em);
-    -o-transform: translate3d(0, 0, 0em);
-    transform: translate3d(0, 0, 0em); } }
-
-@-webkit-keyframes colors {
-  0% {
-    background-color: #39f; }
-
-  20% {
-    background-color: #9d2f9b; }
-
-  40% {
-    background-color: #e52b0b; }
-
-  60% {
-    background-color: #f8cb4a; }
-
-  80% {
-    background-color: #8ecb15; }
-
-  100% {
-    background-color: #39f; } }
-
-@keyframes colors {
-  0% {
-    background-color: #39f; }
-
-  25% {
-    background-color: #9d2f9b; }
-
-  50% {
-    background-color: #e52b0b; }
-
-  75% {
-    background-color: #f8cb4a; }
-
-  99% {
-    background-color: #8ecb15; }
-
-  100% {
-    background-color: #39f; } }
-
-.start-indigo {
-  -webkit-animation-delay: -5s;
-  animation-delay: -5s; }
-
-.start-red {
-  -webkit-animation-delay: -10s;
-  animation-delay: -10s; }
-
-.start-yellow {
-  -webkit-animation-delay: -17s;
-  animation-delay: -17s; }
-
-.start-green {
-  -webkit-animation-delay: -25s;
-  animation-delay: -25s; }
-
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0; }
-
-* html .clearfix {
-  zoom: 1; }
-
-
-.splash {
-  -webkit-animation-name: colors;
-  -webkit-animation-duration: 30s;
-  -webkit-animation-direction: normal;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  animation-name: colors;
-  animation-duration: 30s;
-  animation-direction: normal;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear; }
-
-
-.hero-page {
-  display: table;
-  width: 100%;
-  height: 350px;
-  -webkit-animation-name: colors;
-  -webkit-animation-duration: 30s;
-  -webkit-animation-direction: normal;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  animation-name: colors;
-  animation-duration: 30s;
-  animation-direction: normal;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear; }
 
 .ch-item {
   width: 100%;
@@ -331,10 +162,12 @@ table {
 
 
 .ch-grid li {
-  width: 330px;
-  height: 330px;
+  width: 200px;
+  height: 200px;
   display: inline-block;
   margin: 40px;
+  border: 1px #D2D2D2 solid;
+border-radius: 200px;
 }
 
 .navbar-fixed-top {
@@ -369,21 +202,21 @@ padding-top: 200px;
 
 
 <div style="margin-right: auto;
-margin-left: auto;width:1700px;margin-top:100px;">
+margin-left: auto;width:100%;">
     
 <ul class="ch-grid">
   <li>
     <div class="cycle-slideshow"  data-cycle-fx=fade data-cycle-speed="5000"
     data-cycle-timeout=1500  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
       
-      <div class="ch-item ch-img-1" style="width:330px;height:330px; background-image: url(http://upload.wikimedia.org/wikipedia/commons/a/a5/Apple_gray_logo.png);
+      <div class="ch-item ch-img-1" style="width:200px;height:200px; background-image: url(http://upload.wikimedia.org/wikipedia/commons/a/a5/Apple_gray_logo.png);
 ">
       <div class="ch-info"  style="text-align: center;">
         <p style="">View on HUEKnew</p>
       </div>
       </div>
 
-      <div class="ch-item ch-img-1" style="width:330px;height:330px;background-image: url(http://www.dqmagazine.com/assets/Uploads/_resampled/SetWidth450-microsoft-logo-0.jpg)">
+      <div class="ch-item ch-img-1" style="width:200px;height:200px;background-image: url(http://www.dqmagazine.com/assets/Uploads/_resampled/SetWidth450-microsoft-logo-0.jpg)">
         <div class="ch-info"  style="text-align: center;">
         <p style="">View on HUEKnew</p>
         </div>
@@ -394,7 +227,9 @@ margin-left: auto;width:1700px;margin-top:100px;">
           <li>
                     <div class="cycle-slideshow" style="" data-cycle-fx=fadeout
     data-cycle-timeout=4000  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
-            <div class="ch-item ch-img-2" style="height:330px;width:330px;">
+            <div class="ch-item ch-img-2" style="
+  width: 20%;
+  height: 20%;">
               <span style="position:absolute;text-align:center;top:110px;Color:#000;font-family:'Oxygen';left:45px;font-size:50px;font-weight:500px;">Beau·ti·ful  
               <div style="font-size:20px;">\ˈbyü-ti-fəl\</div>
               <div style="font-size:20px;">1. generally pleasing</div></span>
@@ -405,7 +240,9 @@ margin-left: auto;width:1700px;margin-top:100px;">
               </div>
             </div>
 
-                      <div class="ch-item ch-img-2" style="height:330px;width:330px;">
+                      <div class="ch-item ch-img-2" style="
+  width: 20%;
+  height: 20%;">
               <span style="position:absolute;text-align:center;top:110px;Color:#000;font-family:'Oxygen';left:45px;font-size:50px;font-weight:500px;">A·maz·ing  
               <div style="font-size:20px;">uh-mey-zing</div>
               <div style="font-size:20px;">1. causing great surprise or sudden wonder.</div></span>
@@ -425,14 +262,14 @@ margin-left: auto;width:1700px;margin-top:100px;">
            <div class="cycle-slideshow"  data-cycle-fx=fade
     data-cycle-timeout=3000  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
       
-      <div class="ch-item ch-img-3" style="width:330px;height:330px; background-image: url(http://www.huntsgamepreserve.com/sitebuildercontent/sitebuilderpictures/webassets/car-icon.gif);
+      <div class="ch-item ch-img-3" style="width:200px;height:200px; background-image: url(http://www.huntsgamepreserve.com/sitebuildercontent/sitebuilderpictures/webassets/car-icon.gif);
 ">
       <div class="ch-info"  style="text-align: center;">
         <p style="">View on HUEKnew</p>
       </div>
       </div>
 
-      <div class="ch-item ch-img-3" style="width:330px;height:330px;background-image: url(https://cdn3.iconfinder.com/data/icons/school-and-education-2/56/education_icons_IF-02-512.png)">
+      <div class="ch-item ch-img-3" style="width:200px;height:200px;background-image: url(https://cdn3.iconfinder.com/data/icons/school-and-education-2/56/education_icons_IF-02-512.png)">
         <div class="ch-info"  style="text-align: center;">
         <p style="">View on HUEKnew</p>
         </div>
@@ -444,7 +281,7 @@ margin-left: auto;width:1700px;margin-top:100px;">
            <div class="cycle-slideshow"  data-cycle-fx=fade
     data-cycle-timeout=2000  data-cycle-pause-on-hover="true" data-cycle-slides="> div">
       
-      <div class="ch-item ch-img-1" style="width:330px;height:330px; background-color:#9E1515;
+      <div class="ch-item ch-img-1" style="width:200px;height:200px; background-color:#9E1515;
 ">
       <div class="ch-info"  style="text-align: center;">
         <p style="">View on HUEKnew</p>
@@ -485,3 +322,15 @@ font-weight: 500;">
 </div>
 
 
+<div style="border-top: rgba(0, 0, 0, 0.09) 1px solid!important;margin-top:100px;padding-top:20px;color:#000;font-weight:700px;font-size: 25px;
+color: #fff;
+font-weight: 00px;font-family:'Oxygen';
+
+font-weight: 500;">
+          <span style="padding-left:10px;padding-right:10px;">About</span> | 
+          <span style="padding-left:10px;padding-right:10px;">Legal</span> | 
+          <span style="padding-left:10px;padding-right:10px;">Contact</span> 
+         
+         <span style="float:right;">© <span style="font-weight:700">HUE</span>brand 2014</span>
+
+        </div>
