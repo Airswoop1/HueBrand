@@ -11,23 +11,23 @@
 /*---HEADER Nav---*/
 
 a {
-color: #000000!important;
-text-decoration: none;
+	color: #000000!important;
+	text-decoration: none;
 }
 
 .well-content {
 	overflow:hidden;
 }
 .row {
-		font-family: 'Nunito'!important;
-	}
+	font-family: 'Nunito'!important;
+}
 
 .navbar { 
 	background-color: #fff!important; }
 
 .navbar-default {
-height: 79px!important;
-border-color: rgba(175, 88, 88, 0.4)!important;
+	height: 79px!important;
+	border-color: rgba(175, 88, 88, 0.4)!important;
 }
 
 .navbar-brand {
@@ -49,13 +49,13 @@ border-color: rgba(175, 88, 88, 0.4)!important;
 
 .btn {
 	padding: 1px 5px;
-margin-bottom: 0;
-font-size: 15px;
-font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
+	margin-bottom: 0;
+	font-size: 15px;
+	font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
 }
 
 .well {
-margin-bottom: 0px!important;
+	margin-bottom: 0px!important;
 }
 
 /*---SIDEBAR---*/
@@ -73,18 +73,18 @@ margin-bottom: 0px!important;
 	border-bottom-left-radius: 5px;}
  
 #companylogo-box {
-margin: 0px;
-width: 43%;
-line-height: 205px;
-float: left;
-text-align: center;
-height: 100%;
+	margin: 0px;
+	width: 43%;
+	line-height: 205px;
+	float: left;
+	text-align: center;
+	height: 100%;
 
 }
  
-	#companylogo-box img {
+#companylogo-box img {
 	width:70%;	
-	}
+}
 
 
 
@@ -167,20 +167,21 @@ body:after {
 		opacity: 1; }
  
 		.page-wrap .well .title {
-			border-bottom: 1px solid rgba(246, 246, 246, 0.35);;
-			background-color: rgba(12, 13, 19, 0.71);
-			padding: 5px;
+			border-bottom: 1px solid rgba(246, 246, 246, 0.35);
+			background-color: rgba(12, 13, 19, 0.46);
+			padding: 0px;
 			text-transform: uppercase;
 			font-weight: 100;
-			height: 33px;
-			color: #fff; }
+			height: 21px;
+			color: #fff;
+			font-size: 12px; }
 
 			.page-wrap .well .btn-default {
 			color: #FFFFFF;
 			font-family: 'nunito'!important;
-			font-size: 16px;
+			font-size: 12px;
 			line-height: .6;
-			padding: 5px;
+			padding: 6px;
 			font-weight: 100;
 			}
 			 
@@ -328,7 +329,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	border-radius: 0px!important; }
  
 .selectize-dropdown, .selectize-input, .selectize-input input {
-	width: 230px!important;
+	width: 214px !important;
 	color: #515151!important;
 	font-size: 12px!important;
 	margin:12px 10px 10px 14px!important;

@@ -1,24 +1,23 @@
-<!-- [attribute.html] - Page for Industry Search Results -->
+<!-- [attribute.html] - Page for Attribute Search Result -->
+
 <% include header %>
 <% include sidebar %>
 
+	<div class="row" style="margin-bottom: 1%;">
+	    <% include m_analytics %>
+	</div>
 
-<div class="row" style="margin-bottom: 1%;">
-    <% include m_analytics %>
-</div>
+	<div class="row" style="margin-bottom: 1%">
+	    <% include m_attribute-info %>
+	    <% include m_global-colorTop %>
+	    <% include m_industry-pieChart %>
+	</div>
 
-<div class="row" style="
-margin-bottom: 1%">
-    <% include m_attribute-info %>
-    <% include m_global-colorTop %>
-    <% include m_industry-pieChart %>
-</div>
-
-<div class="row">
-    <% include m_global-colorPalette %> 
-    <% include m_global-map %> 
-    <% include m_global-logoCloud %>
-</div>
+	<div class="row">
+	    <% include m_global-colorPalette %> 
+	    <% include m_global-map %> 
+	    <% include m_global-logoCloud %>
+	</div>
 
 <% include footer %>
 

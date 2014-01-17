@@ -6,7 +6,7 @@ function initialize() {
   var mapOptions = {
     zoom: 1,
     center: new google.maps.LatLng(24.922123, -0.859375),
- mapTypeControl: true,
+    mapTypeControl: true,
     mapTypeControlOptions: {
       style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
     },
@@ -22,10 +22,8 @@ function initialize() {
       { "visibility": "simplified" },
       { "weight": 0.5 },
       { "lightness": 0 },
-     { "gamma": .65 },
+      { "gamma": .65 },
        
-
-
     ]
       },{
         "featureType": "administrative",
