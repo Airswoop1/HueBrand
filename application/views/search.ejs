@@ -1,55 +1,38 @@
 <!--  Search Bar  -->
 
-<form class="navbar-form" role="search" style="float: right;
-margin-top: .1%;margin-right: -28px ;
-width: 277px;">
-<span style="font-size:9px;font-family:'Nunito';text-transform:uppercase;">
+<form class="navbar-form" role="search" style="float: right;margin-top: .1%;margin-right: -28px;width: 277px;">
+  <span style="font-size:9px;font-family:'Nunito';text-transform:uppercase;">
+    <span style="border: 1px solid rgba(12, 13, 19, 0);padding: 5px;border-radius: 5px;background-color: rgba(12, 13, 19, 0.46);color: #fff;">
+      Brand
+    </span>
+    <span style="border: 1px solid rgba(12, 13, 19, 0.46);padding: 5px;border-radius: 5px;background-color: #fff;color: #000;">  Industry
+    </span>
+    <span style="border: 1px solid rgba(12, 13, 19, 0.46);padding: 5px;border-radius: 5px;background-color: #fff;color: #000;">  Attribute
+    </span>
+    <span style="border: 1px solid rgba(12, 13, 19, 0.46);padding: 5px;border-radius: 5px;background-color: #fff;color: #000;">  Color
+    </span>
+  </span>
 
-<span style="border: 1px solid rgba(12, 13, 19, 0);
-padding: 5px;
-border-radius: 5px;
-background-color: rgba(12, 13, 19, 0.46);
-color: #fff;">Brand</span>
-
-<span style="border: 1px solid rgba(12, 13, 19, 0.46);
-padding: 5px;
-border-radius: 5px;
-background-color: #fff;
-color: #000;">Industry</span>
-
-<span style="border: 1px solid rgba(12, 13, 19, 0.46);
-padding: 5px;
-border-radius: 5px;
-background-color: #fff;
-color: #000;">Attribute</span>
-
-<span style="border: 1px solid rgba(12, 13, 19, 0.46);
-padding: 5px;
-border-radius: 5px;
-background-color: #fff;
-color: #000;">Color</span>
-
-</span>
-<form class="navbar-form" role="search" style="float: right;/* border-left: 1px rgba(0, 0, 0, 0.43) solid; *//* height: 13px; */margin-top: 19px;width: 209px;">
-
- <div id="tabs-industries" style="margin-top: 0px;margin-left: -1px;width: 109px;">
-        <div class="demo">
+  <form class="navbar-form" role="search" style="float: right;/* border-left: 1px rgba(0, 0, 0, 0.43) solid; *//* height: 13px; */margin-top: 19px;width: 209px;">
+    <div id="tabs-industries" style="margin-top: 0px;margin-left: -1px;width: 109px;">
+      <div class="demo">
         <div class="control-group">
-         <select id="select-industry" name="industry[]" multiple class="demo-default"  placeholder="Select a brand...">
+          <select id="select-industry" name="industry[]" multiple class="demo-default"  placeholder="Select a brand...">
             <option value="">Select a brand...</option>
-              <option value="Facebook">Facebook</option>
-              <option value="Google">Google</option>
-              <option value="Exxon Mobil">Exxon Mobil</option>
-              <option value="PetroChina">PetroChina</option>
-              <option value="Bank of America">Bank of America</option>
-              <option value="Citigroup">Citigroup</option>
-            </select>
-       </div>
-      </div>
+            <option value="Facebook">Facebook</option>
+            <option value="Google">Google</option>
+            <option value="Exxon Mobil">Exxon Mobil</option>
+            <option value="PetroChina">PetroChina</option>
+            <option value="Bank of America">Bank of America</option>
+            <option value="Citigroup">Citigroup</option>
+          </select>
+         </div>
+        </div>
       <script>
         $('#select-industry').selectize({
           maxItems: 3
         });
       </script>
     </div>
-</form></form>
+  </form>
+</form>
