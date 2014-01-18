@@ -1,7 +1,5 @@
 <!-- JS - General -->
 	<script src="/js/jQuery-1.9.1.js"></script>
-	<script src="http://malsup.github.io/jquery.cycle2.js"></script>
-	<script src="http://malsup.github.io/min/jquery.cycle2.shuffle.min.js"></script>
 <!-- Include js plugin -->
 	<script src="/js/owl.carousel.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -108,9 +106,10 @@
 				hAxis: {textStyle:{
 				fontName: 'Nunito',fontSize: '16' }},
 				};
-			var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
 			chart.draw(view, options);
 			}
 		</script>
 
 <!-- JS - Module - Slideshow-->
+<script src="http://malsup.github.io/jquery.cycle2.js"></script>
