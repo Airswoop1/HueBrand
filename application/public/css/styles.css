@@ -1226,3 +1226,15 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 ::-moz-placeholder::before  { font-family: fontAwesome; content:'\f002  '; color: #aaa } /* firefox 19+ */
 :-ms-input-placeholder::before  { font-family: fontAwesome; content:'\f002  '; color: #aaa } /* ie */
 input:-moz-placeholder::before  { font-family: fontAwesome; content:'\f002  '; color: #aaa }
+
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+	padding: 0;
+	line-height: 1.5;
+}	
+
+th {
+	border-color:#fff; /*grey*/
+	border-style:solid; 
+	border-width:1px;
+}
