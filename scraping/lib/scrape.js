@@ -18,14 +18,57 @@ var Logopedia = mongoose.Schema({
 	logoType : String,
 	logoCategories : [String],
 	logoClass : String, // ['parent', 'subsidiary', 'brand', 'logo', 'delete']
-	parentCompany: [String]
+	parentCompany: [String],
+	downloaded, Boolean
 
 })
-
+//contraint on schema for logoName to be unique
 Logopedia.index({logoName: 1}, {unique:true});
-
 exports.logopediaModel = mongoose.model('logopedia', Logopedia);
 
+
+function updateLogopedias(index, compArr){
+	//helper function for updateDownloadedStatus
+	var bloomComp = compArr[index];
+	exports.logopediaModel.update({'bloombergMatch': bloomComp}, {downloaded: true}, {multi:true}, function(err, obj){
+		if(err){
+			console.log("error updating logopedias in updateDownloadedStatus");
+			console.log(err);
+		}
+		else{
+			console.log("updated logopedia entry" + obj);
+			if(index < compArr.legnth-1 ) updateLogopedias(++index, compArr);
+			else{
+				console.log("Completed updateDownloadedSatatus! For " + index + " companies");
+			}
+		}
+	})
+}
+
+/********
+	Function for updating the downloaded field of all previously downloaded logopedias
+	documents
+********/
+exports.updateDownloadedSatatus = function() { 
+	var compsWithDownloadedLogos; 
+	var query = bloom.bloombergCompany.find({logoFileName : {$exists:true}});
+
+	query.exec(query, function(err, obj){
+		if(err){
+			console.log("Error query bloomberg db in updateDownloadedSatatus")
+			console.log(err);
+		}
+		else{
+			compsWithDownloadedLogos = obj;
+			var index = 0;
+			updateLogopedias(index, compsWithDownloadedLogos)
+		}
+	})
+
+}
+
+/*****
+*****/
 exports.refineLogoData = function (){
 
 	var stream = exports.logopediaModel.find().stream();
