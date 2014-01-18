@@ -319,7 +319,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	background-image: linear-gradient(rgba(255, 255, 255), rgb(255, 255, 255))!important; }
  
 .selectize-input {
-	width: 230px!important;
+	width: 225px!important;
 	margin-left: 1px!important;
 	height: 26px;
 	margin-top: 10px!important;
@@ -329,7 +329,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	border-radius: 0px!important; }
  
 .selectize-dropdown, .selectize-input, .selectize-input input {
-	width: 214px !important;
+	width: 225px !important;
 	color: #515151!important;
 	font-size: 12px!important;
 	margin:12px 10px 10px 14px!important;

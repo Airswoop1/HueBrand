@@ -1,4 +1,4 @@
-<!-- [attribute.html] - Page for Attribute Search Result -->
+<!-- [industry.html] - Page for Color Search Results -->
 
 <% include header %>
 <% include sidebar %>
@@ -8,16 +8,15 @@
 	</div>
 
 	<div class="row" style="margin-bottom: 1%">
-	    <% include m_attribute-info %>
-	    <% include m_global-colorTop %>
-	    <% include m_industry-pieChart %>
+		<% include m_industry-info %> 
+		<% include m_global-colorTop %>
+		<% include m_global-colorChart %>
 	</div>
 
 	<div class="row">
-	    <% include m_global-colorPalette %> 
-	    <% include m_global-map %> 
-	    <% include m_global-logoCloud %>
+		<% include m_global-colorPalette %> 
+		<% include m_global-map %>  
+		<% include m_global-logoCloud %>
 	</div>
 
 <% include footer %>
-
