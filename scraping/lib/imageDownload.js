@@ -7,6 +7,23 @@ var csv = require('csv'),
   colorExtract = require('./colorExtraction.js'),
 	logopedia = require('./scrape.js');
 
+
+var storeMultipleToDB = function(logoHistory, companyShortName, callback) {
+	console.log(logoHistory);
+	bloom.bloombergCompany.update({'shortName': companyShortName}, {'logoHistory' : logoHistory}, function(err){
+		if(err){
+			console.log("error storing logo history " + err);
+			callback(err, false)
+		}
+		else{
+			console.log("stored logo history for " + companyShortName);
+			callback(null, true);
+		}
+
+	})
+
+}
+
 var downloadMultiple = function (doc, i, logoHistArr, callback){
 	
 	var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_');
@@ -45,11 +62,8 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 				'fileName' : otherLogoFileName
 			})
 			
-			callback(doc, i, logoHistArr);
-
-
+			callback(doc, i, logoHistArr);		
 	  })
-
     
   	});
 	}catch(e){
@@ -61,53 +75,91 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 
 exports.downloadLogopediaImages = function(){
 
-	var logopediaStream = logopedia.logopediaModel.find().stream();
+	var parentCompaniesAssociatedToCompanies = [];
+
+	var logopediaStream = logopedia.logopediaModel.find({logoName: "ExxonMobil"}	).stream();
 
 	logopediaStream
 	.on('data', function(doc){
 		logopediaStream.pause();
 
 
-		if(doc.logosData.length && doc.bloombergMatch !== 'N' && (typeof doc.bloombergMatch !== 'undefined')){
-			//determine which to download as main logo
-			if(doc.logosData.length === 1){
-				var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_')
-				exports.downloadOne(doc.logosData[0].url, fileName, doc.bloombergMatch);
+		if(doc.logosData.length && (typeof doc.bloombergMatch !== 'undefined')){
+			var logoStatus='N';
 
-				logopediaStream.resume();
+			if(typeof doc.logoClass !== 'undefined'){
+				logoStatus = doc.logoClass
 			}
-			else{
-				var mainURL = doc.logosData[(doc.logosData.length-1)].url;
-				var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_');
-				exports.downloadOne(mainURL, fileName, doc.bloombergMatch);
-				var logoHistArr = [];
+			else if(typeof doc.logoType !== 'undefined'){
+				logoStatus = doc.logoType;
+			}
+			//logoStatus = primary | secondary | ['parent', 'subsidiary', 'brand', 'logo', 'delete'] 
 
-				console.log("Multiple logo files being downloaded for : ");
-				console.log(fileName)
-				var cbFunction = function(d, j, lHA){
-					if(j === d.logosData.length-2){
-						logopediaStream.resume()
+			if((logoStatus === 'parent' || logoStatus === 'primary' || logoStatus === 'logo') && doc.bloombergMatch !== 'N'){
+
+					//determine which to download as main logo
+					if(doc.logosData.length === 1){
+						var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_')
+						exports.downloadOne(doc.logosData[0].url, fileName, doc.bloombergMatch);
+						doc.downloaded = true;
+						doc.save();
+						logopediaStream.resume();
 					}
 					else{
-						downloadMultiple(d,++j,lHA, cbFunction);
+						var mainURL = doc.logosData[(doc.logosData.length-1)].url;
+						var fileName = doc.logoName.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_');
+						exports.downloadOne(mainURL, fileName, doc.bloombergMatch);
+						var logoHistArr = [];
+
+						console.log("Multiple logo files being downloaded for : ");
+						console.log(fileName)
+						
+						var cbFunction = function(d, j, lHA){
+							if(j === d.logosData.length-2){
+								d.downloaded = true;
+								d.save();
+								storeMultipleToDB(lHA, d.bloombergMatch, function(err, result){
+									if(err){
+										console.log("error storing to db");
+										console.log(err);
+									}
+									else{
+										console.log("stored logoHistory for " + d.logoName);
+
+										logopediaStream.resume();
+
+									}
+								});
+							}
+							else{
+								downloadMultiple(d,++j,lHA, cbFunction);
+							}
+							
+						}
+
+						downloadMultiple(doc, 0, logoHistArr, cbFunction)
+
 					}
-					
+
+				}
+				else if(logoStatus === 'brand' || logoStatus === 'subsidiary'){
+
+					parentCompaniesAssociatedToCompanies.push(doc.parentCompany)			
+
 				}
 
-				downloadMultiple(doc, 0, logoHistArr, cbFunction)
 
 			}
+				logopediaStream.resume()
 
-		}
-		logopediaStream.resume()
+			})
+			.on('error', function(error){
 
-	})
-	.on('error', function(error){
+			})
+			.on('close', function(){
+				console.log(parentCompaniesAssociatedToCompanies);
+			})
 
-	})
-	.on('close', function(){
-
-})
 }
 
 exports.downloadOne = function(uri, logoFileName, bloombergName){
@@ -145,6 +197,8 @@ exports.downloadOne = function(uri, logoFileName, bloombergName){
 		console.log("error downloading single logo " + e);
 
 	}
+
+
 };
 
 

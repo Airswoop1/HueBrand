@@ -153,7 +153,7 @@ Iterates through each logopedias document and for those that
 have a bloomberg match, downloads the logos associated to that
 logopedias page and records the fileNames in the bloomberg collection
 *********************/
-//imageDownload.downloadLogopediaImages();
+imageDownload.downloadLogopediaImages();
 
 /********************
 function: importAttributeData()
@@ -169,7 +169,11 @@ png and saves them in application/public/logos
 *********************/
 //imageConv.convertSVGs();
 
-
+/***********
+function: updateDownloadedStatus)()
+mark all logopedias images that have been downloaded as true
+***********/
+//scrape.updateDownloadedSatatus();
 
 /******
 Setup for /logosSelection route

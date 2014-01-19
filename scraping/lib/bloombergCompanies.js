@@ -43,6 +43,7 @@ var bloombergComp = new mongoose.Schema({
 		cpShade : String,
 		cpPercentage : Number,
 	}],
+	children : [String],
 	logoFileName : String,
 	logoPotentialList : [{ year : String, fileName : String }],
 	logoHistory : [{ year : String, fileName : String }],

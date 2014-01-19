@@ -87,6 +87,19 @@ app.get('/color/:query', color.queryColor);
 app.get('/brand/:query', brand.queryBrand) 
 app.get('/attributes/:query',color.queryAttribute);
 app.get('/industry/:query',industry.queryIndustry);
+/*
+  *About
+  *Contact
+  *\/ landing.html
+  *privacy
+  *profile
+  signin //change from login
+  sign up
+  *terms
+  update //update profile
+
+*/
+
 
 
 server.listen(serverPort, function(req, res) {

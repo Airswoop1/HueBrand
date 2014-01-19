@@ -4,6 +4,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var mongoose = require('mongoose');
 var util = require('util');
+var bloom = require('./bloombergCompanies.js');
 
 var Logopedia = mongoose.Schema({
 
@@ -19,7 +20,7 @@ var Logopedia = mongoose.Schema({
 	logoCategories : [String],
 	logoClass : String, // ['parent', 'subsidiary', 'brand', 'logo', 'delete']
 	parentCompany: [String],
-	downloaded, Boolean
+	downloaded: Boolean
 
 })
 //contraint on schema for logoName to be unique
@@ -29,15 +30,18 @@ exports.logopediaModel = mongoose.model('logopedia', Logopedia);
 
 function updateLogopedias(index, compArr){
 	//helper function for updateDownloadedStatus
-	var bloomComp = compArr[index];
+	var bloomComp = compArr[index].shortName;
+	console.log(bloomComp);
 	exports.logopediaModel.update({'bloombergMatch': bloomComp}, {downloaded: true}, {multi:true}, function(err, obj){
 		if(err){
 			console.log("error updating logopedias in updateDownloadedStatus");
 			console.log(err);
 		}
 		else{
-			console.log("updated logopedia entry" + obj);
-			if(index < compArr.legnth-1 ) updateLogopedias(++index, compArr);
+			console.log("updated logopedia entry " + bloomComp);
+			if(index < compArr.length-1 ){ 
+				updateLogopedias(++index, compArr);
+			}
 			else{
 				console.log("Completed updateDownloadedSatatus! For " + index + " companies");
 			}
@@ -68,6 +72,8 @@ exports.updateDownloadedSatatus = function() {
 }
 
 /*****
+Function for grabbing the categories data and whether or not a logo is a parent, brand,
+subsidiary, or logo for each logopedia document
 *****/
 exports.refineLogoData = function (){
 
