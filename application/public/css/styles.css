@@ -1,3 +1,21 @@
+/*--- General Pages CSS ---*/
+
+
+
+/*--- General Module CSS --*/
+
+.general-container {
+float:left;
+margin-right:2%;
+width:50%;
+}
+
+.general-well {
+color:#000;
+height: 600px;
+overflow: hidden;
+}
+
 /*---COLORS   
 ---*/
 
