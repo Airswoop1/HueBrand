@@ -5,6 +5,12 @@
 /*--- General Pages CSS ---*/
 
 
+/*--- General Brand, Industry, Color, Attribute Pages ---*/
+/*--- [brand.html / industry.html / color.html / attribute.html] --*/
+.analytics-row, .first-row {
+	margin-bottom: 1%;
+}
+
 
 /*--- General Module CSS used for generic static pages --*/
 /*--- [m_global-colorCombinations.ejs / about.html] --*/
@@ -79,6 +85,38 @@ overflow: hidden;
 .combos-box:hover .fade-caption, .combos-box:hover .scale-caption  {
 	opacity: 1;
 }
+
+
+/*--- Footer CSS --*/
+/*--- [footer.ejs] --*/
+
+.navbar-fixed-bottom {
+	background-color: #fff;
+	border-top: rgba(0, 0, 0, 0.18) 1px solid!important;
+	color: #000;
+	font: 500 14px 'Nunito', sans-serif;
+	height: 25px;
+	text-transform:uppercase; }
+ 
+.navbar-fixed-bottom .container {
+	width: 98%;
+	margin-top:7px; }
+
+.navbar-fixed-bottom .container li {
+	float: left;
+	margin-top:7px;
+	padding-left:2px;
+	padding-right:20px;
+	list-style-type: none; }
+
+.navbar-fixed-bottom .container li a:link{
+	color:#000;
+	font-weight:500; }
+ 
+.navbar-fixed-bottom .pull-right a:link {
+	color:#000;
+	font-weight:500; }
+
 
 
 
@@ -175,32 +213,7 @@ a {
 
 /*---FOOTER---*/
 /* [footer.ejs] - Includes Bottom Footer */
-.navbar-fixed-bottom {
-	height: 25px;
-	font: 500 14px 'Nunito', sans-serif!important;
-	text-transform:uppercase;
-	border-top: #FF0808 2px solid!important;
-	color: #000; }
- 
-.navbar-fixed-bottom .container {
-	width: 98%;
-	margin-top:7px; }
 
-.navbar-fixed-bottom .container li {
-	float: left;
-	margin-top:7px;
-	padding-left:2px;
-	padding-right:20px;
-	list-style-type: none; }
-
-.navbar-fixed-bottom .container li a:link{
-	color:#000;
-	font-weight:500; }
- 
-.navbar-fixed-bottom .pull-right a:link {
-	font-weight:500;
-	color:#000;
-}
 
 /* General */
 body {
