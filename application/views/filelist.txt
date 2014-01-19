@@ -2,12 +2,9 @@ styles.css
 ejs.js
 main.js
 maps.js
-about.html
-assets.ejs
 attribute.html
 brand.html
 color.html
-contact.html
 css.ejs
 footer.ejs
 header.ejs
