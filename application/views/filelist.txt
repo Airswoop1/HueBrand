@@ -11,7 +11,6 @@ m_brand-info.ejs
 m_attribute-info.ejs
 m_brand-logoHistory.ejs
 m_global-industriesTop.ejs
-m_global-colorChart.ejs
 
 profile.html
 signin.html

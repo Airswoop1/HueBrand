@@ -200,7 +200,18 @@
 
 #color-chart .well-content {
 	height:250px;
-	padding:5%
+	padding:5%;
+	overflow:hidden;
+
+}
+
+#color-chart .well-content #chart {
+	position: relative;
+	margin-top:-50px;
+	margin-left: -60px;
+	padding: 5%;
+	width: 140%;
+	height: 140%;
 }
 
 
