@@ -8,6 +8,8 @@
 ehthumbs.db
 Thumbs.db
 /home/ec2-user/HueBrand/application/public/logos/
+/Users/airswoop1/CAUS/Development/HueBrand/application/public/logos/
+/Users/airswoop1/CAUS/Development/HueBrand/Logos/
 scraping/lib/colorExtraction/lib/
 scraping/lib/colorExtraction/bin/
 *.pyc

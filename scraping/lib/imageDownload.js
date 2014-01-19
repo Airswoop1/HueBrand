@@ -77,7 +77,7 @@ exports.downloadLogopediaImages = function(){
 
 	var parentCompaniesAssociatedToCompanies = [];
 
-	var logopediaStream = logopedia.logopediaModel.find({logoName: "ExxonMobil"}	).stream();
+	var logopediaStream = logopedia.logopediaModel.find({}).stream();
 
 	logopediaStream
 	.on('data', function(doc){
