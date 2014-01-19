@@ -730,9 +730,9 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 
 		text-align: center;
 		font-size: 12px;
-		margin: 5%!important;
+		padding: 6%!important;
+		margin: 1% 1% 1% 5%!important;
 		width: 90%!important;
-		padding: 5%!important;
 		-webkit-transition: .5s;
 		-moz-transition: .5s;
 		-ms-transition: .5s;
@@ -745,7 +745,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
  
  
-	#topindustries-data img { height: 100%;width: 100%; }
+	#topindustries-data img { height: 30%;width: 30%; }
  
 /* Module - Common Color Combinations */
 #colorchart .fa-bar-chart-o {
@@ -1238,3 +1238,68 @@ th {
 	border-style:solid; 
 	border-width:1px;
 }
+
+
+/* Image Box Style */
+.combos-box {
+	text-align: center;
+	height: 100%;
+	float: left;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+		-webkit-box-shadow: 1px 1px 1px 1px #ccc;
+		-moz-box-shadow: 1px 1px 1px 1px #ccc;
+		box-shadow: 1px 1px 1px 1px #ccc;
+
+}
+
+.combos-box div {
+		-webkit-transition: all 300ms ease-out;
+		-moz-transition: all 300ms ease-out;
+		-o-transition: all 300ms ease-out;
+		-ms-transition: all 300ms ease-out;	
+	transition: all 300ms ease-out;
+}
+
+.combos-box .caption {
+	background-color: rgba(0,0,0,0.8);
+	position: absolute;
+	color: #fff;
+	z-index: 100;
+		-webkit-transition: all 300ms ease-out;
+		-moz-transition: all 300ms ease-out;
+		-o-transition: all 300ms ease-out;
+		-ms-transition: all 300ms ease-out;	
+		transition: all 300ms ease-out;
+	left: 0;
+	width:100%;
+	height:100%;
+   
+}
+
+.combos-box .caption p {
+	width:100%;
+	height:100%;
+}
+
+.combos-box .fade-caption, .combos-box .scale-caption  {
+	opacity: 0;
+    text-align: center;
+    vertical-align: middle;
+    font-family: 'Nunito';
+    font-size: 12px;
+}
+
+.combos-box:hover .fade-caption, .combos-box:hover .scale-caption  {
+	opacity: 1;
+}
+
+p {
+display: block;
+-webkit-margin-before: 0em!important;
+-webkit-margin-after: 0em!important;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+}
+
