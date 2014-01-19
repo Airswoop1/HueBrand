@@ -730,9 +730,9 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 
 		text-align: center;
 		font-size: 12px;
-		margin: 5%!important;
+		padding: 1%!important;
+		margin: 1% 1% 1% 5%!important;
 		width: 90%!important;
-		padding: 5%!important;
 		-webkit-transition: .5s;
 		-moz-transition: .5s;
 		-ms-transition: .5s;
@@ -745,7 +745,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
  
  
-	#topindustries-data img { height: 100%;width: 100%; }
+	#topindustries-data img { height: 30%;width: 30%; }
  
 /* Module - Common Color Combinations */
 #colorchart .fa-bar-chart-o {
