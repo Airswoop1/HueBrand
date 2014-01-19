@@ -118,6 +118,42 @@
 	opacity: 1;
 }
 
+/*--- Module - Color Information CSS --*/
+/*--- [m_color-info.ejs] --*/
+/*--- Color Information -*/
+
+#color-info {
+	float:left;
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 30.66%;
+}
+
+#color-info .color-container {
+    float: left;
+    padding: 20px;
+    height: 100%;
+    width: 40%;
+}
+
+#color-info .color-container .color {
+	float: left;
+	width: 100%;
+	height: 100%;
+	background-color: #ffff00;
+	border: 1px solid #F5F5F5;
+}
+
+#color-info .color-description {
+	float:left;
+	height:250px;
+	width:60%;
+	margin-top:20px;
+	padding-right:20px;
+	font-size: 14px;
+	line-height: 16px;
+}
+
 
 /*--- Footer CSS --*/
 /*--- [footer.ejs] --*/
@@ -976,47 +1012,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			max-height: 200px;
 			color: #eee9dc;
 			transition: color 0.3s linear 0.3s; }
- 
-/* Module - Color Information */
-#colorinfo-data {
-	background: #fff;
-	border: 1px solid rgba(0, 0, 0, 0.0666667)!important;
-	-webkit-transition: .5s;
-	-moz-transition: .5s;
-	-ms-transition: .5s;
-	-o-transition: .5s;
-	transition: .5s; /* ...and now for the proper property */
-	padding-bottom: 10px; }
- 
-	#colorinfo-data:hover {
-		border-color: rgba(0,0,0,0.2);
-		box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
- 
-	#colorinfo-data tr { margin-top: 10px; }
- 
-		#colorinfo-data tr.color {
-			height: 50px;
-			background: #FF00FF; }
- 
-		#colorinfo-data tr.header {
-			background-color: #272525;
-			color: #fff;
-			font-weight: 500; }
- 
-		#colorinfo-data tr.even {
-			background: rgba(253, 253, 253, 0.28);
-			color: rgba(0, 0, 0, 0.6); }
- 
-		#colorinfo-data tr.odd {
-			background: rgba(238, 238, 238, 0.14);
-			color: rgba(0, 0, 0, 0.6); }
- 
-		#colorinfo-data tr td {
-			padding: 10px 10px 10px 10px;
-			border: 1px solid rgba(152, 152, 152, 0.02); }
- 
-			#colorinfo-data tr td:first-child { font-weight: 700; }
- 
+
 /* Module - Color & Logo Cloud - Isotope */
 .logoCloudFilter a {
 	margin-right: 10px;

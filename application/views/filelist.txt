@@ -8,10 +8,12 @@ m_global-logoCloud.ejs
 m_global-colorChart.ejs
 m_global-colorTop.ejs
 m_global-map.ejs
+
 m_industry-info.ejs
 m_brand-info.ejs
 m_attribute-info.ejs
 m_color-info.ejs
+
 m_brand-logoHistory.ejs
 m_global-industriesTop.ejs
 
