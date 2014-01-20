@@ -1,13 +1,6 @@
 styles.css
 landing.html
 
-navbar.ejs
-search.ejs
-
-m_global-colorTop.ejs
-m_brand-logoHistory.ejs
-m_brand-info.ejs
-
 profile.html
 signin.html
 signup.html

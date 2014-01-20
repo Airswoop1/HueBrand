@@ -8,45 +8,46 @@
         </div>
 
         <div class="well-content">
-
           <div class="logo-container">
             <a href="../Logos/<%= brandResult.logoFileName%>" download="<%= brandResult.logoFileName%>">
               <img src="../Logos/<%= brandResult.logoFileName%>">
              </a>
           </div>
 
-          <div style="float:left;width:57%">
-            <ul style="font-size: 11px;line-height: 14px;">
-              <li>
-                <span style="text-transform:capitalize;font-weight:700;">
-                  <%= brandResult.shortName %>
-                </span> 
-                  - <%= brandResult.desc %>
-              </li>
-            </ul>
+          <div class="brand-info-nameanddescription">
+            <span class="brand-info-companyName">
+              <%= brandResult.shortName %>
+            </span> 
+              - <%= brandResult.desc %>
           </div>
 
-        <div style="width:57%;float:left;">
-          <div style="width:80%;float:left;font-size: 11px;line-height: 14px;">
-             <b>Stock Symbol</b> - <%= brandResult.stockSymbol %><br>
-             <b>Industry</b> - <%=brandResult.GICSSectorName%><br>
-             <b>Headquarters</b> - <%=brandResult.country%><br>
-             <b>Market Cap Rank</b> - <%= brandResult.marketCapRank%><br>
-             <b>Market Cap</b> - <%= brandResult.marketCap%><br>
-          </div>
-          <div style="float:left;width:10%;margin-left:-5px;text-align:center;font-size: 12px;">
-            <a href="../Logos/<%= brandResult.brandManualFileName%>" download="<%= brandResult.brandManualFileName%>">
-              <button id="buttondownload" style="margin-top: 0px;padding:2px!important;">
-              <div style="font-size: 8px;line-height: 8px;padding: 5px;">
-                <i class="fa fa-download" style="font-size: 12px;margin-right: 10px;"></i>
-                Download Brand Manual
-              </div> 
-            </button>
-          </a>
-          </div>
-            <span style="float: right;font-size: 9px;font-weight: 700;margin-top: 4px;margin-right: -15px;">
+          <div class="brand-info-container">
+            <div class="brand-info-text">
+             <b>Stock Symbol</b>
+              - <%= brandResult.stockSymbol %><br>
+             <b>Industry</b>
+              - <%=brandResult.GICSSectorName%><br>
+             <b>Headquarters</b>
+              - <%=brandResult.country%><br>
+             <b>Market Cap Rank</b>
+              - <%= brandResult.marketCapRank%><br>
+             <b>Market Cap</b>
+              - <%= brandResult.marketCap%><br>
+            </div>
+
+            <div class="brandManual-container">
+              <a href="../Logos/<%= brandResult.brandManualFileName%>" download="<%= brandResult.brandManualFileName%>">
+                <button class="buttondownload">
+                    <i class="fa fa-download"></i>
+                    Download Brand Manual
+                </button>
+              </a>
+            </div>
+
+            <span class="last-updated">
               Last Updated: March 28th 2014
             </span>
+
           </div>
         </div>
       </div>

@@ -1,11 +1,11 @@
-<!--  Module - Logo History - "Provides a Timeline of all Past Logos" -->
+<!--  Module - Logo History - "Provides a History of all Past Logos" -->
    
  <% if(brandResult.logoHistory.length > 0){ %>
 <script>
-  document.getElementById( 'logotimeline' ).style.display = 'none'; 
+  document.getElementById( 'logoHistory' ).style.display = 'none'; 
 </script>
  <%}%>
-    <div class="container-fluid" id="logotimeline" style="width:10%;float:left;margin-right:2%;margin-left:2%;height:300px;"">
+    <div class="container-fluid" id="logoHistory">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -13,14 +13,14 @@
           </button>
         </div>
         <!-- Content - Logo History -->
-        <div class="well-content" style="height:250px;padding: 5%;font-size: 14px;font-weight: 700;overflow-y:scroll;">
+        <div class="well-content">
           <% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
-            <div style="float:left;margin-right:0px;margin-top:5%;width:99%;border: 1px rgba(240, 240, 240, 0.47) solid; ">
-              <div style="width: 99%">
-                <img src="../Logos/<%= brandResult.logoHistory[i].fileName%>" style="height:100px;display: block;margin: 0 auto;">
+            <div class="logo-container">
+              <div class="logo">
+                <img src="../Logos/<%= brandResult.logoHistory[i].fileName%>">
               </div>
-              <div style="text-align:center;margin-top:10px;font-weight: 700;background-color: rgb(250, 250, 250);">
-              <%= brandResult.logoHistory[i].year%>
+              <div class="year">
+                <%= brandResult.logoHistory[i].year%>
               </div>
             </div>
           <%}%>   
