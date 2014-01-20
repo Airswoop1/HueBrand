@@ -5,28 +5,95 @@
 /*--- General Pages CSS ---*/
 
 
+/*--- General Brand, Industry, Color, Attribute Pages ---*/
+/*--- [brand.html / industry.html / color.html / attribute.html] --*/
+.analytics-row, .first-row {
+	margin-bottom: 1%;
+}
+
 
 /*--- General Module CSS used for generic static pages --*/
 /*--- [m_global-colorCombinations.ejs / about.html] --*/
 /*--- Module can be repurposed for any static pages--*/
 
 .general-container {
-float:left;
-margin-right:2%;
-width:50%;
+	float:left;
+	margin-right:2%;
+	width:50%;
 }
 
 .general-well {
-color:#000;
-height: 600px;
-overflow: hidden;
+	color:#000;
+	height: 600px;
+	overflow: hidden;
 }
 
-/*--- Color Combinations CSS --*/
+
+/*--- Module - Analytics CSS --*/
+/*--- [m_analytics.ejs] --*/
+/*--- Page Analytics--*/
+
+.analytics-container {
+	border: 1px solid rgba(246, 246, 246, 0.35);
+	background-color: rgba(255, 255, 255, 0.27);
+	width: 96%;
+	height: 60px;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+
+.analytics-cell {
+	padding-top: 5px;
+	height: 100%;
+	width: 20%;
+	float: left;
+	border-right: 1px solid rgba(246, 246, 246, 0.35);
+	font-size: 11px;
+	font-weight: 100;
+	text-align: center;
+}
+
+.analytics-cell .analytics-header {
+	font-size: 22px;
+	font-weight: 100;
+}
+
+/*--- Module - Color Combinations CSS --*/
 /*--- [m_global-colorCombinations.ejs] --*/
 /*--- Used for hovering over on divs --*/
 
-.combos-box {
+#color-combinations {
+	float:left;
+	margin-right:2%;
+	width:30.66%;
+}
+
+#color-combinations .well-content {
+	padding: 5%;
+	padding-top: 5%;
+	height: 250px;
+}
+
+#color-combinations .color-combinations-container {
+	width:100%;
+	height:250px;
+}
+
+#color-combinations .color-combinations-primary {
+	float:left;
+	height:210px;
+	width:70%;
+	margin-right:5%;
+}
+
+#color-combinations .color-combinations-secondary {
+	float:left;
+	width: 22%;
+	height: 87%;
+	margin-right:10px;
+}
+
+.combination-box {
 	text-align: center;
 	height: 100%;
 	float: left;
@@ -36,10 +103,15 @@ overflow: hidden;
 		-webkit-box-shadow: 1px 1px 1px 1px #ccc;
 		-moz-box-shadow: 1px 1px 1px 1px #ccc;
 		box-shadow: 1px 1px 1px 1px #ccc;
+	font-size:11px;
+	color:#000;
+	padding-left:10px;
+	font-weight:700;
+	border: 1px solid #DBDBDB;
 
 }
 
-.combos-box div {
+.combination-box div {
 		-webkit-transition: all 300ms ease-out;
 		-moz-transition: all 300ms ease-out;
 		-o-transition: all 300ms ease-out;
@@ -47,7 +119,7 @@ overflow: hidden;
 	transition: all 300ms ease-out;
 }
 
-.combos-box .caption {
+.combination-box .caption {
 	background-color: rgba(0,0,0,0.8);
 	position: absolute;
 	color: #fff;
@@ -63,12 +135,12 @@ overflow: hidden;
    
 }
 
-.combos-box .caption p {
+.combination-box .caption p {
 	width:100%;
 	height:100%;
 }
 
-.combos-box .fade-caption, .combos-box .scale-caption  {
+.combination-box .fade-caption, .combination-box .scale-caption  {
 	opacity: 0;
     text-align: center;
     vertical-align: middle;
@@ -76,10 +148,118 @@ overflow: hidden;
     font-size: 12px;
 }
 
-.combos-box:hover .fade-caption, .combos-box:hover .scale-caption  {
+.combination-box:hover .fade-caption, .combination-box:hover .scale-caption  {
 	opacity: 1;
 }
 
+/*--- Module - Color Information CSS --*/
+/*--- [m_color-info.ejs] --*/
+/*--- Color Information -*/
+
+#color-info {
+	float:left;
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 30.66%;
+}
+
+#color-info .color-container {
+    float: left;
+    padding: 20px;
+    height: 100%;
+    width: 40%;
+}
+
+#color-info .color-container .color {
+	float: left;
+	width: 100%;
+	height: 100%;
+	background-color: #ffff00;
+	border: 1px solid #F5F5F5;
+}
+
+#color-info .color-description {
+	float:left;
+	height:250px;
+	width:60%;
+	margin-top:20px;
+	padding-right:20px;
+	font-size: 14px;
+	line-height: 16px;
+}
+
+/*--- Module -  Color Bar Chart CSS --*/
+/*--- [m_global-colorChart.ejs] --*/
+/*--- Attribute Information -*/
+
+#color-chart {
+	float:left;
+	margin-right:2%;
+	width:30.66%;
+}
+
+#color-chart .well-content {
+	height:250px;
+	padding:5%;
+	overflow:hidden;
+
+}
+
+#color-chart .well-content #chart {
+	position: relative;
+	margin-top:-50px;
+	margin-left: -60px;
+	padding: 5%;
+	width: 140%;
+	height: 140%;
+}
+
+
+/*--- Module - Attribute Information CSS --*/
+/*--- [m_attribute-info.ejs] --*/
+/*--- Attribute Information -*/
+
+
+/*--- Module - Brand Information CSS --*/
+/*--- [m_attribute-info.ejs] --*/
+/*--- Attribute Information -*/
+
+
+/*--- Footer CSS --*/
+/*--- [footer.ejs] --*/
+
+.navbar-fixed-bottom {
+	background-color: #fff;
+	border-top: rgba(0, 0, 0, 0.18) 1px solid!important;
+	color: #000;
+	font: 500 14px 'Nunito', sans-serif;
+	height: 25px;
+	text-transform:uppercase; }
+ 
+.navbar-fixed-bottom .container {
+	width: 98%;
+	margin-top:7px; }
+
+.navbar-fixed-bottom .container li {
+	float: left;
+	margin-top:7px;
+	padding-left:2px;
+	padding-right:20px;
+	list-style-type: none; }
+
+.navbar-fixed-bottom .container li a:link{
+	color:#000;
+	font-weight:500; }
+ 
+.navbar-fixed-bottom .pull-right a:link {
+	color:#000;
+	font-weight:500; }
+
+
+/*---EVERYTHING PRIOR HAS BEEN APPROVED -------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
 
@@ -175,32 +355,7 @@ a {
 
 /*---FOOTER---*/
 /* [footer.ejs] - Includes Bottom Footer */
-.navbar-fixed-bottom {
-	height: 25px;
-	font: 500 14px 'Nunito', sans-serif!important;
-	text-transform:uppercase;
-	border-top: #FF0808 2px solid!important;
-	color: #000; }
- 
-.navbar-fixed-bottom .container {
-	width: 98%;
-	margin-top:7px; }
 
-.navbar-fixed-bottom .container li {
-	float: left;
-	margin-top:7px;
-	padding-left:2px;
-	padding-right:20px;
-	list-style-type: none; }
-
-.navbar-fixed-bottom .container li a:link{
-	color:#000;
-	font-weight:500; }
- 
-.navbar-fixed-bottom .pull-right a:link {
-	font-weight:500;
-	color:#000;
-}
 
 /* General */
 body {
@@ -233,7 +388,6 @@ body:after {
 	background: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 1)), to(transparent));
 }
 */
-.fa-info-circle { font-size: 20px; }
  
 .footer {
 	padding: 5px 20px;
@@ -393,8 +547,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	border-right: 1px solid #E6E6E6!important;
 	border-left: 1px solid #E6E6E6!important; }
  
-.bs-sidenav .title .fa { padding-right: 10px; }
- 
 .ui-tabs .ui-tabs-panel {
 	display: block;
 	padding: 14px 15px 20px!important;
@@ -538,10 +690,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	font-size: 12px;
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif; }
  
-	#companyinfo .fa-file-text-o {
-		margin-right: 10px;
-		font-size: 20px; }
- 
 #companyinfo-data {
 	background: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.0666667)!important;
@@ -577,82 +725,8 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
  
 		#companyinfo tr td:first-child { font-weight: 700; }
  
-/* Module - Logo Colors Old 
-#logocolors .fa-bar-chart-o {
-	font-size:20px;
-	margin-right:10px
-}
- 
-#logocolors .span12 .well-content {
-	border-bottom-left-radius:5px;
-	padding:0px;
-}
- 
-#logocolors-data {
-	margin: 0px;
-	width: 100%; 
-	color: #fff;
-	overflow: hidden;
-	white-space: nowrap;     
-	}
- 
-#logocolors-data li {
-	float: left;
-	min-height: 121px;
-	overflow:hidden;
-	-o-transition:.5s;
-	-ms-transition:.5s;
-	-moz-transition:.5s;
-	-webkit-transition:.5s;
-	transition:.5s;
-}
- 
-#logocolors-data li:hover{
-	zoom: 103%;
-	-moz-transform: scale(1.03);
-	-webkit-transform: scale(1.03);
-	scale(1.03);
-	transform: scale(1.03);
-	-moz-box-shadow: 1px 1px 5px #000;
-	-webkit-box-shadow: 1px 1px 5px #000;
-	box-shadow: 1px 1px 5px #000;
-	z-index:300;
-}
- 
-.logocolors-selected {
-	width:100%;
-	height:50px;
-	list-style-type: none;
-	margin-top: 20px;
-	margin-bottom: 0px;
-	margin-left:0px;
-	border: 1px solid rgba(221, 221, 221, 1);
-}
- 
-.logocolors-selected li {
-	width: 33.3%;
-	height: 49px;
-	float: left;
-	border-right: 1px solid rgba(233, 233, 233, 1);
-	text-align: center;
-	line-height: 50px;
-}
- 
-.logocolors-selected-colorname {
-	line-height: 45px!important;
-}
- 
-.logocolors-selected-colorpercentage {
-	line-height: 45px!important;
-}
- 
-*/
+
 /* Module - Logo Colors New */
-#logocolors .fa-bar-chart-o {  }
- 
-#logocolors .fa-bar-chart-o {
-	margin-right: 10px;
-	font-size: 20px; }
  
 #logocolors .span12 .well-content {
 	padding: 0px;
@@ -753,9 +827,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
  
 /* Module - Industry Logo Cloud */
-#topattributes .fa-crosshairs {
-	margin-right: 10px;
-	font-size: 20px; }
  
 #topattributes .span12 .well-content {
 	display: table;
@@ -791,9 +862,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
  
 /* Module - Industry Attribute Associations */
-#topindustries .fa-star {
-	margin-right: 10px;
-	font-size: 20px; }
  
 #topindustries .span12 .well-content {
 	padding: 0px;
@@ -832,84 +900,17 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
  
 	#topindustries-data img { height: 30%;width: 30%; }
  
-/* Module - Common Color Combinations */
-#colorchart .fa-bar-chart-o {
-	margin-right: 10px;
-	font-size: 20px; }
- 
-#colorchart .span12 .well-content {
-	padding: 0px;
-	border-bottom-left-radius: 5px;}
- 
-#colorchart-data {
-	overflow: hidden;
-	margin: 0px;
-	width: 100%;
-	color: #fff;
-	white-space: nowrap; }
- 
-	#colorchart-data li {
-		float: left;
-		min-height: 121px;
-		overflow: hidden;
-		-webkit-transition: .5s;
-		-moz-transition: .5s;
-		-ms-transition: .5s;
-		-o-transition: .5s;
-		transition: .5s; /* ...and now for the proper property */ }
- 
-		#colorchart-data li:hover {
-			z-index: 300;
-			-webkit-box-shadow: 1px 1px 5px #000;
-			-moz-box-shadow: 1px 1px 5px #000;
-			box-shadow: 1px 1px 5px #000;
-			-webkit-transform: scale(1.3);
-			-moz-transform: scale(1.3);
-			transform: scale(1.3);
-			zoom: 130%;
-			scale(1.3); }
- 
-.colorchart-selected {
-	margin-top: 20px;
-	margin-bottom: 0px;
-	margin-left: 0px;
-	width: 100%;
-	height: 50px;
-	border: 1px solid rgba(221, 221, 221, 1);
-	list-style-type: none; }
- 
-	.colorchart-selected li {
-		float: left;
-		width: 33.3%;
-		height: 49px;
-		border-right: 1px solid rgba(233, 233, 233, 1);
-		text-align: center;
-		line-height: 50px; }
- 
-.colorchart-selected-colorname { line-height: 45px!important; }
- 
-.colorchart-selected-colorpercentage { line-height: 45px!important; }
- 
 /* Module - Regional Attribute Associations */
-#geomap .fa-globe {
-	margin-right: 10px;
-	font-size: 14px; }
  
 #geomap .span12 .well-content {
 	padding: 0px;
 	border-bottom-left-radius: 5px;}
  
 /* Module - Logo Timeline */
-#logotimeline {}
  
 #timeline-logos {
 	margin-bottom: 0px;
 	margin-left: 0px; }
- 
- 
-#logotimeline .fa-clock-o {
-	margin-right: 10px;
-	font-size: 20px; }
  
 #logotimeline li { display: table-cell; }
  
@@ -1026,47 +1027,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			max-height: 200px;
 			color: #eee9dc;
 			transition: color 0.3s linear 0.3s; }
- 
-/* Module - Color Information */
-#colorinfo-data {
-	background: #fff;
-	border: 1px solid rgba(0, 0, 0, 0.0666667)!important;
-	-webkit-transition: .5s;
-	-moz-transition: .5s;
-	-ms-transition: .5s;
-	-o-transition: .5s;
-	transition: .5s; /* ...and now for the proper property */
-	padding-bottom: 10px; }
- 
-	#colorinfo-data:hover {
-		border-color: rgba(0,0,0,0.2);
-		box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
- 
-	#colorinfo-data tr { margin-top: 10px; }
- 
-		#colorinfo-data tr.color {
-			height: 50px;
-			background: #FF00FF; }
- 
-		#colorinfo-data tr.header {
-			background-color: #272525;
-			color: #fff;
-			font-weight: 500; }
- 
-		#colorinfo-data tr.even {
-			background: rgba(253, 253, 253, 0.28);
-			color: rgba(0, 0, 0, 0.6); }
- 
-		#colorinfo-data tr.odd {
-			background: rgba(238, 238, 238, 0.14);
-			color: rgba(0, 0, 0, 0.6); }
- 
-		#colorinfo-data tr td {
-			padding: 10px 10px 10px 10px;
-			border: 1px solid rgba(152, 152, 152, 0.02); }
- 
-			#colorinfo-data tr td:first-child { font-weight: 700; }
- 
+
 /* Module - Color & Logo Cloud - Isotope */
 .logoCloudFilter a {
 	margin-right: 10px;
@@ -1120,20 +1081,15 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		-moz-transition-property: -moz-transform, opacity;
 		transition-property: transform, opacity; }
  
-/* TopColors */
-#topcolors .fa-bar-chart-o {  }
- 
-#topcolors .fa-bar-chart-o {
-	margin-right: 10px;
-	font-size: 20px; }
- 
-#topcolors .span12 .well-content {
+/* colorTop */
+
+#colorTop .span12 .well-content {
 	padding: 0px;
 	border-bottom-left-radius: 5px;
 	height: 230px; }
  
 /* Image Box Style */
-#topcolors .box {
+#colorTop .box {
 	position: relative;
 	float: left;
 	overflow: hidden;
@@ -1145,7 +1101,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	box-shadow: #fff 0px 0px 0px 0px;
 	cursor: pointer; }
  
-	#topcolors img {
+	#colorTop img {
 		position: absolute;
 		left: 0;
 		-webkit-transition: all 300ms ease-out;
@@ -1155,7 +1111,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		transition: all 300ms ease-out; }
  
 	/* Caption Common Style */
-#topcolors .box .caption {
+#colorTop .box .caption {
 		position: absolute;
 		left: 0;
 		z-index: 100;
@@ -1168,35 +1124,35 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		transition: all 500ms ease-out; }
  
 	/** Caption 1: Simple **/
-#topcolors .box .simple-caption {
+#colorTop .box .simple-caption {
 		bottom: -80px;
 		display: block;
 		padding-top: 10px;
 		width: 100%;
 		height: 125px; }
  
-	#topcolors .box .colorname {
+	#colorTop .box .colorname {
 		padding-top: 10px;
 		text-align: center;
 		font-weight: 500;
 		font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
  
-	#topcolors .box .colormoreinfo { font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
+	#colorTop .box .colormoreinfo { font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
  
-		#topcolors .box .colormoreinfo ul {
+		#colorTop .box .colormoreinfo ul {
 			padding-top: 10px;
 			padding-left: 15px;
 			font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
 			line-height: 25pt; }
  
-		#topcolors .box .colormoreinfo li {
+		#colorTop .box .colormoreinfo li {
 			padding-left: 15px;
 			font-size: 11px;
 			font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
 			line-height: 18px; }
  
 	/** Simple Caption :hover Behaviour **/
-#topcolors .box:hover .simple-caption {
+#colorTop .box:hover .simple-caption {
 		opacity: 1;
 		-webkit-transform: translateY(-50%);
 		-moz-transform: translateY(-80%);
@@ -1204,9 +1160,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		transform: translateY(-50%); }
  
 /* Color Palette */
-#colorpalette .fa-bar-chart-o {
-	margin-right: 10px;
-	font-size: 20px; }
  
 #colorpalette .span12 .well-content {
 	padding: 0px;
