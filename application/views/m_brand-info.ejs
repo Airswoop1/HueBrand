@@ -1,5 +1,5 @@
 <!--  Module - Company Logo & Information - "Shows the Company's Logo and Data Associated to it" -->
-     <div class="container-fluid" id="companylogo" style="float:left;margin-left:2%;margin-right:2%;width:30.66%;">
+     <div class="container-fluid" id="brand-info">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -7,21 +7,25 @@
           </button>
         </div>
 
-        <div class="well-content" style="height:250px;padding: 5%;padding-top: 5%;">
-          <div id="companylogo-box" style="">
+        <div class="well-content">
+
+          <div class="logo-container">
             <a href="../Logos/<%= brandResult.logoFileName%>" download="<%= brandResult.logoFileName%>">
-              <img id="logo" src="../Logos/<%= brandResult.logoFileName%>">
+              <img src="../Logos/<%= brandResult.logoFileName%>">
              </a>
           </div>
+
           <div style="float:left;width:57%">
             <ul style="font-size: 11px;line-height: 14px;">
               <li>
-                <span style="text-transform:capitalize;">
-                  <b><%= brandResult.shortName %></span></b> - <%= brandResult.desc %>
-                </span>
+                <span style="text-transform:capitalize;font-weight:700;">
+                  <%= brandResult.shortName %>
+                </span> 
+                  - <%= brandResult.desc %>
               </li>
             </ul>
           </div>
+
         <div style="width:57%;float:left;">
           <div style="width:80%;float:left;font-size: 11px;line-height: 14px;">
              <b>Stock Symbol</b> - <%= brandResult.stockSymbol %><br>

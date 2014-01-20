@@ -58,6 +58,67 @@
 	font-weight: 100;
 }
 
+
+/*--- Module - Brand Information CSS --*/
+/*--- [m_brand-info.ejs] --*/
+/*--- Used for hovering over on divs --*/
+ 
+#brand-info {
+	float:left;
+	margin-right:2%;
+	margin-left:2%;
+	width:30.66%;
+} 
+#brand-info .span12 .well-content {
+	padding: 5%;
+	padding-top: 5%;
+	height:250px;}
+ 
+#brand-info .logo-container {
+	float: left;
+	margin: 0px;
+	width: 43%;
+	height: 100%;xxs
+	line-height: 205px;
+	text-align: center;
+}
+ 
+#brand-info-box img {
+	width:70%;	
+}
+
+
+
+
+/*--- Module - Top Colors CSS --*/
+/*--- [m_brand-info.ejs] --*/
+/*--- Used for hovering over on divs --*/
+ 
+#topColors {
+	float:left;
+	margin-right:2%;
+	width:30.66%;
+} 
+#brand-info .span12 .well-content {
+	padding: 5%;
+	padding-top: 5%;
+	height:250px;}
+ 
+#brand-info .logo-container {
+	float: left;
+	margin: 0px;
+	width: 43%;
+	height: 100%;xxs
+	line-height: 205px;
+	text-align: center;
+}
+ 
+#brand-info-box img {
+	width:70%;	
+}
+
+
+
 /*--- Module - Color Combinations CSS --*/
 /*--- [m_global-colorCombinations.ejs] --*/
 /*--- Used for hovering over on divs --*/
@@ -150,6 +211,81 @@
 
 .combination-box:hover .fade-caption, .combination-box:hover .scale-caption  {
 	opacity: 1;
+}
+
+
+/*--- Module - Attribute Information CSS --*/
+/*--- [m_attribute-info.ejs] --*/
+/*--- Attribute Information -*/
+
+#attribute-info {
+	float:left;
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 30.66%;
+}
+
+#attribute-info .well-content{
+	height:250px;
+}
+
+#attribute-info .attribute-container{
+	float: left;
+	padding: 20px;
+	height: 100%;
+	width: 35%;
+}
+
+#attribute-info .attribute-name {
+	height:10%;
+	text-align:center;
+	color: #000;
+	line-height: 230px;
+	font-size: 25px;
+	font-weight: 100;
+}
+#attribute-info .attribute-description {
+	float: left;
+	height: 100%;
+	width: 65%;
+	padding: 20px;
+	font-size: 14px;
+	line-height: 16px;
+	color:000;
+}
+
+/*--- Module - Industry Information CSS --*/
+/*--- [m_industry-info.ejs] --*/
+/*--- Industry Information -*/
+
+#industry-info {
+	float:left;
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 30.66%;
+}
+
+#industry-info .industry-icon-container {
+   float: left;
+   padding: 20px;
+   height: 100%;
+   width: 40%;
+}
+
+#industry-info .industry-title {
+	height:10%;
+	text-align:center;
+	font-size: 25px;
+	font-weight:500;
+}
+#industry-info .industry-description {
+	float: left;
+	padding: 20px;
+	height: 100%;
+	width: 60%;
+	line-height: 16px;
+	font-size: 14px;
+	color:000;
 }
 
 /*--- Module - Color Information CSS --*/
@@ -296,10 +432,129 @@
 	}
  
 
-/*--- Module - Attribute Information CSS --*/
-/*--- [m_attribute-info.ejs] --*/
-/*--- Attribute Information -*/
 
+/*--- Module - Map --*/
+/*--- [m_global-map.ejs] --*/
+/*--- Map -*/
+
+#global-map {
+	width:35%;float:left;margin-right:2%;margin-bottom:-20px;
+} 
+
+#global-map .span12 .well-content {
+	padding: 0px;
+	border-bottom-left-radius: 5px;
+	height:250px;
+}
+
+#map-canvas {
+	border:0;
+	height:230px;
+	frameborder:0;
+
+}
+
+#map-canvas .map-color {
+	float:left;
+	margin-top:2px;
+	margin-left:5px;
+	height:15px;
+	width:15px;
+}
+
+#map-canvas .map-color-attribute-container {
+	float:left;
+	margin-top: 10px;
+	padding-top:3px;
+	padding-left:5px;
+	padding-right:5px;
+	line-height:12px;
+	font-weight:700;
+	font-size: 8px;
+	font-family: 'Nunito';
+	text-transform: uppercase;
+}
+
+#map-canvas .map-color-attribute-title {
+	margin-top: 10px;
+	margin-right: 5px;
+	padding-top: 2px;
+	padding-right: 5px;
+	padding-bottom:2px;
+	padding-left: 5px;
+	background-color: #fff;
+	border: 1px solid rgba(119, 119, 119,0.2);
+	border-radius: 5px;
+	color: rgb(119, 119, 119);
+}
+
+/*--- Module - Logo Cloud - CSS --*/
+/*--- [m_global-logoCloud.ejs] --*/
+/*--- Logo Cloud -*/
+
+#logocloud {
+	float:left;
+	margin-right:2%;
+	width:47%;
+
+}
+
+#logocloud .well-content {
+	height:250px;
+}
+
+.logoCloudFilter a {
+	display: inline-block;
+	margin-top: 20px;
+	margin-right: 10px;
+	padding: 10px;
+	padding-left:30px;
+	border-radius: 3px;
+	border: 1px solid #e3e3e3;
+	background-color: rgb(252, 252, 252);
+	color: #666;
+	text-decoration: none;
+	line-height: 10px;
+	font-size: 11px;
+	font-weight: 400;
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+	 }
+ 
+	.logoCloudFilter a:hover {
+		border-color: rgba(0,0,0,0.2);
+		background-color: rgba(240, 240, 240, 0.57);
+		box-shadow: 0 0 5px rgba(0,0,0,0.2)!important;
+		text-decoration: none; }
+ 
+	.logoCloudFilter a.current { font-weight: bold; }
+ 
+.logoCloudContainer img { padding: 20px; }
+ 
+.isotope-item { z-index: 2; }
+ 
+.isotope-hidden.isotope-item {
+	z-index: 1;
+	pointer-events: none; }
+ 
+.isotope,.isotope .isotope-item {
+	-webkit-transition-duration: 0.8s; /* change duration value to whatever you like */
+	-moz-transition-duration: 0.8s;
+	transition-duration: 0.8s; }
+ 
+.isotope {
+	-webkit-transition-property: height, width;
+	-moz-transition-property: height, width;
+	transition-property: height, width; }
+ 
+	.isotope .isotope-item {
+		-webkit-transition-property: -webkit-transform, opacity;
+		-moz-transition-property: -moz-transform, opacity;
+		transition-property: transform, opacity; }
+ 
 
 /*--- Module - Brand Information CSS --*/
 /*--- [m_attribute-info.ejs] --*/
@@ -409,29 +664,6 @@ a {
 /*---CONTENT---*/
 
 /*---MODULES---*/
-
-/* Module - Company Logo */
- 
-#companylogo-boxgo .span12 .well-content {
-	padding-right: 20px;
-	padding-top:20px;
-	padding-right:20px;
-	border-bottom-left-radius: 5px;}
- 
-#companylogo-box {
-	margin: 0px;
-	width: 43%;
-	line-height: 205px;
-	float: left;
-	text-align: center;
-	height: 100%;
-
-}
- 
-#companylogo-box img {
-	width:70%;	
-}
-
 
 
 /*---FOOTER---*/
@@ -667,66 +899,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 	top: 26px!important;
 	left: -12px!important; }
  
-/* Index Bar */
-.bs-sidenav {
-	margin-top: 10 0px 10px 15px;
-	padding-top: 10px 0px 10px 0px;
-	width: 200px;
-	border: 1px solid #ddd!important;
-	border-radius: 0px!important;
-	background-color: #FFFFFF;
-	font-family: 'Oxygen', sans-serif; }
- 
-	.bs-sidenav .title {
-		padding: 3px 13px 3px 13px;
-		border-bottom: 1px solid rgba(221, 221, 221, 0.3);
-		border-top-left-radius: 0px!important;
-		border-top-right-radius: 0px!important;
-		background-color: rgba(243, 243, 243, 0.33);
-		color: #373E4E;
-		text-transform: uppercase;
-		font-weight: 400;
-		font-size: 11px; }
- 
-.affix-top {
-	padding-top: 16px;
-	padding-right: 9px;
-	height: 100%;
-	border-right: 1px dotted rgba(17, 17, 17, 0.07); }
- 
-.affix {
-	padding-top: 16px;
-	padding-right: 9px;
-	height: 100%;
-	border-right: 1px dotted rgba(17, 17, 17, 0.07); }
- 
-.bs-sidebar .nav > li > a {
-	display: block;
-	padding: 5px 10px;
-	border-bottom: 1px solid rgba(223, 220, 220, 0.08);
-	color: #716b7a; }
- 
-	.bs-sidebar .nav > li > a:hover, 
-.bs-sidebar .nav > li > a:focus {
-		border-right: 2px solid #000;
-		border-right: 1px solid #dbd8e0;
-		background-color: rgba(243, 243, 243, 0.33);
-		color: #000;
-		text-decoration: none; }
- 
-.bs-sidebar .nav > .active > a, 
-.bs-sidebar .nav > .active:hover > a, 
-.bs-sidebar .nav > .active:focus > a {
-	border-right: 2px solid #000;
-	background-color: rgba(243, 243, 243, 0.33);
-	color: black;
-	font-weight: 700; }
- 
-.demo {
-	margin-bottom: -12px;
-	padding: 0px; }
- 
-
  
 .selectize-dropdown, .selectize-input, .selectize-input input {
 	font-size: 10px;
@@ -807,84 +979,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		#companyinfo tr td:first-child { font-weight: 700; }
  
 
-/* Module - Logo Colors New */
- 
-#logocolors .span12 .well-content {
-	padding: 0px;
-	border-bottom-left-radius: 5px;
-	height: 140px; }
- 
-/* Image Box Style */
-#logocolors .box {
-	position: relative;
-	float: left;
-	overflow: hidden;
-	margin: 0px;
-	width: 16.66%;
-	height: 100%;
-	border-right: 1px solid rgb(233, 233, 233);
-	box-shadow: #fff 0px 0px 0px 0px;
-	cursor: pointer; }
- 
-	#logocolors .box img {
-		position: absolute;
-		left: 0;
-		-webkit-transition: all 300ms ease-out;
-		-moz-transition: all 300ms ease-out;
-		-ms-transition: all 300ms ease-out;
-		-o-transition: all 300ms ease-out;
-		transition: all 300ms ease-out; }
- 
-	/* Caption Common Style */
-#logocolors .box .caption {
-		position: absolute;
-		left: 0;
-		z-index: 100;
-		background-color: rgba(0,0,0,0.05);
-		color: #fff;
-		-webkit-transition: all 500ms ease-out;
-		-moz-transition: all 500ms ease-out;
-		-ms-transition: all 500ms ease-out;
-		-o-transition: all 500ms ease-out;
-		transition: all 500ms ease-out; }
- 
-	/** Caption 1: Simple **/
-#logocolors .box .simple-caption {
-		bottom: -80px;
-		display: block;
-		padding-top: 10px;
-		width: 100%;
-		height: 125px; }
- 
-	#logocolors .box .colorname {
-		padding-top: 10px;
-		text-align: center;
-		font-weight: 500;
-		font-size: 13px;
-		font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
- 
-	#logocolors .box .colormoreinfo { font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
- 
-		#logocolors .box .colormoreinfo ul {
-			padding-top: 10px;
-			padding-left: 20px;
-			font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
-			line-height: 20pt; }
- 
-			#logocolors .box .colormoreinfo ul li {
-				padding-left: 10px;
-				font-size: 8px;
-				font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
-				line-height: 12px; }
- 
-	/** Simple Caption :hover Behaviour **/
-#logocolors .box:hover .simple-caption {
-		opacity: 1;
-		-webkit-transform: translateY(-50%);
-		-moz-transform: translateY(-80%);
-		-o-transform: translateY(-80%);
-		transform: translateY(-50%); }
- 
 /* Module - Company Brand Manual */
 #companybrandmanual-box {
 	padding-top: 20px;
@@ -907,48 +1001,6 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 		background-color: rgba(240, 240, 240, 0.57);
 		box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
  
-/* Module - Industry Logo Cloud */
- 
-#topattributes .span12 .well-content {
-	display: table;
-	padding: 0px;
-	padding-bottom: 0px!important;
-	height: 106px;
-	border-bottom-left-radius: 5px; }
- 
-#topattributes-data {
-	margin: 0px;
-	width: 100%;
-	list-style-type: none; }
- 
-	#topattributes-data li {
-		float: left;
-		margin-bottom: 20px;
-		margin-left: 20px;
-		padding: 20px;
-		width: 215px;
-		border: 1px rgba(0, 0, 0, 0.07) solid;
-		background: #FCFCFC;
-		text-align: center;
-		font-weight: normal;
-		-webkit-transition: .5s;
-		-moz-transition: .5s;
-		-ms-transition: .5s;
-		-o-transition: .5s;
-		transition: .5s; /* ...and now for the proper property */ }
- 
-		#topattributes-data li:hover {
-			border-color: rgba(0,0,0,0.2);
-			background: rgba(184, 184, 184, 0.1);
-			box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
- 
-
- 
-/* Module - Regional Attribute Associations */
- 
-#geomap .span12 .well-content {
-	padding: 0px;
-	border-bottom-left-radius: 5px;}
  
 /* Module - Logo Timeline */
  
@@ -1071,219 +1123,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			max-height: 200px;
 			color: #eee9dc;
 			transition: color 0.3s linear 0.3s; }
-
-/* Module - Color & Logo Cloud - Isotope */
-.logoCloudFilter a {
-	margin-right: 10px;
-	color: #666;
-	text-decoration: none;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background-color: rgb(252, 252, 252);
-	border: 1px solid #e3e3e3;
-	padding: 10px;
-	line-height: 10px;
-	font-size: 11px;
-	font-weight: 400;
-	display: inline-block;
-	border-radius: 3px;
-	-webkit-transition: .5s;
-	-moz-transition: .5s;
-	-ms-transition: .5s;
-	-o-transition: .5s;
-	transition: .5s; /* ...and now for the proper property */ }
- 
-	.logoCloudFilter a:hover {
-		border-color: rgba(0,0,0,0.2);
-		background-color: rgba(240, 240, 240, 0.57);
-		box-shadow: 0 0 5px rgba(0,0,0,0.2)!important;
-		text-decoration: none; }
- 
-	.logoCloudFilter a.current { font-weight: bold; }
- 
-.logoCloudContainer img { padding: 20px; }
- 
-.isotope-item { z-index: 2; }
- 
-.isotope-hidden.isotope-item {
-	z-index: 1;
-	pointer-events: none; }
- 
-.isotope,
-.isotope .isotope-item {
-	-webkit-transition-duration: 0.8s; /* change duration value to whatever you like */
-	-moz-transition-duration: 0.8s;
-	transition-duration: 0.8s; }
- 
-.isotope {
-	-webkit-transition-property: height, width;
-	-moz-transition-property: height, width;
-	transition-property: height, width; }
- 
-	.isotope .isotope-item {
-		-webkit-transition-property: -webkit-transform, opacity;
-		-moz-transition-property: -moz-transform, opacity;
-		transition-property: transform, opacity; }
- 
-/* colorTop */
-
-#colorTop .span12 .well-content {
-	padding: 0px;
-	border-bottom-left-radius: 5px;
-	height: 230px; }
- 
-/* Image Box Style */
-#colorTop .box {
-	position: relative;
-	float: left;
-	overflow: hidden;
-	margin: 0px;
-	width: 33.33%;
-	height: 200px;
-	height: 200px;
-	border-right: 1px solid rgb(233, 233, 233);
-	box-shadow: #fff 0px 0px 0px 0px;
-	cursor: pointer; }
- 
-	#colorTop img {
-		position: absolute;
-		left: 0;
-		-webkit-transition: all 300ms ease-out;
-		-moz-transition: all 300ms ease-out;
-		-ms-transition: all 300ms ease-out;
-		-o-transition: all 300ms ease-out;
-		transition: all 300ms ease-out; }
- 
-	/* Caption Common Style */
-#colorTop .box .caption {
-		position: absolute;
-		left: 0;
-		z-index: 100;
-		background-color: rgba(0,0,0,0.05);
-		color: #fff;
-		-webkit-transition: all 500ms ease-out;
-		-moz-transition: all 500ms ease-out;
-		-ms-transition: all 500ms ease-out;
-		-o-transition: all 500ms ease-out;
-		transition: all 500ms ease-out; }
- 
-	/** Caption 1: Simple **/
-#colorTop .box .simple-caption {
-		bottom: -80px;
-		display: block;
-		padding-top: 10px;
-		width: 100%;
-		height: 125px; }
- 
-	#colorTop .box .colorname {
-		padding-top: 10px;
-		text-align: center;
-		font-weight: 500;
-		font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
- 
-	#colorTop .box .colormoreinfo { font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
- 
-		#colorTop .box .colormoreinfo ul {
-			padding-top: 10px;
-			padding-left: 15px;
-			font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
-			line-height: 25pt; }
- 
-		#colorTop .box .colormoreinfo li {
-			padding-left: 15px;
-			font-size: 11px;
-			font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
-			line-height: 18px; }
- 
-	/** Simple Caption :hover Behaviour **/
-#colorTop .box:hover .simple-caption {
-		opacity: 1;
-		-webkit-transform: translateY(-50%);
-		-moz-transform: translateY(-80%);
-		-o-transform: translateY(-80%);
-		transform: translateY(-50%); }
- 
-/* Color Palette */
- 
-#colorpalette .span12 .well-content {
-	padding: 0px;
-	border-bottom-left-radius: 5px;
-	height: 350px; }
- 
-/* Image Box Style */
-#colorpalette .box {
-	position: relative;
-	float: left;
-	overflow: hidden;
-	margin: 0px;
-	width: 33.3%;
-	height: 90px;
-	border-top: 1px solid rgba(233, 233, 233,.1);
-	border-right: 1px solid rgba(233, 233, 233,.1);
-	box-shadow: #fff 0px 0px 0px 0px;
-	cursor: pointer; }
- 
-	#colorpalette .box img {
-		position: absolute;
-		left: 0;
-		-webkit-transition: all 300ms ease-out;
-		-moz-transition: all 300ms ease-out;
-		-ms-transition: all 300ms ease-out;
-		-o-transition: all 300ms ease-out;
-		transition: all 300ms ease-out; }
- 
-	/* Caption Common Style */
-#colorpalette .box .caption {
-		position: absolute;
-		left: 0;
-		z-index: 100;
-		background-color: rgba(0,0,0,0.02);
-		color: #fff;
-		-webkit-transition: all 500ms ease-out;
-		-moz-transition: all 500ms ease-out;
-		-ms-transition: all 500ms ease-out;
-		-o-transition: all 500ms ease-out;
-		transition: all 500ms ease-out; }
- 
-	/** Caption 1: Simple **/
-#colorpalette .box .simple-caption {
-		bottom: -90px;
-		display: block;
-		padding-top: 10px;
-		width: 100%;
-		height: 125px; }
- 
-	#colorpalette .box .colorname {
-		padding-top: 10px;
-		text-align: center;
-		font-weight: 500;
-		font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
- 
-	#colorpalette .box .colormoreinfo { font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased; }
- 
-		#colorpalette .box .colormoreinfo ul {
-			padding-top: 10px;
-			padding-left: 15px;
-			font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
-			line-height: 25pt; }
- 
-			#colorpalette .box .colormoreinfo ul li {
-				padding-left: 15px;
-				font-size: 11px;
-				font-family: 'Oxygen';-webkit-font-smoothing: subpixel-antialiased;
-				line-height: 18px; }
- 
-	/** Simple Caption :hover Behaviour **/
-#colorpalette .box:hover .simple-caption {
-		opacity: 1;
-		-webkit-transform: translateY(-50%);
-		-moz-transform: translateY(-80%);
-		-o-transform: translateY(-80%);
-		transform: translateY(-50%); }
-
-.google-visualization-tooltip {
-	display:none;
-}
+s
 
 #tabs-industries {
 	margin-top: 12px;
