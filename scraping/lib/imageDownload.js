@@ -39,7 +39,8 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 	  else if(res.headers['content-type']==='image/png') otherLogoFileName = otherLogoFileName + '.png';
 	  else if(res.headers['content-type']==='image/svg+xml') otherLogoFileName = otherLogoFileName + '.svg';
 	  else if(res.headers['content-type']==='image/gif') otherLogoFileName = otherLogoFileName + '.gif';
-
+	  var ws;
+	  var actualFileName;
 	  fs.exists('../application/public/logos/'+otherLogoFileName, function(exists){
 	  	
 	  	if(exists){
@@ -50,19 +51,23 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 	  		
 	  		var extension = otherLogoFileName.substring(ind, otherLogoFileName.length)
 	  		newFileName += '1' + extension;
-	  		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+newFileName));
-
+	  		ws = request(uri).pipe(fs.createWriteStream('../application/public/logos/'+newFileName));
+	  		actualFileName = newFileName;
 	  	}
 	  	else{	
-	  		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+otherLogoFileName));
+	  		ws = request(uri).pipe(fs.createWriteStream('../application/public/logos/'+otherLogoFileName));
+	  		actualFileName = otherLogoFileName;
 	  	}
-	  	
-	  	logoHistArr.push({
-				'year' : doc.logosData[i].date,
-				'fileName' : otherLogoFileName
-			})
+	  	ws.on('close', function(){
+	  		logoHistArr.push({
+					'year' : doc.logosData[i].date,
+					'fileName' : actualFileName
+				})
 			
-			callback(doc, i, logoHistArr);		
+				callback(doc, i, logoHistArr);		
+
+	  	})
+	  	
 	  })
     
   	});
@@ -123,6 +128,7 @@ exports.downloadLogopediaImages = function(){
 									if(err){
 										console.log("error storing to db");
 										console.log(err);
+										logopediaStream.resume();
 									}
 									else{
 										console.log("stored logoHistory for " + d.logoName);
@@ -147,12 +153,15 @@ exports.downloadLogopediaImages = function(){
 					if(typeof doc.parentCompany !== 'undefined'){
 						parentCompaniesAssociatedToCompanies.push(doc.parentCompany)
 					}
+					logopediaStream.resume();
 				}
 
 
 			}
-				logopediaStream.resume()
+			else{
 
+				logopediaStream.resume()
+			}
 			})
 			.on('error', function(error){
 
@@ -172,7 +181,8 @@ exports.downloadOne = function(uri, logoFileName, bloombergName){
 	    else if(res.headers['content-type']==='image/png') logoFileName = logoFileName + '.png';
 	    else if(res.headers['content-type']==='image/svg+xml') logoFileName = logoFileName + '.svg';
 	    else if(res.headers['content-type']==='image/gif') logoFileName = logoFileName + '.gif';
-
+	    var ws;
+	    var actualFileName;
 	    fs.exists('../application/public/logos/'+logoFileName, function(exists){
 	    	if(exists){
 	    		
@@ -183,13 +193,20 @@ exports.downloadOne = function(uri, logoFileName, bloombergName){
 	    		var extension = logoFileName.substring(ind, logoFileName.length)
 	    		newFileName += '1' + extension;
 	    		console.log(newFileName);
-	    		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+newFileName));
-			    saveOneToDB(newFileName, bloombergName);
+	    		ws = request(uri).pipe(fs.createWriteStream('../application/public/logos/'+newFileName));
+			    actualFileName = newFileName;
+			    
 	    	}
 	    	else{	
-	    		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+logoFileName));
-			    saveOneToDB(logoFileName, bloombergName);
+	    		ws = request(uri).pipe(fs.createWriteStream('../application/public/logos/'+logoFileName));
+			    actualFileName = logoFileName;
 	    	}
+
+	    	ws.on('close', function(){
+	    		saveOneToDB(actualFileName, bloombergName);	
+	    	})
+	    	
+
 	    })
 
 	    

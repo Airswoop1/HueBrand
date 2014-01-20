@@ -9,13 +9,14 @@ import json
 import numpy as np
 #from reportlab.graphics import renderPM
 import color_quantization as cq
+#import time
 import sys
 
-
 import color_palette as cp
-import color_match
+#import color_match
 
 SENSITIVITY = 50
+THRESHOLD = 0.15
 MAX_COLORS = 6
 
 
@@ -114,32 +115,42 @@ def get_image_color_and_name_from_image_file(name):
 
     # Load image to RGB or RGBA
     im = get_image_by_name(name)
+    #im.show()
 
     # Quantize the image
     #im_q = quantize_image(im, 4)
 
     # Find complete color composition
-    color_composition, hist = cp.number_of_colors_in_image(im)
-    #print "color_composition: ", len(color_composition), color_composition
+    #start = time.time()
+    color_composition = cp.number_of_colors_in_image(im)
+    #end = time.time()
 
-    hist_dict_list = cp.get_dominate_colors_from_hist(im, hist, MAX_COLORS, SENSITIVITY)
+    # Find dominate colors
+    #color_composition_snapped = cp.get_dominate_colors_from_hist(im, color_composition, MAX_COLORS, SENSITIVITY)
+    main_colors = cp.get_main_colors_from_hist(color_composition, MAX_COLORS, THRESHOLD)
+    color_composition_snapped = cp.snap_main_colors(main_colors)
 
-    if hist_dict_list is not None:
-        process_image_and_colors(im, hist_dict_list, color_composition)
-        #print 'hist_dict_list:', hist_dict_list
+    # Warp it up for Kevin
+    if color_composition_snapped is not None:
+        process_image_and_colors(im, color_composition_snapped)
     else:
         print 'ERROR - no imageColors'
 
 
-def process_image_and_colors(image, colors_dict=None, color_composition=None):
-    cm = color_match.ColorMatch()
-    colors = map(lambda x: x['rgb'], colors_dict)
-    hue_objs = cm.hue_entries_for_rgb_list(colors, False)
-    hue_objs_clean = cm.remove_repeating_colors(hue_objs)
-    #print 'hue_objs_clean: ', len(hue_objs), hue_objs
-    if hue_objs_clean is not None :
-        #save_image_with_palette(hue_objs_clean, None, colors, image)
-        dict_results = {"images_from_euc": hue_objs_clean, "color_composition": color_composition}
+def process_image_and_colors(image, colors_dict=None):
+
+    # Clean repeating color
+    #hue_objs_clean = color_match.remove_repeating_colors(hue_objs)
+    #print 'hue_objs:', len(hue_objs), hue_objs
+    #print 'hue_objs_clean: ', len(hue_objs_clean), hue_objs_clean
+
+    if colors_dict is not None :
+        # For debug - present the colors
+        #colors = map(lambda x: (int(x['sampled_r']), int(x['sampled_g']), int(x['sampled_b'])), colors_dict)
+        #save_image_with_palette(colors_dict, None, colors, image)
+
+        # Wrap it up and dump to JSON
+        dict_results = {"images_from_euc": colors_dict}
         result = json.dumps(dict_results)
         print result
     else:
@@ -235,12 +246,15 @@ def main_file_exp():
     """
     shows image with sampled and snapped strips
     """
-    path = "/Users/airswoop1/CAUS/Development/HueBrand/application/public/logos/"
+
+    #path = "/Users/airswoop1/CAUS/Development/HueBrand/application/public/logos/"
+    path = "/home/ec2-user/HueBrand/application/public/logos/"
     image_name = sys.argv[1];
+    #image_name = "Apple_2007-Present.png"
     #image_name = 'CAT_Logo.jpg'
     #image_name = 'a.gif'
     #image_name = 'svg.svg'
-    #image_name = 'anheuser_busch.png'
+    #image_name = 'Apple_1976-1998.png'
     #image_name = 'class_cnbc.png'
     #image_name = 'vox.png'
     #image_name = 'Rio_Tinto.jpg'

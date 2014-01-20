@@ -10,7 +10,8 @@ from operator import itemgetter
 from math import sqrt
 from math import ceil
 import color_match
-
+import collections
+#import time
 
 RECT = (0, 0, 100, 100)
 BOX_WIDTH = 40
@@ -21,6 +22,8 @@ HIST_ELEMENTS = BOX_WIDTH*BOX_HEIGHT
 DEBUG = False
 SNAP_RADIUS = 50
 ALPHA_THRESHOLD = 100
+THRESHOLD = 0.1
+
 
 def _crop_image(image, rect):
     try:
@@ -40,7 +43,6 @@ def histogram_for_image(image, max_colors=10, snap_radius=SNAP_RADIUS):
     # Get dominate colors
     hist_elements = image.size[0] * image.size[1]
     hist_colors = _color_histogram_image(image, hist_elements)
-    #print 'hist colors: ', hist_colors
 
     # Handle transparency if needed
     if image.mode == 'RGBA':
@@ -56,6 +58,91 @@ def histogram_for_image(image, max_colors=10, snap_radius=SNAP_RADIUS):
     return hist_colors
 
 
+def get_main_colors_from_hist(hist_colors=None, max_colors=10, threshold=THRESHOLD):
+    '''
+    Input: {(249, 249, 249): {'count': 6, 'light': 'very dark', 'family': 'white'}, ...
+    Find top max_colors that pass the threshold
+    '''
+
+    # Check if we have data to parse
+    if hist_colors is None:
+        return None
+
+    # Sort
+    hist_colors_sorted = sorted(hist_colors, key=itemgetter('count'), reverse=True)
+
+    # Split max_colors
+    if max_colors < len(hist_colors_sorted):
+        hist_colors_sorted = hist_colors_sorted[0: max_colors]
+
+    # Remove 'count' below threshold
+    # threshold for max
+    thresh = hist_colors_sorted[0]['count'] * threshold
+    hist_colors_filtered = filter(lambda x: x['count'] > thresh, hist_colors_sorted)
+
+    return hist_colors_filtered
+
+
+def snap_main_colors(colors_dict):
+    cm = color_match.ColorMatch()
+    hues = []
+    for color in colors_dict:
+        rgb = color['rgb']
+        hue = cm.hue_entry_for_rgb_euc(rgb[0], rgb[1], rgb[2])
+        hue['count'] = color['count']
+        hue['rgb'] = rgb
+        hues.append(hue.copy())
+
+    # Consolidate duplicates
+    cons_hues = consolidate_duplicates(hues)
+    return cons_hues
+
+
+def consolidate_duplicates(colors_dict):
+
+    # Find if there are duplicates
+    colors = map(lambda r: (r['final_r'], r['final_g'], r['final_b']), colors_dict)
+    duplicates = [a for a, b in collections.Counter(colors).items() if b > 1]
+
+    # If we don't have duplicates - return
+    if len(duplicates) == 0:
+        return colors_dict
+
+    # Remove duplicates
+    new_hues = []
+    for d in duplicates:
+        hues_dup = filter(lambda r: r['final_r'] == d[0] and r['final_g'] == d[1] and r['final_b'] == d[2], colors_dict)
+        hues_non_dup = filter(lambda r: not (r['final_r'] == d[0] and r['final_g'] == d[1] and r['final_b'] == d[2]), colors_dict)
+
+        # TODO: Find if the duplicate is part of a gradient
+        # if it is - get a second rgb
+        # if it is NOT - sum it up.
+
+        # Sum counts
+        sum_count = sum(map(lambda x: x['count'], hues_dup))
+
+        # Update first Hue with other hue's data
+        hue0 = hues_dup[0]
+        hue0['count'] = sum_count
+
+        # TODO: uncomment for secondary RGB
+        # Update the second duplicated color
+        #hue1 = hues_dup[1]
+        #if hue1.has_key('secondary_rgb'):
+        #    print 'hue1', hue1
+            #secondary_rgb = hue1['secondary_rgb']
+            #if secondary_rgb:
+                #hue1['final_r'] = secondary_rgb[0]
+                #hue1['final_g'] = secondary_rgb[1]
+                #hue1['final_b'] = secondary_rgb[2]
+        # Append updated hues
+        #hues_non_dup.append(hue1)
+
+        hues_non_dup.append(hue0)
+        new_hues = new_hues + hues_non_dup
+    return new_hues
+
+
 def get_dominate_colors_from_hist(image, hist_colors=None, max_colors=10, snap_radius=SNAP_RADIUS):
 
     # Get histogram from image
@@ -64,19 +151,17 @@ def get_dominate_colors_from_hist(image, hist_colors=None, max_colors=10, snap_r
 
     # Generate image from dominate colors
     dominate_colors = find_dominate_colors(hist_colors, max_colors, snap_radius)
-    #print 'dominate colors: ', dominate_colors
     return dominate_colors
 
 
 def _count_appearance(alist, hist_list):
 
-    hist_dict_list = map(lambda x: {'rgb': x[1], 'hist': x[0]}, hist_list)
+    hist_dict_list = map(lambda x: {'rgb': x[1], 'count': x[0]}, hist_list)
 
     results = []
     for obj in alist:
         color = filter(lambda x: x['rgb'] == obj, hist_dict_list)
         results.append(color[0])
-    #print 'results: ', results
     return results
 
 
@@ -99,7 +184,6 @@ def _recode_transparency(image):
     image2 = Image.new('RGB', size, (1, 2, 3))
     image2.putdata(color_list_temp)
     #image2.show()
-
     return image2
 
 
@@ -131,7 +215,7 @@ def _color_histogram_image(image, n=5):
     hist_list = hist_list[:n]
 
     # Construct a dictionary rgb:  hist:
-    hist_dict_list = map(lambda x: {'rgb': x[1], 'hist': x[0]}, hist_list)
+    hist_dict_list = map(lambda x: {'rgb': x[1], 'count': x[0]}, hist_list)
     return hist_dict_list
 
 
@@ -221,7 +305,8 @@ def _remove_alpha(dict):
 
 
 def _remove_opaque_background(image, hist):
-    ''' simple method based on intuition  that
+    '''
+    simple method based on intuition  that
      background is white or black
     '''
 
@@ -233,15 +318,15 @@ def _remove_opaque_background(image, hist):
     # Remove corners' color or W/B
     white = (255, 255, 255)
     black = (0, 0, 0)
-    if c0 == c1:
-        if c0 == white:
-            hist = _remove_color(hist, white, 8)
-        elif c0 == black:
-            hist = _remove_color(hist, black, 6)
-        else:
-            hist = _remove_color(hist, c0, 5)
+    #if c0 == c1:
+    if c0 == white or c1 == white:
+        hist = _remove_color(hist, white, 8)
+    elif c0 == black or c1 == black:
+        hist = _remove_color(hist, black, 6)
     else:
-        hist = _remove_color(hist, c0, 5)
+        hist = _remove_color(hist, c1, 5)
+    #else:
+        #hist = _remove_color(hist, c0, 5)
 
     return hist
 
@@ -258,6 +343,8 @@ def number_of_colors_in_image(image, hist_colors=None):
     Input: image
     Output: Array of dictionaries {"name": "color_name", "percent": "number" }
     """
+
+    # If we don't have a hitogram - build it
     if hist_colors is None:
         # Get histogram
         rect = (0, 0, image.size[0], image.size[1])
@@ -265,10 +352,52 @@ def number_of_colors_in_image(image, hist_colors=None):
         hist_colors = histogram_for_image(image, hist_elements)
 
     # Find color and light
-    temp_dict = {}
+    named_colors = _name_bins_in_hist(hist_colors)
+
+    # Segment color bins
+    segmented_hist = _segment_hist(named_colors)
+
+    # Normalize the values in the dictionary to 0-100
+    #norm_dict = normilize_dictionary(temp_dict)
+    return segmented_hist
+
+
+def _segment_hist(hist):
+    # Hard code bins (don't like it)
+    families = ['white', 'gray', 'black', 'red', 'orange', 'brown', 'beige', 'yellow', 'yellow/green', 'green', 'cyan',
+                'blue', 'purple', 'magenta']
+    light_lvls = ['very dark', 'dark', 'medium', 'light', 'very light']
+    segmented_bins = []
+
+    # Get bins for a specific color family
+    for family in families:
+        bins = filter(lambda x: x['family'] == family, hist)
+
+        # Find bins for a specific light level
+        for light in light_lvls:
+            bins_light = filter(lambda x: x['light'] == light, bins)
+
+            # Continue if filter returns 0
+            if len(bins_light) < 1:
+                continue
+
+            # Find RGB with max 'count' and sum
+            # bins_light is sorted!
+            max_bin_rgb = bins_light[0]['rgb']
+            sum_bin = sum(map(lambda x: x['count'], bins_light))
+            segmented_bins.append({'count': sum_bin, 'family': family, 'light': light, 'rgb': max_bin_rgb})
+
+    return segmented_bins
+
+
+def _name_bins_in_hist(hist_colors):
+    """
+    Receives histogram and names it
+    """
+    #cm = color_match.ColorMatch()
+    #named_colors = {}
     for color in hist_colors:
         rgb = color['rgb']
-        hist_cnt = color['hist']
 
         # Find HSV and L values
         h, s, v = colorsys.rgb_to_hsv(rgb[0]/255.0, rgb[1]/255.0, rgb[2]/255.0)
@@ -278,33 +407,27 @@ def number_of_colors_in_image(image, hist_colors=None):
         s = s*100
         v = v*100
 
+        # Using pre-defined color base and light
+        hues = None
+        #colors = [rgb]
+        #hues = cm.hue_entries_for_rgb_list(colors, False)
+        #hue = hues[0]
+        #if hue is None:
+        #    continue
+
         # Find color family base on hsv/hsl
         color_base = color_match.find_family_color_for_h(h, s, v)
+        #color_base = hue['family']
 
         # Find lightness
-        color_light = color_match.find_color_light(l)
-
-        '''
-        # Using pre-defined color base and light
-        colors = [rgb]
-        hues = cm.hue_entries_for_rgb_list(colors, False)
-        hue = hues[0]
-        color_base = hue['family']
-        color_light = hue['light']
-        '''
+        color_light = color_match.find_color_light(l, rgb)
+        #color_light = hue['light']
 
         # Structure the result as a dictionary
-        if color_base not in temp_dict:
-            temp_dict[color_base] = {color_light: hist_cnt}
-        else:
-            if color_light not in temp_dict[color_base]:
-                temp_dict[color_base][color_light] = hist_cnt
-            else:
-                temp_dict[color_base][color_light] = temp_dict[color_base][color_light] + hist_cnt
+        color['family'] = color_base
+        color['light'] = color_light
 
-    # Normalize the values in the dictionary to 0-100
-    #norm_dict = normilize_dictionary(temp_dict)
-    return temp_dict, hist_colors
+    return hist_colors
 
 
 def normilize_dictionary(dict):
