@@ -214,6 +214,87 @@
 	height: 140%;
 }
 
+/*--- Module - Color Gradient CSS --*/
+/*--- [m_global-colorGradient.ejs] --*/
+/*--- Color Gradient Information -*/
+
+#color-gradient {
+	width:10%;
+	float:left;
+	margin-right:2%;
+	margin-left:2%;
+	height:270px;
+	overflow:hidden;
+
+}
+
+#color-gradient .well-content {
+	height:250px;
+	background-image: -webkit-gradient(linear, right top, right bottom, color-stop(0.01, #ff0000), color-stop(0.08, #ff0088), color-stop(0.16, #ff00ff), color-stop(0.24, #8800ff), color-stop(0.32, #0000ff), color-stop(0.40, #0088ff), color-stop(0.48, #00ffff), color-stop(0.56, #00ff88), color-stop(0.64, #00ff00), color-stop(0.72, #88ff00), color-stop(0.80, #ffff00), color-stop(0.88, #ff8800), color-stop(0.99, #ff0000))
+}
+
+/*--- Module - Top Industries CSS --*/
+/*--- [m_global-industriestop.ejs] --*/
+/*--- Top Industries -*/
+ 
+
+#industriesTop {
+	float:left;
+	margin-right:2%;
+	margin-left:2%;
+	width:10%;
+} 
+#industriesTop .span12 .well-content {
+	display: table;
+	padding: 0px;
+	padding-bottom: 0px!important;
+	height:250px;
+	overflow-x: none;
+	border-bottom-left-radius: 5px;
+	 }
+ 
+#industriesTop-data {
+	margin: 0px;
+	height: 250px;
+	width: 100%;
+	overflow-y: scroll;
+	overflow-x: none;
+	list-style-type: none; }
+ 
+	#industriesTop-data li {
+		float: left;
+		background: #Fff;
+		font-weight: normal;
+		border: 1px rgba(0, 0, 0, 0.07) solid;
+		text-align: center;
+		font-size: 12px;
+		padding: 6%!important;
+		margin: 1% 1% 1% 5%!important;
+		width: 90%!important;
+		-webkit-transition: .5s;
+		-moz-transition: .5s;
+		-ms-transition: .5s;
+		-o-transition: .5s;
+		transition: .5s; }
+ 
+		#industriesTop-data li:hover {
+			background-color: rgba(253, 253, 253, 0.5);
+			border-color: rgba(0,0,0,0.2);
+			box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
+ 
+ 
+	#industriesTop-data img { height: 30%;width: 30%; }
+
+	#industriesTop-data .industry {
+		font-size:12px;
+		line-height:5px;
+	}
+	#industriesTop-data .percentage {
+		font-weight:100;
+		font-size:12px;
+		line-height:8px;
+	}
+ 
 
 /*--- Module - Attribute Information CSS --*/
 /*--- [m_attribute-info.ejs] --*/
@@ -861,44 +942,7 @@ ul, menu, dir { -webkit-padding-start: 0px!important; }
 			background: rgba(184, 184, 184, 0.1);
 			box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
  
-/* Module - Industry Attribute Associations */
- 
-#topindustries .span12 .well-content {
-	padding: 0px;
-	border-bottom-left-radius: 5px;
-	height: 106px;
-	display: table;
-	padding-bottom: 0px!important; }
- 
-#topindustries-data {
-	margin: 0px;
-	width: 100%;
-	list-style-type: none; }
- 
-	#topindustries-data li {
-		float: left;
-		background: #Fff;
-		font-weight: normal;
-		border: 1px rgba(0, 0, 0, 0.07) solid;
 
-		text-align: center;
-		font-size: 12px;
-		padding: 6%!important;
-		margin: 1% 1% 1% 5%!important;
-		width: 90%!important;
-		-webkit-transition: .5s;
-		-moz-transition: .5s;
-		-ms-transition: .5s;
-		-o-transition: .5s;
-		transition: .5s; /* ...and now for the proper property */ }
- 
-		#topindustries-data li:hover {
-			border-color: rgba(0,0,0,0.2);
-			background-color: rgba(253, 253, 253, 0.5);
-			box-shadow: 0 0 5px rgba(0,0,0,0.2)!important; }
- 
- 
-	#topindustries-data img { height: 30%;width: 30%; }
  
 /* Module - Regional Attribute Associations */
  
