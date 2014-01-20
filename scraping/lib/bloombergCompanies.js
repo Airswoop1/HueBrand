@@ -34,14 +34,10 @@ var bloombergComp = new mongoose.Schema({
 		vValue : Number,
 		lValue : Number,
 		shade : String,
+		colorPercentage: Number,
 		attributes : [String],
 		complementaryColors : [String], //should these be names or Id's?
 		descriptionFileName : String
-	}],
-	colorPercentages : [{
-		cpColorFamily : String,
-		cpShade : String,
-		cpPercentage : Number,
 	}],
 	children : [String],
 	logoFileName : String,
@@ -162,6 +158,39 @@ exports.bloombergQuery = function(logopediaName, callback){
 		}
 }
 
-exports.bloombergUpdate = function(sName, logosArr){
-	exports.bloombergCompany.findOneAndUpdate()
+exports.svg2pngRename = function(){
+
+	var stream = exports.bloombergCompany.find({logoFileName:{$exists:true}}).stream();
+
+	stream.on('data', function(doc){
+		
+		if(doc.logoFileName.indexOf(".svg")>0){
+			var lfName = doc.logoFileName;
+			
+			doc.logoFileName = lfName.replace(/\.[^\.]+$/, '.png');
+
+			doc.save()
+			
+		}
+		else if(doc.logoHistory.length){
+			stream.pause();
+			for(var i=0;i<doc.logoHistory.length;i++){
+				if(doc.logoHistory[i].fileName.indexOf(".svg")>0){
+					var tmpFN = doc.logoHistory[i].fileName.replace(/\.[^\.]+$/, '.png');
+					doc.logoHistory[i].fileName = tmpFN;
+				}
+			}
+			doc.save()
+			stream.resume();
+		}
+
+
+	}).on('error', function(err){
+		console.log("error on bloomberg svg2pngRename");
+		console.log(err);
+	}).on('close', function(){
+
+	})
+
 }
+

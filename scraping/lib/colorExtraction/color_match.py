@@ -10,8 +10,7 @@ import math
 #from functools import partial
 import numpy as np
 
-#COLOR_NAMES_FILE_NAME = './lib/colorExtraction/golden_units.csv'
-COLOR_NAMES_FILE_NAME = '/Users/airswoop1/CAUS/Development/HueBrand/scraping/lib/colorExtraction/golden_units.csv'
+COLOR_NAMES_FILE_NAME = '/home/ec2-user/HueBrand/scraping/lib/colorExtraction/golden_units.csv'
 
 
 class ColorMatch():
@@ -25,10 +24,7 @@ class ColorMatch():
         r = int(rgb['final_r'])
         g = int(rgb['final_g'])
         b = int(rgb['final_b'])
-        hue = hueEntryForRGBEuc(r,g,b)
-        print 'we are looking for: ', str(r), str(g), str(b)
-        print 'we found: ', hue
-        print '-------\n'
+        hue = self.hue_entry_for_rgb_euc(r, g, b)
 
         return hue
 
@@ -40,12 +36,13 @@ class ColorMatch():
         hues = []
         for rgb in alist:
             if isPolar:
-                hues.append(self.hue_entry_for_rgb_polar(rgb[0], rgb[1], rgb[2]))
+                # Don't support this
+                print 'Not supported'
             else:
                 hues.append(self.hue_entry_for_rgb_euc(rgb[0], rgb[1], rgb[2]))
         return hues
 
-    def hue_entry_for_rgb_euc(self, r, g, b):
+    def hue_entry_for_rgb_euc(self, r, g, b, delta=30):
         """
         hueEntryForRGB receives an r,g,b and compare it with
          all the Hue entries in the golden units.
@@ -53,67 +50,84 @@ class ColorMatch():
         """
         a_arr = np.array([r, g, b])
         minDist = 1000
-        for row in self.dictReader:
-
+        minHue = None
+        minHue2 = None
+        hues = [i for i in self.dictReader if int(i['final_r'])-delta < r < int(i['final_r'])+delta and
+                                              int(i['final_g'])-delta < g < int(i['final_g'])+delta and
+                                            int(i['final_b'])-delta < b < int(i['final_b'])+delta]
+        #print 'About to run :', len(hues), r, g, b
+        for row in hues:
             b_arr = np.array((int(row['final_r']), int(row['final_g']), int(row['final_b'])))
-            #dist = np.linalg.norm(a_arr-b_arr)
-            #dist = self.dist_between_rgbs(a_arr, b_arr)
-            dist = self.dist_between_rgbs(a_arr, b_arr)
+            dist = dist_between_rgbs(a_arr, b_arr)
 
             # Euclidean distance
             if dist < minDist:
                 minDist = dist
+                if minHue:
+                    minHue2 = minHue.copy()
                 minHue = row
+
         #print 'We snap: {} {} {} to: {} {} {}'.format(r, g, b, minHue['final_r'], minHue['final_g'], minHue['final_b'])
-        minHue['sampled_r'] = r
-        minHue['sampled_g'] = g
-        minHue['sampled_b'] = b
+        if minHue:
+            minHue['sampled_r'] = r
+            minHue['sampled_g'] = g
+            minHue['sampled_b'] = b
+            if minHue2:
+                minHue['secondary_rgb'] = (minHue2['final_r'], minHue2['final_g'], minHue2['final_b'])
         return minHue
 
-    def dist_between_np_rgbs(self, x, y):
-        return np.sqrt(np.sum((x-y)**2))
 
-    def dist_between_rgbs(self, x, y):
-        deltaX = y[0] - x[0]
-        deltaY = y[1] - x[1]
-        deltaZ = y[2] - x[2]
-        dist = abs(deltaX) + abs(deltaY) + abs(deltaZ)
-        return dist
-
-    def get_hsv_from_hue(self, hue):
-        return float(hue['h']), float(hue['s']), float(hue['v'])
-
-    def distance(self, row_a, row_b):
-        diffs = [math.fabs(a-b) for a, b in zip(row_a, row_b)]
-        weights = (1, 1, 1)
-        return sum([v*w for v,w in zip(diffs, weights)])
-
-    def get_nearest_neighbour(self, data, criteria):
-        def sort_func(row):
-            return self.distance(row, criteria)
-        return data.index(min(data, key=sort_func))
-
-    def remove_repeating_colors(self, colors):
-        """
-        itterate over hue objects and remove
-        duplicate colors
-        """
-        #print 'remove colors: ', colors
-        families = []
-        results = []
-        for color in colors:
-            family = color['family']
-            light = color['light']
-            c = (family, light)
-            if c not in families:
-                families.append(c)
-                results.append(color)
-
-        #print 'cleaned colors: ', results
-        return results
+def get_nearest_neighbour(data, criteria):
+    def sort_func(row):
+        return distance(row, criteria)
+    return data.index(min(data, key=sort_func))
 
 
-def find_color_light(l):
+def dist_between_np_rgbs(x, y):
+    return np.sqrt(np.sum((x-y)**2))
+
+
+def dist_between_rgbs(x, y):
+    deltaX = y[0] - x[0]
+    deltaY = y[1] - x[1]
+    deltaZ = y[2] - x[2]
+    dist = abs(deltaX) + abs(deltaY) + abs(deltaZ)
+    return dist
+
+
+def get_hsv_from_hue(hue):
+    return float(hue['h']), float(hue['s']), float(hue['v'])
+
+
+def distance(row_a, row_b):
+    diffs = [math.fabs(a-b) for a, b in zip(row_a, row_b)]
+    weights = (1, 1, 1)
+    return sum([v*w for v,w in zip(diffs, weights)])
+
+
+def remove_repeating_colors(colors):
+    """
+    itterate over hue objects and remove
+    duplicate colors
+    """
+    #print 'remove colors: ', colors
+    families = []
+    results = []
+    for color in colors:
+        family = color['family']
+        light = color['light']
+        c = (family, light)
+        if c not in families:
+            families.append(c)
+            results.append(color)
+
+    #print 'cleaned colors: ', results
+    return results
+
+
+def find_color_light(l, rgb):
+    if rgb > (248, 248, 248):
+        return 'very light'
     light = ''
     if 0 <= l < 10:
         light = 'very dark'
