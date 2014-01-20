@@ -40,7 +40,7 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 	  else if(res.headers['content-type']==='image/svg+xml') otherLogoFileName = otherLogoFileName + '.svg';
 	  else if(res.headers['content-type']==='image/gif') otherLogoFileName = otherLogoFileName + '.gif';
 
-	  fs.exists('../application/public/Logos/'+otherLogoFileName, function(exists){
+	  fs.exists('../application/public/logos/'+otherLogoFileName, function(exists){
 	  	
 	  	if(exists){
 	  		
@@ -50,11 +50,11 @@ var downloadMultiple = function (doc, i, logoHistArr, callback){
 	  		
 	  		var extension = otherLogoFileName.substring(ind, otherLogoFileName.length)
 	  		newFileName += '1' + extension;
-	  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
+	  		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+newFileName));
 
 	  	}
 	  	else{	
-	  		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+otherLogoFileName));
+	  		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+otherLogoFileName));
 	  	}
 	  	
 	  	logoHistArr.push({
@@ -77,14 +77,16 @@ exports.downloadLogopediaImages = function(){
 
 	var parentCompaniesAssociatedToCompanies = [];
 
-	var logopediaStream = logopedia.logopediaModel.find({}).stream();
+		var logopediaStream = logopedia.logopediaModel.find({$and : [
+																																{bloombergMatch: {$ne: 'N'}}, 
+																																{bloombergMatch:{$exists:true}},
+																																{downloaded:false}
+																																]}).stream();
 
 	logopediaStream
 	.on('data', function(doc){
 		logopediaStream.pause();
-
-
-		if(doc.logosData.length && (typeof doc.bloombergMatch !== 'undefined')){
+		if(doc.logosData.length){
 			var logoStatus='N';
 
 			if(typeof doc.logoClass !== 'undefined'){
@@ -93,9 +95,8 @@ exports.downloadLogopediaImages = function(){
 			else if(typeof doc.logoType !== 'undefined'){
 				logoStatus = doc.logoType;
 			}
-			//logoStatus = primary | secondary | ['parent', 'subsidiary', 'brand', 'logo', 'delete'] 
 
-			if((logoStatus === 'parent' || logoStatus === 'primary' || logoStatus === 'logo') && doc.bloombergMatch !== 'N'){
+			if((logoStatus === 'parent' || logoStatus === 'primary' || logoStatus === 'logo')){
 
 					//determine which to download as main logo
 					if(doc.logosData.length === 1){
@@ -143,9 +144,9 @@ exports.downloadLogopediaImages = function(){
 
 				}
 				else if(logoStatus === 'brand' || logoStatus === 'subsidiary'){
-
-					parentCompaniesAssociatedToCompanies.push(doc.parentCompany)			
-
+					if(typeof doc.parentCompany !== 'undefined'){
+						parentCompaniesAssociatedToCompanies.push(doc.parentCompany)
+					}
 				}
 
 
@@ -172,7 +173,7 @@ exports.downloadOne = function(uri, logoFileName, bloombergName){
 	    else if(res.headers['content-type']==='image/svg+xml') logoFileName = logoFileName + '.svg';
 	    else if(res.headers['content-type']==='image/gif') logoFileName = logoFileName + '.gif';
 
-	    fs.exists('../application/public/Logos/'+logoFileName, function(exists){
+	    fs.exists('../application/public/logos/'+logoFileName, function(exists){
 	    	if(exists){
 	    		
 	    		var ind = logoFileName.indexOf('.')
@@ -182,11 +183,11 @@ exports.downloadOne = function(uri, logoFileName, bloombergName){
 	    		var extension = logoFileName.substring(ind, logoFileName.length)
 	    		newFileName += '1' + extension;
 	    		console.log(newFileName);
-	    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+newFileName));
+	    		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+newFileName));
 			    saveOneToDB(newFileName, bloombergName);
 	    	}
 	    	else{	
-	    		request(uri).pipe(fs.createWriteStream('../application/public/Logos/'+logoFileName));
+	    		request(uri).pipe(fs.createWriteStream('../application/public/logos/'+logoFileName));
 			    saveOneToDB(logoFileName, bloombergName);
 	    	}
 	    })
@@ -259,7 +260,7 @@ exports.downloadFavicon = function(){
 
 						var faviconName = doc.displayName.replace(/[^A-Z0-9]+/ig, "_").toLowerCase();
 						faviconName = faviconName + '.ico'
-						request(url).pipe(fs.createWriteStream('../Logos/favicon/'+faviconName));
+						request(url).pipe(fs.createWriteStream('../logos/favicon/'+faviconName));
 						doc.faviconFileName = faviconName;
 						doc.save();
 						favstream.resume();
