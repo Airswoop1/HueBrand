@@ -1,38 +1,38 @@
-<!--  Search Bar  -->
-
-<form class="navbar-form" role="search" style="float: right;margin-top: .1%;margin-right: -28px;width: 277px;">
-  <span style="font-size:9px;font-family:'Nunito';text-transform:uppercase;">
-    <span style="border: 1px solid rgba(12, 13, 19, 0);margin-right: 5px;border-radius: 5px;background-color: rgba(12, 13, 19, 0.46);color: #fff;padding: 3px;">
+  
+<form id="search-form" class="navbar-form" role="search">
+  <span class="search-tabs">
+    <span class="search-tab">
       Brand
     </span>
-    <span style="border: 1px solid rgba(12, 13, 19, 0.46);margin-right: 5px;border-radius: 5px;background-color: #fff;color: #222;padding: 3px;">  Industry
+    <span class="search-tab">  
+      Industry
     </span>
-    <span style="border: 1px solid rgba(12, 13, 19, 0.46);margin-right: 5px;border-radius: 5px;background-color: #fff;color: #222;padding: 3px;">  Attribute
+    <span class="search-tab">  
+      Attribute
     </span>
-    <span style="border: 1px solid rgba(12, 13, 19, 0.46);margin-right: 5px;border-radius: 5px;background-color: #fff;color: #222;padding: 3px;">  Color
+    <span class="search-tab">  
+      Color
     </span>
   </span>
-
-  <form class="navbar-form" role="search" style="float: right;/* border-left: 1px rgba(0, 0, 0, 0.43) solid; *//* height: 13px; */margin-top: 19px;width: 209px;">
-    <div id="tabs-industries" style="margin-top: 0px;margin-left: -1px;width: 109px;">
-      <div class="demo">
-        <div class="control-group">
-          <select id="select-industry" name="industry[]" multiple class="demo-default"  placeholder="Select a brand...">
-            <option value="">Select a brand...</option>
-            <option value="Facebook">Facebook</option>
-            <option value="Google">Google</option>
-            <option value="Exxon Mobil">Exxon Mobil</option>
-            <option value="PetroChina">PetroChina</option>
-            <option value="Bank of America">Bank of America</option>
-            <option value="Citigroup">Citigroup</option>
-          </select>
-         </div>
-        </div>
-      <script>
-        $('#select-industry').selectize({
-          maxItems: 1
-        });
-      </script>
+<form class="navbar-form" role="search">
+  <div class="demo">
+    <div class="control-group">
+      <select id="select-industry" name="industry[]" multiple class="demo-default"  placeholder="Select a brand...">
+        <option value="">Select a brand...</option>
+        <option value="Facebook">Facebook</option>
+        <option value="Google">Google</option>
+        <option value="Exxon Mobil">Exxon Mobil</option>
+        <option value="PetroChina">PetroChina</option>
+        <option value="Bank of America">Bank of America</option>
+        <option value="Citigroup">Citigroup</option>
+      </select>
+     </div>
     </div>
   </form>
 </form>
+
+<script>
+  $('#select-industry').selectize({
+    maxItems: 1
+  });
+</script>
