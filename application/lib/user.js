@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
 	color = require('./color.js'),
   util = require('util');
+var bloom = require('./bloombergCompanies.js');
 
 exports.userModel = mongoose.model('User', new mongoose.Schema({
 	
@@ -38,6 +39,12 @@ var users = [
 
 exports.index = function(req,res){
 	
+  bloom.bloombergCompany.find({shortName:'hello'}, function(err, obj){
+    console.log(err);
+    console.log(obj);
+  })
+
+
 	color.Color.find({}, function(err, c){
 			if(err){
 				console.log('color loading found! ' + err);
