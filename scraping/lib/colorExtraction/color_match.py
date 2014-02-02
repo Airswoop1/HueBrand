@@ -11,7 +11,7 @@ import math
 import numpy as np
 
 COLOR_NAMES_FILE_NAME = '/home/ec2-user/HueBrand/scraping/lib/colorExtraction/golden_units.csv'
-
+#COLOR_NAMES_FILE_NAME = '/Users/airswoop1/CAUS/Development/HueBrand/scraping/lib/colorExtraction/golden_units.csv'
 
 class ColorMatch():
     def __init__(self):

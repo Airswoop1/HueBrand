@@ -49,7 +49,7 @@ exports.extract = function(index, logosList){
 			logosList[index].logoFileName !== ''){
 		console.log("Extracting color for: " + logosList[index].logoFileName );
 	try{
-		child = exec("python ./lib/colorExtraction/kevin_main.py " + logosList[index].logoFileName, function (error, stdout, stderr) {
+		child = exec("python ./lib/colorExtraction/kevin_main.py " + eval('"'+logosList[index].logoFileName+'"'), function (error, stdout, stderr) {
 			 if (error !== null) {
 		    	console.log('exec error: ' + error);
 		  	}

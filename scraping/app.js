@@ -176,7 +176,7 @@ mark all logopedias images that have been downloaded as true
 //scrape.updateDownloadedSatatus();
 
 
-bloom.svg2pngRename();
+//bloom.svg2pngRename();
 
 
 /******

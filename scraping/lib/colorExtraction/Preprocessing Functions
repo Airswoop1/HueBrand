@@ -1,0 +1,35 @@
+Preprocessing Functions
+	1. B - Brand Attributes based on color composition of logo
+	2. B - Industry Colors
+		 - 
+	3. B - Industry Global Color Map ??
+	4. C - Color Combinations
+	5. C - Color Cominations across Industry
+
+v1 - just run queries on fly
+
+DB additions
+
+	1. Industry Collection
+	2. Queries Collection
+
+Industry Logo Cloud 
+	Query on server side for only companies with logos
+
+<%
+
+	var currentQueryVar;
+	if(queryType === 'color'){
+		colorResult 
+
+	}
+	else if(queryType === 'brand'){
+		brandResult
+	}
+	else if{
+
+	}
+
+%>
+
+div class="<%= newClass %>"
