@@ -1,4 +1,5 @@
 <!--  Module - Top Colors - "Shows the Top Colors" -->
+<!-- Expects topColors to be an array of colors and their percentage values-->
 
      <div class="container-fluid" id="colorTop">
 
@@ -10,28 +11,34 @@
         </div>
 
         <div class="well-content">
+        <div class="colorTop-container">    
 
-          <div class="colorTop-container">    
-          <div style="float:left;width:50%;">
-            <div class="colorTop-color" style="background-color: #903D3D;"></div>
-            <div class="colorTop-percentage">50%</div>
-          </div>
-          <div style="float:left;width:30%;">    
-            <div class="colorTop-color" style="background-color: #3D9077;"></div>
-            <div class="colorTop-percentage">30%</div>
-          </div>
-          <div style="float:left;width:20%;">    
-            <div class="colorTop-color" style="background-color: #8AB0DC;"></div>
-            <div class="colorTop-percentage">20%</div>
-          </div>
+          <%
+          for(var i=0;i<topColors.length; i++){ %>
+            <div class='colorTop-boxes' style="float:left;width:<%=topColors[i].colorTotal%>%;" >
+              <div class="colorTop-color" style="background-color: rgb(<%=topColors[i].RrgbValue%>,
+                                                                      <%=topColors[i].GrgbValue%>,
+                                                                      <%=topColors[i].BrgbValue%>);"></div>
+              <div class="colorTop-percentage"><%=topColors[i].colorTotal%>%</div>
+            </div>  
+          <%}%>
+
           </div>
 
           <div class="color-table">
             <div class="table-responsive">
-              <table class="table table-bordered">
+              <%for(var j=0; j<topColors.length;j++){
+                if(j===0){
+                  var displayStyle = 'block';
+                }
+                else{
+                  var displayStyle = 'none';
+                }
+              %>
+              <table class="table table-bordered" style='display:block;'>
                 <thead>
                   <tr style="font-weight:700;">
-                    <th>Yellow</th>
+                    <th><%=topColors[j].key%></th>
                     <th>%</th>
                     <th>RGB</th>
                     <th>HEX</th>
@@ -40,14 +47,30 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td style="background-color:#ffee77;width:80px;"></td>
-                    <td>25%</td>
-                    <td>125,11,10</td>
-                    <td>#193101</td>
-                    <td>360°,20%,19%</td>
+                    <td style="background-color:rgb(<%=topColors[j].RrgbValue%>,
+                                                    <%=topColors[j].GrgbValue%>,
+                                                    <%=topColors[j].BrgbValue%>);
+                                                    width:80px;"></td>
+                    <td><%=topColors[j].colorTotal%>%</td>
+                    <td><%=topColors[j].RrgbValue%>,<%=topColors[j].GrgbValue%>,<%=topColors[j].BrgbValue%></td>
+                    <td><%
+                      function componentToHex(c){
+                        var hex = c.toString(16);
+                        return hex.length == 1 ? "0" + hex : hex;
+                      }
+                      var hexValue = '#' + componentToHex(topColors[j].RrgbValue) + componentToHex(topColors[j].GrgbValue) + componentToHex(topColors[j].BrgbValue);
+                      var h = parseFloat(topColors[j].hValue.toFixed(1),10);
+                      var s = parseFloat(topColors[j].sValue.toFixed(1),10);
+                      var v = parseFloat(topColors[j].vValue.toFixed(1),10)
+                      %>
+                      <%=hexValue%>
+                    </td>
+                    <td><%=h%>°,<%=s%>%,<%=v%>%</td>
                   </tr>
+                  
                 </tbody>
               </table>    
+              <%}%>
             </div>
           </div>
         </div>

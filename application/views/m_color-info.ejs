@@ -8,10 +8,14 @@
         </div>
         <div class="well-content" style="height:250px;">
           <div class="color-container">
-             <div class="color" style="background-color:rgb()"></div>
+             <div class="color" style="background-color:rgb(
+              <%=colorObj.RrgbValue%>,
+              <%=colorObj.GrgbValue%>,
+              <%=colorObj.BrgbValue%>
+             )"></div>
           </div>
           <div class="color-description">
-            Yellow is considered a mellow color that is highly reflective. It is seen as something with high energy that generates creativity. Although the cover gives off a feeling on enlighteningment when shaded to close to green, it leaves an acidic feeling in consumers minds that is highly unfavorable.
+            <%= colorObj.colorName %> is an awesome color!
           </div>
         </div>
       </div>

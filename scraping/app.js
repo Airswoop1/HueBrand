@@ -175,9 +175,17 @@ mark all logopedias images that have been downloaded as true
 ***********/
 //scrape.updateDownloadedSatatus();
 
-
+/***********
+function: svg2pngRename()
+modify all fileNames that had .svg into .png
+***********/
 //bloom.svg2pngRename();
 
+/***********
+function: importColorsFromCSV()
+import color data from scraped logos
+***********/
+color.importColorsFromCSV();
 
 /******
 Setup for /logosSelection route
