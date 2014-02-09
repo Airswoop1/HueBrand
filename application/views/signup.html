@@ -1,9 +1,17 @@
-<!-- [signup.html] - Signup Page -->
+<!-- [signin.html] - Signup Page -->
 
 <% include header %>
 <% include sidebar %>
-
-    <div class="container-fluid" style="float:left;margin-right:2%;width:50%;">
+<div style="width: 50%;
+display: block;
+margin-left: auto;
+margin-right: auto;">
+    <div class="container-fluid" style="float: left;
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 600px;
+margin-top: 10%;">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -14,42 +22,18 @@
               </div>
             </span>
         </div>
-        <div class="well-content" style="height: 600px;overflow: hidden;padding:20px;">
-          Sign Up Page Here
-          <br><br>
-          First Name <input></input>
-          <br><br>
-          Last Name<input></input>
-          <br><br>
-          Company<input></input>
-          <br><br>
-          Email<input></input>
-          <br><br>
-          Password<input></input>
-          <br><br>
-          Confirm Password<input></input>
-          <br><br>
-          How did you hear about us?<input></input>
-        </div>
-      </div>
-    </div>
-
-<% include footer %>
-
-
-<% include header %>
-
-<h2 class="txt-cntr">Registration</h2>
+        <div class="well-content" style="height: 400px;padding:20px;">
+        <h2 class="txt-cntr">Registration</h2>
 
 <div class="login-head txt-cntr">
     <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
         <div class="fl clr d-i-b">
             <label>EMAIL</label>
-            <input type="text" name="email" value="<%=email%>"/>
+            <input type="text" name="email" value="<%=email%>"/ >
         </div>
         <div class="fl clr d-i-b">
             <label>USERNAME</label>
-            <input type="text" name="username"  value="<%=username%>"/>
+            <input type="text" name="username" value="<%=username%>" />
         </div>
         <div class="fl clr d-i-b">
             <label>PASSWORD</label>
@@ -62,13 +46,17 @@
         <div class="txt-cntr clr submit-button">
             <input type="submit"  value="Submit"/>
         </div>
-        <% if(locals.regErr) { %>
+           <% if(locals.regErr) { %>
         <span class="err-msg fl"><%=regErr%></span>
         <% } %>
     </form>
 </div>
 
 <a class="fr home-link" href="/">Back to Home</a>
-
+        </div>
+      </div>
+    </div>
+</div>
 <% include footer %>
+
 

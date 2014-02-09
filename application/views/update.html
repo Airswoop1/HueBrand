@@ -1,6 +1,29 @@
-<% include header %>
+<!-- [update.html] - Update Page -->
 
-<h2 class="txt-cntr">Edit User</h2>
+<% include header %>
+<% include sidebar %>
+<div style="width: 50%;
+display: block;
+margin-left: auto;
+margin-right: auto;">
+    <div class="container-fluid" style="float: left;
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 600px;
+margin-top: 10%;">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+            Sign Up
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+              </div>
+            </span>
+        </div>
+        <div class="well-content" style="height: 400px;padding:20px;">
+       <h2 class="txt-cntr">Edit User</h2>
 <% if (locals.success) { %>
 <div class="txt-cntr sucess-msg">SUCCESSFULLY UPDATED USER...</div>
 <% }
@@ -32,6 +55,12 @@ var disableAttr = (locals.disable) ? 'disabled':''; %>
         <% } %>
     </form>
 </div>
-<a class="fr home-link" href="/home">Back to Home</a>
 
+<a class="fr home-link" href="/">Back to Home</a>
+        </div>
+      </div>
+    </div>
+</div>
 <% include footer %>
+
+

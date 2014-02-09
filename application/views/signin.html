@@ -2,8 +2,16 @@
 
 <% include header %>
 <% include sidebar %>
-
-    <div class="container-fluid" style="float:left;margin-right:2%;width:50%;">
+<div style="width: 50%;
+display: block;
+margin-left: auto;
+margin-right: auto;">
+    <div class="container-fluid" style="float: left;
+display: block;
+margin-left: auto;
+margin-right: auto;
+width: 600px;
+margin-top: 10%;">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -14,25 +22,8 @@
               </div>
             </span>
         </div>
-        <div class="well-content" style="height: 600px;overflow: hidden;padding:20px;">
-          Sign In Page Here
-          <br><br>
-          User Name <input></input>
-          <br><br>
-          Password <input></input>
-          <br>
-         
-        </div>
-      </div>
-    </div>
-
-<% include footer %>
-
-
-
-<% include header %>
-
-<h2 class="txt-cntr">WELCOME TO LOGIN</h2>
+        <div class="well-content" style="height: 300px;padding:20px;">
+        <h2 class="txt-cntr">HueBrand Login</h2>
 
 <div class="login-head txt-cntr">
     <form id= "login-form" enctype="multipart/form-data" action="/login" method="post">
@@ -48,13 +39,17 @@
             <input type="submit"  value="LOGIN"/>
             <a class="m-l-10" href="/register">REGISTER</a>
         </div>
-        <% if(loginErr) { %>
+       <% if(loginErr) { %>
             <span class="err-msg fl"><%=loginErr%></span>
         <% } %>
     </form>
 </div>
 
 <a class="fr home-link" href="/">Back to Home</a>
-
+        </div>
+      </div>
+    </div>
+</div>
 <% include footer %>
+
 
