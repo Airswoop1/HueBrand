@@ -81,8 +81,7 @@ if(!req.params.query){
 
 var calculateTopIndustryColors = function(industryList,callback){
 
-callback(null);
-
+	callback(null);
 
 }
 

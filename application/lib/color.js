@@ -89,7 +89,9 @@ exports.queryColor = function(req,res){
 																		    sValue: 100,
 																		    vValue: 93.7254902,
 																		    lValue: 46.8627451 } ]
+									
 									topIndustries['Biotech'] = {key:'BioTech',"freq":100};
+
 									res.render('color',{
 										"queryType" : "color",
 										"colorResult" : colorObj,
@@ -157,6 +159,35 @@ var getTopIndustries = function(companies, callback){
 
 }
 
+var getTopCountries = function(colorObject, callback){
+
+	bloom.bloombergCompany.find({$and : [{'associatedColors.colorFamily': eval("'" + colorObj.colorFamily + "'")},
+																			 {'associatedColors.shade': eval("'" + colorObj.shade + "'")}]}, function(err, obj){
+		var countryMap = {};
+		for(var i=0;i<obj.length;i++){
+			if(countryMap.indexOf(obj[i].country)>=0){
+				countryMap[obj[i].country].freq += 1;
+			}
+			else{
+				countryMap[obj[i].country] = 1
+			}
+		}
+
+		var arrayOfCountries = [];
+
+		for(var key in countryMap){
+			arrayOfCountries.push({key:key, "freq":countryMap[key].freq});
+		}
+
+		arrayOfCountries.sort(function(x,y){
+			return y['freq'] - x['freq']
+		})
+
+		callback(arrayOfCountries);
+
+	})
+
+}
 
 var getTopColors = function( colorCompanies, mainColor, callback ){
 
