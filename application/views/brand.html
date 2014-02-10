@@ -1,21 +1,36 @@
-<!-- [brand.html] - Page for Brand Search Result -->
+<!-- [about.html] - About Page -->
 
 <% include header %>
+<% include sidebar %>
 
-  <div class="row analytics-row">
-    <% include m_analytics %>
-  </div>
-
-  <div class="row first-row">
-      <% include m_brand-info %> 
-      <% include m_global-colorTop %>
-      <% include m_global-colorChart %> 
-  </div>
-
-  <div class="row">
-      <% include m_brand-logoHistory %> 
-      <% include m_global-map %>
-      <% include m_global-logoCloud %>
-  </div>
+    <div class="container-fluid general-container">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+            About
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+              </div>
+            </span>
+        </div>
+        <div id="about" class="well-content general-well">
+      
+          
+            <p>HUEgroup, the world’s color data and intelligence platform, provides color analytics from across product categories, consumer industries and market segments that inform, inspire, support and validate all color decisions.</p>
+            <p>Every day nearly 1,000 products are launched globally, about 200 new businesses are added in the United States alone, a new logo is introduced every seven minutes, and they each involve a color decision! In fact, anything that is made is made in color! 
+            <p>Making the right color decision is everything but easy and nothing short of critical. Consider this: </p>
+            <ul>
+              <li>85% of consumers’ buying decisions are influenced by color</li>
+              <li>68% of returns of online purchases are attributed to color mistakes</li>
+              <li>Certain color cars have greater likelihood to be involved in accidents</li>
+              <li>Employee productivity is directly linked to color in the workspace</li>
+            </ul>
+            <p>At HUEgroup we collect and analyze millions of colors in industry, bringing you invaluable color data and analytics to maximize your color decisions’ ROI.</p>
+     
+        </div>
+      </div>
+    </div>
 
 <% include footer %>
+
