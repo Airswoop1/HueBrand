@@ -2,57 +2,47 @@
 
 <% include header %>
 <% include sidebar %>
-<div style="width: 50%;
-display: block;
-margin-left: auto;
-margin-right: auto;">
-    <div class="container-fluid" style="float: left;
-display: block;
-margin-left: auto;
-margin-right: auto;
-width: 600px;
-margin-top: 10%;">
+
+<div id="user-management">
+    <div class="container-fluid">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
-            Sign Up
+            Sign In
           </button>
             <span class="pull-right muted">
               <div class="tooltips">
               </div>
             </span>
         </div>
-        <div class="well-content" style="height: 400px;padding:20px;">
+        <div class="well-content">
         <h2 class="txt-cntr">Registration</h2>
-
-<div class="login-head txt-cntr">
-    <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
-        <div class="fl clr d-i-b">
-            <label>EMAIL</label>
-            <input type="text" name="email" value="<%=email%>"/ >
-        </div>
-        <div class="fl clr d-i-b">
-            <label>USERNAME</label>
-            <input type="text" name="username" value="<%=username%>" />
-        </div>
-        <div class="fl clr d-i-b">
-            <label>PASSWORD</label>
-            <input type="password" name="pwd" value=""/>
-        </div>
-        <div class="fl clr d-i-b">
-            <label>CONFIRM PASSWORD</label>
-            <input type="password" name="confirmpwd" value=""/>
-        </div>
-        <div class="txt-cntr clr submit-button">
-            <input type="submit"  value="Submit"/>
-        </div>
-           <% if(locals.regErr) { %>
-        <span class="err-msg fl"><%=regErr%></span>
-        <% } %>
-    </form>
-</div>
-
-<a class="fr home-link" href="/">Back to Home</a>
+          <div class="login-head txt-cntr">
+            <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
+                <div class="fl clr d-i-b">
+                    <label>EMAIL</label>
+                    <input type="text" name="email" value="<%=email%>"/ >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>USERNAME</label>
+                    <input type="text" name="username" value="<%=username%>" />
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>PASSWORD</label>
+                    <input type="password" name="pwd" value=""/>
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>CONFIRM PASSWORD</label>
+                    <input type="password" name="confirmpwd" value=""/>
+                </div>
+                <div class="txt-cntr clr submit-button">
+                    <input type="submit"  value="Submit"/>
+                </div>
+                   <% if(locals.regErr) { %>
+                <span class="err-msg fl"><%=regErr%></span>
+                <% } %>
+            </form>
+          </div>
         </div>
       </div>
     </div>

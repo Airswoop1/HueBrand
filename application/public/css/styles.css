@@ -571,6 +571,26 @@ input:-moz-placeholder::before {
 /*---[signin.html, signup.html, update.html] --*/
 /*---Login Pages --*/
 
+#user-management {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+} 
+
+#user-management .container-fluid {
+	float: left;
+	display: block;
+	margin-top: 10%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+}
+
+#user-management .well-content {
+	padding: 20px;
+	height: 400px;
+}
 
 #login-form {
 	border-radius: 10px 10px 10px 10px;
@@ -627,14 +647,15 @@ input:-moz-placeholder::before {
 }
 
 .submit-button input {
-	margin-left: 75px;
+	margin-left: 0px;
 }
 
 #login-form div label {
 	display: inline-block;
 	margin-right: 5px;
-	font-weight: 400;
+	font-weight: 100;
 	width: 150px;
+	font-size: 15px;
 }
 
 .listing {
@@ -662,13 +683,31 @@ input:-moz-placeholder::before {
 }
 
 .submit-button input {
+	border: 1px solid;
 	border-color: rgb(185, 185, 185);
 	background-color: rgb(250,250,250);
+	font-size:12px;
 }
 
 .submit-button input:hover {
+	border: 1px solid;
 	border-color: rgb(185, 185, 185);
-	background-color: rgb(24, 240, 240);
+	background-color: rgb(240, 240, 240);
+}
+
+.register-button {
+	border: 1px solid;
+	border-color: rgb(185, 185, 185);
+	background-color: rgb(250,250,250);
+	font-size:12px;
+	padding:7px;
+}
+
+.register-button:hover {
+	border: 1px solid;
+	border-color: rgb(185, 185, 185);
+	background-color: rgb(240, 240, 240);
+	text-decoration:none;
 }
 
 
