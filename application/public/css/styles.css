@@ -1341,7 +1341,7 @@ input:-moz-placeholder::before {
 }
 
 #brand-info .span12 .well-content {
-	padding: 5%;
+	padding: 0%;
 	padding-top: 5%;
 	height: 250px;
 }
@@ -1349,10 +1349,16 @@ input:-moz-placeholder::before {
 #brand-info .logo-container {
 	float: left;
 	margin: 0;
-	width: 43%;
-	height: 100%;
+	width: 150px;
+	height: 200px;
 	line-height: 205px;
 	text-align: center;
+}
+
+
+#brand-info .logo-container img {
+	max-width: 130px;
+	max-height: 200px;
 }
 
 #brand-info .brand-info-nameanddescription {
@@ -1455,13 +1461,18 @@ input:-moz-placeholder::before {
 	margin: 0 auto;
 	margin-right: 0;
 	margin-top: 5%;
-	height: 100px;
+	height: initial;
 	width: 99%;
-	border:1px solid rgb(250, 250, 250);
+	border: 1px solid rgb(250, 250, 250);
+}
+
+#logoHistory .logo-container img {
+	max-width: 100px;
 }
 
 #logoHistory .logo {
 	width: 99%;
+	text-align: center;
 }
 
 #logoHistory .year {
