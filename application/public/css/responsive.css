@@ -1,0 +1,64 @@
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (max-width : 780px) {
+#search-form {
+	display:none;
+}
+
+.dropdown-toggle {
+	margin-top:0px;
+	float: right;
+}
+
+.navbar .container ul li img {
+height: 32px;
+}
+
+.navbar>.container .navbar-brand {
+display:block;
+margin-left: -15px;
+}
+
+.analytics-cell .analytics-header {
+font-size: 15px;
+font-weight: 100;
+margin-top: 5px;
+}
+
+.analytics-cell .analytics-subText {
+font-size: 10px;
+}
+}
+
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (max-width : 1500px) {
+
+
+
+#brand-info, #colorTop, #color-chart {
+min-width:350px;	
+max-width:350px;	
+
+}
+
+#brand-info .brand-info-nameanddescription {
+	font-size: 9px;
+	width: 50%;
+}
+
+#global-map, #logocloud {
+
+
+}
+
+#logoHistory {
+
+	
+}
+
+Ω

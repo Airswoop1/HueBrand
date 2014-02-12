@@ -3,7 +3,8 @@
 <% include header %>
 <% include sidebar %>
 
-    <div class="container-fluid" style="float:left;margin-right:2%;width:50%;">
+<div id="user-management">
+    <div class="container-fluid">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
@@ -14,47 +15,32 @@
               </div>
             </span>
         </div>
-        <div class="well-content" style="height: 600px;overflow: hidden;padding:20px;">
-          Sign In Page Here
-          <br><br>
-          User Name <input></input>
-          <br><br>
-          Password <input></input>
-          <br>
-         
+        <div class="well-content" style="height:300px">
+        <h2 class="txt-cntr">HueBrand Login</h2>
+          <div class="login-head txt-cntr">
+            <form id= "login-form" enctype="multipart/form-data" action="/login" method="post">
+                <div class="fl clr d-i-b">
+                    <label>USERNAME</label>
+                    <input type="text" name="username" value="<%=username%>"/>
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>PASSWORD</label>
+                    <input type="password" name="pwd" value=""/>
+                </div>
+                <div class="txt-cntr clr submit-button">
+                    <input type="submit"  value="LOGIN"/>
+                    <a class="m-l-10 register-button" href="/register">REGISTER</a>
+                </div>
+                <% if(loginErr) { %>
+                  <span class="err-msg fl"><%=loginErr%></span>
+                <% } %>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-
-<% include footer %>
-
-
-
-<% include header %>
-
-<h2 class="txt-cntr">WELCOME TO LOGIN</h2>
-
-<div class="login-head txt-cntr">
-    <form id= "login-form" enctype="multipart/form-data" action="/login" method="post">
-        <div class="fl clr d-i-b">
-            <label>USERNAME</label>
-            <input type="text" name="username" value="<%=username%>"/>
-        </div>
-        <div class="fl clr d-i-b">
-            <label>PASSWORD</label>
-            <input type="password" name="pwd" value=""/>
-        </div>
-        <div class="txt-cntr clr submit-button">
-            <input type="submit"  value="LOGIN"/>
-            <a class="m-l-10" href="/register">REGISTER</a>
-        </div>
-        <% if(loginErr) { %>
-            <span class="err-msg fl"><%=loginErr%></span>
-        <% } %>
-    </form>
 </div>
 
-<a class="fr home-link" href="/">Back to Home</a>
-
 <% include footer %>
+
 
