@@ -62,7 +62,7 @@ body {
 
 .page-wrap {
 	padding-top: 38px;
-	margin-top: 2%;
+	margin-top: 20px;
 }
 
 .page-wrap .well {
@@ -837,17 +837,18 @@ input:-moz-placeholder::before {
 /*---General Brand, Industry, Color, Attribute Pages ---*/
 /*---[brand.html / industry.html / color.html / attribute.html] --*/
 .analytics-row,.first-row {
-	margin-bottom: 1%;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
-
 /*---General Module CSS used for generic static pages --*/
 /*--- static pages like privacy.html, terms.html --*/
 /*---Module can be repurposed for any static pages--*/
 .general-container {
 	float: left;
-	margin-left: 1%;
+	margin-left: 2%;
 	margin-right: 2%;
 	width: 650px;
+	margin-top:10px;
 }
 
 .general-well {
@@ -966,7 +967,7 @@ input:-moz-placeholder::before {
 #color-combinations .color-combinations-primary {
 	float: left;
 	height: 210px;
-	width: 70%;
+	width: 69%;
 	margin-right: 5%;
 }
 
@@ -1357,9 +1358,9 @@ input:-moz-placeholder::before {
 	height: 10%;
 	text-align: center;
 	color: #000;
-	line-height: 230px;
-	font-size: 25px;
-	font-weight: 100;
+	line-height: 200px;
+	font-size: 18px;
+	font-weight: 700;
 }
 
 #attribute-info .attribute-description {
@@ -1384,7 +1385,6 @@ input:-moz-placeholder::before {
 
 #brand-info .span12 .well-content {
 	padding: 0%;
-	padding-top: 5%;
 	height: 250px;
 }
 
@@ -1422,10 +1422,10 @@ input:-moz-placeholder::before {
 }
 
 #brand-info .brand-info-text {
-	width: 80%;
 	float: left;
-	line-height: 14px;
-	font-size: 11px;
+	width: 76%;
+	line-height: 12px;
+	font-size: 10px;
 }
 
 #brand-info .brandManual-container {
@@ -1538,11 +1538,13 @@ input:-moz-placeholder::before {
 	float: left;
 	padding: 20px;
 	height: 100%;
-	width: 40%;
+	width: 45%;
+
 }
 
 #industry-info .industry-title {
 	height: 10%;
+	width: 100%;
 	text-align: center;
 	font-size: 25px;
 	font-weight: 500;
@@ -1552,13 +1554,16 @@ input:-moz-placeholder::before {
 	float: left;
 	padding: 20px;
 	height: 100%;
-	width: 60%;
+	width: 50%;
 	line-height: 16px;
-	font-size: 14px;
+	font-size: 12px;
 	color: #000;
 }
 
+#industry-info .industry-icon-container img {
+	height: 80%;
+	min-width: 150px;
+	width: 100%;
+	margin-bottom: 10px;
 
-
-
-
+}
