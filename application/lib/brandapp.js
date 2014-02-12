@@ -23,23 +23,23 @@ if(!req.params.query){
 					})
 				}
 				else{
-					var brandResults  = b[0];	
+					var brandResult  = b[0];	
 				
 				
-				var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResults.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
+				var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResult.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
 				
 				industryQuery.exec(function(indErr, industry){
 					if(indErr){
 						console.log("There was an error! : " + err)
 						res.send(500, "Something broke!")
 					}
-					console.log(brandResults);
+					console.log(brandResult);
 					calculateTopIndustryColors(industry, function(topColorErr, topColors){
 
 						//if the colors have yet to be defined
-						if(typeof brandResults.associatedColors[0] !== 'undefined'){
+						if(typeof brandResult.associatedColors[0] !== 'undefined'){
 							
-							var colorQuery = bloom.bloombergCompany.find({'associatedColors.colorFamily': eval("'" + brandResults.associatedColors[0].colorFamily + "'") });
+							var colorQuery = bloom.bloombergCompany.find({'associatedColors.colorFamily': eval("'" + brandResult.associatedColors[0].colorFamily + "'") });
 
 							colorQuery.exec(function(err, colors){
 								if(err){
@@ -50,13 +50,12 @@ if(!req.params.query){
 
 								res.render('brand',{
 									"queryType" : "brand",
-									"topColors" : topColorResult,
-									"brandResult" : brandResults,
+									"topColors" : brandResult.associatedColors,
+									"brandResult" : brandResult,
 									"industryResult" : industry,
 									"colorResult" : colors,
 									"queryName" : req.params.query,
 									allCompanies : bloom.AllCompanies,
-									testName : 'Eugene'
 								});
 							})
 						}

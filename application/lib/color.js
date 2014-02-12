@@ -60,7 +60,7 @@ exports.queryColor = function(req,res){
 
 								getTopIndustries(companies, function(topIndustries){
 
-									sortedTopColors = [ { key: 'Yellow 1',
+									sortedTopColors = [ { colorName: 'Yellow 1',
 																		    colorTotal: 34,
 																		    RrgbValue: 239,
 																		    GrgbValue: 204,
@@ -70,7 +70,7 @@ exports.queryColor = function(req,res){
 																		    vValue: 93.7254902,
 																		    lValue: 46.8627451 },
 																		    
-																		    { key: 'Yellow 2',
+																		    { colorName: 'Yellow 2',
 																		    colorTotal: 33,
 																		    RrgbValue: 220,
 																		    GrgbValue: 200,
@@ -80,7 +80,7 @@ exports.queryColor = function(req,res){
 																		    vValue: 93.7254902,
 																		    lValue: 46.8627451 },
 
-																		    { key: 'Yellow 3',
+																		    { colorName: 'Yellow 3',
 																		    colorTotal: 33,
 																		    RrgbValue: 180,
 																		    GrgbValue: 100,
@@ -134,8 +134,8 @@ var getTopIndustries = function(companies, callback){
 		}
 		else
 		{
-			industryMap[companies[i].GICSSectorName].key = companies[i].GICSSectorName;
-			industryMap[companies[i].GICSSectorName].freq = 1;
+
+			industryMap[companies[i].GICSSectorName] = {"key":companies[i].GICSSectorName, "freq":1}
 		}
 	}
 
@@ -199,12 +199,12 @@ var getTopColors = function( colorCompanies, mainColor, callback ){
 		for(var aColor in colorCompanies[i].associatedColors){
 			if(colorNameMap.indexOf(aColor.colorName)>=0)
 			{
-				colorNameMap[aColor.colorName].colorTotal += aColor.colorPercentage;
+				colorNameMap[aColor.colorName].colorPercentage += aColor.colorPercentage;
 			}
 			else if(aColor.colorFamily === mainColor.colorFamily)
 			{
 				colorNameMap[aColor.colorName] = {
-					"colorTotal":aColor.colorPercentage,
+					"colorPercentage":aColor.colorPercentage,
 					"RrgbValue" : aColor.RrgbValue,
 					"GrgbValue" : aColor.GrgbValue, 
 					"BrgbValue" : aColor.BrgbValue,
@@ -220,8 +220,8 @@ var getTopColors = function( colorCompanies, mainColor, callback ){
 	var arrayOfColorNames = []
 	//put these into an array for sorting
 	for(var key in colorNameMap){
-		arrayOfColorNames.push({key:key, 
-														"colorTotal":colorNameMap[key].colorTotal, 
+		arrayOfColorNames.push({"colorName":key, 
+														"colorPercentage":colorNameMap[key].colorPercentage, 
 														"RrgbValue" : colorNameMap[key].RrgbValue,
 														"GrgbValue" : colorNameMap[key].GrgbValue, 
 														"BrgbValue" : colorNameMap[key].BrgbValue,
@@ -233,7 +233,7 @@ var getTopColors = function( colorCompanies, mainColor, callback ){
 	}	
 	//sort
 	arrayOfColorNames.sort(function(x,y){
-		return y["colorTotal"] - x["colorTotal"];
+		return y["colorPercentage"] - x["colorPercentage"];
 	})
 
 	var topFiveColors = [];
@@ -241,28 +241,28 @@ var getTopColors = function( colorCompanies, mainColor, callback ){
 	if(arrayOfColorNames.length>5)
 	{
 		topFiveColors = arrayOfColorNames.slice(0,6);
-		outOf100(topFiveColors, "colorTotal", function(topFiveNormalized){
+		outOf100(topFiveColors, "colorPercentage", function(topFiveNormalized){
 					callback(topFiveNormalized);			
 		})
 
 	}
 	else if(arrayOfColorNames.length > 1)
 	{
-		outOf100(arrayOfColorNames, "colorTotal", function(topNormalized){
+		outOf100(arrayOfColorNames, "colorPercentage", function(topNormalized){
 			callback(topNormalized);
 		})
 	}
 	else if(arrayOfColorNames.length === 1)
 	{
-		arrayOfColorNames[0].colorTotal = 100;
+		arrayOfColorNames[0].colorPercentage = 100;
 		callback(arrayOfColorNames);
 	}
 	else
 	{
 
 		callback([{
-			key : mainColor.colorName,
-			"colorTotal": 100, 
+			"colorName" : mainColor.colorName,
+			"colorPercentage": 100, 
 			"RrgbValue" : mainColor.RrgbValue,
 			"GrgbValue" : mainColor.GrgbValue, 
 			"BrgbValue" : mainColor.BrgbValue,
