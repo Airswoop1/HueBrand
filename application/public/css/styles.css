@@ -201,7 +201,7 @@ ul,menu,dir {
 }
 
 .navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus {
-	background-color: #fff !important;
+	background-color: transparent !important;
 	color: #000 !important;
 }
 
