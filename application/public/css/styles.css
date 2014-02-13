@@ -197,7 +197,8 @@ ul,menu,dir {
 	height: 54px;
 	width: auto;
 	vertical-align: middle;
-	border-radius: 5px;
+	border-radius: 54px;
+
 }
 
 .navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus {
@@ -575,16 +576,14 @@ input:-moz-placeholder::before {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
 } 
 
 #user-management .container-fluid {
-	float: left;
 	display: block;
 	margin-top: 10%;
 	margin-left: auto;
 	margin-right: auto;
-	width: 600px;
+	width: 480px;
 }
 
 #user-management .well-content {
