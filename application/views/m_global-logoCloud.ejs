@@ -16,14 +16,13 @@
         </div>
           <div class="logoCloudContainer">
             <% for(var i=0; i<industryResult.length; i++){ %>
-              <% if(industryResult[i].shortName!==brandResult.shortName){ %>
-                <div class='first' >
+                <div class='first' style='float:left'>
                   <%if(typeof industryResult[i].logoFileName !== 'undefined'){%>
-                    <img class='logo' src="../Logos/<%=industryResult[i].logoFileName%>" width='250px'>
+                    <img class='logo' src="../logos/<%=industryResult[i].logoFileName%>" width='250px'>
                   <%}%>
                   </p>
                 </div>
-              <%}}%>
+              <%}%>
             </div>
           </div>
         </div>

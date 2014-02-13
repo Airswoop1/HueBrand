@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 
 var bloombergComp = new mongoose.Schema({
-
-	stockSymbol: String,
+stockSymbol: String,
 	shortName: String,
 	GICSSector: Number,
 	GICSInd: Number,
@@ -33,14 +32,14 @@ var bloombergComp = new mongoose.Schema({
 		vValue : Number,
 		lValue : Number,
 		shade : String,
+		colorPercentage: Number,
 		attributes : [String],
 		complementaryColors : [String], //should these be names or Id's?
-		swatchFileName : String,
-		descriptionFileName : String,
- 	}],
-	//primary color?
+		descriptionFileName : String
+	}],
+	children : [String],
 	logoFileName : String,
-	logoPotentialList : [String],
+	logoPotentialList : [{ year : String, fileName : String }],
 	logoHistory : [{ year : String, fileName : String }],
 	brandManualFileName : String,
 	displayName : String

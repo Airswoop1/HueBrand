@@ -1,3 +1,38 @@
+
+$(window).load(function(){
+
+/***************************************
+  Top Color
+****************************************/
+  var $container = $("#color-top.well-content"),
+    $description = $(".table-bordered").hide(),
+    $prev;
+
+  $(".colorTop-boxes").mouseenter(function() {
+      if ($prev)
+      {
+         $description.eq( $prev.css('display','block').index() ).hide();
+       }
+      $description.eq( ($prev = $(this).css('display','block')).index() ).fadeIn( "slow", function() {
+      // Animation complete
+    })
+  }).eq(0).mouseenter();
+
+
+/***************************************
+  OWL
+****************************************/
+
+ 
+  var owl = $(".owl-carousel");
+ 
+  owl.owlCarousel({"autoPlay":true, "rewindNav":false});
+
+  $(".owl-controls").hide();
+
+})
+
+
 // #Fading in the Nav Bar Dropdown
   $(function() {
     $('.dropdown-toggle').click(function() {
@@ -12,7 +47,7 @@
       $container.isotope({
            masonry: {
       columnWidth: 140
-    },
+    },  
           filter: '*',
           animationOptions: {
               duration: 3750,
@@ -41,7 +76,6 @@
 
   // Additional Isotope Scripts
  
-
   $(function(){
     
     var $container = $('#container');

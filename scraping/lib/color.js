@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
 var csv = require('csv');
+var bloom = require('./bloombergCompanies.js');
 
 
 exports.Color = mongoose.model('Color', new mongoose.Schema({
@@ -75,4 +76,62 @@ exports.populate = function(){
 		console.log("there was an error" + error.message)
 	});
 	console.log("db seeded with colors!"); 
+}
+
+exports.importColorsFromCSV = function(){
+
+	var colorArray = Array();
+	csv()
+	.from.path(__dirname+'/logo_colors_1.csv', {delimiter: ','})
+	.transform(function(row){
+		row.unshift(row.pop());
+		return row
+	})
+	.on('record', function(row, index){
+		var newRow = row.join(",").split(",");
+		var fileName = newRow[1];
+
+		var colorObject = {		
+			
+			"colorName" : newRow[2],
+			"colorFamily" : newRow[3],
+			"RrgbValue" : newRow[5],
+			"GrgbValue" : newRow[6],
+			"BrgbValue" : newRow[7],
+			"hValue" : newRow[11],
+			"sValue" : newRow[12],
+			"vValue" : newRow[13],
+			"lValue" : newRow[14],
+			"shade" : newRow[4],
+			"colorPercentage" : newRow[0]
+
+		}
+
+		bloom.bloombergCompany.update(
+			{'logoFileName':fileName},
+			{$push:{"associatedColors":colorObject}},
+			{}, function(err, obj){
+				if(err)
+				{
+					console.log("error writing color to the db");
+					return;
+				}
+				else
+				{
+					console.log(obj);	
+					console.log("updated colors for " + fileName);
+				}
+			})
+
+
+	})
+	.on('close', function(count){
+		console.log("number of lines processed "+count)
+	})
+	.on('error', function(error){
+		console.log("there was an error" + error.message)
+	});
+	console.log("db updated companies with colors"); 
+
+
 }

@@ -8,27 +8,18 @@
         </div>
         <div class="well-content">
            <ul id="industriesTop-data">
+            <%for(var key in topIndustries){
+              var iconName = topIndustries[key].key.split(' ').join('_').toLowerCase()
+            %>
             <li>
               <div>
-                <img src="../img/icons/industries/computer.png">
+                <img src="../img/icons/industries/<%=iconName%>.png">
               </div>
-              <span class="industry">Computing</span>
-              <div class="percentage">45%</div>
+              <span class="industry"><%=topIndustries[key].key%></span>
+              <div class="percentage"><%=topIndustries[key].freq%>%</div>
             </li>
-            <li>
-              <div>
-                <img src="../img/icons/industries/software.png">
-              </div>
-              <span class="industry">Software</span>
-              <div class="percentage">34%</div>
-            </li>
-            <li>
-              <div>
-                <img src="../img/icons/industries/biotech.png">
-              </div>
-              <span class="industry">Biotech</span>
-              <div class="percentage">23%</div>
-            </li>
+            <%}%>
+
           </ul>
         </div>
       </div>

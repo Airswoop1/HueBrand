@@ -14,6 +14,7 @@ exports.Industry = mongoose.model('Industry', new mongoose.Schema({
 exports.queryIndustry = function(req,res){
 
 	res.render('industry',{
+		"queryType" : "industry",
 		topColors : {},
 		colorPallette: {},
 		logoCloud: {},
