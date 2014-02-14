@@ -309,21 +309,3 @@ var outOf100 = function(arr, valueToNormalize, cb){
 	cb(arr);
 
 }
-
-
-exports.queryAttribute = function(req, res){
-
-	//TODO function for querying db based on attributes selected
-	//Note there may be potential for multiple attributes to be selected.
-
-	res.render('attribute', {
-		attributeName: {},
-		associatedColors: {
-			colors: {},
-			combinations:{}
-		},
-		logoCloud: {},
-		topIndustries: {},
-
-	});
-}
