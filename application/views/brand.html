@@ -1,21 +1,50 @@
-<!-- [brand.html] - Page for Brand Search Result -->
+<!-- [signup.html] - Signup Page -->
 
 <% include header %>
+<% include sidebar %>
 
-  <div class="row analytics-row">
-    <% include m_analytics %>
-  </div>
+<div id="user-management">
+    <div class="container-fluid">
+      <div class="span12 well">
+        <div class="title" >
+          <button type="button" class="btn btn-default">      
+            Sign In
+          </button>
+            <span class="pull-right muted">
+              <div class="tooltips">
+              </div>
+            </span>
+        </div>
+        <div class="well-content">
+        <h2 class="txt-cntr">Registration</h2>
+          <div class="login-head txt-cntr">
+            <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
+                <div class="fl clr d-i-b">
+                    <label>EMAIL</label>
+                    <input type="text" name="email" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>USERNAME</label>
+                    <input type="text" name="username" />
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>PASSWORD</label>
+                    <input type="password" name="pwd" value=""/>
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>CONFIRM PASSWORD</label>
+                    <input type="password" name="confirmpwd" value=""/>
+                </div>
+                <div class="txt-cntr clr submit-button">
+                    <input type="submit"  value="Submit"/>
+                </div>
 
-  <div class="row first-row">
-      <% include m_brand-info %> 
-      <% include m_global-colorTop %>
-      <% include m_global-colorChart %> 
-  </div>
-
-  <div class="row">
-      <% include m_brand-logoHistory %> 
-      <% include m_global-map %>
-      <% include m_global-logoCloud %>
-  </div>
-
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 <% include footer %>
+
+

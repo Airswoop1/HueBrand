@@ -1,64 +1,267 @@
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (max-width : 780px) {
-#search-form {
-	display:none;
-}
+@media only screen and (min-width : 480px) and (max-width : 700px) {
+	.general-container {
+		float: left;
+		margin-left: 2%;
+		margin-right: 2%;
+		width: 96%;
+		margin-top: 10px;
+	}
 
-.dropdown-toggle {
-	margin-top:0px;
-	float: right;
-}
+	.dropdown-toggle {
+		margin-top:0px;
+		float: right;
+	}
 
-.navbar .container ul li img {
-height: 32px;
-}
+	.row .analytics-row {
+		float: left;
+		width: 57%;
+	}
 
-.navbar>.container .navbar-brand {
-display:block;
-margin-left: -15px;
-}
+	.analytics-row, {
+		margin-top: 23px;
+	}
 
-.analytics-cell .analytics-header {
-font-size: 15px;
-font-weight: 100;
-margin-top: 5px;
-}
+	.analytics-cell .analytics-header {
+		margin: 15px;
+		margin-bottom: 3px;
+		margin-top: 5px;
+		font-size: 14px;
+		font-weight: 500;
+	}
 
-.analytics-cell .analytics-subText {
-font-size: 10px;
-}
+	.analytics-cell .analytics-subText {
+		font-size: 9px;
+	}
+
+	#brand-info, #industry-info, #color-info, #attribute-info, #colorTop, #color-chart, #logoHistory, #color-gradient, #global-map, #logocloud, #color-combinations, #industriesTop {
+		max-width: 96%;
+		margin: 15px;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+	#color-gradient {
+		height: inherit;
+		margin-bottom: 10px;
+	}
+
+	#industriesTop .span12 .well-content {
+		width: 100%;
+	}
+
+	#industriesTop-data li {
+		width: 25% !important;
+		margin-top: 70px!important;
+
+	}
+
+	.navbar-fixed-bottom .container {
+		width: 98%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		text-align: center;
+		margin-left: 15px;
+	}
+
+	.navbar-fixed-bottom .pull-right a:link {
+		display:none;
+	}
+
 }
 
 
 /* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+@media only screen and (min-width : 700px) and (max-width : 1024px) {
+
+	.analytics-cell .analytics-header {
+		font-size: 15px;
+		font-weight: 100;
+		margin-top: 5px;
+	}
+
+	.analytics-cell .analytics-subText {
+		font-size: 10px;
+	}
+
+	#brand-info, #industry-info, #color-info, #attribute-info, #colorTop, #color-chart, #logoHistory, #color-gradient, #global-map, #logocloud, #color-combinations, #industriesTop {
+		margin: 15px;
+		width: 100%;
+		max-width: 45%;
+	}
+
+	#color-gradient {
+		height: inherit;
+		margin-bottom: 10px;
+		margin: 15px;
+		width: 100%;
+		max-width: 45%;
+	}
+
+	#industriesTop .span12 .well-content {
+		width: 100%;
+	}
+
+	#industriesTop-data li {
+		width: 25% !important;
+		margin-top: 70px!important;
+	}
+
+	#color-chart .well-content #chart {
+		margin-left:-120px;
+	}
+
 
 }
 
 /* Desktops and laptops ----------- */
-@media only screen and (max-width : 1500px) {
+@media only screen and (min-width : 1024px) and (max-width : 1500px) {
 
+	#brand-info, #industry-info, #color-info, #attribute-info, #colorTop, #color-chart, #logoHistory, #color-gradient, #global-map, #logocloud, #color-combinations, #industriesTop {
+		margin-bottom: 15px;
+	}
 
-
-#brand-info, #colorTop, #color-chart {
-min-width:350px;	
-max-width:350px;	
-
-}
-
-#brand-info .brand-info-nameanddescription {
-	font-size: 9px;
-	width: 50%;
-}
-
-#global-map, #logocloud {
-
+	#color-gradient {
+		margin: 15px;
+		margin-top: 0px;
+		margin-left: 25px;
+		margin-right: 1.5%;
+	}
 
 }
 
-#logoHistory {
 
-	
+
+/* Brand Info Container */
+@media only screen and (min-width : 700px) and (max-width : 900px) {
+
+	#brand-info .brand-info-nameanddescription {
+		float: left;
+		width: 48%;
+		margin-bottom: 5px;
+		line-height: 10px;
+		font-size: 9px;
+	}
+
+	#brand-info .brand-info-container {
+		float: left;
+		width: 36%;
+	}
+
+	#brand-info .brand-info-text {
+		float: left;
+		width: 76%;
+		line-height: 10px;
+		font-size: 9px;
+	}
+
+	#brand-info .brandManual-container {
+		float: left;
+		width: 10%;
+		margin-left: -5px;
+		text-align: center;
+		font-size: 7px;
+	}
+
+	#brand-info .last-updated {
+		float: right;
+		margin-top: 4px;
+		margin-right: -36px;
+		font-size: 10px;
+		font-weight: 700;
+	}
+
+	#brand-info .buttondownload {
+		display: inline-block;
+		margin-top: 0;
+		padding: 7px;
+		background-color: rgb(250, 250, 250);
+		border: 1px solid rgb(185, 185, 185);
+		border-radius: 3px;
+		line-height: 10px;
+		text-transform: uppercase;
+		font-size: 8px;
+		margin-left: 8px;
+		line-height: 9px;
+		font-weight: 700;
+		-webkit-transition: .5s;
+		-moz-transition: .5s;
+		-o-transition: .5s;
+		-ms-transition: .5s;
+		transition: .5s;
+	}
 }
 
-Ω
+
+@media only screen and (min-width : 1025px) and (max-width : 1350px) {
+
+	#brand-info .brand-info-nameanddescription {
+		float: left;
+		width: 48%;
+		margin-bottom: 5px;
+		line-height: 10px;
+		font-size: 9px;
+	}
+
+	#brand-info .brand-info-container {
+		float: left;
+		width: 36%;
+	}
+
+	#brand-info .brand-info-text {
+		float: left;
+		width: 76%;
+		line-height: 10px;
+		font-size: 9px;
+	}
+
+	#brand-info .brandManual-container {
+		float: left;
+		width: 10%;
+		margin-left: -5px;
+		text-align: center;
+		font-size: 7px;
+	}
+
+	#brand-info .last-updated {
+		float: right;
+		margin-top: 4px;
+		margin-right: -36px;
+		font-size: 10px;
+		font-weight: 700;
+	}
+
+	#brand-info .buttondownload {
+		display: inline-block;
+		margin-top: 0;
+		padding: 7px;
+		background-color: rgb(250, 250, 250);
+		border: 1px solid rgb(185, 185, 185);
+		border-radius: 3px;
+		line-height: 10px;
+		text-transform: uppercase;
+		font-size: 8px;
+		margin-left: 8px;
+		line-height: 9px;
+		font-weight: 700;
+		-webkit-transition: .5s;
+		-moz-transition: .5s;
+		-o-transition: .5s;
+		-ms-transition: .5s;
+		transition: .5s;
+	}
+}
+
+/* Search Form */
+@media only screen and (min-width : 480px) and (max-width : 770px) {
+
+	#search-form {
+		display:none;
+	}
+
+	.navbar-right {
+		float: right;
+		margin-top: -10px!important;
+	}
+
+}
