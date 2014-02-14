@@ -3,37 +3,8 @@
     <div class="analytics-header">Yellow</div>
     <div class="analytics-subText">Viewed 956 Times</div>
   </div>
-<<<<<<< HEAD
-  <div class="analytics-cell">
+  <div class="">
     <div class="analytics-header">IBM</div>
-    <div class="analytics-subText">Top Searched Companies</div>
-  </div>
-  <div class="analytics-cell">
-    <div class="analytics-header">Trust</div>
-=======
-  <div class="">
-    <div class="analytics-header">IBM; GE; Pfizer;</div>
-    <div class="analytics-subText">Top Searched Companies</div>
-  </div>
-  <div class="">
-    <div class="analytics-header">Trust; Joy</div>
->>>>>>> 56c14e8e394fc439f786d573c4508ec27bd584f1
-    <div class="analytics-subText">Top Searched Attributes</div>
-  </div>
-  <div class="">
-    <div class="analytics-header">Technology</div>
-    <div class="analytics-subText">Top Searched Industry</div>
-  </div>
-  <div class="">
-    <div class="analytics-header">Red</div>
-    <div class="analytics-subText">Top Searched Color</div>
-  </div>
-    <div class="">
-    <div class="analytics-header">Yellow</div>
-    <div class="analytics-subText">Viewed 956 Times</div>
-  </div>
-  <div class="">
-    <div class="analytics-header">IBM; GE; Pfizer;</div>
     <div class="analytics-subText">Top Searched Companies</div>
   </div>
   <div class="">

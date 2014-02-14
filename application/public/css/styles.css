@@ -247,7 +247,6 @@ ul,menu,dir {
 	color: #000;
 	font: 500 14px 'Nunito', sans-serif;
 	height: 25px;
-	text-transform: uppercase;
 }
 
 .navbar-fixed-bottom .container {
@@ -271,6 +270,7 @@ ul,menu,dir {
 .navbar-fixed-bottom .pull-right a:link {
 	color: #000;
 	font-weight: 500;
+	text-decoration: none;
 }
 
 
@@ -362,20 +362,18 @@ input:-moz-placeholder::before {
 
 
 #landing .btn {
-	border-color: rgb(185, 185, 185);
+	border-color: transparent;
 	background-color: rgb(250,250,250);
 }
 
 #landing .btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary {
-	border-color: rgb(185, 185, 185);
+	border-color: transparent;
 	background-color: rgb(240, 240, 240);
 }
 
 #landing .navbar {
 	margin-top: 2px;
 	margin-left: 5px;
-	padding: 10px;
-	height: 75px;
 }
 
 #login-button {
@@ -414,14 +412,8 @@ input:-moz-placeholder::before {
 	background-color: #fff;
 	background-repeat: no-repeat;
 	background-position: left top;
-	border: 3px rgb(250, 250, 250) solid;
 	border-radius: 50%;
 	cursor: default;
-
-	-moz-box-shadow: inset 0 0 0 25px rgba(255,255,255,0.15), 0 1px 2px rgba(0,0,0,0.1);
-	-webkit-box-shadow: inset 0 0 0 25px rgba(255,255,255,0.15), 0 1px 2px rgba(0,0,0,0.1);
-	box-shadow: inset 0 0 0 25px rgba(255,255,255,0.15), 0 1px 2px rgba(0,0,0,0.1);
-
 	-webkit-transition: all 0.4s ease-in-out;
 	-moz-transition: all 0.4s ease-in-out;
 	-o-transition: all 0.4s ease-in-out;
@@ -533,13 +525,12 @@ input:-moz-placeholder::before {
 .ch-grid li .circle-container {
 	height: 300px;
 	width: 300px;
-	border: 5px solid rgb(250,250,250);
+	border: 1px solid rgb(224, 224, 224);
 	border-radius: 300px;
 }
 
 #landing .text-row {
-	margin-top: 60px;
-	height: 100px;
+	height: 60px;
 	font-family: 'Oxygen';
 	font-size: 23px;
 	font-weight: 100;
@@ -870,8 +861,6 @@ input:-moz-placeholder::before {
 .analytics-cell {
 	padding-top: 5px;
 	height: 100%;
-	width: 20%;
-	float: left;
 	border-right: 1px solid rgb(250, 250, 250);
 	font-size: 11px;
 	font-weight: 100;
@@ -1405,6 +1394,7 @@ input:-moz-placeholder::before {
 #brand-info .brand-info-nameanddescription {
 	float: left;
 	width: 57%;
+	margin-top: 5px;
 	margin-bottom: 5px;
 	line-height: 14px;
 	font-size: 11px;
