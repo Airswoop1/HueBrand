@@ -57,57 +57,74 @@ exports.queryColor = function(req,res){
 						else{
 							
 							getTopColors(companies, colorObj, function(sortedTopColors){
-
 								getTopIndustries(companies, function(topIndustries){
+									getTopCountries(colorObj, function(topCountries){
 
-									sortedTopColors = [ { colorName: 'Yellow 1',
-																		    colorTotal: 34,
-																		    RrgbValue: 239,
-																		    GrgbValue: 204,
-																		    BrgbValue: 0,
-																		    hValue: 51.21338912,
-																		    sValue: 100,
-																		    vValue: 93.7254902,
-																		    lValue: 46.8627451 },
-																		    
-																		    { colorName: 'Yellow 2',
-																		    colorTotal: 33,
-																		    RrgbValue: 220,
-																		    GrgbValue: 200,
-																		    BrgbValue: 0,
-																		    hValue: 51.21338912,
-																		    sValue: 100,
-																		    vValue: 93.7254902,
-																		    lValue: 46.8627451 },
+										//fake data
+										/*sortedTopColors = [ { colorName: 'Yellow 1',
+																			    colorPercentage: 34,
+																			    RrgbValue: 239,
+																			    GrgbValue: 204,
+																			    BrgbValue: 0,
+																			    hValue: 51.21338912,
+																			    sValue: 100,
+																			    vValue: 93.7254902,
+																			    lValue: 46.8627451 },
+																			    
+																			    { colorName: 'Yellow 2',
+																			    colorPercentage: 33,
+																			    RrgbValue: 220,
+																			    GrgbValue: 200,
+																			    BrgbValue: 0,
+																			    hValue: 51.21338912,
+																			    sValue: 100,
+																			    vValue: 93.7254902,
+																			    lValue: 46.8627451 },
 
-																		    { colorName: 'Yellow 3',
-																		    colorTotal: 33,
-																		    RrgbValue: 180,
-																		    GrgbValue: 100,
-																		    BrgbValue: 0,
-																		    hValue: 51.21338912,
-																		    sValue: 100,
-																		    vValue: 93.7254902,
-																		    lValue: 46.8627451 } ]
-									
-									topIndustries['Biotech'] = {key:'BioTech',"freq":100};
+																			    { colorName: 'Yellow 3',
+																			    colorPercentage: 33,
+																			    RrgbValue: 180,
+																			    GrgbValue: 100,
+																			    BrgbValue: 0,
+																			    hValue: 51.21338912,
+																			    sValue: 100,
+																			    vValue: 93.7254902,
+																			    lValue: 46.8627451 } ]
+										
+										topIndustries['Biotech'] = {key:'BioTech',"freq":100};
 
-									res.render('color',{
-										"queryType" : "color",
-										"colorResult" : colorObj,
-										"companyResult" : companies,
-										"queryName" : req.params.query,
-										"industryResult" : {},
-										"allCompanies" : {},
-										"brandResult" : {},
-										"topColors" : sortedTopColors,
-										"topIndustries" : topIndustries
+										topCountries = [
+											{
+												key: "US",
+												"city" : 'New York',
+												"freq": 20
+											},
+											{
+												key : "IN",
+												"city" : 'Mumbai',
+												"freq":  10
+											}
+										];*/
+										
+										console.log("Top industries length : " + topIndustries.length)
+										res.render('color',{
+											"queryType" : "color",
+											"colorResult" : colorObj,
+											"companyResult" : companies,
+											"queryName" : req.params.query,
+											"industryResult" : companies,
+											"allCompanies" : {},
+											"brandResult" : {},
+											"topColors" : sortedTopColors,
+											"topIndustries" : topIndustries,
+											"topCountries" : topCountries,
+										});
 									});
-								})
-							})
+								});
+							});
 						}
 
-					})
+					});
 				}
 				else{
 					res.render('color',{
@@ -163,13 +180,13 @@ var getTopCountries = function(colorObject, callback){
 
 	bloom.bloombergCompany.find({$and : [{'associatedColors.colorFamily': eval("'" + colorObj.colorFamily + "'")},
 																			 {'associatedColors.shade': eval("'" + colorObj.shade + "'")}]}, function(err, obj){
-		var countryMap = {};
+		var countryMap = [];
 		for(var i=0;i<obj.length;i++){
 			if(countryMap.indexOf(obj[i].country)>=0){
 				countryMap[obj[i].country].freq += 1;
 			}
 			else{
-				countryMap[obj[i].country] = 1
+				countryMap[obj[i].country] = {"freq" : 1, 'city' : obj[i].city }
 			}
 		}
 
@@ -197,22 +214,26 @@ var getTopColors = function( colorCompanies, mainColor, callback ){
 	for(var i=0; i<colorCompanies.length;i++){
 
 		for(var aColor in colorCompanies[i].associatedColors){
-			if(colorNameMap.indexOf(aColor.colorName)>=0)
-			{
-				colorNameMap[aColor.colorName].colorPercentage += aColor.colorPercentage;
-			}
-			else if(aColor.colorFamily === mainColor.colorFamily)
-			{
-				colorNameMap[aColor.colorName] = {
-					"colorPercentage":aColor.colorPercentage,
-					"RrgbValue" : aColor.RrgbValue,
-					"GrgbValue" : aColor.GrgbValue, 
-					"BrgbValue" : aColor.BrgbValue,
-					"hValue" : aColor.hValue,
-					"sValue" : aColor.sValue,
-					"vValue" : aColor.vValue,
-					"lValue" : aColor.lValue
+
+			if(!(colorCompanies[i].associatedColors[aColor].colorPercentage === 'undefined')){
+				if(colorNameMap.indexOf(colorCompanies[i].associatedColors[aColor].colorName)>=0)
+				{
+					colorNameMap[colorCompanies[i].associatedColors[aColor].colorName].colorPercentage += colorCompanies[i].associatedColors[aColor].colorPercentage;
 				}
+				else if(colorCompanies[i].associatedColors[aColor].colorFamily === mainColor.colorFamily)
+				{
+					colorNameMap[colorCompanies[i].associatedColors[aColor].colorName] = {
+						"colorPercentage":colorCompanies[i].associatedColors[aColor].colorPercentage,
+						"RrgbValue" : colorCompanies[i].associatedColors[aColor].RrgbValue,
+						"GrgbValue" : colorCompanies[i].associatedColors[aColor].GrgbValue, 
+						"BrgbValue" : colorCompanies[i].associatedColors[aColor].BrgbValue,
+						"hValue" : colorCompanies[i].associatedColors[aColor].hValue,
+						"sValue" : colorCompanies[i].associatedColors[aColor].sValue,
+						"vValue" : colorCompanies[i].associatedColors[aColor].vValue,
+						"lValue" : colorCompanies[i].associatedColors[aColor].lValue
+					}
+				}
+
 			}
 		}
 	}
@@ -282,7 +303,7 @@ var outOf100 = function(arr, valueToNormalize, cb){
 	}
 
 	for(var j=0;j<arr.length;j++){
-		arr[i][valueToNormalize] = parseFloat(((arr[i][valueToNormalize]/total)*100).toFixed(2),10);
+		arr[j][valueToNormalize] = parseFloat(((arr[j][valueToNormalize]/total)*100).toFixed(2),10);
 	}
 
 	cb(arr);

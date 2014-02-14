@@ -48,7 +48,7 @@
           <h3>Which brand did you mean?</h3>
           <ul>
             <%for(var i=0; i<potentialBrands.length; i++ ){ %>
-              <li><a href="http://localhost:8002/brand/<%=potentialBrands[i].shortName%>"><%=potentialBrands[i].shortName%></a></li>
+              <li><a href="/brand/<%=potentialBrands[i].shortName%>"><%=potentialBrands[i].shortName%></a></li>
             <%}%>
           </ul>
 
@@ -62,7 +62,7 @@
           <h3>Which color did you mean?</h3>
           <ul>
             <%for(var i=0; i<colorResults.length; i++ ){ %>
-              <li><a href="http://localhost:8002/color/<%=colorResults[i].colorName%>"><%=colorResults[i].colorName%></a></li>
+              <li><a href="/color/<%=colorResults[i].colorName%>"><%=colorResults[i].colorName%></a></li>
               <%}%>
           </ul>
         </div>
