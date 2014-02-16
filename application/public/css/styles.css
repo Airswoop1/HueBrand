@@ -1306,6 +1306,11 @@ input:-moz-placeholder::before {
 	height: 230px;
 }
 
+#brand-map-canvas {
+	border: 0;
+	height: 230px;
+}
+
 #global-map .map-color {
 	float: left;
 	margin-top: 2px;

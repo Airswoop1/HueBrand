@@ -193,7 +193,7 @@ var getTopCountries = function(colorObject, callback){
 		var arrayOfCountries = [];
 
 		for(var key in countryMap){
-			arrayOfCountries.push({key:key, "freq":countryMap[key].freq});
+			arrayOfCountries.push({key:key, "freq":countryMap[key].freq, "city" : countryMap[key].city});
 		}
 
 		arrayOfCountries.sort(function(x,y){

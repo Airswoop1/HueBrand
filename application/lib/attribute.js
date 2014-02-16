@@ -43,3 +43,34 @@ if(!req.params.query){
 		});
 	}
 }		
+
+var getTopColorsForAttributes = function( attrObjects, callback ){
+
+	var attributeColorMap = []
+
+	for(var i=0;i<attrObjects.length;i++){
+
+		if(attributeColorMap.indexOf(attrObjects[i].color)>=0){
+			attributeColorMap[attrObjects[i].color].freq += 1;
+		}
+		else{
+			attributeColorMap[attrObjects[i].color] = {"freq" : 1}
+		}
+	}
+
+	var arrayOfColors = [];
+
+	for(var key in attributeColorMap){
+		arrayOfColors.push({key:key, "freq":attributeColorMap[key].freq});
+	}
+
+	arrayOfColors.sort(function(x,y){
+		return y['freq'] - x['freq']
+	})
+
+	callback(arrayOfColors);
+
+}
+
+
+
