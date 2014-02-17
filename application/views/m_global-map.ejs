@@ -1,6 +1,5 @@
 <!--  Module - Map - "Shows a Map and Attribtues Associated to Top Colors"  -->
-<!--
-    var mapTitle = '';
+<%    var mapTitle = '';
     if(queryType == 'brand'){
       mapTitle = brandResult.shortName + ' Color Attributes Worldwide';
     }
@@ -13,8 +12,7 @@
     else if(queryType == 'industry'){
       mapTitle = industryResult.industryName + ' Attribute Associations WorldWide'
     }
-    -->
-
+%>
     <div class="container-fluid" id="global-map">
       <div class="span12 well">
         <div class="title" >
@@ -23,7 +21,7 @@
           </button>
         </div>
         <div class="well-content">
-          <div id='map-canvas'></div>
+          <div id='<%=queryType%>-map-canvas'></div>
             <div style="width:100%">
               
               <div class="map-color" style="background-color:#903D3D;"></div>

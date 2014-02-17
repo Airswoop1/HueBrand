@@ -19,6 +19,7 @@ var express = require('express'),
     	color = require('./lib/color.js'),
     	industry = require('./lib/industry.js'),
     	bloom = require('./lib/bloombergCompanies.js'),
+      attribute = require('./lib/attribute.js'),
       user = require('./lib/user.js');
 
 
@@ -85,8 +86,8 @@ app.get('/home', user.home);
 
 app.get('/color/:query', color.queryColor);
 app.get('/brand/:query', brand.queryBrand) 
-app.get('/attributes/:query',color.queryAttribute);
-app.get('/industry/:query',industry.queryIndustry);
+app.get('/attribute/:query', attribute.queryAttribute);
+app.get('/industry/:query', industry.queryIndustry);
 /*
   *About
   *Contact

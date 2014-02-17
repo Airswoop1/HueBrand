@@ -1,7 +1,6 @@
 var geocoder;
-function initialize() {
+function initMaps() {
   
-
   // Create the map.
   var mapOptions = {
     zoom: 1,
@@ -15,8 +14,8 @@ function initialize() {
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.SMALL
     },
-    scrollwheel: false,
-     styles: [
+    scrollwheel: false
+    /* styles: [
       {
         "stylers": [
       { "visibility": "simplified" },
@@ -149,57 +148,84 @@ function initialize() {
             }
         ]
     }
-    ]
+    ]*/
   };
 
-var brandMap = new google.maps.Map(document.getElementById('brand-map-canvas'),
-    mapOptions);
+geocoder = new google.maps.Geocoder();
 
-  drawLocations(brandMap);
+colorMap = new google.maps.Map(document.getElementById('color-map-canvas'), mapOptions);
+  
+  var countryMap = {}
 
-
+  populateCountryMap(0, countryMap, function(updatedCountryMap){
+    drawLocations(colorMap, updatedCountryMap);
+  })
+  
 }
   
-function drawLocations(map) {
 
-  for(var i=0; i < indObjArray.length; i++){
-    
-    if(indObjArray[i].location.state === ''){
-      var address = "'" + indObjArray[i].location.city + ", " + indObjArray[i].location.country + "'"
-    }
-    else{
-      var address = "'" + indObjArray[i].location.city + ", " + indObjArray[i].location.state + ", " + indObjArray[i].location.country + "'"
-    }
-    var logoFileLocation = "Logos/" + indObjArray[i].logoFileName;
-    console.log(logoFileLocation)
-
-    
-    var marker, companyImage;
-    if(typeof indObjArray[i].logoFileName !== "undefined"){
-    geocoder.geocode( { 'address': address }, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          
-          companyImage = {
-              url: logoFileLocation,
-              size : new google.maps.Size(150, 100)
-            };
-          console.log(logoFileLocation)
-
-          marker = new google.maps.Marker({
-              icon: logoFileLocation,
-              map: map,
-              position: results[0].geometry.location
-          });
-
-          map.setOptions({
-              zoom: 2,
-              center: results[0].geometry.location
-            })
-        } else {
-          console.log("Geocode was not successful for the following reason: " + status + " with results " + results);
+var populateCountryMap = function(index, theCountryMap, callback){
+  if(index === topCountries.length)
+  {
+    callback(theCountryMap)
+  }
+  else
+  {
+    geocoder.geocode( { 'address': topCountries[index].city + " ," + topCountries[index].key }, function(results, status) {
+      
+      if(status == google.maps.GeocoderStatus.OK ){
+        var freqToNum = parseInt(topCountries[index].freq);
+        theCountryMap[topCountries[index].key] = {
+          'center' : results[0].geometry.location,
+          "frequency" : freqToNum
         }
-      });
+      }
+      else{
+        console.log("unable to get geo code due to status code : " + status);
+      }
+
+      populateCountryMap(++index, theCountryMap, callback);
+    });  
   }
+  
+}
+
+function componentToHex(c){
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+function drawLocations(map, countryMap) {
+    var theColorInHex = '#' + componentToHex(theQueriedColor.RrgbValue) + componentToHex(theQueriedColor.GrgbValue) + componentToHex(theQueriedColor.BrgbValue);
+    
+    for(var country in countryMap){
+      var lat = countryMap[country].center.lat();
+      var lng = countryMap[country].center.lng();
+
+      var magnitude = 0;
+      if(countryMap[country].frequency < 10)
+      {
+        magnitude = countryMap[country].frequency * 150000
+      }
+      else
+      {
+        magnitude = countryMap[country].frequency * 5000
+      }
+
+      var populationOptions = {
+        strokeColor: theColorInHex,
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: theColorInHex,
+        fillOpacity: 0.35,
+        map: colorMap,
+        center: new google.maps.LatLng(lat, lng),
+        radius: magnitude
+      };
+      // Add the circle for this city to the map.
+      colorCircle = new google.maps.Circle(populationOptions);
+    }
+
+
   }
 
-}
