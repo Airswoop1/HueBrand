@@ -33,7 +33,6 @@ if(!req.params.query){
 						console.log("There was an error! : " + err)
 						res.send(500, "Something broke!")
 					}
-					console.log(brandResult);
 					calculateTopIndustryColors(industry, function(topColorErr, topColors){
 
 						//if the colors have yet to be defined
@@ -48,16 +47,29 @@ if(!req.params.query){
 									return;
 								}
 
-								res.render('brand',{
-									"queryType" : "brand",
-									"topColors" : brandResult.associatedColors,
-									"brandResult" : brandResult,
-									"industryResult" : industry,
-									"colorResult" : colors,
-									"queryName" : req.params.query,
-									allCompanies : bloom.AllCompanies,
+								sortColors(brandResult, function(sortedBrandresult){
+
+									var limitedColors = [];
+
+									for(var i=0;i < 3;i++){
+										limitedColors.push(sortedBrandresult.associatedColors[i]);
+									}
+										
+
+									
+									res.render('brand',{
+										"queryType" : "brand",
+										"topColors" : limitedColors,
+										"brandResult" : brandResult,
+										"industryResult" : industry,
+										"colorResult" : colors,
+										"queryName" : req.params.query,
+										allCompanies : bloom.AllCompanies,
+										"topCountries" : {}
+									});
+
 								});
-							})
+							});
 						}
 						else{
 							res.send(500, "Something broke!")
@@ -76,6 +88,16 @@ if(!req.params.query){
 	}// \else
 
 }// end Of Function
+
+var sortColors = function(brand, callback){
+
+	brand.associatedColors.sort(function(x,y){
+			return y['colorPercentage'] - x['colorPercentage']
+		});
+
+	callback(brand);
+
+}
 
 
 var calculateTopIndustryColors = function(industryList,callback){

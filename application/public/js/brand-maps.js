@@ -8,12 +8,12 @@ function initMaps() {
     center: new google.maps.LatLng(20.922123, -5.859375),
     mapTypeControl: true,
     mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+      "style": google.maps.MapTypeControlStyle.DROPDOWN_MENU
     },
     streetViewControl: false,
     zoomControl: true,
     zoomControlOptions: {
-      style: google.maps.ZoomControlStyle.SMALL
+      "style": google.maps.ZoomControlStyle.SMALL
     },
     scrollwheel: false,
      /*styles: [
@@ -205,15 +205,18 @@ function drawLocations( countryMap) {
     var lat = countryMap[country].center.lat();
     var lng = countryMap[country].center.lng();
 
-    /*var companyImage = {
+    var companyImage = {
       url: countryMap[country].logoFileLoc,
-      size : new google.maps.Size(50, 50)
-    };*/
+      scaledSize : new google.maps.Size(50, 50)
+    };
+
+    console.log(companyImage);
 
     var marker = new google.maps.Marker({
-        icon: countryMap[country].logoFileLoc,//companyImage,
         "map": brandMap,
         position: new google.maps.LatLng(lat, lng),
+        icon: companyImage
+
     });
   }
   

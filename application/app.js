@@ -87,7 +87,7 @@ app.get('/home', user.home);
 app.get('/color/:query', color.queryColor);
 app.get('/brand/:query', brand.queryBrand) 
 app.get('/attribute/:query', attribute.queryAttribute);
-app.get('/industry/:query',industry.queryIndustry);
+app.get('/industry/:query', industry.queryIndustry);
 /*
   *About
   *Contact
