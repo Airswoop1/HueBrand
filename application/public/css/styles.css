@@ -286,7 +286,7 @@ ul,menu,dir {
 }
 
 .selectize-dropdown,.selectize-input,.selectize-input input {
-	width: 225px !important;
+	width: 213px !important;
 
 }
 
@@ -1291,11 +1291,6 @@ input:-moz-placeholder::before {
 }
 
 #color-map-canvas {
-	border: 0;
-	height: 230px;
-}
-
-#brand-map-canvas {
 	border: 0;
 	height: 230px;
 }
