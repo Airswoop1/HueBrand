@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-	bloom = require('./bloombergCompanies.js');
+	bloom = require('./bloombergCompanies.js'),
+	color = require('./color.js');
 
 exports.queryBrand = function(req,res){
 
@@ -8,8 +9,9 @@ if(!req.params.query){
 		res.render('error',{})
 	}
 	else{
+		var searchTerm = new RegExp(req.params.query.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "i");
 
-		bloom.bloombergCompany.find({ 'shortName': eval("/" + req.params.query + "/i"), logoFileName : {$exists : true} }, function(bloomErr, b){
+		bloom.bloombergCompany.find({ 'shortName': searchTerm, logoFileName : {$exists : true} }, function(bloomErr, b){
 			
 			if(bloomErr){
 				console.log('brand query not found! ' + bloomErr);
@@ -64,7 +66,7 @@ if(!req.params.query){
 										"industryResult" : industry,
 										"colorResult" : colors,
 										"queryName" : req.params.query,
-										allCompanies : bloom.AllCompanies,
+										"allCompanies" : bloom.AllCompanies,
 										"topCountries" : {}
 									});
 

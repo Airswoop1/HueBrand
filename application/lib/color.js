@@ -31,7 +31,8 @@ exports.queryColor = function(req,res){
 		res.render('error',{})
 	}
 	else{
-		exports.Color.find({ 'colorName': eval('/' + req.params.query + '/i')}, function(err, c){
+		var searchTerm = new RegExp(req.params.query.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "i");
+		exports.Color.find({ 'colorName': searchTerm}, function(err, c){
 			
 			if(err){
 				console.log('color query not found! ' + err);
@@ -56,7 +57,7 @@ exports.queryColor = function(req,res){
 						}
 						else{
 							
-							getTopColors(companies, colorObj, function(sortedTopColors){
+							exports.getTopColors(companies, colorObj, function(sortedTopColors){
 								getTopIndustries(companies, function(topIndustries){
 									getTopCountries(colorObj, function(topCountries){
 
@@ -206,7 +207,7 @@ var getTopCountries = function(colorObject, callback){
 
 }
 
-var getTopColors = function( colorCompanies, mainColor, callback ){
+exports.getTopColors = function( colorCompanies, mainColor, callback ){
 
 	var colorNameMap = [];
 
