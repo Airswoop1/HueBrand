@@ -25,13 +25,15 @@ var colorExtract = require('./lib/colorExtraction.js');
 var imageDownload = require('./lib/imageDownload.js');
 var attributes = require('./lib/attributes.js');
 var imageConv = require('./lib/imageConversion.js');
+var logoselection = require('./lib/logoSelection.js');
+var routes = require('./lib/routes.js');
 
 /** Server and DB Init **/
 var app = express();
 var server = http.createServer(app);
 mongoose.connect('mongodb://localhost/huebrand');
 var io = require('socket.io').listen(server);
-
+logoselection.setIO(io);
 
 var dbcon = mongoose.connection;
 dbcon.on('error', console.error.bind(console, 'connection error:'));
@@ -185,168 +187,15 @@ modify all fileNames that had .svg into .png
 function: importColorsFromCSV()
 import color data from scraped logos
 ***********/
-color.importColorsFromCSV();
+//color.importColorsFromCSV();
 
-/******
-Setup for /logosSelection route
-*******/
-var logopediaArray = []
-//Query db for all logopedia documents that have logosData and don't have a bloombergMatch
-var logosQ = scrape.logopediaModel.find({$and: [{logosData :{$not :{$size : 0 }}}, {bloombergMatch: {$exists:false}}]});
-logosQ.exec(function(err, obj){
-	if(err){
-		console.log("error populating logopedias array " + err);
-	}
-	else{
-		//store results in logopediaArray
-		logopediaArray = obj;
-		console.log("logopedias array populated!");
-	}
-	
-})
+/***********
+function: modifyIndustryNames()
+modify industry names to match the logo names
+***********/
+//industry.modifyIndustryNamesFromCSV();
 
 
-
-var index = -1;
-io.set('log level', 1);
-//set up socket connections
-io.sockets.on('connection', function(socket){
-	
-	socket.on('next-logo', function(data){
-		//send next logopedia/bloomberg matches
-		console.log('next-logo called!!');
-		index++;
-
-		//callback for bloom.bloombergQuery
-		var getLogos = function(retObj){
-			if(!retObj){
-				console.log("no match found!");		
-				var updateCondition = {
-					'logoName' : logopediaArray[index].logoName,
-					'logoURL' : logopediaArray[index].logoURL
-				}
-				var update = {
-					'bloombergMatch' : 'N'
-				}
-				scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
-					if(err){ 
-						console.log("Cannot store in logopedia db " + err);
-					}
-					else{
-						console.log("stored no match to logopedia db!");
-						bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos);
-
-					}
-				});
-			}
-			else{
-				if(retObj.length === 1){
-					console.log("saving match to the db!");
-					var updateCondition = {
-						'logoName' : logopediaArray[index].logoName,
-						'logoURL' : logopediaArray[index].logoURL
-					}
-					var update = {
-						'bloombergMatch' : retObj[0].shortName
-					}
-					scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
-						if(err){ 
-							console.log("Cannot store in logopedia db " + err);
-						}
-						else{
-							console.log("stored no match to logopedia db!");
-							bloom.bloombergQuery(logopediaArray[++index].logoName, getLogos);
-
-						}
-					});
-				}
-				else{
-					console.log("sending logo to the page for " +  logopediaArray[index].logoName)
-					socket.emit('new-logo', {
-						logopediaTitle : logopediaArray[index].logoName,
-						logopediaURL : logopediaArray[index].logoURL,
-						bloombergCompanies : retObj
-					});
-				}
-			}
-		}
-
-		/*query bloomberg database to search if any logoName in the logopediaArray
-			matches a shortName in the bloom model
-		*/
-		bloom.bloombergQuery(logopediaArray[index].logoName, getLogos);
-
-	});
-	
-
-	socket.on('database-search', function(data){
-		//search database for potential matches when logopedia search against bloomberg doesn't come up with good option
-		var getOtherLogos = function(retObj){
-			if(!retObj){
-				socket.emit('no-query-response',{})
-			}
-			else{
-				socket.emit('new-query-response',{
-					'newQ' : retObj
-				})
-			}
-		}
-
-		bloom.bloombergQuery(data.query, getOtherLogos)
-
-	});
-
-	socket.on('match', function(data){
-		//take match from logoSelection and store match in logopedias collection
-		console.log("we have a match " + util.inspect(data));
-		var updateCondition = {
-			'logoName' : data.logopediaTitle,
-			'logoURL' : data.logopediaURL
-		}
-		var update = {
-			'bloombergMatch' : data.bloombergMatch.shortName,
-			'logoType' : data.logoType
-		}
-		//update logopediaModel for match
-		scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
-			if(err){ 
-				console.log("Cannot store in logopedia db " + err);
-			}
-			else{
-				console.log("stored match to logopedia db!");
-				//next-logo called from client to iterate to next logo
-			}
-		});
-
-	});
-
-	socket.on('no-match', function(data){
-		//no match on logopedia logoName with bloomberg shortName
-		console.log("we don't have a match for " + data.logopediaTitle);
-		var updateCondition = {
-			'logoName' : data.logopediaTitle,
-			'logoURL' : data.logopediaURL
-		}
-		var update = {
-			'bloombergMatch' : 'N'
-		}
-		//update logopediaModel with bloombergMatch  = 'N'
-		scrape.logopediaModel.findOneAndUpdate(updateCondition, update, function(err){
-			if(err){ 
-				console.log("Cannot store in logopedia db " + err);
-			}
-			else{
-				console.log("stored no match to logopedia db!");
-				//next-logo called from client to iterate to next logo
-			}
-		});
-	})
-
-	socket.on('disconnect', function(data){
-		//close 
-	})
-	socket.emit('connect', {});
-})
 
 /************ 
 	Routers 
@@ -360,15 +209,7 @@ app.get('/logoSelection',function(req,res){
 })
 
 //query DB for all documents in bloomberg that have a logoFileName but do not have associatedColors
-app.get('/logoColorExtraction',function(req,res){
-	bloom.bloombergCompany.find({$and : [{logoFileName : {$exists : true}}, {associatedColors:{$exists:false}}]}, 
-		function(err, obj){
-		console.log(err);
-		console.log(obj);
-		var ind = 0;
-		colorExtract.extract(ind, obj);
-	})
-})
+app.get('/logoColorExtraction', routes.logoColorExtraction)
 
 
 
@@ -379,71 +220,7 @@ app.get('/logoColorExtraction',function(req,res){
 	Note *companies with special characters and spaces not taken into account
 		correctly so the data is not completely accurate* 
 **/
-app.get('/brandsoftheworldScrape',function(req,res){
-	var brandList = Array()
-	//query the db and pull out only the brandNames
-	var result = brand.Brand.find().select('brandName').exec(function(err,obj){
-
-		if(err){
-			console.log("There was an error! " + err);
-		}
-		else{
-			//for each of the brandNames search brandsoftheworld and capture the first 20 logo images
-			for(j=0 ; j < obj.length; j++){
-				brandList.push(obj[j].brandName);
-			}
-			var urlArray = Array(); 
-			logoScrape(brandList, 0, 0)
-		}
-	});
-			
-	var logoScrape = function(blist, pg, ind){
-			var pageSymbol;
-
-			urlArray = [];
-
-			if(pg===0){ 
-				pageSymbol = '';
-			}
-			else{
-				pageSymbol = '&page=' + pg;	
-			} 
-
-			request("http://www.brandsoftheworld.com/search/logo?search_api_views_fulltext=" + blist[ind] + pageSymbol, function(error, response, body){
-
-				if(error)	{
-					console.log("something went wrong! " + error);
-				}
-				var $ = cheerio.load(body);
-
-			  	//var logosDivs = $('.logos').children('ul').children('li').children('a').children('img');
-			  	var logosDivs = $('.logos ul li a img').each(function(index, element){
-			  		urlArray.push($(this).attr('src'));
-			  	});
-
-
-			  	if(urlArray.length){
-				  	brand.addPotentialLogos(blist[ind], urlArray);
-
-				  	var nextButton = $('.pager-next');
-				  	
-				  	if(nextButton){ 
-				  		logoScrape(blist, pg+1, ind);
-				  	}
-				  	else if(ind+1 < blist.length) {				  		 
-				  		logoScrape(blist,0,ind+1);
-				  	}
-			  	}
-			  	else{
-			  		console.log("No logos found for " + blist[ind]);
-			  		logoScrape(blist,0,ind+1);
-			  	}
-
-			});
-		
-	}
-
-});
+app.get('/brandsoftheworldScrape', routes.brandsoftheworldScrape);
 
 
 /*****************************
@@ -452,71 +229,7 @@ app.get('/brandsoftheworldScrape',function(req,res){
 	and country. 
 	Note *This is not the same data used in the bloom.populate() function above*
 *****************************/
-app.get('/bloombergPhantom', function(req,res){
-	
-	var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-	var index = 0;
-	var page = 0;
-
-	var bloombergBrands = function(ind, pg){
-
-		var pgSymbol = pg + '/';
-
-		portscanner.findAPortNotInUse(12300, 13000, 'localhost', function(error, portNum) {
-  
-		phantom.create(function(ph) {
-		
-		return ph.createPage(function(page) {
-
-	      return page.open("http://www.bloomberg.com/markets/companies/a-z/"+alphabet[ind]+"/"+pgSymbol, function(status) {
-	      
-			console.log("opened site? ", status);         
-	 
-	            page.injectJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function() {
-	                //jQuery Loaded.
-					//set timeout for 2seconds
-	                setTimeout(function() {
-	                    return page.evaluate(function() {
-
-
-	 
-							var arrayOfBrands = Array();
-							console.log("evaluating page after jquery injection");
-							$('.name').each(function(){
-
-							  var bName = $(this)[0].children[0].children[0].innerText;
-							  var brandStockSym = $(this).next()[0].innerText;
-							  var brandCountry = $(this).next().next()[0].innerText;
-							  var brandCategory = $(this).next().next().next().next()[0].innerText;
-							  var entry = {brandName:bName, industryName: brandCategory, location: {country: brandCountry}, stockSymbol: brandStockSym};
-
-							  arrayOfBrands.push(entry);
-							})
-
-							var pageCheck = $('.disabled.next_page');
-							if(pageCheck.length) return {barray: arrayOfBrands, end:0}
-							else return {barray: arrayOfBrands, end:1}
-
-	                    }, function(result) {
-
-							brand.addBrands(result.barray);
-	                        ph.exit();
-
-							if(result.end) bloombergBrands(ind,pg+1);
-							else if(alphabet[ind]!== 'z') bloombergBrands(ind+1,1)
-
-	                    });
-	                }, 2000);
-	 
-	            });
-	    });
-	    });
-	},{port:portNum});
-	})
-	}
-	bloombergBrands(0,1);
-
-})
+app.get('/bloombergPhantom', routes.bloombergPhantom);
 
 /******************************************
 	Route: /bloombergUSMarketCap
@@ -526,145 +239,14 @@ app.get('/bloombergPhantom', function(req,res){
 	due to limits on the bloomberg website based on the same IP address*
 
 *******************************************/
-app.get('/bloombergUSMarketCap', function(req,res){
-
-	var companyObjArray = Array();
-
-	brand.Brand.find( { location: {country: 'USA'} }, function(err, obj){
-		if(err) console.log('There was an error! ' + err);
-		else{
-			for(var i=0; i < obj.length; i++ ){
-				if(!obj[i].marketCap){
-					if(obj[i].marketCap !== 0)
-						companyObjArray.push(obj[i]);
-				}
-			}
-			console.log(companyObjArray)
-		bloombergUSMarketCap(companyObjArray, 0);
-
-		}
-	})
-
-
-	var bloombergUSMarketCap = function(companies, ind){
-
-		portscanner.findAPortNotInUse(12300, 24400, 'localhost', function(error, portNum) {
-  
-		phantom.create(function(ph) {
-		
-		return ph.createPage(function(page) {
-
-	      return page.open("http://www.bloomberg.com/quote/"+companies[ind].stockSymbol, function(status) {
-	        console.log("the page opened is : http://www.bloomberg.com/quote/"+companies[ind].stockSymbol);
-			console.log("opened site? ", status);         
-	 		page.onConsoleMessage = function (msg) { console.log(msg); };
-	 //           page.injectJs('http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', function() {
-	   //             console.log("jquery loaded!");
-						//jQuery Loaded.
-					//set timeout for 5seconds
-	                setTimeout(function() {
-
-	                    return page.evaluate(function(companies, ind) {
-
-							var marketCap = $('.key_stat_data tbody tr:first').next().next().next().next().next().next().children('.company_stat').text()
-							
-							var tableDivs  = $('.key_stat_data tbody');
-
-							return {marketCap : marketCap}
-
-							
-							if(marketCap.length){
-								return { marketCap : marketCap };
-							}
-							else{
-								return {marketCap : "-1"};
-							}
-
-
-
-	                    }, function(result) {
-							
-							if(result.marketCap !== "-1"){
-								var stripMktCap = result.marketCap.replace(/,/g, "");
-								var numMktCap = parseFloat(stripMktCap);
-								if(!isNaN(numMktCap)){
-									console.log("Storing data for company: " + companies[ind].brandName + " with marketCap= " + numMktCap );
-									brand.storeMarketCap(companies[ind]._id, numMktCap);	
-								}
-								else{
-									console.log("Market cap not available for " + companies[ind].brandName)
-									brand.storeMarketCap(companies[ind]._id, -1)
-								}
-								
-							}
-							else{
-								console.log("No market cap found for : " + companies[ind]);
-							}
-
-							ph.exit()                        
-
-							if( ind+1 < companies.length) bloombergUSMarketCap(companies,ind+1);
-
-	                    });
-	                }, 5000);
-	 
-	         //   });
-	    });
-	    });
-	},{port:portNum});
-	})
-	}
-
-})
+app.get('/bloombergUSMarketCap', routes.bloombergUSMarketCap);
 
 
 /************************************
 	Route: /brandprofilesScrape
 	Used to scrape each page of www.brandprofiles.com and pulls out each logo for the first five pages
 ***********************************/
-app.get('/brandprofilesScrape', function(req,res){
-	var DOWNLOAD_DIR = './files/';
-	var logos = undefined;
-
-	function downloadImage(index, page, totalLogos){
-		//only called at the end of a page to increment the page count
-		if(index === totalLogos && page !== 5){
-			//use the YQL module to perform an element query on a given url using CSS selectors
-			var yqlquery = new YQL.exec('select * from data.html.cssselect where url="http://www.brandprofiles.com/logos?p=' + page + '" and css=".logo"', function(response){
-
-				logos = response.query.results.results.li;
-
-				totalLogos = logos.length;
-
-				downloadImage(0, page+1, totalLogos);
-			});
-		}
-		else if(index < totalLogos){
-			var fileName = logos[index]['div']['a']['content'] + ".jpg";
-			var fileURL = logos[index]['a']['img']['src'];
-
-			var file = fs.createWriteStream(DOWNLOAD_DIR + fileName);
-			
-			//use the url extracted form the page to download the image
-			var downloadURL = http.get(fileURL, function(imageData) {
-				  
-				console.log("Writing file with fileName " + fileName);
-
-				imageData.pipe(file);
-				  
-				file.on('close', function() {
-			    file.close();
-			    //call the function again here once the image was downloaded and the file is closed
-			    downloadImage(index+1, page, totalLogos);
-			  });
-
-			});
-		}
-	}
-
-	//call function to download all files from page
-	downloadImage(0,1,0);
-});
+app.get('/brandprofilesScrape', routes.brandprofilesScrape);
 
 
 
