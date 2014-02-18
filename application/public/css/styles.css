@@ -707,24 +707,23 @@ input:-moz-placeholder::before {
 
 #terms {
 	padding: 25px;
-
-	overflow: -moz-scrollbars-vertical;
-	-ms-overflow-y: scroll;
-	overflow-y: scroll;
+	width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #terms h1 {
 	margin-top: 15px;
 	margin-bottom: 40px;
-	font-size: 20px;
+	font-size: 23px;
 	font-weight: 500;
 	text-decoration: underline;
 }
 
 #terms h2 {
-	margin-top: 20px;
+	margin-top: 40px;
 	margin-bottom: 10px;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 500;
 	text-decoration: underline;
 }
@@ -732,16 +731,16 @@ input:-moz-placeholder::before {
 #terms h3 {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 15px;
-	font-weight: 400;
+	font-size: 18px;
+	font-weight: 500;
 }
 
 #terms p {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-size: 13px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	font-size: 16px;
 	font-weight: 400;
-	line-height: 18px;
+	line-height: 25px;
 }
 
 
@@ -751,23 +750,23 @@ input:-moz-placeholder::before {
 
 #privacy {
 	padding: 25px;
-
-	overflow: -moz-scrollbars-vertical;
-	-ms-overflow-y: scroll;
-	overflow-y: scroll;
+	width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #privacy h1 {
 	margin-top: 15px;
 	margin-bottom: 40px;
-	font-size: 20px;
+	font-size: 23px;
 	font-weight: 500;
+	text-decoration: underline;
 }
 
 #privacy h2 {
-	margin-top: 20px;
+	margin-top: 40px;
 	margin-bottom: 10px;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 500;
 	text-decoration: underline;
 }
@@ -775,24 +774,35 @@ input:-moz-placeholder::before {
 #privacy h3 {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 15px;
-	font-weight: 400;
+	font-size: 18px;
+	font-weight: 500;
 }
 
 #privacy p {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-size: 13px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	font-size: 16px;
 	font-weight: 400;
-	line-height: 18px;
+	line-height: 25px;
 }
+
 
 /*---Contact Page--*/
 /*---[contact.html] --*/
 /*---Formatting for Contact Page --*/
 
 #contact {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
 	padding: 25px;
+	width: 50%;
+	height: 240px;
+	text-align: center;
+	overflow: none;
 }
 
 #contact div {
@@ -801,6 +811,15 @@ input:-moz-placeholder::before {
 	line-height: 5px;
 }
 
+#contact p {
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 14px;
+}
+
+#contact h1 {
+	letter-spacing: 2px;
+}
 
 /*---About Page--*/
 /*---[about.html] --*/
@@ -810,18 +829,7 @@ input:-moz-placeholder::before {
 	padding: 25px;
 }
 
-#about div {
-	margin-top: 10px;
-	font-size: 11px;
-	line-height: 5px;
-}
 
-#about ul {
-	list-style:square;
-	margin-left:20px;
-	font-size:15px;
-	line-height:22px;
-}
 
 
 /*---General Brand, Industry, Color, Attribute Pages ---*/
