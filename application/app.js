@@ -20,7 +20,8 @@ var express = require('express'),
     	industry = require('./lib/industry.js'),
     	bloom = require('./lib/bloombergCompanies.js'),
       attribute = require('./lib/attribute.js'),
-      user = require('./lib/user.js');
+      user = require('./lib/user.js'),
+      staticPages = require('./lib/staticPages.js');
 
 
 /** Server and DB Init **/
@@ -78,16 +79,22 @@ app.configure(function(){
 /***************
 	Routes
 ****************/
-app.get('/', user.index);
+app.get('/', staticPages.landing);
 
 app.get('/login', user.login);
 app.post('/login', user.loginSubmit);
 app.get('/home', user.home);
+app.get('/about', staticPages.about)
+app.get('/contact', staticPages.contact);
+app.get('/privacy', staticPages.privacy);
+app.get('/terms', staticPages.terms);
 
 app.get('/color/:query', color.queryColor);
 app.get('/brand/:query', brand.queryBrand) 
 app.get('/attribute/:query', attribute.queryAttribute);
 app.get('/industry/:query', industry.queryIndustry);
+
+
 /*
   *About
   *Contact

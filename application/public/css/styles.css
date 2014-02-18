@@ -1545,7 +1545,7 @@ input:-moz-placeholder::before {
 	height: 10%;
 	width: 100%;
 	text-align: center;
-	font-size: 25px;
+	font-size: 22px;
 	font-weight: 500;
 }
 
