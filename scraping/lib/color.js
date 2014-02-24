@@ -20,6 +20,7 @@ exports.Color = mongoose.model('Color', new mongoose.Schema({
 	complementaryColors : [String], //should these be names or Id's?
 	swatchFileName : String,
 	descriptionFileName : String,
+	isBase : Boolean
 	
 
 }));
@@ -133,5 +134,50 @@ exports.importColorsFromCSV = function(){
 	});
 	console.log("db updated companies with colors"); 
 
+
+}
+
+exports.importBaseColorFromCSV = function() { 
+	
+	csv()
+	.from.path(__dirname+'/shade_medium.csv', {delimiter: ','})
+	.transform(function(row){
+		row.unshift(row.pop());
+		return row
+	})
+	.on('record', function(row, index){
+		var newRow = row.join(",").split(",");
+	
+		console.log(newRow);
+		var cName = "medium " + newRow[1];
+
+		var colorObject = {		
+			
+			"colorName" : cName,
+			"colorFamily" : newRow[1],
+			"RrgbValue" : newRow[7],
+			"GrgbValue" : newRow[8],
+			"BrgbValue" : newRow[9],
+			"hValue" : newRow[2],
+			"sValue" : newRow[3],
+			"vValue" : newRow[4],
+			"slValue" : newRow[5],
+			"lValue" : newRow[6],
+			"shade" : "medium",
+			"isBase" : true 
+		}
+
+		var c = new exports.Color(colorObject);
+		c.save();
+	
+
+	})
+	.on('close', function(count){
+		console.log("number of lines processed "+count)
+	})
+	.on('error', function(error){
+		console.log("there was an error" + error.message)
+	});
+	console.log("db updated companies with base colors"); 
 
 }
