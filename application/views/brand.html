@@ -1,37 +1,87 @@
-<!-- [signup.html] - Signup Page -->
+<!-- [update.html] - Update Page -->
+
 
 <% include header %>
 <% include sidebar %>
 
 <div id="user-management">
-
-        <h2 class="txt-cntr">Registration</h2>
-          <div class="login-head txt-cntr">
-            <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
+    <h2 class="txt-cntr">Edit User</h2>
+    <!--
+    <% if (locals.success) { %>
+    <div class="txt-cntr sucess-msg">SUCCESSFULLY UPDATED USER...</div>
+    <% }
+    var disableAttr = (locals.disable) ? 'disabled':''; %>
+-->
+    <div class="login-head txt-cntr">
+        <form id= "login-form" enctype="multipart/form-data" autocomplete="off"  method="post">
+              <div class="fl clr d-i-b">
+                    <label>FIRST NAME</label>
+                    <input type="text" name="first-name"  <%= disableAttr %> / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>LAST NAME</label>
+                    <input type="text" name="last-name"  <%= disableAttr %>  / >
+                </div>
                 <div class="fl clr d-i-b">
                     <label>EMAIL</label>
-                    <input type="text" name="email" / >
+                    <input type="text" name="email"  <%= disableAttr %> / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>TELEPHONE</label>
+                    <input type="text" name="telephone"  <%= disableAttr %> / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>COMPANY NAME</label>
+                    <input type="text" name="company-name"  <%= disableAttr %> / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>JOB TITLE</label>
+                    <input type="text" name="job-title"  <%= disableAttr %> / >
                 </div>
                 <div class="fl clr d-i-b">
                     <label>USERNAME</label>
-                    <input type="text" name="username"/>
+                    <input type="text" name="username" <%= disableAttr %> />
                 </div>
                 <div class="fl clr d-i-b">
                     <label>PASSWORD</label>
-                    <input type="password" name="pwd" value=""/>
+                    <input type="password" name="pwd" value="" <%= disableAttr %> />
                 </div>
                 <div class="fl clr d-i-b">
                     <label>CONFIRM PASSWORD</label>
-                    <input type="password" name="confirmpwd" value=""/>
+                    <input type="password" name="confirmpwd" value=""  <%= disableAttr %> />
                 </div>
+                <div class="fl clr d-i-b">
+                    <label>COUNTRY</label>
+                    <input type="text" name="country"  <%= disableAttr %> / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>ADDRESS LINE 1</label>
+                    <input type="text" name="address-line-1"  <%= disableAttr %> / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>ADDRESS LINE 2</label>
+                    <input type="text" name="address-line-2"  <%= disableAttr %> / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>CITY</label>
+                    <input type="text" name="city"  <%= disableAttr %> />
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>STATE</label>
+                    <input type="text" name="state"  <%= disableAttr %> />
+                </div>       
                 <div class="txt-cntr clr submit-button">
-                    <input type="submit"  value="Submit"/>
+                    <input type="submit"  value="Submit"  <%= disableAttr %> />
                 </div>
-         
-            </form>
-          </div>
-  
+            <!--
+            <% if(locals.err) { %>
+            <span class="err-msg fl"><%=err%></span>
+            <% } %>
+            -->
+        </form>
+    </div>
 </div>
+
 <% include footer %>
 
 
