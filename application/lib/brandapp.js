@@ -3,91 +3,103 @@ var mongoose = require('mongoose'),
 	color = require('./color.js');
 
 exports.queryBrand = function(req,res){
+try{
+	if(!req.params.query){
+			console.log("error! on /brand/query ");
+			res.render('error',{})
+		}
+		else{
+			var searchTerm = new RegExp(req.params.query.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "i");
 
-if(!req.params.query){
-		console.log("error! on /brand/query ");
-		res.render('error',{})
-	}
-	else{
-		var searchTerm = new RegExp(req.params.query.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "i");
-
-		bloom.bloombergCompany.find({ 'shortName': searchTerm, logoFileName : {$exists : true} }, function(bloomErr, b){
-			
-			if(bloomErr){
-				console.log('brand query not found! ' + bloomErr);
-				res.send(500, "Something broke!")
-			}
-			else{
-
-				if(b.length>1){
-					res.render('index', {
-						potentialBrands : b
-					})
+			bloom.bloombergCompany.find({ 'shortName': searchTerm, logoFileName : {$exists : true} }, function(bloomErr, b){
+				
+				if(bloomErr){
+					console.log('brand query not found! ' + bloomErr);
+					res.send(500, "Something broke!")
 				}
 				else{
-					var brandResult  = b[0];	
-				
-				
-				var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResult.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
-				
-				industryQuery.exec(function(indErr, industry){
-					if(indErr){
-						console.log("There was an error! : " + err)
-						res.send(500, "Something broke!")
+
+					if(b.length>1){
+						res.render('index', {
+							potentialBrands : b
+						})
 					}
-					calculateTopIndustryColors(industry, function(topColorErr, topColors){
-
-						//if the colors have yet to be defined
-						if(typeof brandResult.associatedColors[0] !== 'undefined'){
-							
-							var colorQuery = bloom.bloombergCompany.find({'associatedColors.colorFamily': eval("'" + brandResult.associatedColors[0].colorFamily + "'") });
-
-							colorQuery.exec(function(err, colors){
-								if(err){
-									console.log("There was an error! : " + err);
-									res.send(500, "Something broke!");
-									return;
-								}
-
-								sortColors(brandResult, function(sortedBrandresult){
-
-									var limitedColors = [];
-
-									for(var i=0;i < 3;i++){
-										limitedColors.push(sortedBrandresult.associatedColors[i]);
-									}
-										
-
-									
-									res.render('brand',{
-										"queryType" : "brand",
-										"topColors" : limitedColors,
-										"brandResult" : brandResult,
-										"industryResult" : industry,
-										"colorResult" : colors,
-										"queryName" : req.params.query,
-										"allCompanies" : bloom.AllCompanies,
-										"topCountries" : {}
-									});
-
-								});
-							});
-						}
-						else{
+					else{
+						var brandResult  = b[0];	
+					
+					
+					var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResult.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
+					
+					industryQuery.exec(function(indErr, industry){
+						if(indErr){
+							console.log("There was an error! : " + err)
 							res.send(500, "Something broke!")
 						}
+						calculateTopIndustryColors(industry, function(topColorErr, topColors){
+
+							//if the colors have yet to be defined
+							if(typeof brandResult.associatedColors[0] !== 'undefined'){
+								
+								var colorQuery = bloom.bloombergCompany.find({'associatedColors.colorFamily': eval("'" + brandResult.associatedColors[0].colorFamily + "'") });
+
+								colorQuery.exec(function(err, colors){
+									if(err){
+										console.log("There was an error! : " + err);
+										res.send(500, "Something broke!");
+										return;
+									}
+
+									sortColors(brandResult, function(sortedBrandresult){
+
+										var limitedColors = [];
+
+										for(var i=0;i < 3;i++){
+											limitedColors.push(sortedBrandresult.associatedColors[i]);
+										}
+											
+
+										
+										res.render('brand',{
+											"queryType" : "brand",
+											"topColors" : limitedColors,
+											"brandResult" : brandResult,
+											"industryResult" : industry,
+											"colorResult" : colors,
+											"queryName" : req.params.query,
+											"allCompanies" : bloom.AllCompanies,
+											"topCountries" : {}
+										});
+
+									});
+								});
+							}
+							else{
+								res.send(500, "Something broke!")
+							}
+						
+
+						})//top colors
+
+					})
 					
+				}// \else
+				}
 
-					})//top colors
+			})//\ bloom.find()
 
-				})
-				
-			}// \else
-			}
-
-		})//\ bloom.find()
-
-	}// \else
+		}// \else
+	}
+	catch(e){
+		console.log("There was an error on the brandQuery!");
+		console.log(e);
+		res.render('landing',{		
+														queryType : '',
+														topCountries : {},
+														colorResult : {},
+														topColors : {},
+														industryResult:{}
+													})
+	}
 
 }// end Of Function
 

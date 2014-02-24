@@ -1,3 +1,5 @@
+var user = require('./user.js');
+
 var emptyPayload = {
 		queryType : '',
 		topCountries : {},
@@ -7,7 +9,12 @@ var emptyPayload = {
 	}
 
 exports.about = function(req,res){
-	res.render('about',emptyPayload);
+	if(user.isLoggedIn(req, res)){
+		res.render('about',emptyPayload);
+	}
+	else{
+		res.render('landing', emptyPayload)
+	}
 }
 
 exports.contact = function(req,res){

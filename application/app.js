@@ -81,32 +81,21 @@ app.configure(function(){
 ****************/
 app.get('/', staticPages.landing);
 
-app.get('/login', user.login);
-app.post('/login', user.loginSubmit);
-app.get('/home', user.home);
+app.get('/login', user.signIn);
+app.post('/login', user.signInSubmit);
+app.get('/profile', user.profile)
+
 app.get('/about', staticPages.about)
 app.get('/contact', staticPages.contact);
 app.get('/privacy', staticPages.privacy);
 app.get('/terms', staticPages.terms);
+
 
 app.get('/color/:query', color.queryColor);
 app.get('/brand/:query', brand.queryBrand) 
 app.get('/attribute/:query', attribute.queryAttribute);
 app.get('/industry/:query', industry.queryIndustry);
 
-
-/*
-  *About
-  *Contact
-  *\/ landing.html
-  *privacy
-  *profile
-  signin //change from login
-  sign up
-  *terms
-  update //update profile
-
-*/
 
 
 

@@ -195,7 +195,11 @@ modify industry names to match the logo names
 ***********/
 //industry.modifyIndustryNamesFromCSV();
 
-
+/***********
+function: importBaseColorFromCSV()
+import the shade + colorFamily base colors
+************/
+//color.importBaseColorFromCSV();
 
 /************ 
 	Routers 

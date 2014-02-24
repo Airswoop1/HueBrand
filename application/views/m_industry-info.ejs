@@ -9,14 +9,17 @@
         <div class="well-content" style="height:250px;">
           <div class="industry-icon-container">
             <center>
-            <img style="height:80%;width:150px;" src="../img/icons/industries/computer.png">
+              <%
+                var iconName = queryName.key.split(' ').join('_').toLowerCase()
+              %>
+            <img style="height:80%;width:150px;" src="../img/icons/industries/<%=iconName%>.png">
             </center>
              <div class="industry-title">
               <%=queryName%>
             </div>
           </div>
           <div class="industry-description">
-            Computing is any goal-oriented activity requiring, benefiting from, or creating computers. For example, computing includes designing, developing and building hardware and software systems; processing, structuring, and managing various kinds of information; doing scientific research on and with computers;
+            <%=queryName%> is any goal-oriented activity requiring, benefiting from, or creating computers. For example, computing includes designing, developing and building hardware and software systems; processing, structuring, and managing various kinds of information; doing scientific research on and with computers;
           </div>
         </div>
       </div>
