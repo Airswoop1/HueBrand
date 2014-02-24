@@ -4,19 +4,8 @@
 <% include sidebar %>
 
 <div id="user-management">
-    <div class="container-fluid">
-      <div class="span12 well">
-        <div class="title" >
-          <button type="button" class="btn btn-default">      
-            Sign In
-          </button>
-            <span class="pull-right muted">
-              <div class="tooltips">
-              </div>
-            </span>
-        </div>
-        <div class="well-content" style="height:300px">
-        <h2 class="txt-cntr">HueBrand Login</h2>
+
+        <h2 class="txt-cntr" style="font-size:24px;">HueBrand Login</h2>
           <div class="login-head txt-cntr">
             <form id= "login-form" enctype="multipart/form-data" action="/login" method="post">
                 <div class="fl clr d-i-b">
@@ -27,7 +16,7 @@
                     <label>PASSWORD</label>
                     <input type="password" name="pwd" value=""/>
                 </div>
-                <div class="txt-cntr clr submit-button">
+                <div class="txt-cntr clr submit-button" style="padding-top: 10px;">
                     <input type="submit"  value="LOGIN"/>
                     <a class="m-l-10 register-button" href="/register">REGISTER</a>
                 </div>
@@ -36,9 +25,6 @@
                 <% } %>
             </form>
           </div>
-        </div>
-      </div>
-    </div>
 </div>
 
 <% include footer %>

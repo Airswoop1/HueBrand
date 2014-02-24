@@ -387,6 +387,12 @@ input:-moz-placeholder::before {
 	font-size: 17px;
 }
 
+#landing .landing-container {
+	width: 1400px;
+	float: left;
+	margin-top:20px;
+}
+
 #landing .page-header {
 	margin: 0px;
 	margin-top: -2%;
@@ -529,6 +535,24 @@ input:-moz-placeholder::before {
 	border-radius: 300px;
 }
 
+#circle-brand {
+	margin-left: 75px;
+}
+
+#circle-attribute {
+	margin-top: 75px;
+	margin-left:150px;
+}
+
+#circle-industry {
+	margin-top: 150px;
+	margin-left:75px;
+}
+
+#circle-color {
+	margin-top: 75px;
+}
+
 #landing .text-row {
 	height: 60px;
 	font-family: 'Oxygen';
@@ -565,8 +589,13 @@ input:-moz-placeholder::before {
 
 #user-management {
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	height:50%;
 } 
 
 #user-management .container-fluid {
@@ -636,16 +665,14 @@ input:-moz-placeholder::before {
 	text-decoration: none;
 }
 
-.submit-button input {
-	margin-left: 0px;
-}
 
 #login-form div label {
 	display: inline-block;
 	margin-right: 5px;
-	font-weight: 100;
-	width: 150px;
-	font-size: 15px;
+	width: 120px;
+	font-weight: 300;
+	font-size: 12px;
+	letter-spacing: 2px;
 }
 
 .listing {
@@ -672,31 +699,26 @@ input:-moz-placeholder::before {
 	text-decoration: none;
 }
 
-.submit-button input {
-	border: 1px solid;
-	border-color: rgb(185, 185, 185);
-	background-color: rgb(250,250,250);
-	font-size:12px;
-}
 
-.submit-button input:hover {
+
+.submit-button input {
+	margin-left: 0px;
+	padding: 11px 10px 9px 10px;
 	border: 1px solid;
-	border-color: rgb(185, 185, 185);
-	background-color: rgb(240, 240, 240);
+	border-color: rgb(0, 0, 0);
+	background-color: rgb(255, 255, 255);
+	font-size:12px;
 }
 
 .register-button {
 	border: 1px solid;
-	border-color: rgb(185, 185, 185);
-	background-color: rgb(250,250,250);
+	border-color: rgb(0, 0, 0);
+	background-color: rgb(255, 255, 255);
 	font-size:12px;
-	padding:7px;
+	padding: 11px;
 }
 
-.register-button:hover {
-	border: 1px solid;
-	border-color: rgb(185, 185, 185);
-	background-color: rgb(240, 240, 240);
+.register-button a:hover {
 	text-decoration:none;
 }
 
@@ -707,24 +729,23 @@ input:-moz-placeholder::before {
 
 #terms {
 	padding: 25px;
-
-	overflow: -moz-scrollbars-vertical;
-	-ms-overflow-y: scroll;
-	overflow-y: scroll;
+	width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #terms h1 {
 	margin-top: 15px;
 	margin-bottom: 40px;
-	font-size: 20px;
+	font-size: 23px;
 	font-weight: 500;
 	text-decoration: underline;
 }
 
 #terms h2 {
-	margin-top: 20px;
+	margin-top: 40px;
 	margin-bottom: 10px;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 500;
 	text-decoration: underline;
 }
@@ -732,16 +753,16 @@ input:-moz-placeholder::before {
 #terms h3 {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 15px;
-	font-weight: 400;
+	font-size: 18px;
+	font-weight: 500;
 }
 
 #terms p {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-size: 13px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	font-size: 16px;
 	font-weight: 400;
-	line-height: 18px;
+	line-height: 25px;
 }
 
 
@@ -751,23 +772,23 @@ input:-moz-placeholder::before {
 
 #privacy {
 	padding: 25px;
-
-	overflow: -moz-scrollbars-vertical;
-	-ms-overflow-y: scroll;
-	overflow-y: scroll;
+	width: 1100px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #privacy h1 {
 	margin-top: 15px;
 	margin-bottom: 40px;
-	font-size: 20px;
+	font-size: 23px;
 	font-weight: 500;
+	text-decoration: underline;
 }
 
 #privacy h2 {
-	margin-top: 20px;
+	margin-top: 40px;
 	margin-bottom: 10px;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 500;
 	text-decoration: underline;
 }
@@ -775,24 +796,35 @@ input:-moz-placeholder::before {
 #privacy h3 {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 15px;
-	font-weight: 400;
+	font-size: 18px;
+	font-weight: 500;
 }
 
 #privacy p {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-size: 13px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	font-size: 16px;
 	font-weight: 400;
-	line-height: 18px;
+	line-height: 25px;
 }
+
 
 /*---Contact Page--*/
 /*---[contact.html] --*/
 /*---Formatting for Contact Page --*/
 
 #contact {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
 	padding: 25px;
+	width: 50%;
+	height: 240px;
+	text-align: center;
+	overflow: none;
 }
 
 #contact div {
@@ -801,6 +833,15 @@ input:-moz-placeholder::before {
 	line-height: 5px;
 }
 
+#contact p {
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 14px;
+}
+
+#contact h1 {
+	letter-spacing: 2px;
+}
 
 /*---About Page--*/
 /*---[about.html] --*/
@@ -810,18 +851,7 @@ input:-moz-placeholder::before {
 	padding: 25px;
 }
 
-#about div {
-	margin-top: 10px;
-	font-size: 11px;
-	line-height: 5px;
-}
 
-#about ul {
-	list-style:square;
-	margin-left:20px;
-	font-size:15px;
-	line-height:22px;
-}
 
 
 /*---General Brand, Industry, Color, Attribute Pages ---*/

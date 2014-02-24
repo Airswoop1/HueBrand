@@ -68,6 +68,107 @@
 		display:none;
 	}
 
+	#contact h1 {
+		font-size: 21px;
+	}
+
+	#contact p {
+		font-size: 15px;
+		line-height: 13px;
+	}
+
+	#terms {
+		width: 480px;
+	}
+
+	#terms h1 {
+		margin-bottom: 20px;
+		font-size: 20px;
+	}
+
+
+	#privacy {
+		width: 480px;
+	}
+
+	#privacy h1 {
+		margin-bottom: 20px;
+		font-size: 20px;
+	}
+
+	#about {
+		width: 480px;
+		margin-left:auto;
+		margin-right:auto;
+		font-size:11px;
+	}
+
+	#about b {
+		font-size:11px!important;
+		line-height:9px;
+	}
+
+	#about p {
+		line-height:14px;
+	}
+
+
+	#landing .landing-container {
+		width: 480px;
+		float: left;
+		margin-top:20px;
+	}
+
+	#landing .page-header h1 {
+		font-size: 50px;
+		margin-top: 50px;
+	}
+
+	.ch-grid li {
+		margin: 5px;
+		height: 100px;
+		width: 100px;
+	}
+
+	.ch-grid li .circle-container {
+		height: 100px;
+		width: 100px;
+		border: 1px solid rgb(224, 224, 224);
+		border-radius: 100px;
+	}
+
+	.ch-item {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+	}
+
+	#circle-brand {
+		margin-left: 25px;
+	}
+
+	#circle-attribute {
+		margin-top: 25px;
+		margin-left:50px;
+	}
+
+	#circle-industry {
+		margin-top: 50px;
+		margin-left:25px;
+	}
+
+	#circle-color {
+		margin-top: 25px;
+	}
+
+	#landing .text-unit {
+		width: 21%;
+		font-size: 18px;
+	}
+
+	#landing #signup-button {
+		margin-right:20px;
+	}
 }
 
 
@@ -112,7 +213,84 @@
 	}
 
 
-}
+	#contact h1 {
+		font-size: 27px;
+	}
+
+	#contact p {
+		font-size: 16px;
+		line-height: 14px;
+	}
+
+	#terms {
+		width: 700px;
+	}
+
+	#privacy {
+		width: 700px;
+	}
+
+	#about {
+		width: 700px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+
+
+	#landing .landing-container {
+		width: 900px;
+		float: left;
+		margin-top:20px;
+
+	}
+
+	#landing .page-header h1 {
+		font-size: 50px;
+		margin-top: 50px;
+	}
+
+	.ch-grid li {
+		margin-right: 0px;
+		height: 160px;
+		width: 160px;
+		margin-bottom: 0px;
+	}
+
+	.ch-grid li .circle-container {
+		height: 160px;
+		width: 160px;
+		border: 1px solid rgb(224, 224, 224);
+		border-radius: 160px;
+	}
+
+	.ch-item {
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+	}
+
+	#circle-brand {
+		margin-left: 40px;
+	}
+
+	#circle-attribute {
+		margin-top: 40px;
+		margin-left:80px;
+	}
+
+	#circle-industry {
+		margin-top: 80px;
+		margin-left:40px;
+	}
+
+	#circle-color {
+		margin-top: 40px;
+	}
+
+	#landing .text-unit {
+		width: 22%;
+	}
+
 
 /* Desktops and laptops ----------- */
 @media only screen and (min-width : 1024px) and (max-width : 1500px) {
@@ -190,7 +368,9 @@
 		-ms-transition: .5s;
 		transition: .5s;
 	}
+
 }
+
 
 
 @media only screen and (min-width : 1025px) and (max-width : 1350px) {
