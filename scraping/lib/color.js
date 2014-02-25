@@ -140,6 +140,50 @@ exports.importColorsFromCSV = function(){
 exports.importBaseColorFromCSV = function() { 
 	
 	csv()
+	.from.path(__dirname+'/new_with_rgb.csv', {delimiter: ','})
+	.transform(function(row){
+		row.unshift(row.pop());
+		return row
+	})
+	.on('record', function(row, index){
+		var newRow = row.join(",").split(",");
+	
+		var cName = newRow[2] + " " + newRow[1];
+
+		var colorObject = {		
+			
+			"colorName" : cName,
+			"colorFamily" : newRow[1],
+			"RrgbValue" : newRow[3],
+			"GrgbValue" : newRow[4],
+			"BrgbValue" : newRow[5],
+			"hValue" : newRow[6],
+			"sValue" : newRow[7],
+			"vValue" : newRow[8],
+			"lValue" : newRow[0],
+			"shade" : newRow[2],
+			"isBase" : true 
+		}
+		console.log(colorObject);
+		
+		var c = new exports.Color(colorObject);
+		c.save();
+	
+
+	})
+	.on('close', function(count){
+		console.log("number of lines processed "+count)
+	})
+	.on('error', function(error){
+		console.log("there was an error" + error.message)
+	});
+	console.log("db updated companies with base colors"); 
+
+}
+
+exports.importMediumBaseColorFromCSV = function() { 
+	
+	csv()
 	.from.path(__dirname+'/shade_medium.csv', {delimiter: ','})
 	.transform(function(row){
 		row.unshift(row.pop());

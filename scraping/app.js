@@ -193,13 +193,14 @@ import color data from scraped logos
 function: modifyIndustryNames()
 modify industry names to match the logo names
 ***********/
-industry.modifyIndustryNamesFromCSV();
+//industry.modifyIndustryNamesFromCSV();
 
 /***********
 function: importBaseColorFromCSV()
 import the shade + colorFamily base colors
 ************/
-//color.importBaseColorFromCSV();
+//color.importMediumBaseColorFromCSV();
+color.importBaseColorFromCSV();
 
 /************ 
 	Routers 

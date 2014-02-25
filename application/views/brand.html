@@ -1,38 +1,16 @@
-<!-- [signup.html] - Signup Page -->
-<!-- In order to work all input fields must have a value attribute, for instance username must have  value="<=username>" . Password from the initial version from the repo does not have this attribute. Additionally, the commented out error handling on the bottom must be enabled for error handling to work.-->
+<!-- [brand.html] - Page for Brand Search Result -->
 
 <% include header %>
-<% include sidebar %>
 
-<div id="user-management" style="height: 60%;">
-  <h4 class="txt-cntr">Interested in more information regarding a HUEGROUP subscription?<br> Please complete this brief set of questions and we will contact you with additional information.</h4><br>
-    <div class="login-head txt-cntr">
-      <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/learnmore" method="post">
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Email" placeholder="Email"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="First Name" placeholder="First Name"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Last Name" placeholder="Last Name"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Company Name" placeholder="Company Name" / >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Telephone" placeholder="Telephone"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Country" placeholder="Country"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Profession" placeholder="Profession"/ >
-          </div><br>
-          <div class="txt-cntr clr submit-button">
-              <input type="submit"  value="Submit"/>
-          </div>
+  <div class="row analytics-row">
+    <% include m_analytics %>
+  </div>
   
-</div>
-<% include footer %>
+  <% include m_brand-info %> 
+  <% include m_global-colorTop %>
+  <% include m_global-colorChart %> 
+  <% include m_brand-logoHistory %> 
+  <% include m_global-map %>
+  <% include m_global-logoCloud %>
 
+<% include footer %>
