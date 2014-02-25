@@ -50,7 +50,7 @@ exports.colorCombinations = mongoose.model('colorCombinations', new mongoose.Sch
 
 
 
-colorCombination({ colorName: 'Yellow 1',
+/*colorCombination({ colorName: 'Yellow 1',
 										colorFamily : 'yellow',
 										shade : 'medium',
 								    colorPercentage: 34,
@@ -60,7 +60,7 @@ colorCombination({ colorName: 'Yellow 1',
 								    hValue: 51.21338912,
 								    sValue: 100,
 								    vValue: 93.7254902,
-								    lValue: 46.8627451 }, function(err, call){})
+								    lValue: 46.8627451 }, function(err, call){})*/
 
 exports.queryColor = function(req,res){
 
@@ -200,26 +200,41 @@ exports.queryColor = function(req,res){
 var getTopIndustries = function(companies, callback){
 
 	var industryMap = [];
-
+	console.log(typeof industryMap);
+	
 	for(var i=0;i<companies.length;i++){
-		if(industryMap.indexOf(companies[i].GICSSectorName)>=0)
+		
+		
+		if(industryMap.hasOwnProperty(companies[i].GICSIndName))
 		{
-			industryMap[companies[i].GICSSectorName].freq ++;
+			industryMap[companies[i].GICSIndName].freq += 1;
 		}
 		else
 		{
+			var industryName = companies[i].GICSIndName;
 
-			industryMap[companies[i].GICSSectorName] = {"key":companies[i].GICSSectorName, "freq":1}
+			industryMap[industryName] = {"key":companies[i].GICSIndName, "freq":1};
+				console.log(typeof industryMap);
+
 		}
 	}
 
+	console.log(typeof industryMap);
+
 	industryMap.sort(function(x,y){
-		return y - x;
+		console.log(x);
+		return y["freq"] - x["freq"];
 	})
 
+	console.log(industryMap);
+	console.log("industry length " + industryMap.length);
+
 	if(industryMap.length > 3 ){
-		var top3Industries = industryMap.slice(0,4);
-		outOf100(top3Industries, 'freq',function(obj){
+		
+		var topInds = industryMap.slice(0,4);
+
+		outOf100(topInds, 'freq',function(obj){
+			console.log(obj);
 			callback(obj);	
 		})
 		
@@ -266,6 +281,7 @@ var getTopCountries = function(colorObject, callback){
 exports.getTopColors = function( colorCompanies, mainColor, callback ){
 
 	var colorNameMap = [];
+
 
 	//build object of {colorName : totalPercentage} for all colors that match the colorFamily
 	for(var i=0; i<colorCompanies.length;i++){
@@ -353,7 +369,7 @@ exports.getTopColors = function( colorCompanies, mainColor, callback ){
 
 }
 
-var colorCombination = function(colorObject, cb) {
+function colorCombination(colorObject, cb) {
 
 	var searchTerm = colorObject.shade + " " + colorObject.colorName;
 
@@ -392,7 +408,7 @@ var colorCombination = function(colorObject, cb) {
 	})
 }
 
-var calculateCombination = function(cObj, callback){
+function calculateCombination(cObj, callback){
 
 	var companiesWithColorFamilyAndShadeQuery = bloom.bloombergCompany.find({associatedColors : {$elemMatch : {'colorFamily' : cObj.colorFamily, 'shade' : cObj.shade}}});//.limit(20)
 	companiesWithColorFamilyAndShadeQuery.exec(function(err, matchesObj){
@@ -401,7 +417,10 @@ var calculateCombination = function(cObj, callback){
 
 			var colorComboMap = [];
 
-			console.log(matchesObj);
+			for(var i=0; i<cObj.length;i++){
+				
+				
+			}
 
 
 		}

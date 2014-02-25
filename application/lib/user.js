@@ -26,7 +26,7 @@ exports.signIn = function(req, res){
     res.redirect('/', emptyPayload);
   }
   else{ 
-    res.render('signup', emptyPayload);      
+    res.render('signin', emptyPayload);      
   }
 
 }

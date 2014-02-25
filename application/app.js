@@ -83,7 +83,11 @@ app.get('/', staticPages.landing);
 
 app.get('/login', user.signIn);
 app.post('/login', user.signInSubmit);
-app.get('/profile', user.profile)
+app.get('/profile', user.profile);
+
+//can use update.html popup or something equivalent
+app.get('/learnmore', user.signIn);
+app.post('/learnmore', user.signInSubmit);
 
 app.get('/about', staticPages.about)
 app.get('/contact', staticPages.contact);

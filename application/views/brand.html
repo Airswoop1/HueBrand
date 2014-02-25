@@ -1,46 +1,81 @@
-<!-- [learnmore.html] - Learn More Page -->
-<!-- need to adjust form path , took out error handling -->
+<!-- [signup.html] - Signup Page -->
+<!-- In order to work all input fields must have a value attribute, for instance username must have  value="<=username>" . Password from the initial version from the repo does not have this attribute. Additionally, the commented out error handling on the bottom must be enabled for error handling to work.-->
+
 <% include header %>
 <% include sidebar %>
 
 <div id="user-management">
-  <h4 class="txt-cntr">Interested in more information regarding a HUEGROUP subscription?<br> Please complete this brief set of questions and we will contact you with additional information.</h4>
-    <div class="login-head txt-cntr">
-      <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/learnmore" method="post">
-          <div class="fl clr d-i-b">
-              <label>EMAIL</label>
-              <input type="text" name="email"/ >
+
+        <h2 class="txt-cntr">Registration</h2>
+          <div class="login-head txt-cntr">
+            <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
+                <div class="fl clr d-i-b">
+                    <label>FIRST NAME</label>
+                    <input type="text" name="first-name" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>LAST NAME</label>
+                    <input type="text" name="last-name" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>EMAIL</label>
+                    <input type="text" name="email" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>TELEPHONE</label>
+                    <input type="text" name="telephone" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>COMPANY NAME</label>
+                    <input type="text" name="company-name" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>JOB TITLE</label>
+                    <input type="text" name="job-title" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>USERNAME</label>
+                    <input type="text" name="username"/>
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>PASSWORD</label>
+                    <input type="password" name="pwd" value=""/>
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>CONFIRM PASSWORD</label>
+                    <input type="password" name="confirmpwd" value=""/>
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>COUNTRY</label>
+                    <input type="text" name="country" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>ADDRESS LINE 1</label>
+                    <input type="text" name="address-line-1" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>ADDRESS LINE 2</label>
+                    <input type="text" name="address-line-2" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>CITY</label>
+                    <input type="text" name="city" / >
+                </div>
+                <div class="fl clr d-i-b">
+                    <label>STATE</label>
+                    <input type="text" name="state" / >
+                </div>
+                <div class="txt-cntr clr submit-button">
+                    <input type="submit"  value="Submit"/>
+                </div>
+        <!--
+          <% if(locals.regErr) { %>
+            <span class="err-msg fl"><%=regErr%></span>
+          <% } %>
+        -->
+            </form>
           </div>
-          <div class="fl clr d-i-b">
-              <label>FIRST NAME</label>
-              <input type="text" name="email"/ >
-          </div>
-          <div class="fl clr d-i-b">
-              <label>LAST NAME</label>
-              <input type="text" name="email"/ >
-          </div>
-          <div class="fl clr d-i-b">
-              <label>COMPANY NAME</label>
-              <input type="text" name="email"/ >
-          </div>
-          <div class="fl clr d-i-b">
-              <label>TELEPHONE</label>
-              <input type="text" name="email"/ >
-          </div>
-          <div class="fl clr d-i-b">
-              <label>COUNTRY</label>
-              <input type="text" name="email"/ >
-          </div>
-          <div class="fl clr d-i-b">
-              <label>JOB FUNCTION</label>
-              <input type="text" name="email"/ >
-          </div>
-          <div class="txt-cntr clr submit-button">
-              <input type="submit"  value="Submit"/>
-          </div>
-      </form>
-    </div>
+  
 </div>
 <% include footer %>
-
 

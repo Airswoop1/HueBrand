@@ -47,22 +47,23 @@ exports.modifyIndustryNamesFromCSV = function(){
 	.on('record', function(row, index){
 		var newRow = row.join(",").split(",");
 
-		if(index>0 && (newRow.length>1) && !(newRow[2]==='')){
-
 			var newName = newRow[1];	
 			
 			for(var i=2;i<newRow.length;i++){
 				if(!(newRow[i]==='')){
+
+					var oldIndName = newRow[i].replace('#',",")
+ 					
 					industryRenames.push({
-						"old_industry_name" : newRow[i],
+						"old_industry_name" : oldIndName,
 						"new_industry_name" : newName
 					})
 				}
 			}
-			if(index == 72){
+			if(index == 49){
+				
 				updateBloomIndustry(0, industryRenames)
 			}
-		}
 
 	})
 	.on('close', function(count){
@@ -78,31 +79,23 @@ exports.modifyIndustryNamesFromCSV = function(){
 
 function updateBloomIndustry(index, indRenames){
 
-	if(!(typeof indRenames[index].old_industry_name === 'undefined') && !(typeof indRenames[index].new_industry_name === 'undefined')){
-
-		bloom.bloombergCompany.update(
-					{'GICSIndName': indRenames[index].old_industry_name},
-					{'GICSIndName': indRenames[index].new_industry_name},
+	var old_name = indRenames[index].old_industry_name;
+	var new_name = indRenames[index].new_industry_name
+	bloom.bloombergCompany.update(
+					{'GICSIndName': old_name},
+					{'GICSIndName': new_name},
 					{multi:true}, function(err, obj){
 						if(err)
 						{
-
-							console.log("error writing industry to the db for " + indRenames[index].old_industry_name);
 							console.log(err);
 							updateBloomIndustry(++index,indRenames)
 						}
 						else
 						{
-							
-							console.log("updated ind name for " + indRenames[index].old_industry_name);
+							console.log("updated ind name for " + old_name + " to " + new_name);
 							updateBloomIndustry(++index,indRenames);
 						}
 					})
-	}
-	else{
-		updateBloomIndustry(++index,indRenames);
-
-	}	
 
 
 }

@@ -16,7 +16,7 @@ function initMaps() {
       "style": google.maps.ZoomControlStyle.SMALL
     },
     scrollwheel: false,
-     /*styles: [
+     styles: [
       {
         "stylers": [
       { "visibility": "simplified" },
@@ -149,7 +149,7 @@ function initMaps() {
             }
         ]
     }
-    ]*/
+    ]
   };
 
 geocoder = new google.maps.Geocoder();
@@ -204,7 +204,7 @@ function drawLocations( countryMap) {
   for(var country in countryMap){
     var lat = countryMap[country].center.lat();
     var lng = countryMap[country].center.lng();
-
+    
     var companyImage = {
       url: countryMap[country].logoFileLoc,
       scaledSize : new google.maps.Size(50, 50)
