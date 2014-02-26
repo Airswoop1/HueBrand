@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="7.9in" height="5.55in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 7900 5550"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:cc="http://creativecommons.org/ns#"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:svg="http://www.w3.org/2000/svg"
+ xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+ xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+ inkscape:version="0.48.2 r9819"
+ sodipodi:docname="AJAX.svg">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="3941.7" y1="34.2126" x2="3941.7" y2="5534.61">
+   <stop offset="0" style="stop-color:#33CCFF"/>
+   <stop offset="1" style="stop-color:#06C1FF"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1280" inkscape:window-height="1004" id="namedview16" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:zoom="2.6833333" inkscape:cx="321.2857" inkscape:cy="-10.363333" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="svg2"/>
+  <path id="bird" class="fil0" d="M2 3984c513,474 1830,923 2902,-127 -193,30 -354,-6 -476,-127 -116,-115 -122,-234 -60,-342 50,-88 157,-150 261,-214 -190,35 -351,17 -496,-57 -194,-99 -383,-204 -436,-419 119,-125 251,-236 536,-194 -269,-90 -509,-207 -684,-382 -170,-171 -187,-282 -214,-415 148,-55 303,-83 469,-67 -376,-192 -535,-456 -623,-744 -27,-87 -31,-170 -20,-255 1521,574 2233,987 2627,1374 177,-471 589,-1537 1206,-1903 3,58 -20,121 -67,188 183,-102 325,-265 576,-261 -29,119 -112,214 -275,275 164,-63 330,-116 503,-147 160,-29 157,97 67,161 -183,129 -378,145 -570,208 586,15 1066,292 1441,898 124,201 208,403 228,623 250,70 499,85 751,40 69,-12 133,-25 194,-54 -98,147 -211,267 -369,322 -151,52 -302,103 -469,107 272,103 571,108 878,87 -376,362 -663,353 -952,348 -127,534 -385,1067 -931,1555 -717,640 -1488,945 -2285,1012 -747,63 -1470,54 -2258,-315 -585,-274 -1075,-650 -1454,-1173l0 0z" inkscape:connector-curvature="0"/>
+ </g>
+</svg>
