@@ -87,7 +87,6 @@ exports.queryColor = function(req,res){
 									getTopIndustries(companies, function(topIndustries){
 										getTopCountries(colorObj, function(topCountries){
 											colorCombination(colorObj, function(combos){					
-												console.log(combos);
 												res.render('color',{
 													"queryType" : "color",
 													"colorResult" : colorObj,
@@ -143,47 +142,37 @@ exports.queryColor = function(req,res){
 var getTopIndustries = function(companies, callback){
 
 	var industryMap = [];
-	console.log(typeof industryMap);
 	
 	for(var i=0;i<companies.length;i++){
 		
-		
-		if(industryMap.hasOwnProperty(companies[i].GICSIndName))
-		{
+		if(industryMap.hasOwnProperty(companies[i].GICSIndName)){
 			industryMap[companies[i].GICSIndName].freq += 1;
 		}
-		else
-		{
+		else{
 			var industryName = companies[i].GICSIndName;
-
 			industryMap[industryName] = {"key":companies[i].GICSIndName, "freq":1};
-				console.log(typeof industryMap);
-
 		}
 	}
 
-	console.log(typeof industryMap);
+	var arrayOfMappedIndustries = Array();
 
-	industryMap.sort(function(x,y){
-		console.log(x);
-		return y["freq"] - x["freq"];
-	})
+	for(var keys in industryMap){
+		arrayOfMappedIndustries.push(industryMap[keys]);
+	}
 
-	console.log(industryMap);
-	console.log("industry length " + industryMap.length);
+	var sortedArrayOfMappedIndustries = us.sortBy(arrayOfMappedIndustries, 'freq');
 
-	if(industryMap.length > 3 ){
+	if(sortedArrayOfMappedIndustries.length > 3 ){
 		
-		var topInds = industryMap.slice(0,4);
+		var topInds = us.last(sortedArrayOfMappedIndustries,3);
 
 		outOf100(topInds, 'freq',function(obj){
-			console.log(obj);
 			callback(obj);	
 		})
 		
 	}
 	else{
-		outOf100(industryMap,'freq', function(obj){
+		outOf100(sortedArrayOfMappedIndustries, 'freq', function(obj){
 			callback(obj);	
 		})
 		
@@ -277,7 +266,7 @@ exports.getTopColors = function( colorCompanies, mainColor, callback ){
 
 	if(arrayOfColorNames.length>5)
 	{
-		topFiveColors = arrayOfColorNames.slice(0,6);
+		topFiveColors = us.first(arrayOfColorNames,3);
 		outOf100(topFiveColors, "colorPercentage", function(topFiveNormalized){
 					callback(topFiveNormalized);			
 		})

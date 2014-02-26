@@ -9,15 +9,15 @@
         <div class="well-content">
            <ul id="industriesTop-data">
           <%if(topIndustries.length>0){
-            for(var key in topIndustries){
-              var iconName = topIndustries[key].split(' ').join('_').toLowerCase()
+            for(var i=0; i<topIndustries.length;i++){
+              var iconName = topIndustries[i].key.split(' ').join('_').toLowerCase()
             %>
             <li>
               <div>
                 <img src="../img/icons/industries/<%=iconName%>.png">
               </div>
-              <span class="industry"><%=topIndustries[key].key%></span>
-              <div class="percentage"><%=topIndustries[key].freq%>%</div>
+              <span class="industry"><%=topIndustries[i].key%></span>
+              <div class="percentage"><%=topIndustries[i].freq%>%</div>
             </li>
             <%}}%>
 
