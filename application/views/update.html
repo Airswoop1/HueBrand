@@ -5,83 +5,67 @@
 <% include sidebar %>
 
 <div id="user-management"  style="height: 60%;">
-    <h2 class="txt-cntr">Edit User</h2>
-    <!--
-    <% if (locals.success) { %>
-    <div class="txt-cntr sucess-msg">SUCCESSFULLY UPDATED USER...</div>
-    <% }
-    var disableAttr = (locals.disable) ? 'disabled':''; %>
--->
-    <div class="login-head txt-cntr">
-        <form id= "login-form" enctype="multipart/form-data" autocomplete="off"  method="post">
-              <div class="fl clr d-i-b">
-                    <label>FIRST NAME</label>
-                    <input type="text" name="first-name"  <%= disableAttr %> / >
+
+        <h2 class="txt-cntr">Edit User</h2>
+
+          <div class="login-head txt-cntr">
+            <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="First Name"  <%= disableAttr %>  / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>LAST NAME</label>
-                    <input type="text" name="last-name"  <%= disableAttr %>  / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Last Name"  <%= disableAttr %>  / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>EMAIL</label>
-                    <input type="text" name="email"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Email"  <%= disableAttr %>  />
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>TELEPHONE</label>
-                    <input type="text" name="telephone"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Telephone"  <%= disableAttr %>   / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>COMPANY NAME</label>
-                    <input type="text" name="company-name"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Company Name"   <%= disableAttr %>  / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>JOB TITLE</label>
-                    <input type="text" name="job-title"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Job Title"  <%= disableAttr %> / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>USERNAME</label>
-                    <input type="text" name="username" <%= disableAttr %> />
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Username"  <%= disableAttr %> />
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>PASSWORD</label>
-                    <input type="password" name="pwd" value="" <%= disableAttr %> />
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="password" name="pwd"  <%= disableAttr %> />
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>CONFIRM PASSWORD</label>
-                    <input type="password" name="confirmpwd" value=""  <%= disableAttr %> />
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="password" name="confirmpwd"  <%= disableAttr %>  value=""/>
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>COUNTRY</label>
-                    <input type="text" name="country"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Country"  <%= disableAttr %> / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>ADDRESS LINE 1</label>
-                    <input type="text" name="address-line-1"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Address Line 1"  <%= disableAttr %> / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>ADDRESS LINE 2</label>
-                    <input type="text" name="address-line-2"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Address Line 2"  <%= disableAttr %>  / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>CITY</label>
-                    <input type="text" name="city"  <%= disableAttr %> />
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="City"  <%= disableAttr %>  / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>STATE</label>
-                    <input type="text" name="state"  <%= disableAttr %> />
-                </div>       
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="State"  <%= disableAttr %> / >
+                </div>
                 <div class="txt-cntr clr submit-button">
                     <input type="submit"  value="Submit"  <%= disableAttr %> />
                 </div>
-            <!--
-            <% if(locals.err) { %>
-            <span class="err-msg fl"><%=err%></span>
-            <% } %>
-            -->
-        </form>
-    </div>
+        <!--
+          <% if(locals.regErr) { %>
+            <span class="err-msg fl"><%=regErr%></span>
+          <% } %>
+        -->
+            </form>
+          </div>
+  
 </div>
-
 <% include footer %>
+
+
 
 
