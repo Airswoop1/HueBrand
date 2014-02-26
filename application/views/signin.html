@@ -10,19 +10,17 @@
             <form id= "login-form" enctype="multipart/form-data" action="/login" method="post">
                 <div class="fl clr d-i-b">
                     <label>USERNAME</label>
-                    <input type="text" name="username" value="<%=username%>"/>
+                    <input type="text" name="username"/>
                 </div>
                 <div class="fl clr d-i-b">
                     <label>PASSWORD</label>
-                    <input type="password" name="pwd" value=""/>
+                    <input type="password" name="pwd" v/>
                 </div>
                 <div class="txt-cntr clr submit-button" style="padding-top: 10px;">
                     <input type="submit"  value="LOGIN"/>
                     <a class="m-l-10 register-button" href="/register">REGISTER</a>
                 </div>
-                <% if(loginErr) { %>
-                  <span class="err-msg fl"><%=loginErr%></span>
-                <% } %>
+                    
             </form>
           </div>
 </div>

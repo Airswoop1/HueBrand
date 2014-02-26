@@ -1,4 +1,5 @@
 <!--  Module - Color Combinations - "Primary and Secondary Color Combinations Chart" -->
+  <%if(colorCombos){%>
     <div class="container-fluid" id="color-combinations">
       <div class="span12 well">
 
@@ -13,35 +14,42 @@
         <div class="color-combinations-container">
     
           <div class="color-combinations-primary">      
-            <div class="combination-box" style="background-color: #FDFD3D;"">
+            <div class="combination-box" style="background-color: rgb(
+                                                                      <%= colorCombos[colorCombos.length-1].RrgbValue %>,
+                                                                      <%= colorCombos[colorCombos.length-1].GrgbValue %>,
+                                                                      <%= colorCombos[colorCombos.length-1].BrgbValue %>
+                                                                        );">
               <span class="caption fade-caption">
-                <p>50%</p>
+                <p><%= colorCombos[colorCombos.length-1].colorPercentage %>%</p>
               </span>
             </div>
           </div>
 
           <div class="color-combinations-secondary">
+            <%   
+              var totesMcgoates = 0;
+              for(var j=0;j<colorCombos.length-1; j++){ 
+                totesMcgoates += colorCombos[j].colorPercentage;
+              }
+            %>
+            <% for(var i=0;i<colorCombos.length-1; i++){ 
+              var percent = parseFloat(((colorCombos[i].colorPercentage/totesMcgoates)*100).toFixed(2),10);
+            %>
 
-            <div class="combination-box" style="margin-bottom:3%;height: 7%;background-color:#eee;"> 
+              <div class="combination-box" style="margin-bottom:3%;height: <%=percent%>%;background-color:rgb(
+                                                                      <%= colorCombos[i].RrgbValue %>,
+                                                                      <%= colorCombos[i].GrgbValue %>,
+                                                                      <%= colorCombos[i].BrgbValue %>);"> 
               <span class="caption fade-caption">
-                  <p>20%</p>
+                  <p><%=colorCombos[i].colorPercentage%>%</p>
               </span>
-            </div>
-
-            <div class="combination-box" style="margin-bottom:3%;height: 57%;background-color:#B15353;">
-              <span class="caption fade-caption">
-                  <p>30%</p>
-              </span>
-            </div>
-
-            <div class="combination-box" style="height: 30%;background-color:#ggg;">
-              <span class="caption fade-caption">
-                  <p>40%</p>
-              </span>
-            </div>
+            </div>  
+            <%}%>
+            
 
         </div>
       </div>
     </div>
   </div>
 </div>
+<%}%>

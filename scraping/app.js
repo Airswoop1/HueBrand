@@ -199,7 +199,8 @@ modify industry names to match the logo names
 function: importBaseColorFromCSV()
 import the shade + colorFamily base colors
 ************/
-//color.importBaseColorFromCSV();
+//color.importMediumBaseColorFromCSV();
+color.importBaseColorFromCSV();
 
 /************ 
 	Routers 

@@ -43,12 +43,12 @@ $(window).load(function(){
 // #Module - Logo Cloud
  
   $(window).load(function(){
-      var $container = $('.portfolioContainer');
+      var $container = $('.logoCloudContainer');
       $container.isotope({
-           masonry: {
-      columnWidth: 140
-    },  
-          filter: '*',
+          masonry: {
+            columnWidth: 140
+          },  
+          filter: '.first',
           animationOptions: {
               duration: 3750,
               easing: 'linear',

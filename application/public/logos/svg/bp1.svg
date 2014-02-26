@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1455px" height="1410px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 1455 1410"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:cc="http://creativecommons.org/ns#"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:svg="http://www.w3.org/2000/svg"
+ xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+ xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:#00963F}
+    .fil1 {fill:#F9E925}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="layer1" inkscape:label="Layer 1" inkscape:groupmode="layer">
+   <path id="path2967-1" class="fil0" d="M729 1351c429,-167 655,-427 668,-829 0,-149 -34,-274 -101,-394 -60,0 -275,10 -568,-71 -293,81 -507,71 -568,71 -67,120 -101,245 -101,394 15,401 241,661 671,829l0 0z" sodipodi:nodetypes="ccccccc"/>
+   <path id="path2965" class="fil1" d="M979 911c23,12 0,14 0,14l-203 0c-7,0 -18,-4 4,-15 7,-4 34,-16 41,-64 4,-27 60,-428 64,-476 5,-47 -34,-75 -34,-75l256 0c3,1 107,-11 151,85 47,107 1,275 -185,294l-95 0 -28 184c0,0 -5,36 30,53m89 -343c23,-2 69,-27 78,-85 10,-75 -41,-92 -67,-91l-63 0 -27 175 79 0zm-695 -197c5,-47 -27,-77 -27,-77l250 0c0,0 133,-9 166,87 33,97 -27,174 -86,203 -12,6 -4,6 2,8 3,1 95,31 69,171 -15,78 -96,158 -221,157 -105,0 -256,0 -256,0 -8,0 -24,-1 -2,-12 7,-4 34,-17 41,-64 4,-28 58,-428 63,-475l0 0zm195 172c23,-2 60,-19 67,-60 16,-82 -43,-92 -62,-92l-69 0 -24 152 88 0 0 0zm-39 279c22,0 65,-19 78,-78 18,-82 -40,-92 -59,-92l-79 0 -27 170 87 0 0 0z"/>
+   <path id="path2967" class="fil1" d="M727 7c249,77 518,71 596,70 71,121 123,279 125,431 -15,440 -252,722 -722,896 -468,-174 -704,-456 -719,-896 1,-152 53,-311 125,-431 78,1 346,7 596,-70m2 1345c429,-167 655,-427 668,-829 0,-149 -34,-274 -101,-394 -60,0 -275,10 -568,-71 -293,81 -507,71 -568,71 -67,120 -101,245 -101,394 15,401 241,661 671,829l0 0z"/>
+  </g>
+ </g>
+</svg>

@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'), 
 	fs = require('fs'),
 	csv = require('csv'),
-	bloom = require('./bloombergCompanies.js');
+	bloom = require('./bloombergCompanies.js'),
+	us = require('underscore');
 
 exports.Color = mongoose.model('Color', new mongoose.Schema({
 
@@ -48,20 +49,6 @@ exports.colorCombinations = mongoose.model('colorCombinations', new mongoose.Sch
 
 })) 
 
-
-
-colorCombination({ colorName: 'Yellow 1',
-										colorFamily : 'yellow',
-										shade : 'medium',
-								    colorPercentage: 34,
-								    RrgbValue: 239,
-								    GrgbValue: 204,
-								    BrgbValue: 0,
-								    hValue: 51.21338912,
-								    sValue: 100,
-								    vValue: 93.7254902,
-								    lValue: 46.8627451 }, function(err, call){})
-
 exports.queryColor = function(req,res){
 
 	try{
@@ -99,65 +86,20 @@ exports.queryColor = function(req,res){
 								exports.getTopColors(companies, colorObj, function(sortedTopColors){
 									getTopIndustries(companies, function(topIndustries){
 										getTopCountries(colorObj, function(topCountries){
-
-											//fake data
-											/*sortedTopColors = [ { colorName: 'Yellow 1',
-																				    colorPercentage: 34,
-																				    RrgbValue: 239,
-																				    GrgbValue: 204,
-																				    BrgbValue: 0,
-																				    hValue: 51.21338912,
-																				    sValue: 100,
-																				    vValue: 93.7254902,
-																				    lValue: 46.8627451 },
-																				    
-																				    { colorName: 'Yellow 2',
-																				    colorPercentage: 33,
-																				    RrgbValue: 220,
-																				    GrgbValue: 200,
-																				    BrgbValue: 0,
-																				    hValue: 51.21338912,
-																				    sValue: 100,
-																				    vValue: 93.7254902,
-																				    lValue: 46.8627451 },
-
-																				    { colorName: 'Yellow 3',
-																				    colorPercentage: 33,
-																				    RrgbValue: 180,
-																				    GrgbValue: 100,
-																				    BrgbValue: 0,
-																				    hValue: 51.21338912,
-																				    sValue: 100,
-																				    vValue: 93.7254902,
-																				    lValue: 46.8627451 } ]
-											
-											topIndustries['Biotech'] = {key:'BioTech',"freq":100};
-
-											topCountries = [
-												{
-													key: "US",
-													"city" : 'New York',
-													"freq": 20
-												},
-												{
-													key : "IN",
-													"city" : 'Mumbai',
-													"freq":  10
-												}
-											];*/
-											
-											console.log("Top industries length : " + topIndustries.length)
-											res.render('color',{
-												"queryType" : "color",
-												"colorResult" : colorObj,
-												"companyResult" : companies,
-												"queryName" : req.params.query,
-												"industryResult" : companies,
-												"allCompanies" : {},
-												"brandResult" : {},
-												"topColors" : sortedTopColors,
-												"topIndustries" : topIndustries,
-												"topCountries" : topCountries,
+											colorCombination(colorObj, function(combos){					
+												res.render('color',{
+													"queryType" : "color",
+													"colorResult" : colorObj,
+													"companyResult" : companies,
+													"queryName" : req.params.query,
+													"industryResult" : companies,
+													"allCompanies" : {},
+													"brandResult" : {},
+													"topColors" : sortedTopColors,
+													"topIndustries" : topIndustries,
+													"topCountries" : topCountries,
+													"colorCombos" : combos
+												});
 											});
 										});
 									});
@@ -200,32 +142,37 @@ exports.queryColor = function(req,res){
 var getTopIndustries = function(companies, callback){
 
 	var industryMap = [];
-
+	
 	for(var i=0;i<companies.length;i++){
-		if(industryMap.indexOf(companies[i].GICSSectorName)>=0)
-		{
-			industryMap[companies[i].GICSSectorName].freq ++;
+		
+		if(industryMap.hasOwnProperty(companies[i].GICSIndName)){
+			industryMap[companies[i].GICSIndName].freq += 1;
 		}
-		else
-		{
-
-			industryMap[companies[i].GICSSectorName] = {"key":companies[i].GICSSectorName, "freq":1}
+		else{
+			var industryName = companies[i].GICSIndName;
+			industryMap[industryName] = {"key":companies[i].GICSIndName, "freq":1};
 		}
 	}
 
-	industryMap.sort(function(x,y){
-		return y - x;
-	})
+	var arrayOfMappedIndustries = Array();
 
-	if(industryMap.length > 3 ){
-		var top3Industries = industryMap.slice(0,4);
-		outOf100(top3Industries, 'freq',function(obj){
+	for(var keys in industryMap){
+		arrayOfMappedIndustries.push(industryMap[keys]);
+	}
+
+	var sortedArrayOfMappedIndustries = us.sortBy(arrayOfMappedIndustries, 'freq');
+
+	if(sortedArrayOfMappedIndustries.length > 3 ){
+		
+		var topInds = us.last(sortedArrayOfMappedIndustries,3);
+
+		outOf100(topInds, 'freq',function(obj){
 			callback(obj);	
 		})
 		
 	}
 	else{
-		outOf100(industryMap,'freq', function(obj){
+		outOf100(sortedArrayOfMappedIndustries, 'freq', function(obj){
 			callback(obj);	
 		})
 		
@@ -266,6 +213,7 @@ var getTopCountries = function(colorObject, callback){
 exports.getTopColors = function( colorCompanies, mainColor, callback ){
 
 	var colorNameMap = [];
+
 
 	//build object of {colorName : totalPercentage} for all colors that match the colorFamily
 	for(var i=0; i<colorCompanies.length;i++){
@@ -318,7 +266,7 @@ exports.getTopColors = function( colorCompanies, mainColor, callback ){
 
 	if(arrayOfColorNames.length>5)
 	{
-		topFiveColors = arrayOfColorNames.slice(0,6);
+		topFiveColors = us.first(arrayOfColorNames,3);
 		outOf100(topFiveColors, "colorPercentage", function(topFiveNormalized){
 					callback(topFiveNormalized);			
 		})
@@ -353,14 +301,14 @@ exports.getTopColors = function( colorCompanies, mainColor, callback ){
 
 }
 
-var colorCombination = function(colorObject, cb) {
+function colorCombination(colorObject, cb) {
 
 	var searchTerm = colorObject.shade + " " + colorObject.colorName;
 
 	var doesCombinationExistQuery = exports.colorCombinations.find({"colorName" : searchTerm});
 	doesCombinationExistQuery.exec(function(err, combo){
 		if(!err && combo.length){
-			return combo
+			cb(combo.combinations);
 		}
 		else if(!err && combo.length===0){
 
@@ -376,33 +324,73 @@ var colorCombination = function(colorObject, cb) {
 					var c = new exports.colorCombinations(newCombo);
 					c.save();
 
-					cb(null, newCombo);
+					cb(combosObj);
 				}
 				else{
 					console.log("error on calculating the combination");
-					return cb(null, {});
+					cb({});
 				}
 			})
 		}
 		else{
 			console.log("There was an error on the color combinations query!");
-			return cb(null, {});
+			cb({});
 		}
 
 	})
 }
 
-var calculateCombination = function(cObj, callback){
+function calculateCombination(cObj, callback){
 
+	var colorShadeAndFamily = cObj.shade + " " + cObj.colorFamily;
+	
 	var companiesWithColorFamilyAndShadeQuery = bloom.bloombergCompany.find({associatedColors : {$elemMatch : {'colorFamily' : cObj.colorFamily, 'shade' : cObj.shade}}});//.limit(20)
 	companiesWithColorFamilyAndShadeQuery.exec(function(err, matchesObj){
 
 		if(!err && matchesObj.length){
-
 			var colorComboMap = [];
 
-			console.log(matchesObj);
+			//iterate through each company
+			for(var i=0; i<matchesObj.length;i++){
+				var currentCompany = matchesObj[i];
+				//then through each color of the company
+				for(var j=0; j<currentCompany.associatedColors.length;j++){
 
+					var currentColor = currentCompany.associatedColors[j];
+					var colorDescriptor = currentColor.shade + " " + currentColor.colorFamily;
+
+					//keep a map of all of the colors encountered and record the colorPercentage of each
+					if(colorComboMap.hasOwnProperty(colorDescriptor)){
+						colorComboMap[colorDescriptor].colorPercentage += currentColor.colorPercentage;
+					}
+					else if(colorDescriptor !== colorShadeAndFamily){
+						colorComboMap[colorDescriptor] = {
+							"key" : colorDescriptor,
+							"colorPercentage" : currentColor.colorPercentage 
+						}
+					}
+
+				}//for j
+				
+			}//for i 
+			var arrayOfColorCombos = Array();
+
+			for(var keys in colorComboMap){
+				arrayOfColorCombos.push(colorComboMap[keys]);
+			}
+
+			//sort the list by colorPercentage
+			var sortedColorComboMap = us.sortBy(arrayOfColorCombos, 'colorPercentage');
+
+			//select the top 5 colors
+			var topFiveSortedColorCombos = us.last(sortedColorComboMap,5);
+
+			//normalize them
+			outOf100(topFiveSortedColorCombos,'colorPercentage', function(sortedAndNormalizedTopFiveColorCombos){
+				//get colorValues for each combo
+				var newArray = Array();
+				getBaseColorValues(sortedAndNormalizedTopFiveColorCombos, 0, newArray, callback)
+			})
 
 		}
 		else{
@@ -413,6 +401,43 @@ var calculateCombination = function(cObj, callback){
 
 }
 
+function getBaseColorValues(arr, index, arrayToReturn, cb){
+	try{
+		if(index === arr.length){
+			cb(null, arrayToReturn);
+		}
+		else{
+			var queriedColor = arr[index].key;
+			var queriedColorPercentage = arr[index].colorPercentage;
+			exports.Color.findOne({'colorName' : queriedColor}, function(err, c){
+				if(!err && c){
+					arrayToReturn.push({
+						"colorName" : queriedColor,
+						"colorFamily" : c.colorFamily,
+						"shade" : c.shade,
+						"RrgbValue" : c.RrgbValue,
+						"GrgbValue" : c.GrgbValue,
+						"BrgbValue" : c.BrgbValue,
+						"hValue" : c.hValue,
+						"sValue" : c.sValue,
+						"vValue" : c.vValue,
+						"lValue" : c.lValue,
+						"colorPercentage" : queriedColorPercentage
+					})
+					getBaseColorValues(arr, ++index, arrayToReturn, cb)
+				}
+				else{
+					console.log("error matching the base color", err);
+					getBaseColorValues(arr, ++index, arrayToReturn, cb)
+				}
+			})
+
+		}
+	}catch(e){
+		console.log("error in base color matching",e);
+		cb(e,null);
+	}
+}
 
 
 var outOf100 = function(arr, valueToNormalize, cb){

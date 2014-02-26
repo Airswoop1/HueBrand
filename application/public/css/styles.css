@@ -1319,6 +1319,11 @@ input:-moz-placeholder::before {
 	height: 230px;
 }
 
+#brand-map-canvas {
+	border: 0;
+	height: 230px;
+}
+
 #color-map-canvas {
 	border: 0;
 	height: 230px;
