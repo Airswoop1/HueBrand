@@ -1,38 +1,67 @@
-<!-- [learnmore.html] - Learn More Page -->
-<!-- need to adjust form path , took out error handling -->
+<!-- [signup.html] - Signup Page -->
+
+
 <% include header %>
 <% include sidebar %>
 
-<div id="user-management" style="height: 60%;">
-  <h4 class="txt-cntr">Interested in more information regarding a HUEGROUP subscription?<br> Please complete this brief set of questions and we will contact you with additional information.</h4><br>
-    <div class="login-head txt-cntr">
-      <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/learnmore" method="post">
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Email" placeholder="Email"/ >
+<div id="user-management"  style="height: 60%;">
+
+        <h2 class="txt-cntr">Registration</h2>
+          <div class="login-head txt-cntr">
+            <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="First Name" placeholder="First Name" / >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Last Name"placeholder="Last Name" / >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Email" placeholder="Email" />
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Telephone" placeholder="Telephone"  / >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Company Name"  placeholder="Company Name"  / >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Job Title" placeholder="Job Title" / >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Username" placeholder="Username"/>
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="password" name="pwd" placeholder="Password"/>
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="password" name="confirmpwd" placeholder="Confirm Password" value=""/>
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Country" placeholder="Country"/ >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Address Line 1" placeholder="Address Line 1"/ >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="Address Line 2" placeholder="Address Line 2" / >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="City" placeholder="City"/ >
+                </div>
+                <div class="fl clr d-i-b"  style="margin: 0px!important;">
+                    <input type="text" name="State" placeholder="State" / >
+                </div>
+                <div class="txt-cntr clr submit-button">
+                    <input type="submit"  value="Submit"/>
+                </div>
+        <!--
+          <% if(locals.regErr) { %>
+            <span class="err-msg fl"><%=regErr%></span>
+          <% } %>
+        -->
+            </form>
           </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="First Name" placeholder="First Name"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Last Name" placeholder="Last Name"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Company Name" placeholder="Company Name" / >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Telephone" placeholder="Telephone"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Country" placeholder="Country"/ >
-          </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
-              <input type="text" name="Profession" placeholder="Profession"/ >
-          </div><br>
-          <div class="txt-cntr clr submit-button">
-              <input type="submit"  value="Submit"/>
-          </div>
-      </form>
-    </div>
+  
 </div>
 <% include footer %>
 
