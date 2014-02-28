@@ -17,25 +17,292 @@
 <form class="navbar-form" role="search">
   <div class="demo">
     <div class="control-group">
-      <input type='text' id='searchQuery'>
-      <!--<select id="select-industry" name="industry[]" multiple class="demo-default"  placeholder="Select a brand...">
-        <option value="">Select a brand...</option>
-
-      </select>-->
+      <!--<input type='text' id='searchQuery'>-->
+      <select id="select-color" name="color[]" class="demo-default" style='visibility:hidden' multiple>
+        <option value="very light red">very light red</option>
+        <option value="light red">light red</option>
+        <option value="medium red">medium red</option>
+        <option value="dark red">dark red</option>
+        <option value="very dark red">very dark red</option>
+        <option value="very light orange">very light orange</option>
+        <option value="light orange">light orange</option>
+        <option value="medium orange">medium orange</option>
+        <option value="dark orange">dark orange</option>
+        <option value="very dark orange">very dark orange</option>
+        <option value="very light brown">very light brown</option>
+        <option value="light brown">light brown</option>
+        <option value="medium brown">medium brown</option>
+        <option value="dark brown">dark brown</option>
+        <option value="very dark brown">very dark brown</option>
+        <option value="very light beige">very light beige</option>
+        <option value="light beige">light beige</option>
+        <option value="medium beige">medium beige</option>
+        <option value="dark beige">dark beige</option>
+        <option value="very dark beige">very dark beige</option>
+        <option value="very light yellow">very light yellow</option>
+        <option value="light yellow">light yellow</option>
+        <option value="medium yellow">medium yellow</option>
+        <option value="dark yellow">dark yellow</option>
+        <option value="very dark yellow">very dark yellow</option>
+        <option value="very light yellow/green">very light yellow/green</option>
+        <option value="light yellow/green">light yellow/green</option>
+        <option value="medium yellow/green">medium yellow/green</option>
+        <option value="dark yellow/green">dark yellow/green</option>
+        <option value="very dark yellow/green">very dark yellow/green</option>
+        <option value="very light green">very light green</option>
+        <option value="light green">light green</option>
+        <option value="medium green">medium green</option>
+        <option value="dark green">dark green</option>
+        <option value="very dark green">very dark green</option>
+        <option value="very light cyan">very light cyan</option>
+        <option value="light cyan">light cyan</option>
+        <option value="medium cyan">medium cyan</option>
+        <option value="dark cyan">dark cyan</option>
+        <option value="very dark cyan">very dark cyan</option>
+        <option value="very light blue">very light blue</option>
+        <option value="light blue">light blue</option>
+        <option value="medium blue">medium blue</option>
+        <option value="dark blue">dark blue</option>
+        <option value="very dark blue">very dark blue</option>
+        <option value="very light purple">very light purple</option>
+        <option value="light purple">light purple</option>
+        <option value="medium purple">medium purple</option>
+        <option value="dark purple">dark purple</option>
+        <option value="very dark purple">very dark purple</option>
+        <option value="very light magenta">very light magenta</option>
+        <option value="light magenta">light magenta</option>
+        <option value="medium magenta">medium magenta</option>
+        <option value="dark magenta">dark magenta</option>
+        <option value="very dark magenta">very dark magenta</option>
+        <option value="very light gray">very light gray</option>
+        <option value="light gray">light gray</option>
+        <option value="medium gray">medium gray</option>
+        <option value="dark gray">dark gray</option>
+        <option value="very dark gray">very dark gray</option>
+        <option value="very light white">very light white</option>
+        <option value="very dark black">very dark black</option>
+      </select>
+      <select id='select-industry' name='industry[]' class='demo-default' style='visibility:hidden'  multiple>
+        <option value="Advertising">Advertising</option>
+        <option value="Aerospace & Defense">Aerospace & Defense</option>
+        <option value="Agriculture">Agriculture</option>
+        <option value="Airlines">Airlines</option>
+        <option value="Apparel">Apparel</option>
+        <option value="Auto">Auto</option>
+        <option value="Auto">Auto</option>
+        <option value="Banks">Banks</option>
+        <option value="Food">Food</option>
+        <option value="Biotechnology">Biotechnology</option>
+        <option value="Building Materials">Building Materials</option>
+        <option value="Chemicals">Chemicals</option>
+        <option value="Finance">Finance</option>
+        <option value="Mining">Mining</option>
+        <option value="Commercial Services">Commercial Services</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Cosmetics & Personal Care">Cosmetics & Personal Care</option>
+        <option value="Finance">Finance</option>
+        <option value="Distribution & Wholesale">Distribution & Wholesale</option>
+        <option value="Finance">Finance</option>
+        <option value="Energy">Energy</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Energy">Energy</option>
+        <option value="Engineering & Construction">Engineering & Construction</option>
+        <option value="Media">Media</option>
+        <option value="Environmental Control">Environmental Control</option>
+        <option value="Food">Food</option>
+        <option value="Food">Food</option>
+        <option value="Forest Products & Paper">Forest Products & Paper</option>
+        <option value="Gas">Gas</option>
+        <option value="Hand & Machine Tools">Hand & Machine Tools</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Holding Companies: Divers">Holding Companies: Divers</option>
+        <option value="Home Builders">Home Builders</option>
+        <option value="Home Furnishings">Home Furnishings</option>
+        <option value="Housewares">Housewares</option>
+        <option value="Housewares">Housewares</option>
+        <option value="Insurance">Insurance</option>
+        <option value="Software">Software</option>
+        <option value="Finance">Finance</option>
+        <option value="Iron & Steel">Iron & Steel</option>
+        <option value="Leisure Time">Leisure Time</option>
+        <option value="Lodging">Lodging</option>
+        <option value="Machinery">Machinery</option>
+        <option value="Machinery">Machinery</option>
+        <option value="Media">Media</option>
+        <option value="Metal Fabricate & Hardware">Metal Fabricate & Hardware</option>
+        <option value="Mining">Mining</option>
+        <option value="Miscellaneous Manufacturers">Miscellaneous Manufacturers</option>
+        <option value="Office Equipment">Office Equipment</option>
+        <option value="Office Equipment">Office Equipment</option>
+        <option value="Oil & Gas">Oil & Gas</option>
+        <option value="Oil & Gas">Oil & Gas</option>
+        <option value="Packaging & Containers">Packaging & Containers</option>
+        <option value="Pharmaceuticals">Pharmaceuticals</option>
+        <option value="Pipelines">Pipelines</option>
+        <option value="Finance">Finance</option>
+        <option value="Real Estate">Real Estate</option>
+        <option value="Retail">Retail</option>
+        <option value="Finance">Finance</option>
+        <option value="Semiconductors">Semiconductors</option>
+        <option value="Shipbuilding">Shipbuilding</option>
+        <option value="Software">Software</option>
+        <option value="Storage & Warehousing">Storage & Warehousing</option>
+        <option value="Telecommunications">Telecommunications</option>
+        <option value="Textiles">Textiles</option>
+        <option value="Toys & Games & Hobbies">Toys & Games & Hobbies</option>
+        <option value="Transporation">Transporation</option>
+        <option value="Trucking & Leasing">Trucking & Leasing</option>
+        <option value="Water">Water</option>
+      </select>
+      <select id='select-attribute' name='attribute[]' class='demo-default' style='visibility:hidden' multiple>
+        <option value="appetising">appetising</option>
+        <option value="aesthetic">aesthetic</option>
+        <option value="convential">convential</option>
+        <option value="appealing">appealing</option>
+        <option value="plain">plain</option>
+        <option value="beautiful">beautiful</option>
+        <option value="traditional">traditional</option>
+        <option value="dreamlike">dreamlike</option>
+        <option value="delicate">delicate</option>
+        <option value="breathing">breathing</option>
+        <option value="comfortable">comfortable</option>
+        <option value="biological">biological</option>
+        <option value="energetic">energetic</option>
+        <option value="relaxing">relaxing</option>
+        <option value="corporal">corporal</option>
+        <option value="weary">weary</option>
+        <option value="organic">organic</option>
+        <option value="stressful">stressful</option>
+        <option value="empered">empered</option>
+        <option value="warm">warm</option>
+        <option value="beneficial">beneficial</option>
+        <option value="demented">demented</option>
+        <option value="depressive">depressive</option>
+        <option value="recreative">recreative</option>
+        <option value="caring">caring</option>
+        <option value="cared for">cared for</option>
+        <option value="healthy">healthy</option>
+        <option value="healing">healing</option>
+        <option value="hopeful">hopeful</option>
+        <option value="humane">humane</option>
+        <option value="unstable">unstable</option>
+        <option value="soothing">soothing</option>
+        <option value="pain-free">pain-free</option>
+        <option value="anxious">anxious</option>
+        <option value="constructive">constructive</option>
+        <option value="burdening">burdening</option>
+        <option value="protected">protected</option>
+        <option value="dominant">dominant</option>
+        <option value="euphoric">euphoric</option>
+        <option value="hypnotic">hypnotic</option>
+        <option value="isolated">isolated</option>
+        <option value="spiritual">spiritual</option>
+        <option value="suggestive">suggestive</option>
+        <option value="subconscious">subconscious</option>
+        <option value="confusing">confusing</option>
+        <option value="alternating">alternating</option>
+        <option value="current">current</option>
+        <option value="ordinary">ordinary</option>
+        <option value="stimulant">stimulant</option>
+        <option value="exciting">exciting</option>
+        <option value="moving">moving</option>
+        <option value="eventful">eventful</option>
+        <option value="common">common</option>
+        <option value="laughing">laughing</option>
+        <option value="playful">playful</option>
+        <option value="atmospheric">atmospheric</option>
+        <option value="stimulating">stimulating</option>
+        <option value="analytical">analytical</option>
+        <option value="chemical">chemical</option>
+        <option value="elementary">elementary</option>
+        <option value="fresh">fresh</option>
+        <option value="intelligent">intelligent</option>
+        <option value="concrete">concrete</option>
+        <option value="logical">logical</option>
+        <option value="objective">objective</option>
+        <option value="oriented">oriented</option>
+        <option value="practical">practical</option>
+        <option value="rational">rational</option>
+        <option value="theoretical">theoretical</option>
+        <option value="activating">activating</option>
+        <option value="calming">calming</option>
+        <option value="dynamic">dynamic</option>
+        <option value="ergonomic">ergonomic</option>
+        <option value="heartfelt">heartfelt</option>
+        <option value="fit">fit</option>
+        <option value="flowing">flowing</option>
+        <option value="lively">lively</option>
+        <option value="mobile">mobile</option>
+        <option value="passive">passive</option>
+        <option value="hovering">hovering</option>
+        <option value="athletic">athletic</option>
+        <option value="friendly">friendly</option>
+        <option value="popular">popular</option>
+        <option value="peaceful">peaceful</option>
+        <option value="at home">at home</option>
+        <option value="premuim">premuim</option>
+        <option value="intensive">intensive</option>
+        <option value="loving">loving</option>
+        <option value="sustainable">sustainable</option>
+        <option value="natual">natual</option>
+        <option value="gentle">gentle</option>
+        <option value="aged">aged</option>
+        <option value="familial">familial</option>
+        <option value="feminine">feminine</option>
+        <option value="secure">secure</option>
+        <option value="individual">individual</option>
+        <option value="intimate">intimate</option>
+        <option value="youthful">youthful</option>
+        <option value="childish">childish</option>
+        <option value="communicative">communicative</option>
+        <option value="masculine">masculine</option>
+        <option value="social">social</option>
+        <option value="confiding">confiding</option>
+        <option value="dim">dim</option>
+        <option value="faulty">faulty</option>
+        <option value="oppressive">oppressive</option>
+        <option value="frail">frail</option>
+        <option value="toxic">toxic</option>
+        <option value="helpless">helpless</option>
+        <option value="unstable">unstable</option>
+        <option value="sick">sick</option>
+        <option value="artificial">artificial</option>
+        <option value="suffering">suffering</option>
+        <option value="lethargic">lethargic</option>
+        <option value="annoying">annoying</option>
+      </select>
      </div>
     </div>
   </form>
 </form>
 
 <script>
+   $('#select-industry').selectize({
+    maxItems: 1
+  });
+
+  $('#select-color').selectize({
+    maxItems: 1
+  });
+  $('#select-attribute').selectize({
+    maxItems: 1
+  });
+
+
+  var selectionOptions = ['color','attribute','industry','brand'];
   var pathArray = window.location.href.split( '/' );
   var protocol = pathArray[0];
   var host = pathArray[2];
-  var url = protocol + '://' + host;
+  var url = protocol + '//' + host;
   var currentQuery = pathArray[3];
   var searchSelection = currentQuery;
 
-  $('#'+currentQuery+'_tab').css('background','#2e9abd');
+  $('#'+currentQuery+'_tab').css('background','#898989');
+  
+  $('#select-'+currentQuery).next().css('visibility','visible')
+  makeAllInvisibleExceptSelected(currentQuery);
 
   $('#brand_tab').click(setSearch);
   $('#industry_tab').click(setSearch);
@@ -43,24 +310,57 @@
   $('#color_tab').click(setSearch);
 
   function setSearch(){
-    var priorSearch = $('#'+searchSelection+"_tab");
+    var priorSearchValue = searchSelection;
+    var priorSearchObject = $('#'+searchSelection+"_tab");
+    
     searchSelection = this.id.split('_')[0];
-    priorSearch.css('background','white');
-    $(this).css('background','#2e9abd');
+    
+    setSelection(priorSearchValue,searchSelection);
+    
+    priorSearchObject.css('background','white');
+    $(this).css('background','#898989');
 
+  }
+
+  function makeAllInvisibleExceptSelected(current){
+    for(var i=0;i<4;i++){
+      if(selectionOptions[i] !== current){
+        $('#select-'+selectionOptions[i]).next().css('visibility','hidden');
+      }
+    }
+  }
+
+
+  function setSelection(prior, current){
+    $('#select-'+prior).next().css('visibility','hidden');
+    $('#select-'+current).next().css('visibility','visible');
   }
 
   $('#searchQuery').keypress(function(e){
     if(e.which == 13){
-      var goTO = url + "/" + searchSelection + "/" + $('#searchQuery').val();
-      alert(goTO)
-      window.location.href = goTO;
+      if($('#searchQuery').val() !== ''){
+        var encodedURI  = encodeURIComponent($('#searchQuery').val())
+        var goTO = url + "/" + searchSelection + "/" + encodedURI;
+        //alert(goTO)
+        window.location.href = goTO;
+      }
+      else{
+        alert("You must enter a search value!")
+      }
     }
   })
 
 
 
-/*  $('#select-industry').selectize({
+  $('#select-industry').selectize({
     maxItems: 1
-  });*/
+  });
+
+  $('#select-color').selectize({
+    maxItems: 1
+  });
+  $('#select-attribute').selectize({
+    maxItems: 1
+  });
+
 </script>

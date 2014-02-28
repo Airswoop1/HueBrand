@@ -33,7 +33,7 @@
               }
             %>
             <% for(var i=0;i<colorCombos.length-1; i++){ 
-              var percent = parseFloat(((colorCombos[i].colorPercentage/totesMcgoates)*100).toFixed(2),10);
+              var percent = Math.floor(parseFloat(((colorCombos[i].colorPercentage/totesMcgoates)*100).toFixed(0),10));
             %>
 
               <div class="combination-box" style="margin-bottom:3%;height: <%=percent%>%;background-color:rgb(

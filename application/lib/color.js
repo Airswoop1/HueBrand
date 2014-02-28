@@ -58,79 +58,60 @@ exports.queryColor = function(req,res){
 		}
 		else{
 			var searchTerm = new RegExp(req.params.query.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "i");
-			exports.Color.find({ 'colorName': searchTerm}, function(err, c){
-				
+			exports.Color.findOne({ 'colorName': searchTerm}, function(err, c){
+				console.log(c);
 				if(err){
 					console.log('color query not found! ' + err);
 					res.send(500, "Something broke with the color query!")
 				}
 				else{
+					colorObj = c;
+				
+					//logos with similar colors
+					var logoColorSearch = bloom.bloombergCompany.find({$and : [{'associatedColors.colorFamily': eval("'" + colorObj.colorFamily + "'") }, {logoFileName: {$exists:true}}]}).sort({'marketCap' : -1});//.limit(20)
+					
+					logoColorSearch.exec(function(err, companies){
+						if(err){
+							console.log("Error on color query for similar comapnies " + err);
+						}
+						else{
+							
+							exports.getTopColors(companies, colorObj, function(sortedTopColors){
+								getTopIndustries(companies, function(topIndustries){
+									getTopCountries(colorObj, function(topCountries){
+										colorCombination(colorObj, function(combos){					
+											
+											/*console.log("colorResult");
+											console.log(colorObj);
+											console.log("companyResult + industryResult");
+											console.log(companies);
+											console.log("topColors");
+											console.log(sortedTopColors);
+											console.log("topIndustries");
+											console.log(topIndustries);
+											console.log("topCountries");
+											console.log(topCountries);*/
 
-					if(c.length > 1 ){
-						res.render('index',{
-							colorResults : c
-						});
-					}	
-					else if(c.length === 1){
-						colorObj = c[0];
-
-						//logos with similar colors
-						var logoColorSearch = bloom.bloombergCompany.find({$and : [{'associatedColors.colorFamily': eval("'" + colorObj.colorFamily + "'") }, {logoFileName: {$exists:true}}]}).sort({'marketCap' : -1});//.limit(20)
-						
-						logoColorSearch.exec(function(err, companies){
-							if(err){
-								console.log("Error on color query for similar comapnies " + err);
-							}
-							else{
-								
-								exports.getTopColors(companies, colorObj, function(sortedTopColors){
-									getTopIndustries(companies, function(topIndustries){
-										getTopCountries(colorObj, function(topCountries){
-											colorCombination(colorObj, function(combos){					
-												
-												/*console.log("colorResult");
-												console.log(colorObj);
-												console.log("companyResult + industryResult");
-												console.log(companies);
-												console.log("topColors");
-												console.log(sortedTopColors);
-												console.log("topIndustries");
-												console.log(topIndustries);
-												console.log("topCountries");
-												console.log(topCountries);*/
-
-												res.render('color',{
-													"queryType" : "color",
-													"colorResult" : colorObj,
-													"companyResult" : companies,
-													"queryName" : req.params.query,
-													"industryResult" : companies,
-													"allCompanies" : {},
-													"brandResult" : {},
-													"topColors" : sortedTopColors,
-													"topIndustries" : topIndustries,
-													"topCountries" : topCountries,
-													"colorCombos" : combos
-												});
+											res.render('color',{
+												"queryType" : "color",
+												"colorResult" : colorObj,
+												"companyResult" : companies,
+												"queryName" : req.params.query,
+												"industryResult" : companies,
+												"allCompanies" : {},
+												"brandResult" : {},
+												"topColors" : sortedTopColors,
+												"topIndustries" : topIndustries,
+												"topCountries" : topCountries,
+												"colorCombos" : combos
 											});
 										});
 									});
 								});
-							}
+							});
+						}
 
-						});
-					}
-					else{
-						console.log("There was an error on the colorQuery!");
-
-						res.render('landing',{
-														queryType : '',
-														topCountries : {},
-														colorResult : {},
-														topColors : {},
-														industryResult:{}
-						})
-					}
+					});
 				}
 			})
 		

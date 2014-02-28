@@ -14,8 +14,8 @@ function initMaps() {
     zoomControlOptions: {
       style: google.maps.ZoomControlStyle.SMALL
     },
-    scrollwheel: false
-    /* styles: [
+    scrollwheel: false,
+    styles: [
       {
         "stylers": [
       { "visibility": "simplified" },
@@ -148,7 +148,7 @@ function initMaps() {
             }
         ]
     }
-    ]*/
+    ]
   };
 
 geocoder = new google.maps.Geocoder();

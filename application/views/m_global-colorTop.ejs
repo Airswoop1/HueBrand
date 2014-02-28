@@ -22,7 +22,7 @@
                                                                       <%=topColors[i].GrgbValue%>,
                                                                       <%=topColors[i].BrgbValue%>);"></div>
               <%if(topColors[i].colorPercentage > 10){%>
-                <div class="colorTop-percentage"><%=topColors[i].colorPercentage%>%</div>
+                <div class="colorTop-percentage"><%=Math.floor(topColors[i].colorPercentage)%>%</div>
                 <%}%>
             </div>  
           <%}%>
@@ -42,8 +42,7 @@
               <table class="table table-bordered" style='display:block;'>
                 <thead>
                   <tr style="font-weight:700;">
-                    <th>Color</th>
-                    <th>%</th>
+                    <th style='width:130px'>Color</th>
                     <th>RGB</th>
                     <th>HEX</th>
                     <th>HSV</th>
@@ -54,8 +53,7 @@
                     <td style="background-color:rgb(<%=topColors[j].RrgbValue%>,
                                                     <%=topColors[j].GrgbValue%>,
                                                     <%=topColors[j].BrgbValue%>);
-                                                    width:80px;"></td>
-                    <td><%=topColors[j].colorPercentage%>%</td>
+                                                    width:130px;"></td>
                     <td><%=topColors[j].RrgbValue%>,<%=topColors[j].GrgbValue%>,<%=topColors[j].BrgbValue%></td>
                     <td><%
                       function componentToHex(c){
@@ -69,7 +67,7 @@
                       %>
                       <%=hexValue%>
                     </td>
-                    <td><%=h%>°,<%=s%>%,<%=v%>%</td>
+                    <td><%=h%>°,<%=s%>,<%=v%></td>
                   </tr>
                   
                 </tbody>
