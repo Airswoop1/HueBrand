@@ -1,69 +1,59 @@
 <!-- [signup.html] - Signup Page -->
-<!-- In order to work all input fields must have a value attribute, for instance username must have  value="<%=username%>" . Password from the initial version from the repo does not have this attribute. Additionally, the commented out error handling on the bottom must be enabled for error handling to work.-->
+
 
 <% include header %>
 <% include sidebar %>
 
-<div id="user-management">
+ <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="responsive.css">
+<div id="user-management"  style="height: 60%;">
 
         <h2 class="txt-cntr">Registration</h2>
           <div class="login-head txt-cntr">
             <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
+            <div style="float:left;">
+
+                <div class="sub-header">Personal</div>
                 <div class="fl clr d-i-b">
-                    <label>FIRST NAME</label>
-                    <input type="text" name="first-name" / >
+                    <input type="text" name="First Name" placeholder="First Name" style="width:150px" / >
+                    <input type="text" name="Last Name"placeholder="Last Name" style="width:150px"/ >
                 </div>
                 <div class="fl clr d-i-b">
-                    <label>LAST NAME</label>
-                    <input type="text" name="last-name" / >
+                    <input type="text" name="Email" placeholder="Email" style="width:150px"/>
+                    <input type="text" name="Telephone" placeholder="Telephone"  style="width:150px"/ >
+                </div>
+                
+                <div class="sub-header">Company</div>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Company Name"  placeholder="Company Name" style="width:304px" / >
                 </div>
                 <div class="fl clr d-i-b">
-                    <label>EMAIL</label>
-                    <input type="text" name="email" / >
+                    <input type="text" name="Job Title" placeholder="Job Title"  style="width:304px"  / >
+                </div>
+                </div>
+                <div style="float:left;">
+                   
+                <div class="sub-header">Account Details</div>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Username" placeholder="Username"  style="width:304px" />
                 </div>
                 <div class="fl clr d-i-b">
-                    <label>TELEPHONE</label>
-                    <input type="text" name="telephone" / >
+                    <input type="password" name="pwd" placeholder="Password" style="width:150px"/>
+                    <input type="password" name="confirmpwd" placeholder="Confirm Password" value="" style="width:150px"/>
+                </div>
+                
+                <div class="sub-header">Address</div>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Country" placeholder="Country" style="width:304px"/ >
                 </div>
                 <div class="fl clr d-i-b">
-                    <label>COMPANY NAME</label>
-                    <input type="text" name="company-name" / >
+                    <input type="text" name="Address Line 1" placeholder="Address Line 1"/ style="width:150px" >
+                    <input type="text" name="Address Line 2" placeholder="Address Line 2" / style="width:150px" >
                 </div>
                 <div class="fl clr d-i-b">
-                    <label>JOB TITLE</label>
-                    <input type="text" name="job-title" / >
+                    <input type="text" name="City" placeholder="City" style="width:150px"/ >
+                    <input type="text" name="State" placeholder="State" style="width:150px" / >
                 </div>
-                <div class="fl clr d-i-b">
-                    <label>USERNAME</label>
-                    <input type="text" name="username"/>
-                </div>
-                <div class="fl clr d-i-b">
-                    <label>PASSWORD</label>
-                    <input type="password" name="pwd" value=""/>
-                </div>
-                <div class="fl clr d-i-b">
-                    <label>CONFIRM PASSWORD</label>
-                    <input type="password" name="confirmpwd" value=""/>
-                </div>
-                <div class="fl clr d-i-b">
-                    <label>COUNTRY</label>
-                    <input type="text" name="country" / >
-                </div>
-                <div class="fl clr d-i-b">
-                    <label>ADDRESS LINE 1</label>
-                    <input type="text" name="address-line-1" / >
-                </div>
-                <div class="fl clr d-i-b">
-                    <label>ADDRESS LINE 2</label>
-                    <input type="text" name="address-line-2" / >
-                </div>
-                <div class="fl clr d-i-b">
-                    <label>CITY</label>
-                    <input type="text" name="city" / >
-                </div>
-                <div class="fl clr d-i-b">
-                    <label>STATE</label>
-                    <input type="text" name="state" / >
                 </div>
                 <div class="txt-cntr clr submit-button">
                     <input type="submit"  value="Submit"/>

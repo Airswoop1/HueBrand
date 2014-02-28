@@ -8,15 +8,33 @@
         </div>
         <div class="well-content">
          <div class="logoCloudFilter">
-            <a href="#" data-filter=".firstdecile">1 - 20</a>
-            <a href="#" data-filter=".secondquartile">21 - 40</a>
-            <a href="#" data-filter=".thirdquartile">41 - 60</a>
-            <a href="#" data-filter=".fourthquartile">61 - 80</a>
-            <a href="#" data-filter=".fourthquartile">81 - 100</a>
+            <a href="#" data-filter=".firstdecile">1 - 10</a>
+            <a href="#" data-filter=".seconddecile">11 - 20</a>
+            <a href="#" data-filter=".thirddecile">21 - 30</a>
+            <a href="#" data-filter=".fourthdecile">31 - 40</a>
+            <a href="#" data-filter=".fifthdecile">41 - 50</a>
         </div>
           <div class="logoCloudContainer">
-            <% for(var i=0; i<industryResult.length; i++){ %>
-                <div class='first' style='float:left;width:150px;height:150px'>
+            <% for(var i=0; i<industryResult.length; i++){ 
+                  var className = '';                  
+                  if(i<10){
+                    className = 'firstdecile';
+                  } 
+                  else if(i>=10 && i<20){
+                    className = 'seconddecile';
+                  }
+                  else if(i>=20 && i<30){
+                    className = 'thirddecile';
+                  }
+                  else if(i>=30 && i<40){
+                    className = 'fourthdecile';
+                  }
+                  else{
+                    className = 'fifthdecile';
+                  }
+
+            %>
+                <div class='first <%= className %>' style='float:left;width:150px;height:150px'>
                   <%if(typeof industryResult[i].logoFileName !== 'undefined'){%>
                     <img class='logo' src="../logos/<%=industryResult[i].logoFileName%>" >
                   <%}%>

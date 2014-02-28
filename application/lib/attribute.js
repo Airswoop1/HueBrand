@@ -1,7 +1,16 @@
 var mongoose = require('mongoose'), 
 	fs = require('fs'),
 	csv = require('csv'),
-	bloom = require('./bloombergCompanies.js');
+	bloom = require('./bloombergCompanies.js'),
+	_ = require('underscore');
+
+var emptyPayload = {
+	queryType : '',
+	topCountries : {},
+	colorResult : {},
+	topColors : {},
+	industryResult:{}
+}
 
 var attributes = new mongoose.Schema({
 		industry : String,
@@ -16,63 +25,36 @@ exports.attributeModel = mongoose.model('attributes', attributes);
 exports.queryAttribute = function(req, res){
 try{
 	if(!req.params.query){
-			console.log("error! on /color/query ");
-			res.render('error',{})
+			console.log("error! on attribute query ");
+			res.render('landing', emptyPayload)
 		}
 		else{
+
 			exports.attributeModel.find({ 'attribute': eval('/' + req.params.query + '/i')}, function(err, attributeObj){
 				console.log(attributeObj);
 				if(err){
-					console.log('color query not found! ' + err);
-					res.send(500, "Something broke with the color query!")
+					console.log(err);
+					console.log("error on attribute query");
+					res.render('landing', emptyPayload);
 				}
-				else{
+				else if(attributeObj){
 					
 					getTopColorsForAttributes(attributeObj, function(sortedTopColors){
-						console.log(sortedTopColors);
+						getColorDataForTopColors(sortedTopColors,function(sortedTopColorsWithData){
 
-						sortedTopColors = [ { colorName: 'Yellow 1',
-																				    colorPercentage: 34,
-																				    RrgbValue: 239,
-																				    GrgbValue: 204,
-																				    BrgbValue: 0,
-																				    hValue: 51.21338912,
-																				    sValue: 100,
-																				    vValue: 93.7254902,
-																				    lValue: 46.8627451 },
-																				    
-																				    { colorName: 'Yellow 2',
-																				    colorPercentage: 33,
-																				    RrgbValue: 220,
-																				    GrgbValue: 200,
-																				    BrgbValue: 0,
-																				    hValue: 51.21338912,
-																				    sValue: 100,
-																				    vValue: 93.7254902,
-																				    lValue: 46.8627451 },
+								res.render('attribute', {
+									"queryType" : "brand",
+									"topColors" : sortedTopColorsWithData,
+									"attributeResult" : attributeObj[0],
+									"brandResult" : {},//brandResult,
+									"industryResult" : {},//industry,
+									"colorResult" : {},//colors,
+									"queryName" : req.params.query,
+									"allCompanies" : bloom.AllCompanies,
+									"topCountries" : {}
 
-																				    { colorName: 'Yellow 3',
-																				    colorPercentage: 33,
-																				    RrgbValue: 180,
-																				    GrgbValue: 100,
-																				    BrgbValue: 0,
-																				    hValue: 51.21338912,
-																				    sValue: 100,
-																				    vValue: 93.7254902,
-																				    lValue: 46.8627451 } ]
-
-							res.render('attribute', {
-								"queryType" : "attribute",
-								"topColors" : sortedTopColors,
-								"attributeResult" : attributeObj[0],
-								"brandResult" : {},//brandResult,
-								"industryResult" : {},//industry,
-								"colorResult" : {},//colors,
-								"queryName" : req.params.query,
-								"allCompanies" : bloom.AllCompanies,
-								"topCountries" : {}
-
-							});
+								});
+							})
 					});
 				}
 			});
@@ -89,6 +71,32 @@ try{
 														industryResult:{}
 													})
 	}
+}
+
+function getColorDataForTopColors(cArray, callback){	
+	var modifiedArray = Array();
+
+	var queryDBForColorInfo = function(colorArray, index, newArray, cb){
+		if(index == colorArray.length){
+
+			cb(newArray);
+		}else{
+			color.Color.find({colorName : colorArray[index].key, "isBase": true}, function(err, c){
+				if(err || !c.length){
+					queryDBForColorInfo(colorArray, ++index, newArray, cb);	
+				}
+				else{
+					var colorObject = c[0];				
+					colorObject["colorPercentage"] = colorArray[index].freq;
+					newArray.push(colorObject);
+
+					queryDBForColorInfo(colorArray, ++index, newArray, cb);
+				}
+			})
+		}
+	}
+
+	queryDBForColorInfo(cArray, 0, modifiedArray, callback);
 }		
 
 var getTopColorsForAttributes = function( attrObjects, callback ){
@@ -96,12 +104,21 @@ var getTopColorsForAttributes = function( attrObjects, callback ){
 	var attributeColorMap = []
 
 	for(var i=0;i<attrObjects.length;i++){
+		
+		var colorName;
 
-		if(attributeColorMap.indexOf(attrObjects[i].color)>=0){
-			attributeColorMap[attrObjects[i].color].freq += 1;
+		if(attrObjects[i].shade == 'NA'){
+			colorName = 'medium ' + attrObjects[i].color;
 		}
 		else{
-			attributeColorMap[attrObjects[i].color] = {"freq" : 1}
+			colorName = attrObjects[i].shade + " " + attrObjects[i].color;
+		}
+		
+		if(attributeColorMap.hasOwnProperty(colorName)){
+			attributeColorMap[colorName].freq += 1;
+		}
+		else{
+			attributeColorMap[colorName] = {"freq" : 1, "key": colorName};
 		}
 	}
 
@@ -111,13 +128,28 @@ var getTopColorsForAttributes = function( attrObjects, callback ){
 		arrayOfColors.push({key:key, "freq":attributeColorMap[key].freq});
 	}
 
-	arrayOfColors.sort(function(x,y){
-		return y['freq'] - x['freq']
-	})
+	var sortedArrayOfColors = _.sortBy(arrayOfColors, 'freq');
+	sortedArrayOfColors.reverse();
+	outOf100(sortedArrayOfColors,'freq', function(sortedAndNormalizedArrayOfColors){
 
-	callback(arrayOfColors);
+		callback(sortedAndNormalizedArrayOfColors);	
+	});
+	
 
 }
 
+var outOf100 = function(arr, valueToNormalize, cb){
+	var total = 0;
+	for(var i=0; i<arr.length;i++){
+		total += arr[i][valueToNormalize];
+	}
+
+	for(var j=0;j<arr.length;j++){
+		arr[j][valueToNormalize] = parseFloat(((arr[j][valueToNormalize]/total)*100).toFixed(2),10);
+	}
+
+	cb(arr);
+
+}
 
 

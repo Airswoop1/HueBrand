@@ -1,6 +1,16 @@
 var mongoose = require('mongoose');
 		bloom = require('./bloombergCompanies.js'),
-		color = require('./color.js');
+		color = require('./color.js'),
+		_ = require('underscore');
+
+
+var emptyPayload = {
+	queryType : '',
+	topCountries : {},
+	colorResult : {},
+	topColors : {},
+	industryResult:{}
+}
 
 exports.Industry = mongoose.model('Industry', new mongoose.Schema({
 	
@@ -14,13 +24,13 @@ exports.Industry = mongoose.model('Industry', new mongoose.Schema({
 }));
 
 exports.queryIndustry = function(req,res){
+
 try{
 	if(!req.params.query){
-			console.log("error! on /brand/query ");
-			res.render('error',{})
+			console.log("error! on /industry query ");
+			res.render('landing',emptyPayload)
 		}
 		else{
-
 
 			var searchTerm = new RegExp(req.params.query.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1"), "i");
 
@@ -30,22 +40,13 @@ try{
 					console.log('brand query not found! ' + bloomErr);
 					res.send(500, "Something broke!")
 				}
-				else{
-					console.log(industryResult);
+				else if(industryResult){
 
 					getTopColorFromInd(industryResult, function(sortedTopColors){
-						var limitedColors = sortedTopColors;
-						if(sortedTopColors.length>4){
-							limitedColors = [];
-							for(var i=0;i<3;i++){
-								limitedColors.push(sortedTopColors[i]);
-							}
-						}
-						console.log("limited Colors ")
-						console.log(limitedColors);
+						console.log(sortedTopColors);
 						res.render('industry',{
-							"queryType" : "industry",
-							"topColors" : limitedColors,
+							"queryType" : "brand",
+							"topColors" : sortedTopColors,
 							"brandResult" : {},//brandResult,
 							"industryResult" : industryResult,
 							"colorResult" : {},//colors,
@@ -55,24 +56,22 @@ try{
 						})
 					})
 				}
+				else{
+					console.log("error on industry");
+					res.render('landing', emptyPayload);
+				}
 			})
 		}
 	}
 	catch(e){
 		console.log("There was an error on the colorQuery!");
 		console.log(e);
-		res.render('landing',{		
-														queryType : '',
-														topCountries : {},
-														colorResult : {},
-														topColors : {},
-														industryResult:{}
-													})
+		res.render('landing',emptyPayload)
 	}
 }
 
 var getTopColorFromInd = function( colorCompanies, callback ){
-
+	console.log("Getting top color from Ind");
 	var colorNameMap = [];
 
 	//build object of {colorName : totalPercentage} for all colors that match the colorFamily
@@ -122,12 +121,10 @@ var getTopColorFromInd = function( colorCompanies, callback ){
 		return y["colorPercentage"] - x["colorPercentage"];
 	})
 
-	var topFiveColors = [];
-
 	if(arrayOfColorNames.length>5)
 	{
-		topFiveColors = arrayOfColorNames.slice(0,6);
-		outOf100(topFiveColors, "colorPercentage", function(topFiveNormalized){
+		var topFive = _.first(arrayOfColorNames,5)
+		outOf100(topFive, "colorPercentage", function(topFiveNormalized){
 					callback(topFiveNormalized);			
 		})
 
@@ -145,7 +142,6 @@ var getTopColorFromInd = function( colorCompanies, callback ){
 	}
 	else
 	{
-
 		callback([])
 	}
 }
