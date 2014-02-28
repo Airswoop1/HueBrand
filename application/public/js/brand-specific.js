@@ -6,33 +6,73 @@
   
   function drawChart() {
     var dataSourceForArrayToData = [['Color', 'Percentage', { role: 'style' } ]]
-    for(var i=0; i<topColor.length;i++){
-      var percentToNumber = topColor[i].colorPercentage/100;
+    
+    var colorFamilies = {}
+    colorFamilies["red"] = "R"
+    colorFamilies["orange"] = "O"
+    colorFamilies["brown"] = "Br"
+    colorFamilies["beige"] = "Be"
+    colorFamilies["yellow"] = "Y"
+    colorFamilies["yellow/green"] = "Y/G"
+    colorFamilies["green"] = "G"
+    colorFamilies["cyan"] = "C"
+    colorFamilies["blue"] = "B"
+    colorFamilies["purple"] = "P"
+    colorFamilies["magenta"] = "M"
+    colorFamilies["black"] = "Bl"
+    colorFamilies["gray"] = "GY"
+    colorFamilies["white"] = "W"
 
-      dataSourceForArrayToData.push([
-        topColor[i].colorName,
-        percentToNumber,
-        'fill-color : ' + topColor[i].hexValue + ';stroke-color: #000000; stroke-width: 1;'
-        ])
+    var colorsUsed = [];
+    for(var i=0; i<topColor.length;i++){
+
+      if(colorFamilies.hasOwnProperty(topColor[i].colorFamily)){
+        colorsUsed.push(topColor[i].colorFamily);
+
+         var percentToNumber = (topColor[i].colorPercentage/100);
+
+        dataSourceForArrayToData.push([
+          colorFamilies[topColor[i].colorFamily],
+          percentToNumber,
+          'fill-color : ' + topColor[i].hexValue + ';stroke-color: #000000; stroke-width: .1;'
+          ])
+      }
+
     }
-    console.log(dataSourceForArrayToData);
+
+    data
+
+    for(var colors in colorFamilies){
+      if(!colorsUsed.hasOwnProperty(colorFamilies[colors])){
+        dataSourceForArrayToData.push([
+          colorFamilies[colors],
+          0,
+          '' 
+        ]);        
+      }
+
+    }
+
+
+
 
     var data = google.visualization.arrayToDataTable(dataSourceForArrayToData);
 
   var view = new google.visualization.DataView(data);
   view.setColumns([0, 1,
-    { calc: "stringify",
+    { 
+    calc: "stringify",
     sourceColumn: 1,
     type: "string",
     role: "annotation" },
     2]);
 
-  var formatter = new google.visualization.NumberFormat({
+  /*var formatter = new google.visualization.NumberFormat({
     fractionDigits: 3,
     pattern:'#,###%',
     });
   
-  formatter.format(data, 1);
+  formatter.format(data, 1);*/
 
   var options = {
     vAxis: {format:'0%', minValue:0, viewWindowMode:'maximized', textStyle:{ fontName: 'Nunito',fontSize: '16' }},
