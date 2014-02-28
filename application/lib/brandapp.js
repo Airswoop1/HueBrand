@@ -1,6 +1,15 @@
 var mongoose = require('mongoose'),
 	bloom = require('./bloombergCompanies.js'),
-	color = require('./color.js');
+	color = require('./color.js'),
+	_  = require('underscore');
+
+var emptyPayload = {
+	queryType : '',
+	topCountries : {},
+	colorResult : {},
+	topColors : {},
+	industryResult:{}
+}
 
 exports.queryBrand = function(req,res){
 try{
@@ -24,65 +33,50 @@ try{
 							potentialBrands : b
 						})
 					}
-					else{
+					else if(b.length === 1){
+					
 						var brandResult  = b[0];	
 					
+						var brandResultTopColor = _.max(brandResult.associatedColors,function(per){return per.colorPercentage})
+						console.log(brandResultTopColor);
+
+						var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResult.GICSIndName+"'")}).sort({marketCap: -1});
 					
-					var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResult.GICSIndName+"'")}).sort({marketCap: -1}).limit(10);
-					
-					industryQuery.exec(function(indErr, industry){
-						if(indErr){
-							console.log("There was an error! : " + err)
-							res.send(500, "Something broke!")
-						}
-						calculateTopIndustryColors(industry, function(topColorErr, topColors){
+						industryQuery.exec(function(indErr, industryCompanies){
+							if(indErr){
+								console.log("There was an error! : " + err)
+								res.render('landing', emptyPayload);
+							}
+
+							color.getTopColors(industryCompanies, brandResultTopColor, function(topColorErr, topIndustryCompaniesColors){
 
 							//if the colors have yet to be defined
 							if(typeof brandResult.associatedColors[0] !== 'undefined'){
-								
-								var colorQuery = bloom.bloombergCompany.find({'associatedColors.colorFamily': eval("'" + brandResult.associatedColors[0].colorFamily + "'") });
-
-								colorQuery.exec(function(err, colors){
-									if(err){
-										console.log("There was an error! : " + err);
-										res.send(500, "Something broke!");
-										return;
-									}
-
-									sortColors(brandResult, function(sortedBrandresult){
-
-										var limitedColors = [];
-
-										for(var i=0;i < 3;i++){
-											limitedColors.push(sortedBrandresult.associatedColors[i]);
-										}
 											
-
-										
-										res.render('brand',{
-											"queryType" : "brand",
-											"topColors" : limitedColors,
-											"brandResult" : brandResult,
-											"industryResult" : industry,
-											"colorResult" : colors,
-											"queryName" : req.params.query,
-											"allCompanies" : bloom.AllCompanies,
-											"topCountries" : {}
-										});
-
-									});
-								});
+											res.render('brand',{
+												"queryType" : "brand",
+												"topColors" : brandResult.associatedColors,
+												"brandResult" : brandResult,
+												"industryResult" : industryCompanies,
+												"companyResult" : industryCompanies,
+												"colorResult" : brandResultTopColor,
+												"queryName" : req.params.query,
+												"allCompanies" : bloom.AllCompanies,
+												"topCountries" : {}
+											});
+									
 							}
 							else{
-								res.send(500, "Something broke!")
+								console.log("Brand colors are undefined");
+								res.render('landing', emptyPayload)
 							}
-						
-
 						})//top colors
-
 					})
 					
 				}// \else
+				else{
+					res.render('landing', emptyPayload )
+				}
 				}
 
 			})//\ bloom.find()
@@ -92,33 +86,7 @@ try{
 	catch(e){
 		console.log("There was an error on the brandQuery!");
 		console.log(e);
-		res.render('landing',{		
-														queryType : '',
-														topCountries : {},
-														colorResult : {},
-														topColors : {},
-														industryResult:{}
-													})
+		res.render('landing',emptyPayload)
 	}
 
 }// end Of Function
-
-var sortColors = function(brand, callback){
-
-	brand.associatedColors.sort(function(x,y){
-			return y['colorPercentage'] - x['colorPercentage']
-		});
-
-	callback(brand);
-
-}
-
-
-var calculateTopIndustryColors = function(industryList,callback){
-
-	callback(null);
-
-}
-
-
-

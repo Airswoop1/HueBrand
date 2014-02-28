@@ -1,38 +1,66 @@
   
 <form id="search-form" class="navbar-form" role="search">
   <span class="search-tabs">
-    <span class="search-tab">
+    <span class="search-tab" id='brand_tab'>
       Brand
     </span>
-    <span class="search-tab">  
+    <span class="search-tab" id='industry_tab'>  
       Industry
     </span>
-    <span class="search-tab">  
+    <span class="search-tab" id='attribute_tab'>  
       Attribute
     </span>
-    <span class="search-tab">  
+    <span class="search-tab" id='color_tab'>  
       Color
     </span>
   </span>
 <form class="navbar-form" role="search">
   <div class="demo">
     <div class="control-group">
-      <select id="select-industry" name="industry[]" multiple class="demo-default"  placeholder="Select a brand...">
+      <input type='text' id='searchQuery'>
+      <!--<select id="select-industry" name="industry[]" multiple class="demo-default"  placeholder="Select a brand...">
         <option value="">Select a brand...</option>
-        <option value="Facebook">Facebook</option>
-        <option value="Google">Google</option>
-        <option value="Exxon Mobil">Exxon Mobil</option>
-        <option value="PetroChina">PetroChina</option>
-        <option value="Bank of America">Bank of America</option>
-        <option value="Citigroup">Citigroup</option>
-      </select>
+
+      </select>-->
      </div>
     </div>
   </form>
 </form>
 
 <script>
-  $('#select-industry').selectize({
+  var pathArray = window.location.href.split( '/' );
+  var protocol = pathArray[0];
+  var host = pathArray[2];
+  var url = protocol + '://' + host;
+  var currentQuery = pathArray[3];
+  var searchSelection = currentQuery;
+
+  $('#'+currentQuery+'_tab').css('background','#2e9abd');
+
+  $('#brand_tab').click(setSearch);
+  $('#industry_tab').click(setSearch);
+  $('#attribute_tab').click(setSearch);
+  $('#color_tab').click(setSearch);
+
+  function setSearch(){
+    var priorSearch = $('#'+searchSelection+"_tab");
+    searchSelection = this.id.split('_')[0];
+    priorSearch.css('background','white');
+    $(this).css('background','#2e9abd');
+
+  }
+
+  $('#searchQuery').keypress(function(e){
+    if(e.which == 13){
+      var goTO = url + "/" + searchSelection + "/" + $('#searchQuery').val();
+      alert(goTO)
+      window.location.href = goTO;
+    }
+  })
+
+
+
+/*  $('#select-industry').selectize({
     maxItems: 1
-  });
+  });*/
 </script>

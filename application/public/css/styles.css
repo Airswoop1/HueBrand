@@ -610,6 +610,13 @@ input:-moz-placeholder::before {
 	height: 400px;
 }
 
+#user-management .sub-header {
+	margin: 5px 0px 5px 0px;
+	text-align: left;
+	font-weight: 700;"
+}
+
+
 #login-form {
 	border-radius: 10px 10px 10px 10px;
 	display:  inline-block;
@@ -641,7 +648,8 @@ input:-moz-placeholder::before {
 }
 
 .m-l-10 {
-	margin-left: 10px;
+	display: inline-block;
+	margin: 0px!important;
 }
 
 .err-msg {
@@ -702,11 +710,10 @@ input:-moz-placeholder::before {
 
 .submit-button input {
 	margin-left: 0px;
-	padding: 11px 10px 9px 10px;
-	border: 1px solid;
-	border-color: rgb(0, 0, 0);
-	background-color: rgb(255, 255, 255);
-	font-size:12px;
+	padding: 5px 10px 5px 10px; 
+	border: 1px solid; border-color: rgb(0, 0, 0); 
+	background-color: rgb(255, 255, 255); 
+	font-size: 12px; 
 }
 
 .register-button {
@@ -1597,17 +1604,18 @@ input:-moz-placeholder::before {
 }
 
 #login-form input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
-background-color: #fafafa;
-font-family: 'Source Sans Pro', "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-font-style: normal;
-border: 1px solid #eaeaea;
--webkit-box-shadow: none;
--moz-box-shadow: none;
-box-shadow: none;
-color: #cbcbcb;
-font-size: 12px;
-margin: 0 0 12px 0;
-padding: 6px 16px 6px 14px;
-height: 37px;
-width:300px;
+	background-color: #fafafa;
+	font-family: 'Source Sans Pro', "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+	font-style: normal;
+	border: 1px solid #eaeaea;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	color: #cbcbcb;
+	font-size: 12px;
+	margin: 0 0 5px 0;
+	padding: 6px 16px 6px 14px;
+	height: 37px;
+	width:300px;
 }
+
