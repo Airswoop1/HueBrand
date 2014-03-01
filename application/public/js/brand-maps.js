@@ -29,7 +29,7 @@ function initMaps() {
         "featureType": "administrative",
         "stylers": [
             {
-                "visibility": "off"
+                "visibility": "on",
             }
         ]
     },

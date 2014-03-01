@@ -45,9 +45,7 @@ $(window).load(function(){
   $(window).load(function(){
       var $container = $('.logoCloudContainer');
       $container.isotope({
-          masonry: {
-            columnWidth: 140
-          },  
+ 
           filter: '.first',
           animationOptions: {
               duration: 3750,

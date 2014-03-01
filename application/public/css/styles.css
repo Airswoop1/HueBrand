@@ -321,6 +321,10 @@ input:-moz-placeholder::before {
 }
 */
 
+.selectize-control {
+	position: absolute!important;
+}
+
 .search-tab {
 	margin-right: 5px;
 	padding: 3px;
@@ -553,7 +557,8 @@ input:-moz-placeholder::before {
 }
 
 #landing .text-row {
-	height: 60px;
+	margin-top: 60px;
+	height: 35px;
 	font-family: 'Oxygen';
 	font-size: 23px;
 	font-weight: 100;
@@ -613,7 +618,7 @@ input:-moz-placeholder::before {
 #user-management .sub-header {
 	margin: 5px 0px 5px 0px;
 	text-align: left;
-	font-weight: 700;"
+	font-weight: 700;
 }
 
 
@@ -645,6 +650,8 @@ input:-moz-placeholder::before {
 
 .d-i-b {
 	display: inline-block;
+	margin: 0px!important;
+
 }
 
 .m-l-10 {
@@ -908,6 +915,10 @@ input:-moz-placeholder::before {
 	font-weight: 100;
 }
 
+.owl-pagination {
+	display:none;
+}
+
 
 /*---Module - Color - Color Information CSS --*/
 /*---[m_color-info.ejs] --*/
@@ -1140,7 +1151,7 @@ input:-moz-placeholder::before {
 	float: left;
 	margin-right: 2%;
 	margin-left: 2%;
-	width: 10%;
+	width: 30.66%;
 }
 
 #industriesTop .span12 .well-content {
@@ -1218,7 +1229,8 @@ input:-moz-placeholder::before {
 #logocloud {
 	float: left;
 	margin-right: 2%;
-	width: 47%;
+	width: 30.66%;
+	margin-top: 10px;
 }
 
 #logocloud .well-content {
@@ -1226,7 +1238,7 @@ input:-moz-placeholder::before {
 }
 
 .logoCloudFilter {
-	padding-left: 20px;
+	padding-left: 10px;
 }
 
 .logoCloudFilter a {
@@ -1263,11 +1275,26 @@ input:-moz-placeholder::before {
 	font-weight: bold;
 }
 
+.logoCloudContainer .first {
+	float:left;
+	margin-top: 5px;
+	margin-left: 10px;
+	height:100px;
+	width:100px;
+	border: 1px #F0F0F0 solid;
+}
+
 .logoCloudContainer img {
-	padding: 20px;
-	max-width: 150px;
-	max-height: 150px;
+	padding: 10px;
+	max-width: 100px;
+	max-height: 100px;
 	float: left;
+	position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .isotope-item {
@@ -1309,10 +1336,11 @@ input:-moz-placeholder::before {
 /*---[m_global-map.ejs] --*/
 /*---Map -*/
 #global-map {
-	width: 35%;
+	width: 30.66%;
 	float: left;
 	margin-right: 2%;
 	margin-bottom: -20px;
+	margin-top: 10px;
 }
 
 #global-map .span12 .well-content {
@@ -1518,7 +1546,8 @@ input:-moz-placeholder::before {
 	margin-right: 2%;
 	margin-left: 2%;
 	height: 300px;
-	width: 10%;
+	width: 30.66%;
+	margin-top: 10px;
 }
 
 #logoHistory .span12 .well-content {

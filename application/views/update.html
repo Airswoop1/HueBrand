@@ -4,56 +4,63 @@
 <% include header %>
 <% include sidebar %>
 
+
+ <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="responsive.css">
+
 <div id="user-management"  style="height: 60%;">
 
         <h2 class="txt-cntr">Edit User</h2>
 
           <div class="login-head txt-cntr">
             <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/register" method="post">
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="First Name"  <%= disableAttr %>  / >
+
+             <div style="float:left;">
+
+                <div class="sub-header">Personal</div>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="First Name" placeholder="First Name" style="width:150px" / >
+                    <input type="text" name="Last Name"placeholder="Last Name" style="width:150px"/ >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Last Name"  <%= disableAttr %>  / >
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Email" placeholder="Email" style="width:150px"/>
+                    <input type="text" name="Telephone" placeholder="Telephone"  style="width:150px"/ >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Email"  <%= disableAttr %>  />
+                
+                <div class="sub-header">Company</div>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Company Name"  placeholder="Company Name" style="width:304px" / >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Telephone"  <%= disableAttr %>   / >
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Job Title" placeholder="Job Title"  style="width:304px"  / >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Company Name"   <%= disableAttr %>  / >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Job Title"  <%= disableAttr %> / >
+                <div style="float:left;">
+                   
+                <div class="sub-header">Account Details</div>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Username" placeholder="Username"  style="width:304px" />
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Username"  <%= disableAttr %> />
+                <div class="fl clr d-i-b">
+                    <input type="password" name="pwd" placeholder="Password" style="width:150px"/>
+                    <input type="password" name="confirmpwd" placeholder="Confirm Password" value="" style="width:150px"/>
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="password" name="pwd"  <%= disableAttr %> />
+                
+                <div class="sub-header">Address</div>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Country" placeholder="Country" style="width:304px"/ >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="password" name="confirmpwd"  <%= disableAttr %>  value=""/>
+                <div class="fl clr d-i-b">
+                    <input type="text" name="Address Line 1" placeholder="Address Line 1"/ style="width:150px" >
+                    <input type="text" name="Address Line 2" placeholder="Address Line 2" / style="width:150px" >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Country"  <%= disableAttr %> / >
+                <div class="fl clr d-i-b">
+                    <input type="text" name="City" placeholder="City" style="width:150px"/ >
+                    <input type="text" name="State" placeholder="State" style="width:150px"  / >
                 </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Address Line 1"  <%= disableAttr %> / >
-                </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="Address Line 2"  <%= disableAttr %>  / >
-                </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="City"  <%= disableAttr %>  / >
-                </div>
-                <div class="fl clr d-i-b"  style="margin: 0px!important;">
-                    <input type="text" name="State"  <%= disableAttr %> / >
                 </div>
                 <div class="txt-cntr clr submit-button">
-                    <input type="submit"  value="Submit"  <%= disableAttr %> />
+                    <input type="submit"  value="Submit"  />
                 </div>
         <!--
           <% if(locals.regErr) { %>
@@ -65,3 +72,4 @@
   
 </div>
 <% include footer %>
+

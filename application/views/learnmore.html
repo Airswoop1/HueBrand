@@ -2,30 +2,31 @@
 <!-- need to adjust form path , took out error handling -->
 <% include header %>
 <% include sidebar %>
-
+ <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="responsive.css">
 <div id="user-management" style="height: 60%;">
   <h4 class="txt-cntr">Interested in more information regarding a HUEGROUP subscription?<br> Please complete this brief set of questions and we will contact you with additional information.</h4><br>
     <div class="login-head txt-cntr">
       <form id= "login-form" enctype="multipart/form-data" autocomplete="off" action="/learnmore" method="post">
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
+          <div class="fl clr d-i-b">
               <input type="text" name="Email" placeholder="Email"/ >
           </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
+          <div class="fl clr d-i-b">
               <input type="text" name="First Name" placeholder="First Name"/ >
           </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
+          <div class="fl clr d-i-b">
               <input type="text" name="Last Name" placeholder="Last Name"/ >
           </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
+          <div class="fl clr d-i-b">
               <input type="text" name="Company Name" placeholder="Company Name" / >
           </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
+          <div class="fl clr d-i-b">
               <input type="text" name="Telephone" placeholder="Telephone"/ >
           </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
+          <div class="fl clr d-i-b">
               <input type="text" name="Country" placeholder="Country"/ >
           </div>
-          <div class="fl clr d-i-b" style="margin: 0px!important;">
+          <div class="fl clr d-i-b">
               <input type="text" name="Profession" placeholder="Profession"/ >
           </div><br>
           <div class="txt-cntr clr submit-button">
@@ -35,4 +36,5 @@
     </div>
 </div>
 <% include footer %>
+
 
