@@ -1,16 +1,16 @@
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-width : 480px) and (max-width : 700px) {
+@media only screen and (min-width : 400px) and (max-width : 700px) {
 	.general-container {
 		float: left;
+		margin-top: 10px;
 		margin-left: 2%;
 		margin-right: 2%;
 		width: 96%;
-		margin-top: 10px;
 	}
 
 	.dropdown-toggle {
-		margin-top:0px;
 		float: right;
+		margin-top: 0px;
 	}
 
 	.row .analytics-row {
@@ -24,8 +24,8 @@
 
 	.analytics-cell .analytics-header {
 		margin: 15px;
-		margin-bottom: 3px;
 		margin-top: 5px;
+		margin-bottom: 3px;
 		font-size: 14px;
 		font-weight: 500;
 	}
@@ -35,15 +35,15 @@
 	}
 
 	#brand-info, #industry-info, #color-info, #attribute-info, #colorTop, #color-chart, #logoHistory, #color-gradient, #global-map, #logocloud, #color-combinations, #industriesTop {
-		max-width: 96%;
 		margin: 15px;
-		width: 100%;
 		margin-bottom: 10px;
+		width: 100%;
+		max-width: 96%;
 	}
 
 	#color-gradient {
-		height: inherit;
 		margin-bottom: 10px;
+		height: inherit;
 	}
 
 	#industriesTop .span12 .well-content {
@@ -51,17 +51,16 @@
 	}
 
 	#industriesTop-data li {
-		width: 25% !important;
 		margin-top: 70px!important;
-
+		width: 25% !important;
 	}
 
 	.navbar-fixed-bottom .container {
-		width: 98%;
 		margin-top: 10px;
-		margin-bottom: 10px;
-		text-align: center;
 		margin-left: 15px;
+		margin-bottom: 10px;
+		width: 98%;
+		text-align: center;
 	}
 
 	.navbar-fixed-bottom .pull-right a:link {
@@ -97,15 +96,15 @@
 	}
 
 	#about {
-		width: 480px;
 		margin-left:auto;
 		margin-right:auto;
+		width: 480px;
 		font-size:11px;
 	}
 
 	#about b {
-		font-size:11px!important;
 		line-height:9px;
+		font-size:11px!important;
 	}
 
 	#about p {
@@ -114,14 +113,14 @@
 
 
 	#landing .landing-container {
-		width: 480px;
 		float: left;
 		margin-top:20px;
+		width: 480px;
 	}
 
 	#landing .page-header h1 {
-		font-size: 50px;
 		margin-top: 50px;
+		font-size: 50px;
 	}
 
 	.ch-grid li {
@@ -138,8 +137,8 @@
 	}
 
 	.ch-item {
-		width: 50px;
 		height: 50px;
+		width: 50px;
 		border-radius: 50%;
 	}
 
@@ -176,9 +175,9 @@
 @media only screen and (min-width : 700px) and (max-width : 1024px) {
 
 	.analytics-cell .analytics-header {
+		margin-top: 5px;
 		font-size: 15px;
 		font-weight: 100;
-		margin-top: 5px;
 	}
 
 	.analytics-cell .analytics-subText {
@@ -192,9 +191,9 @@
 	}
 
 	#color-gradient {
-		height: inherit;
-		margin-bottom: 10px;
 		margin: 15px;
+		margin-bottom: 10px;
+		height: inherit;
 		width: 100%;
 		max-width: 45%;
 	}
@@ -204,8 +203,8 @@
 	}
 
 	#industriesTop-data li {
-		width: 25% !important;
 		margin-top: 70px!important;
+		width: 25% !important;
 	}
 
 	#color-chart .well-content #chart {
@@ -231,29 +230,28 @@
 	}
 
 	#about {
-		width: 700px;
 		margin-left:auto;
 		margin-right:auto;
+		width: 700px;
 	}
 
 
 	#landing .landing-container {
-		width: 900px;
 		float: left;
 		margin-top:20px;
-
+		width: 900px;
 	}
 
 	#landing .page-header h1 {
-		font-size: 50px;
 		margin-top: 50px;
+		font-size: 50px;
 	}
 
 	.ch-grid li {
 		margin-right: 0px;
+		margin-bottom: 0px;
 		height: 160px;
 		width: 160px;
-		margin-bottom: 0px;
 	}
 
 	.ch-grid li .circle-container {
@@ -264,8 +262,8 @@
 	}
 
 	.ch-item {
-		width: 80px;
 		height: 80px;
+		width: 80px;
 		border-radius: 50%;
 	}
 
@@ -299,13 +297,6 @@
 		margin-bottom: 15px;
 	}
 
-	#color-gradient {
-		margin: 15px;
-		margin-top: 0px;
-		margin-left: 25px;
-		margin-right: 1.5%;
-	}
-
 }
 
 
@@ -315,8 +306,8 @@
 
 	#brand-info .brand-info-nameanddescription {
 		float: left;
-		width: 48%;
 		margin-bottom: 5px;
+		width: 48%;
 		line-height: 10px;
 		font-size: 9px;
 	}
@@ -352,16 +343,15 @@
 	#brand-info .buttondownload {
 		display: inline-block;
 		margin-top: 0;
+		margin-left: 8px;
 		padding: 7px;
 		background-color: rgb(250, 250, 250);
 		border: 1px solid rgb(185, 185, 185);
 		border-radius: 3px;
-		line-height: 10px;
-		text-transform: uppercase;
-		font-size: 8px;
-		margin-left: 8px;
 		line-height: 9px;
+		font-size: 8px;
 		font-weight: 700;
+		text-transform: uppercase;
 		-webkit-transition: .5s;
 		-moz-transition: .5s;
 		-o-transition: .5s;
@@ -377,8 +367,8 @@
 
 	#brand-info .brand-info-nameanddescription {
 		float: left;
-		width: 48%;
 		margin-bottom: 5px;
+		width: 48%;
 		line-height: 10px;
 		font-size: 9px;
 	}
@@ -397,8 +387,8 @@
 
 	#brand-info .brandManual-container {
 		float: left;
-		width: 10%;
 		margin-left: -5px;
+		width: 10%;
 		text-align: center;
 		font-size: 7px;
 	}
@@ -414,16 +404,15 @@
 	#brand-info .buttondownload {
 		display: inline-block;
 		margin-top: 0;
+		margin-left: 8px;
 		padding: 7px;
 		background-color: rgb(250, 250, 250);
 		border: 1px solid rgb(185, 185, 185);
 		border-radius: 3px;
-		line-height: 10px;
-		text-transform: uppercase;
-		font-size: 8px;
-		margin-left: 8px;
 		line-height: 9px;
+		font-size: 8px;
 		font-weight: 700;
+		text-transform: uppercase;
 		-webkit-transition: .5s;
 		-moz-transition: .5s;
 		-o-transition: .5s;

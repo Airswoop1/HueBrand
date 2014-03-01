@@ -713,8 +713,6 @@ input:-moz-placeholder::before {
 	text-decoration: none;
 }
 
-
-
 .submit-button input {
 	margin-left: 0px;
 	padding: 5px 10px 5px 10px; 
@@ -734,6 +732,23 @@ input:-moz-placeholder::before {
 .register-button a:hover {
 	text-decoration:none;
 }
+
+#login-form input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+	margin: 0 0 5px 0;
+	padding: 6px 16px 6px 14px;
+	height: 37px;
+	width:300px;
+	border: 1px solid #eaeaea;
+	background-color: #fafafa;
+	font-family: 'Source Sans Pro', "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	color: #cbcbcb;
+}
+
 
 
 /*---Terms Page--*/
@@ -873,6 +888,8 @@ input:-moz-placeholder::before {
 	margin-bottom: 10px;
 	margin-top: 10px;
 }
+
+
 /*---General Module CSS used for generic static pages --*/
 /*--- static pages like privacy.html, terms.html --*/
 /*---Module can be repurposed for any static pages--*/
@@ -1078,23 +1095,6 @@ input:-moz-placeholder::before {
 }
 
 
-/*---Module - Global - Color Gradient CSS --*/
-/*---[m_global-colorGradient.ejs] --*/
-/*---Color Gradient Information -*/
-#color-gradient {
-	width: 10%;
-	float: left;
-	margin-right: 2%;
-	margin-left: 2%;
-	height: 270px;
-	overflow: hidden;
-}
-
-#color-gradient .well-content {
-	height: 250px;
-	background-image: -webkit-gradient(linear, right top, right bottom, color-stop(0.01, #ff0000), color-stop(0.08, #ff0088), color-stop(0.16, #ff00ff), color-stop(0.24, #8800ff), color-stop(0.32, #0000ff), color-stop(0.40, #0088ff), color-stop(0.48, #00ffff), color-stop(0.56, #00ff88), color-stop(0.64, #00ff00), color-stop(0.72, #88ff00), color-stop(0.80, #ffff00), color-stop(0.88, #ff8800), color-stop(0.99, #ff0000));
-}
-
 
 /*---Module - Global - Top Colors CSS --*/
 /*---[m_global-colorTop.ejs] --*/
@@ -1285,16 +1285,18 @@ input:-moz-placeholder::before {
 }
 
 .logoCloudContainer img {
-	padding: 10px;
-	max-width: 100px;
-	max-height: 100px;
-	float: left;
 	position: absolute;
-    margin: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    margin: auto;
+	padding: 10px;
+	max-height: 100px;
+	max-width: 100px;
+	float: left;
+
+
 }
 
 .isotope-item {
@@ -1632,19 +1634,5 @@ input:-moz-placeholder::before {
 
 }
 
-#login-form input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
-	background-color: #fafafa;
-	font-family: 'Source Sans Pro', "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-	font-style: normal;
-	border: 1px solid #eaeaea;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	color: #cbcbcb;
-	font-size: 12px;
-	margin: 0 0 5px 0;
-	padding: 6px 16px 6px 14px;
-	height: 37px;
-	width:300px;
-}
+
 
