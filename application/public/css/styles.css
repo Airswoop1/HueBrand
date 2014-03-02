@@ -1235,31 +1235,8 @@ input:-moz-placeholder::before {
 
 #logocloud .well-content {
 	height: 250px;
-}
-
-.logoCloudFilter {
-	padding-left: 10px;
-}
-
-.logoCloudFilter a {
-	display: inline-block;
-	margin-top: 20px;
-	margin-right: 10px;
-	padding: 10px;
-	border-radius: 3px;
-	border: 1px solid rgb(185, 185, 185);
-	background-color: rgb(250, 250, 250);
-	color: #666;
-	text-decoration: none;
-	line-height: 10px;
-	font-size: 11px;
-	font-weight: 400;
-
-	-webkit-transition: .5s;
-	-moz-transition: .5s;
-	-o-transition: .5s;
-	-ms-transition: .5s;
-	transition: .5s;
+	overflow-y: none;
+	overflow-x: scroll;
 }
 
 .logoCloudFilter a:hover {
@@ -1277,10 +1254,10 @@ input:-moz-placeholder::before {
 
 .logoCloudContainer .first {
 	float:left;
-	margin-top: 5px;
+	margin-top: 10px;
 	margin-left: 10px;
-	height:100px;
-	width:100px;
+	height:90px;
+	width:90px;
 	border: 1px #F0F0F0 solid;
 }
 
@@ -1292,11 +1269,9 @@ input:-moz-placeholder::before {
     bottom: 0;
     margin: auto;
 	padding: 10px;
-	max-height: 100px;
-	max-width: 100px;
+	max-height: 90px;
+	max-width: 90px;
 	float: left;
-
-
 }
 
 .isotope-item {
