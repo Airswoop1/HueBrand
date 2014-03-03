@@ -30,7 +30,7 @@
         colorsUsed.push(topColor[i].colorFamily);
 
          var percentToNumber = (topColor[i].colorPercentage/100);
-
+         //if white change border to .1 otherwise remove
         dataSourceForArrayToData.push([
           colorFamilies[topColor[i].colorFamily],
           percentToNumber,
@@ -78,11 +78,33 @@
     vAxis: {format:'0%', minValue:0, viewWindowMode:'maximized', textStyle:{ fontName: 'Nunito',fontSize: '16' }},
     hAxis: {textStyle:{ fontName: 'Nunito',fontSize: '16' }},
     legend: { position: "none" },
-    bar: {groupWidth: "80%"},
+    bar: {groupWidth: "10%"},
     tooltip: {trigger: "none", textStyle:{ fontName: 'Nunito',fontSize: '16' }, isHtml: true},
     };
 
   var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
   chart.draw(view, options);
   }
+
+  
+window.onload = function(){  
+
+  var pathArray = window.location.href.split( '/' );
+  var protocol = pathArray[0];
+  var host = pathArray[2];
+  var url = protocol + '//' + host;
+  var currentQuery = pathArray[3];
+
+
+  if(currentQuery === 'attribute'){
+    //change map and logo cloud width to 48%
+    //and apply margin left 2% to map
+  }
+  else if(currentQuery === 'industry'){
+    //change map and logo cloud width to 48%
+    //and apply margin left 2% to map
+  }
+
+}
+
 

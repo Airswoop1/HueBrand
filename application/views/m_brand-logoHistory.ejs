@@ -1,6 +1,6 @@
 <!--  Module - Logo History - "Provides a History of all Past Logos" -->
    
- <% if(brandResult.logoHistory.length > 0){ %>
+ <% if(brandResult.logoHistory.length < 1){ %>
 <script>
   $(function(){
   document.getElementById( 'logoHistory' ).style.display = 'none'; 
@@ -17,6 +17,7 @@
         <!-- Content - Logo History -->
         <div class="well-content">
           <% for(var i=0; i<brandResult.logoHistory.length; i++){ %>
+            
             <div class="logo-container">
               <div class="logo">
                 <img src="../logos/<%= brandResult.logoHistory[i].fileName%>">

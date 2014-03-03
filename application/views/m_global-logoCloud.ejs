@@ -27,13 +27,13 @@
                   }
 
             %>
+            <%if(typeof industryResult[i].logoFileName !== 'undefined' && industryResult[i].logoFileName !== ''){%>
                 <div class='first <%= className %>'>
-                  <%if(typeof industryResult[i].logoFileName !== 'undefined'){%>
                     <img class='logo' src="../logos/<%=industryResult[i].logoFileName%>" >
-                  <%}%>
+                  
                   </p>
                 </div>
-              <%}%>
+              <%}}%>
             </div>
           </div>
         </div>

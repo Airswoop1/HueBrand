@@ -1001,7 +1001,9 @@ input:-moz-placeholder::before {
 /*---Used for hovering over on divs --*/
 #color-combinations {
 	float: left;
+	margin-top: 10px;
 	margin-right: 2%;
+	margin-left: 2%;
 	width: 30.66%;
 }
 
@@ -1088,11 +1090,6 @@ input:-moz-placeholder::before {
 	font-size: 12px;
 }
 
-.combination-box:hover .fade-caption,.combination-box:hover .scale-caption {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-	filter: alpha(opacity=100);
-	opacity: 1;
-}
 
 
 
@@ -1150,7 +1147,6 @@ input:-moz-placeholder::before {
 #industriesTop {
 	float: left;
 	margin-right: 2%;
-	margin-left: 2%;
 	width: 30.66%;
 }
 
@@ -1169,8 +1165,9 @@ input:-moz-placeholder::before {
 
 #industriesTop-data {
 	margin: 0;
+	padding-top:50px;
 	height: 250px;
-	width: 100%;
+	width: 400px;
 
 	overflow: -moz-scrollbars-vertical;
 	-ms-overflow-y: scroll;
@@ -1186,9 +1183,9 @@ input:-moz-placeholder::before {
 	border: 1px rgb(250,250,250) solid;
 	text-align: center;
 	font-size: 12px;
-	padding: 6% !important;
+	padding: 2% !important;
 	margin: 1% 1% 1% 5% !important;
-	width: 90% !important;
+	width: 100px !important;
 
 	-webkit-transition: .5s;
 	-moz-transition: .5s;
@@ -1542,10 +1539,10 @@ input:-moz-placeholder::before {
 	float: left;
 	display: block;
 	margin: 0 auto;
-	margin-right: 0;
+	margin-right: 10px;
 	margin-top: 5%;
 	height: initial;
-	width: 99%;
+	width: 130px;
 	border: 1px solid rgb(250, 250, 250);
 }
 

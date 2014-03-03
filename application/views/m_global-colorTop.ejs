@@ -15,7 +15,7 @@
 
           <%
           for(var i=0;i<topColors.length; i++){ 
-            var colorPercentageWidth = topColors[i].colorPercentage;
+            var colorPercentageWidth = Math.floor(topColors[i].colorPercentage);
           %>
             <div class='colorTop-boxes' style="float:left;width:<%=colorPercentageWidth%>%;" >
               <div class="colorTop-color" style="background-color: rgb(<%=topColors[i].RrgbValue%>,

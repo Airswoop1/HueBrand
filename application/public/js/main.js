@@ -41,7 +41,7 @@ $(window).load(function(){
   });
 
 // #Module - Logo Cloud
- 
+
   $(window).load(function(){
       var $container = $('.logoCloudContainer');
       $container.isotope({
@@ -54,7 +54,11 @@ $(window).load(function(){
           }
          
       });
-   
+
+      $container.css('height','249px');
+      $container.css('overflow-x','scroll');
+      $container.css('overflow-y','scroll');
+
       $('.portfolioFilter a').click(function(){
           $('.portfolioFilter .current').removeClass('current');
           $(this).addClass('current');
@@ -73,7 +77,7 @@ $(window).load(function(){
   });
 
   // Additional Isotope Scripts
- 
+
   $(function(){
     
     var $container = $('#container');
