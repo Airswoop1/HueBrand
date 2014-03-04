@@ -295,11 +295,10 @@ ul,menu,dir {
 }
 
 .selectize-dropdown .active {
-	background-color: rgb(137, 137, 137)!important;
-	text-transform: uppercase;
-	font-weight: 100!important;
-	color: #fff!important;
-	font-size: 12px;
+	background-color: rgb(247, 250, 255)!important;
+	font-weight: 500!important;
+	color: #000!important;
+
 }
 
 /*
@@ -732,8 +731,9 @@ input:-moz-placeholder::before {
 	border: 1px solid;
 	border-color: rgb(0, 0, 0);
 	background-color: rgb(255, 255, 255);
-	font-size:12px;
-	padding: 11px;
+	font-size: 12px;
+	padding: 4px 8px 6px 8px;
+	font-weight: 400;
 }
 
 .register-button a:hover {
