@@ -1218,8 +1218,8 @@ input:-moz-placeholder::before {
 
 #logocloud .well-content {
 	height: 250px;
-	overflow-x: none;
-	overflow-y: scroll;
+	overflow-y: none;
+	overflow-x: scroll;
 }
 
 .logoCloudFilter a:hover {
