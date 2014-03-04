@@ -1010,11 +1010,39 @@ input:-moz-placeholder::before {
 /*---Module - Global - Color Combinations CSS --*/
 /*---[m_global-colorCombinations.ejs] --*/
 /*---Used for hovering over on divs --*/
+/*---Module - Global - Color Bar Chart CSS --*/
+/*---[m_global-colorChart.ejs] --*/
+/*---Color Chart -*/
+#color-chart {
+	float: left;
+	margin-right: 2%;
+	width: 30.66%;
+}
+
+#color-chart .well-content {
+	height: 250px;
+	padding: 5%;
+	overflow: hidden;
+}
+
+#color-chart .well-content #chart {
+	position: relative;
+	margin-top: -50px;
+	margin-left: -60px;
+	padding: 5%;
+	width: 140%;
+	height: 140%;
+}
+
+/*---Module - Global - Color Combinations CSS --*/
+/*---[m_global-colorCombinations.ejs] --*/
+/*---Used for hovering over on divs --*/
 #color-combinations {
 	float: left;
-	height: 210px;
-	width: 69%;
-	margin-right: 1%;
+	margin-left: 2%;
+	margin-top:10px;
+	margin-right: 2%;
+	width: 30.66%;
 }
 
 #color-combinations .well-content {
@@ -1024,8 +1052,8 @@ input:-moz-placeholder::before {
 }
 
 #color-combinations .color-combinations-container {
-	height: 250px;
 	width: 100%;
+	height: 250px;
 }
 
 #color-combinations .color-combinations-primary {
@@ -1037,22 +1065,23 @@ input:-moz-placeholder::before {
 
 #color-combinations .color-combinations-secondary {
 	float: left;
-	width: 27%;
+	width: 22%;
 	height: 81%;
 	margin-right: 10px;
 }
 
 .combination-box {
+	text-align: center;
+	height: 100%;
 	float: left;
 	position: relative;
 	overflow: hidden;
-	height: 100%;
 	width: 100%;
-	border: 1px rgb(250,250,250) solid;
 	font-size: 11px;
-	font-weight: 700;
-	text-align: center;
 	color: #000;
+	padding-left: 10px;
+	font-weight: 700;
+	border: 1px solid rgb(250,250,250);
 }
 
 .combination-box div {
@@ -1061,37 +1090,6 @@ input:-moz-placeholder::before {
 	-o-transition: all 300ms ease-out;
 	-ms-transition: all 300ms ease-out;
 	transition: all 300ms ease-out;
-}
-
-.combination-box .caption {
-	background-color: rgb(250, 250, 250);
-	position: absolute;
-	color: #fff;
-	z-index: 100;
-
-	-webkit-transition: all 300ms ease-out;
-	-moz-transition: all 300ms ease-out;
-	-o-transition: all 300ms ease-out;
-	-ms-transition: all 300ms ease-out;
-	transition: all 300ms ease-out;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.combination-box .caption p {
-	width: 100%;
-	height: 100%;
-}
-
-.combination-box .fade-caption,.combination-box .scale-caption {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: alpha(opacity=0);
-	opacity: 0;
-	text-align: center;
-	vertical-align: middle;
-	font-family: 'Nunito';
-	font-size: 12px;
 }
 
 
@@ -1220,8 +1218,8 @@ input:-moz-placeholder::before {
 
 #logocloud .well-content {
 	height: 250px;
-	overflow-y: none;
-	overflow-x: scroll;
+	overflow-x: none;
+	overflow-y: scroll;
 }
 
 .logoCloudFilter a:hover {
