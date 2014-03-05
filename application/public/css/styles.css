@@ -285,16 +285,22 @@ ul,menu,dir {
 	color: rgb(119, 119, 119);
 }
 
+.selectize-dropdown {
+	margin: 0px 0 0 1px!important;
+}
+
 .selectize-dropdown,.selectize-input,.selectize-input input {
 	width: 213px !important;
 
 }
 
 .selectize-dropdown .active {
-	color: #000;
-	background-color: rgb(252, 252, 252) !important;
+	background-color: rgb(247, 250, 255)!important;
+	font-weight: 500!important;
+	color: #000!important;
 
 }
+
 /*
 ::-webkit-input-placeholder::before {
 	font-family: fontAwesome;
@@ -725,8 +731,9 @@ input:-moz-placeholder::before {
 	border: 1px solid;
 	border-color: rgb(0, 0, 0);
 	background-color: rgb(255, 255, 255);
-	font-size:12px;
-	padding: 11px;
+	font-size: 12px;
+	padding: 4px 8px 6px 8px;
+	font-weight: 400;
 }
 
 .register-button a:hover {
@@ -972,6 +979,37 @@ input:-moz-placeholder::before {
 	line-height: 16px;
 }
 
+#color-info .color-description:first-letter{
+	text-transform: capitalize
+}
+
+/*---Module - Global - Color Bar Chart CSS --*/
+/*---[m_global-colorChart.ejs] --*/
+/*---Color Chart -*/
+#color-chart {
+	float: left;
+	margin-right: 2%;
+	width: 30.66%;
+}
+
+#color-chart .well-content {
+	height: 250px;
+	padding: 5%;
+	overflow: hidden;
+}
+
+#color-chart .well-content #chart {
+	position: relative;
+	margin-top: -50px;
+	margin-left: -60px;
+	padding: 5%;
+	width: 140%;
+	height: 140%;
+}
+
+/*---Module - Global - Color Combinations CSS --*/
+/*---[m_global-colorCombinations.ejs] --*/
+/*---Used for hovering over on divs --*/
 /*---Module - Global - Color Bar Chart CSS --*/
 /*---[m_global-colorChart.ejs] --*/
 /*---Color Chart -*/
@@ -1001,9 +1039,9 @@ input:-moz-placeholder::before {
 /*---Used for hovering over on divs --*/
 #color-combinations {
 	float: left;
-	margin-top: 10px;
-	margin-right: 2%;
 	margin-left: 2%;
+	margin-top:10px;
+	margin-right: 2%;
 	width: 30.66%;
 }
 
@@ -1039,16 +1077,11 @@ input:-moz-placeholder::before {
 	position: relative;
 	overflow: hidden;
 	width: 100%;
-
-	-moz-box-shadow: 1px 1px 1px 1px #ccc;
-	-webkit-box-shadow: 1px 1px 1px 1px #ccc;
-	box-shadow: 1px 1px 1px 1px #ccc;
-
 	font-size: 11px;
 	color: #000;
 	padding-left: 10px;
 	font-weight: 700;
-	border: 1px solid #DBDBDB;
+	border: 1px solid rgb(250,250,250);
 }
 
 .combination-box div {
@@ -1057,37 +1090,6 @@ input:-moz-placeholder::before {
 	-o-transition: all 300ms ease-out;
 	-ms-transition: all 300ms ease-out;
 	transition: all 300ms ease-out;
-}
-
-.combination-box .caption {
-	background-color: rgb(250, 250, 250);
-	position: absolute;
-	color: #fff;
-	z-index: 100;
-
-	-webkit-transition: all 300ms ease-out;
-	-moz-transition: all 300ms ease-out;
-	-o-transition: all 300ms ease-out;
-	-ms-transition: all 300ms ease-out;
-	transition: all 300ms ease-out;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.combination-box .caption p {
-	width: 100%;
-	height: 100%;
-}
-
-.combination-box .fade-caption,.combination-box .scale-caption {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	filter: alpha(opacity=0);
-	opacity: 0;
-	text-align: center;
-	vertical-align: middle;
-	font-family: 'Nunito';
-	font-size: 12px;
 }
 
 
@@ -1155,38 +1157,30 @@ input:-moz-placeholder::before {
 	padding: 0;
 	padding-bottom: 0 !important;
 	height: 250px;
-
-	overflow: -moz-scrollbars-vertical;
-	-ms-overflow-x: none;
-	overflow-x: none;
-
 	border-bottom-left-radius: 5px;
 }
 
+
 #industriesTop-data {
 	margin: 0;
-	padding-top:50px;
+	margin-left: 15px;
 	height: 250px;
 	width: 400px;
-
-	overflow: -moz-scrollbars-vertical;
-	-ms-overflow-y: scroll;
-	overflow-y: scroll;
-
 	list-style-type: none;
 }
 
+
 #industriesTop-data li {
 	float: left;
+	padding: 15px;
+	margin-top: 60px;
+	margin-right: 5px;
+	width: 120px!important;
 	background: #Fff;
-	font-weight: normal;
 	border: 1px rgb(250,250,250) solid;
-	text-align: center;
 	font-size: 12px;
-	padding: 2% !important;
-	margin: 1% 1% 1% 5% !important;
-	width: 100px !important;
-
+	font-weight: normal;
+	text-align: center;
 	-webkit-transition: .5s;
 	-moz-transition: .5s;
 	-o-transition: .5s;
@@ -1194,28 +1188,20 @@ input:-moz-placeholder::before {
 	transition: .5s;
 }
 
-#industriesTop-data li:hover {
-	background-color: rgba(253, 253, 253, 0.5);
-	border-color: rgba(0,0,0,0.2);
-
-	-moz-box-shadow: 0 0 5px rgba(0,0,0,0.2) !important;
-	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.2) !important;
-	box-shadow: 0 0 5px rgba(0,0,0,0.2) !important;
-}
 
 #industriesTop-data img {
-	height: 30%;
-	width: 30%;
+	height: 66px;
 }
 
 #industriesTop-data .industry {
-	font-size: 12px;
+	font-size: 10px;
 	line-height: 5px;
+	font-weight: 700;
 }
 
 #industriesTop-data .percentage {
 	font-weight: 100;
-	font-size: 12px;
+	font-size: 11px;
 	line-height: 8px;
 }
 
@@ -1399,6 +1385,10 @@ input:-moz-placeholder::before {
 	font-weight: 700;
 }
 
+#attribute-info .attribute-name:first-letter{
+	text-transform: capitalize
+}
+
 #attribute-info .attribute-description {
 	float: left;
 	height: 100%;
@@ -1408,6 +1398,11 @@ input:-moz-placeholder::before {
 	line-height: 16px;
 	color: #000;
 }
+
+#attribute-info .attribute-description:first-letter{
+	text-transform: capitalize
+}
+
 
 /*---Module - Brand - Information CSS --*/
 /*---[m_brand-info.ejs] --*/
@@ -1529,35 +1524,46 @@ input:-moz-placeholder::before {
 	height: 250px;
 	font-size: 14px;
 	font-weight: 700;
-
-	overflow: -moz-scrollbars-vertical;
-	-ms-overflow-y: scroll;
-	overflow-y: scroll;
+	overflow: -moz-scrollbars-horizontal;
+	-ms-overflow-x: scroll;
+	overflow-x: scroll;
+	white-space: nowrap;
+	padding-top: 50px;
 }
 
 #logoHistory .logo-container {
-	float: left;
-	display: block;
+	display: inline-block;
 	margin: 0 auto;
-	margin-right: 10px;
-	margin-top: 5%;
+	margin-top: 10px;
+	margin-right: 5px;
 	height: initial;
-	width: 130px;
-	border: 1px solid rgb(250, 250, 250);
+	border: 1px #F0F0F0 solid;
+	width: 92px;
 }
 
 #logoHistory .logo-container img {
-	max-width: 100px;
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	padding: 10px;
+	width: 90px;
+	max-height: 90px;
+	max-width: 90px;
+	vertical-align: middle;
 }
 
 #logoHistory .logo {
-	width: 99%;
-	text-align: center;
+
 }
 
 #logoHistory .year {
 	background-color: rgb(250, 250, 250);
-	margin-top: 10px;
+	margin-top: 90px;
+	width: 91px;
 	font-weight: 700;
 	text-align: center;
 }
@@ -1588,6 +1594,10 @@ input:-moz-placeholder::before {
 	font-weight: 500;
 }
 
+#industry-info .industry-title:first-letter {
+text-transform: capitalize
+}
+
 #industry-info .industry-description {
 	float: left;
 	padding: 20px;
@@ -1596,6 +1606,11 @@ input:-moz-placeholder::before {
 	line-height: 16px;
 	font-size: 12px;
 	color: #000;
+}
+
+
+#industry-info .industry-description:first-letter {
+text-transform: capitalize
 }
 
 #industry-info .industry-icon-container img {
