@@ -103,7 +103,8 @@ exports.queryColor = function(req,res){
 												"topColors" : sortedTopColors,
 												"topIndustries" : topIndustries,
 												"topCountries" : topCountries,
-												"colorCombos" : combos
+												"colorCombos" : combos,
+												"searchType" : "color"
 											});
 										});
 									});

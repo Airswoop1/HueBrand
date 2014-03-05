@@ -52,7 +52,8 @@ try{
 							"colorResult" : {},//colors,
 							"queryName" : req.params.query,
 							'allCompanies' : bloom.AllCompanies,
-							"topCountries" : {}
+							"topCountries" : {},
+							"searchType" : "industry"
 						})
 					})
 				}
