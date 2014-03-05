@@ -9,29 +9,13 @@
         <div class="well-content">
           <div class="logoCloudContainer">
             <% for(var i=0; i<industryResult.length; i++){ 
-                  var className = '';                  
-                  if(i<10){
-                    className = 'firstdecile';
-                  } 
-                  else if(i>=10 && i<20){
-                    className = 'seconddecile';
-                  }
-                  else if(i>=20 && i<30){
-                    className = 'thirddecile';
-                  }
-                  else if(i>=30 && i<40){
-                    className = 'fourthdecile';
-                  }
-                  else{
-                    className = 'fifthdecile';
-                  }
-
             %>
             <%if(typeof industryResult[i].logoFileName !== 'undefined' && industryResult[i].logoFileName !== ''){%>
-                <div class='first <%= className %>'>
+                <div class='first'>
+                  <a href="/brand/<%=industryResult[i].shortName%>">
                     <img class='logo' src="../logos/<%=industryResult[i].logoFileName%>" >
+                  </a>
                   
-                  </p>
                 </div>
               <%}}%>
             </div>

@@ -18,6 +18,9 @@
   <div class="demo">
     <div class="control-group">
       <!--<input type='text' id='searchQuery'>-->
+    <select id="select-brand" name="brand[]" class="demo-default" style='visibility:hidden'>
+        <option value=''></option>
+    </select>
       <select id="select-color" name="color[]" class="demo-default" style='visibility:hidden' multiple>
         <option value="very light red">very light red</option>
         <option value="light red">light red</option>
@@ -279,16 +282,7 @@
 </form>
 
 <script>
-   $('#select-industry').selectize({
-    maxItems: 1
-  });
-
-  $('#select-color').selectize({
-    maxItems: 1
-  });
-  $('#select-attribute').selectize({
-    maxItems: 1
-  });
+  
 
 
   var selectionOptions = ['color','attribute','industry','brand'];
@@ -297,12 +291,14 @@
   var host = pathArray[2];
   var url = protocol + '//' + host;
   var currentQuery = pathArray[3];
+  var currentSearchParam = pathArray[4];
   var searchSelection = currentQuery;
 
   $('#'+currentQuery+'_tab').css('background','#898989');
   
   $('#select-'+currentQuery).next().css('visibility','visible')
-  makeAllInvisibleExceptSelected(currentQuery);
+  $('#select-'+currentQuery).next().children('div .selectize-input').children('input').attr('placeholder',currentSearchParam)
+
 
   $('#brand_tab').click(setSearch);
   $('#industry_tab').click(setSearch);
@@ -319,7 +315,6 @@
     
     priorSearchObject.css('background','white');
     $(this).css('background','#898989');
-
   }
 
   function makeAllInvisibleExceptSelected(current){
@@ -334,6 +329,7 @@
   function setSelection(prior, current){
     $('#select-'+prior).next().css('visibility','hidden');
     $('#select-'+current).next().css('visibility','visible');
+    makeAllInvisibleExceptSelected(current);
   }
 
   $('#searchQuery').keypress(function(e){
@@ -351,16 +347,33 @@
   })
 
 
-
-  $('#select-industry').selectize({
-    maxItems: 1
+  $('#select-brand').selectize({
+    onOptionAdd: function(value, data){
+        window.load.href = '/brand/'+value;
+    },
+    onItemAdd: function(value, item){
+        window.location.href = '/brand/'+value;
+    }
+  });
+   $('#select-industry').selectize({
+    maxItems: 1,
+    onItemAdd: function(value, item){
+        window.location.href = '/industry/'+value;
+    }
   });
 
   $('#select-color').selectize({
-    maxItems: 1
+    maxItems: 1,
+    onItemAdd: function(value, item){
+        window.location.href = '/color/'+value;
+    }
   });
   $('#select-attribute').selectize({
-    maxItems: 1
+    maxItems: 1,
+    onItemAdd: function(value, item){
+        window.location.href = '/industry/'+value;
+    }
   });
+    makeAllInvisibleExceptSelected(currentQuery);
 
 </script>

@@ -1,4 +1,17 @@
 <!--  Module - Company Logo & Information - "Shows the Company's Logo and Data Associated to it" -->
+  <%
+    var mc = brandResult.marketCap;
+    var formattedMarketCap = '';
+    if(mc.length<1000000000){
+      mc = (mc/1000000).toFixed(2);
+      formattedMarketCap = mc + "M";
+    }
+    else{
+      mc = (mc/1000000000).toFixed(2);
+      formattedMarketCap = mc + "B";
+    }
+
+  %>
      <div class="container-fluid" id="brand-info">
       <div class="span12 well">
         <div class="title" >
@@ -32,7 +45,7 @@
              <b>Market Cap Rank</b>
               - <%= brandResult.marketCapRank%><br>
              <b>Market Cap</b>
-              - <%= brandResult.marketCap%><br>
+              - $<%= formattedMarketCap%><br>
             </div>
 
             <div class="brandManual-container">

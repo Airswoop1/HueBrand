@@ -121,6 +121,9 @@
 
 		<%}%>
 		
+		<% if(typeof brandResult.logoHistory !== 'undefined'){ %>
+			brandHistoryResultLength = <%= brandResult.logoHistory.length %>
+		<%}%>
 		<% if(queryType !== ''){ %>
 			google.maps.event.addDomListener(window, 'load', initMaps);
 		<%}%>

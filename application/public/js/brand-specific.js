@@ -96,13 +96,25 @@ window.onload = function(){
   var currentQuery = pathArray[3];
 
 
-  if(currentQuery === 'attribute'){
+  if(currentQuery === 'attribute' || currentQuery === 'industry'){
     //change map and logo cloud width to 48%
     //and apply margin left 2% to map
-  }
-  else if(currentQuery === 'industry'){
-    //change map and logo cloud width to 48%
-    //and apply margin left 2% to map
+    $('#logocloud').css('width','48%');
+    $('#global-map').css('width','48%').css('margin-right','0').css('margin-left','2%');
+    setTimeout(function(){
+      $('.logoCloudContainer').isotope('reLayout'); 
+    }, 1000);
+
+  } 
+  else if(currentQuery === 'brand'){
+    if(brandHistoryResultLength < 1){
+      $('#logocloud').css('width','48%');
+      $('#global-map').css('width','48%').css('margin-right','0').css('margin-left','2%');
+      setTimeout(function(){
+        $('.logoCloudContainer').isotope('reLayout'); 
+      }, 1000);
+      
+    }
   }
 
 }
