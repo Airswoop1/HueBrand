@@ -99,8 +99,8 @@ window.onload = function(){
   if(currentQuery === 'attribute' || currentQuery === 'industry'){
     //change map and logo cloud width to 48%
     //and apply margin left 2% to map
-    $('#logocloud').css('width','48%');
-    $('#global-map').css('width','48%').css('margin-right','0').css('margin-left','2%');
+    $('#logocloud').css('width','47%');
+    $('#global-map').css('width','47%').css('margin-right','2%').css('margin-left','2%');
     setTimeout(function(){
       $('.logoCloudContainer').isotope('reLayout'); 
     }, 1000);
@@ -108,8 +108,8 @@ window.onload = function(){
   } 
   else if(currentQuery === 'brand'){
     if(brandHistoryResultLength < 1){
-      $('#logocloud').css('width','48%');
-      $('#global-map').css('width','48%').css('margin-right','0').css('margin-left','2%');
+    $('#logocloud').css('width','47%');
+    $('#global-map').css('width','47%').css('margin-right','2%').css('margin-left','2%');
       setTimeout(function(){
         $('.logoCloudContainer').isotope('reLayout'); 
       }, 1000);

@@ -1230,6 +1230,12 @@ input:-moz-placeholder::before {
 	font-weight: bold;
 }
 
+.logoCloudContainer .isotope {
+	overflow-y: scroll;
+	overflow-x: none;
+	height: 230px;
+}
+
 .logoCloudContainer .first {
 	float:left;
 	margin-top: 10px;
