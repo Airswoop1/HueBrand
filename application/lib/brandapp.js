@@ -38,7 +38,6 @@ try{
 						var brandResult  = b[0];	
 					
 						var brandResultTopColor = _.max(brandResult.associatedColors,function(per){return per.colorPercentage})
-						console.log(brandResultTopColor);
 
 						var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResult.GICSIndName+"'")}).sort({marketCap: -1});
 					
@@ -48,21 +47,22 @@ try{
 								res.render('landing', emptyPayload);
 							}
 
-							color.getTopColors(industryCompanies, brandResultTopColor, function(topColorErr, topIndustryCompaniesColors){
+							//getTopColorsForIndustry(industryCompanies, function(topColorErr, topIndustryCompaniesColors){
 
 							//if the colors have yet to be defined
 							if(typeof brandResult.associatedColors[0] !== 'undefined'){
-											
+										
 											res.render('brand',{
 												"queryType" : "brand",
-												"topColors" : brandResult.associatedColors,
+												"topColors" : brandResult.associatedColors.reverse(),
 												"brandResult" : brandResult,
 												"industryResult" : industryCompanies,
 												"companyResult" : industryCompanies,
 												"colorResult" : brandResultTopColor,
 												"queryName" : req.params.query,
 												"allCompanies" : bloom.AllCompanies,
-												"topCountries" : {}
+												"topCountries" : {},
+												"searchType" : "brand"
 											});
 									
 							}
@@ -70,7 +70,7 @@ try{
 								console.log("Brand colors are undefined");
 								res.render('landing', emptyPayload)
 							}
-						})//top colors
+						//})//top colors
 					})
 					
 				}// \else
@@ -90,3 +90,34 @@ try{
 	}
 
 }// end Of Function
+
+
+function getTopColorsForIndustry(companies, callback){
+
+	var colorsByGeography = {};
+
+	for(var i=0; i<companies.length;i++){
+		var currentCompany = companies[i];
+		var currentColors = currentCompany.associatedColors;
+		var currentCountry = currentCompany.country;
+
+		for(var color in currentColors){
+			var currentColorName = currentColors[color].shade + " " + currentColors[color].colorFamily;
+
+			if(colorsByGeography.hasOwnProperty(currentCountry) && colorsByGeography[currentCountry].hasOwnProperty(currentColorName)){
+				colorsByGeography[currentCountry].currentColorName.freq += currentColors[color].colorPercentage;  
+			}
+			else{
+				colorsByGeography[currentCountry] = {};
+				colorsByGeography[currentCountry][currentColorName].freq =  currentColors[color].colorPercentage;
+				colorsByGeography[currentCountry][currentColorName].city = currentCompany.city;
+			}
+		}
+	}
+
+	console.log(colorsByGeography);
+
+
+}
+
+
