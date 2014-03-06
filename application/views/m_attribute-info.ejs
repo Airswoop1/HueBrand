@@ -8,7 +8,11 @@
         </div>
         <div class="well-content">
           <div class="attribute-container">
-             <div class="attribute-name"><%=attributeResult.attribute%>
+            <%   
+              var capAttrName = attributeResult.attribute.charAt(0).toUpperCase() + attributeResult.attribute.slice(1);
+
+            %>
+             <div class="attribute-name"><%=capAttrName%>
              </div>
           </div>
           <div class="attribute-description">

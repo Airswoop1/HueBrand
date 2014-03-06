@@ -9,7 +9,8 @@ var emptyPayload = {
 	topCountries : {},
 	colorResult : {},
 	topColors : {},
-	industryResult:{}
+	industryResult:{},
+	searchType:''
 }
 
 var attributes = new mongoose.Schema({

@@ -294,7 +294,7 @@
   var currentSearchParam = pathArray[4];
   var searchSelection = currentQuery;
 
-  $('#'+currentQuery+'_tab').css('background','#898989');
+  $('#'+currentQuery+'_tab').css('background','#898989').css('color','white');
   
   $('#select-'+currentQuery).next().css('visibility','visible')
   $('#select-'+currentQuery).next().children('div .selectize-input').children('input').attr('placeholder',currentSearchParam)
@@ -313,8 +313,8 @@
     
     setSelection(priorSearchValue,searchSelection);
     
-    priorSearchObject.css('background','white');
-    $(this).css('background','#898989');
+    priorSearchObject.css('background','white').css('color','black');
+    $(this).css('background','#898989').css('color','white');
   }
 
   function makeAllInvisibleExceptSelected(current){
@@ -371,7 +371,7 @@
   $('#select-attribute').selectize({
     maxItems: 1,
     onItemAdd: function(value, item){
-        window.location.href = '/industry/'+value;
+        window.location.href = '/attribute/'+value;
     }
   });
     makeAllInvisibleExceptSelected(currentQuery);

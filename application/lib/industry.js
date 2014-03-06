@@ -9,7 +9,8 @@ var emptyPayload = {
 	topCountries : {},
 	colorResult : {},
 	topColors : {},
-	industryResult:{}
+	industryResult:{},
+	searchType:''
 }
 
 exports.Industry = mongoose.model('Industry', new mongoose.Schema({

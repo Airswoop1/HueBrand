@@ -5,7 +5,7 @@ function initMaps() {
   // Create the map.
   var mapOptions = {
     zoom: 1,
-    center: new google.maps.LatLng(20.922123, -5.859375),
+    center: new google.maps.LatLng(41.541664, -19.366642),
     mapTypeControl: true,
     mapTypeControlOptions: {
       "style": google.maps.MapTypeControlStyle.DROPDOWN_MENU

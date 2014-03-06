@@ -84,6 +84,7 @@ app.get('/', staticPages.landing);
 app.get('/login', user.signIn);
 app.post('/login', user.signInSubmit);
 app.get('/profile', user.profile);
+app.get('/register',user.register);
 
 //can use update.html popup or something equivalent
 app.get('/learnmore', user.signIn);

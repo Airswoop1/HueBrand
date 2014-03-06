@@ -29,7 +29,7 @@
       if(colorFamilies.hasOwnProperty(topColor[i].colorFamily)){
         colorsUsed.push(topColor[i].colorFamily);
 
-         var percentToNumber = (topColor[i].colorPercentage/100);
+         var percentToNumber = parseFloat((topColor[i].colorPercentage/100).toFixed(2),10);
          //if white change border to .1 otherwise remove
         dataSourceForArrayToData.push([
           colorFamilies[topColor[i].colorFamily],

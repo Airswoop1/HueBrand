@@ -8,7 +8,8 @@ var emptyPayload = {
 	topCountries : {},
 	colorResult : {},
 	topColors : {},
-	industryResult:{}
+	industryResult:{},
+	searchType:''
 }
 
 exports.queryBrand = function(req,res){
@@ -51,19 +52,20 @@ try{
 
 							//if the colors have yet to be defined
 							if(typeof brandResult.associatedColors[0] !== 'undefined'){
-										
-											res.render('brand',{
-												"queryType" : "brand",
-												"topColors" : brandResult.associatedColors.reverse(),
-												"brandResult" : brandResult,
-												"industryResult" : industryCompanies,
-												"companyResult" : industryCompanies,
-												"colorResult" : brandResultTopColor,
-												"queryName" : req.params.query,
-												"allCompanies" : bloom.AllCompanies,
-												"topCountries" : {},
-												"searchType" : "brand"
-											});
+								var sortedBrandAssociatedColors = _.sortBy(brandResult.associatedColors, 'colorPercentage').reverse();
+
+									res.render('brand',{
+										"queryType" : "brand",
+										"topColors" : sortedBrandAssociatedColors,
+										"brandResult" : brandResult,
+										"industryResult" : industryCompanies,
+										"companyResult" : industryCompanies,
+										"colorResult" : brandResultTopColor,
+										"queryName" : req.params.query,
+										"allCompanies" : bloom.AllCompanies,
+										"topCountries" : {},
+										"searchType" : "brand"
+									});
 									
 							}
 							else{

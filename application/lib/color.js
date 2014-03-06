@@ -4,6 +4,14 @@ var mongoose = require('mongoose'),
 	bloom = require('./bloombergCompanies.js'),
 	us = require('underscore');
 
+var emptyPayload = {		
+		queryType : '',
+		topCountries : {},
+		colorResult : {},
+		topColors : {},
+		industryResult:{},
+		searchType:''
+	}
 exports.Color = mongoose.model('Color', new mongoose.Schema({
 
 	colorName : String,
@@ -121,13 +129,7 @@ exports.queryColor = function(req,res){
 	catch(e){
 		console.log("There was an error on the colorQuery!");
 		console.log(e);
-		res.render('landing',{		
-														queryType : '',
-														topCountries : {},
-														colorResult : {},
-														topColors : {},
-														industryResult:{}
-													})
+		res.render('landing',emptyPayload)
 	}
 }
 

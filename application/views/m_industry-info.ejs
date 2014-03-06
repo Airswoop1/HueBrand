@@ -15,7 +15,10 @@
             <img style="height:70%;width:100px;" src="../img/icons/industries/<%=iconName%>.png">
             </center>
              <div class="industry-title">
-              <%=queryName%>
+              <%
+                var capQueryName = queryName.charAt(0).toUpperCase() + queryName.slice(1)
+              %>
+              <%=capQueryName%>
             </div>
           </div>
           <div class="industry-description">

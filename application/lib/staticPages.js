@@ -5,7 +5,8 @@ var emptyPayload = {
 		topCountries : {},
 		colorResult : {},
 		topColors : {},
-		industryResult:{}
+		industryResult:{},
+		searchType:''
 	}
 
 exports.about = function(req,res){

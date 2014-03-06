@@ -66,10 +66,10 @@ exports.signInSubmit = function(req, res){
 
 exports.profile = function(req,res) {
   if(exports.isLoggedIn(req,res)){
-    res.render('profile', emptyPayload);
+    res.render('update', emptyPayload);
   }
   else{
-    res.render('login', emptyPayload);
+    res.render('update', emptyPayload);
   }
 
 }
@@ -80,4 +80,8 @@ exports.isLoggedIn = function(req, res) {
         return true;
     }
     return false;
+}
+
+exports.register = function(req,res){
+res.render('signup',emptyPayload)
 }
