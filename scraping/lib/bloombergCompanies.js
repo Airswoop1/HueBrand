@@ -44,6 +44,7 @@ var bloombergComp = new mongoose.Schema({
 	logoPotentialList : [{ year : String, fileName : String }],
 	logoHistory : [{ year : String, fileName : String }],
 	brandManualFileName : String,
+	brandManualWebURL : String,
 	displayName : String
 
 })

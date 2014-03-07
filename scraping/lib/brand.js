@@ -1,4 +1,8 @@
 var mongoose = require('mongoose');
+var csv = require('csv');
+var request = require('request');
+var fs = require('fs');
+var bloom = require('./bloombergCompanies.js');
 
 /************************
 	Define Schema
@@ -84,5 +88,88 @@ exports.storeMarketCap = function(companyID, mktCap){
 		}
 
 	});
+}
+
+
+exports.importBrandManuals = function() {
+	var brandManualObject = [];
+	var i=0;
+	var errArray=[];
+
+	csv()
+	.from.path(__dirname+'/brandmanuals.csv', {delimiter: ','})
+	.transform(function(row){
+		row.unshift(row.pop());
+		return row
+	})
+	.on('record', function(row, index){
+		var newRow = row.join(",").split(",");
+		var brandObject = {}
+
+		brandObject['shortName'] = newRow[1];
+		brandObject['url'] = newRow[0];
+		brandManualObject.push(brandObject);
+
+
+		i++;
+		if(i===250){
+			convertUrlsToManuals(0,brandManualObject,errArray);
+		}
+	})
+	.on('close', function(count){
+		console.log("number of lines processed "+count)
+	})
+	.on('error', function(error){
+		console.log("there was an error" + error.message)
+	});
+
+	function convertUrlsToManuals(index,brandManualObject, errArray){
+		if(index===251){
+			console.log("completed brand manual download!");
+			console.log(errArray);
+			return;
+		}
+
+		var url = brandManualObject[index].url;
+		var brand = brandManualObject[index].shortName;
+		console.log(url + " for brand " + brand);
+		request(url, function(error, response, body){
+			if(typeof response !== "undefined" && response.statusCode === 200){
+				
+				var head = response.headers['content-type'];
+
+				var splitURL = url.split('.');
+				var fileExtension = splitURL[splitURL.length-1];
+				
+				if(head==='application/pdf'){
+					fileExtension = '.pdf'
+
+					var fileName = brand.replace(/[^a-zA-Z 0-9]+/g,'').toLowerCase().split(' ').join('_') + "."+ fileExtension;
+
+					var ws = request(url).pipe(fs.createWriteStream('../application/public/brandManuals/'+fileName));
+
+					ws.on('close', function(){
+
+						bloom.bloombergCompany.update({'shortName':brand},{'brandManualFileName':fileName},function(err, doc){
+							convertUrlsToManuals(++index,brandManualObject,errArray);	
+						});			
+					});
+				}
+				else{
+					bloom.bloombergCompany.update({'shortName':brand},{'brandManualWebURL':url},function(err, doc){
+							convertUrlsToManuals(++index,brandManualObject,errArray);	
+					});		
+				}
+				
+			}
+			else{
+				console.log(brand);
+				errArray.push(brand);
+				convertUrlsToManuals(++index,brandManualObject,errArray)
+			}
+		})
+
+
+	}
 }
 

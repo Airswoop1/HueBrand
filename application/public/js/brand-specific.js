@@ -40,8 +40,6 @@
 
     }
 
-    data
-
     for(var colors in colorFamilies){
       if(!colorsUsed.hasOwnProperty(colorFamilies[colors])){
         dataSourceForArrayToData.push([

@@ -48,14 +48,23 @@
               - $<%= formattedMarketCap%><br>
             </div>
 
+            <%if(brandResult.brandManualFileName || brandResult.brandManualWebURL){
+              var showRightBrand = "../brandManuals/"+brandResult.brandManualFileName
+              if(!brandResult.brandManualFileName || brandResult.brandManualFileName === '' || brandResult.brandManualFileName == 'undefined' ){
+                showRightBrand = brandResult.brandManualWebURL
+              }
+
+            %>
+
             <div class="brandManual-container">
-              <a href="../Logos/<%= brandResult.brandManualFileName%>" download="<%= brandResult.brandManualFileName%>">
+              <a href="<%= showRightBrand%>" target='_blank'>
                 <button class="buttondownload">
                     <i class="fa fa-download"></i>
                     Download Brand Manual
                 </button>
               </a>
             </div>
+            <%}%>
 
             <span class="last-updated">
               Last Updated: March 28th 2014

@@ -43,14 +43,14 @@
               <%for(var j=0; j<topColors.length;j++){
 
                 var borderStyle;
-                var bottomBorder;
-                if(topColors[j].RrgbValue<10 && topColors[j].GrgbValue < 10 && topColors[j].BrgbValue < 10){
+                var topBorder;
+                if(topColors[j].RrgbValue > 245 && topColors[j].GrgbValue > 245 && topColors[j].BrgbValue > 245){
                    borderStyle = 'solid 1px black';
-                   bottomBorder = 'solid 2px black'
+                   topBorder = 'solid 2px black'
                 }
                 else{
                   borderSyle = 'none';
-                  bottomBorder = 'none';
+                  topBorder = 'none';
                 }
 
                 if(j===0){
@@ -76,7 +76,7 @@
                                                     <%=topColors[j].BrgbValue%>);
                                                     width:130px;
                                                     border:<%=borderStyle%>!important;
-                                                    bottom-border:<%=bottomBorder%>"></td>
+                                                    border-top:<%=topBorder%>"></td>
                     <td><%=topColors[j].RrgbValue%>,<%=topColors[j].GrgbValue%>,<%=topColors[j].BrgbValue%></td>
                     <td><%
                       function componentToHex(c){

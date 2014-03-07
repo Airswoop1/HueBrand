@@ -51,3 +51,34 @@ exports.importAttributeData = function (){
 
 
 }
+
+exports.importAttributesWithoutCountries = function(){
+
+	csv()
+		.from.path(__dirname+'/attributes_without_countries.csv', {delimiter: ','})
+		.transform(function(row){
+			row.unshift(row.pop());
+			return row
+		})
+		.on('record', function(row, index){
+
+			var attrObj = {
+				shade : row[0],
+				color : row[2],
+				attribute : row[1]
+			}
+			console.log(attrObj);
+			var a = new exports.attributeModel(attrObj);
+			a.save();
+
+		})
+		.on('close', function(count){
+			console.log("number of lines processed "+count)
+		})
+		.on('error', function(error){
+			console.log("there was an error" + error.message)
+		});
+
+
+
+}

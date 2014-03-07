@@ -41,7 +41,7 @@ dbcon.once('open', function callback () {
   console.log("Connected to the db on the scraping side!");
 });
 
-var serverPort = 8003;
+var serverPort = 8004;
 
 //render html files instead of ejs files.
 app.engine('html', require('ejs').renderFile);
@@ -200,7 +200,19 @@ function: importBaseColorFromCSV()
 import the shade + colorFamily base colors
 ************/
 //color.importMediumBaseColorFromCSV();
-color.importBaseColorFromCSV();
+//color.importBaseColorFromCSV();
+
+/***********
+function: importBrandManuals()
+import brand manuals if they exist
+************/
+//brand.importBrandManuals();
+
+/***********
+function: importAttributesWithoutCountries()
+import attributes
+************/
+attributes.importAttributesWithoutCountries();
 
 /************ 
 	Routers 
