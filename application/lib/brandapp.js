@@ -54,20 +54,22 @@ try{
 							//if the colors have yet to be defined
 							if(typeof brandResult.associatedColors[0] !== 'undefined'){
 								var sortedBrandAssociatedColors = _.sortBy(brandResult.associatedColors, 'colorPercentage').reverse();
+								getTopColorsForIndustryByCountry(industryCompanies, function(topColorsByCountry){
 
-									res.render('brand',{
-										"queryType" : "brand",
-										"topColors" : sortedBrandAssociatedColors,
-										"brandResult" : brandResult,
-										"industryResult" : industryCompanies,
-										"companyResult" : industryCompanies,
-										"colorResult" : brandResultTopColor,
-										"queryName" : req.params.query,
-										"allCompanies" : bloom.AllCompanies,
-										"topCountries" : {},
-										"topColorsForIndustry":topIndustryCompaniesColors,
-										"searchType" : "brand"
-									});
+										res.render('brand',{
+											"queryType" : "brand",
+											"topColors" : sortedBrandAssociatedColors,
+											"brandResult" : brandResult,
+											"industryResult" : industryCompanies,
+											"companyResult" : industryCompanies,
+											"colorResult" : brandResultTopColor,
+											"queryName" : req.params.query,
+											"allCompanies" : bloom.AllCompanies,
+											"topCountries" : topColorsByCountry,
+											"topColorsForIndustry":topIndustryCompaniesColors,
+											"searchType" : "brand"
+										});
+									})
 									
 							}
 							else{
@@ -94,6 +96,40 @@ try{
 	}
 
 }// end Of Function
+
+
+function getTopColorsForIndustryByCountry(companies, callback){
+
+	var countryArray = {};
+
+	for(var i=0;i<companies.length;i++){
+		var currentCompany = companies[i];
+		var currentCountry = currentCountryompany.country;
+		var currentCity = currentCompany.city;
+		var currentColors = currentCompany.associatedColors;
+
+		if(!countryArray.hasOwnProperty(currentCountry)){
+			countryArray[currentCountry] = {
+				"city": currentCity,
+				"colors":[]
+			}
+		
+		}
+		for(var j=0;j<currentColors; j++){
+			console.log(currentColors[j]);
+			countryArray[currentCountry].colors.push(currentColors[j]);
+		}
+		
+
+	}
+
+
+	callback(countryArray)
+}
+
+
+
+
 
 
 function getTopColorsForIndustry(companies, callback){
@@ -187,3 +223,4 @@ var outOf100 = function(arr, valueToNormalize, cb){
 }
 
 
+	
