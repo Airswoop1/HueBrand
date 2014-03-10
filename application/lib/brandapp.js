@@ -40,7 +40,7 @@ try{
 					
 						var brandResultTopColor = _.max(brandResult.associatedColors,function(per){return per.colorPercentage})
 
-						var industryQuery = bloom.bloombergCompany.find({GICSIndName: eval("'"+brandResult.GICSIndName+"'")}).sort({marketCap: -1});
+						var industryQuery = bloom.bloombergCompany.find({"GICSIndName": eval("'"+brandResult.GICSIndName+"'"), "associatedColors.1":{$exists:true}}).sort({marketCap: -1});
 					
 						industryQuery.exec(function(indErr, industryCompanies){
 							if(indErr){
@@ -48,8 +48,9 @@ try{
 								res.render('landing', emptyPayload);
 							}
 
-							//getTopColorsForIndustry(industryCompanies, function(topColorErr, topIndustryCompaniesColors){
-
+							getTopColorsForIndustry(industryCompanies, function(topIndustryCompaniesColors){
+								console.log("topIndustryCompaniesColors:########################## ")
+								console.log(topIndustryCompaniesColors);
 							//if the colors have yet to be defined
 							if(typeof brandResult.associatedColors[0] !== 'undefined'){
 								var sortedBrandAssociatedColors = _.sortBy(brandResult.associatedColors, 'colorPercentage').reverse();
@@ -64,6 +65,7 @@ try{
 										"queryName" : req.params.query,
 										"allCompanies" : bloom.AllCompanies,
 										"topCountries" : {},
+										"topColorsForIndustry":topIndustryCompaniesColors,
 										"searchType" : "brand"
 									});
 									
@@ -72,7 +74,7 @@ try{
 								console.log("Brand colors are undefined");
 								res.render('landing', emptyPayload)
 							}
-						//})//top colors
+						})//top colors
 					})
 					
 				}// \else
@@ -98,27 +100,89 @@ function getTopColorsForIndustry(companies, callback){
 
 	var colorsByGeography = {};
 
+	var colorFamilyObjectMap = {};
+    colorFamilyObjectMap["red"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"red","colorPercentage":0};
+    colorFamilyObjectMap["orange"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"orange","colorPercentage":0};
+    colorFamilyObjectMap["brown"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"brown","colorPercentage":0};
+    colorFamilyObjectMap["beige"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"beige","colorPercentage":0};
+    colorFamilyObjectMap["yellow"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"yellow","colorPercentage":0};
+    colorFamilyObjectMap["green"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"green","colorPercentage":0};
+    colorFamilyObjectMap["cyan"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"cyan","colorPercentage":0};
+    colorFamilyObjectMap["blue"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"blue","colorPercentage":0};
+    colorFamilyObjectMap["purple"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"purple","colorPercentage":0};
+    colorFamilyObjectMap["magenta"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"magenta","colorPercentage":0};
+    colorFamilyObjectMap["black"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"black","colorPercentage":0};
+    colorFamilyObjectMap["gray"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"gray","colorPercentage":0};
+    colorFamilyObjectMap["white"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":"white","colorPercentage":0};
+    colorFamilyObjectMap["yellow/green"] = {"RrgbValue":undefined,"BrgbValue":undefined,"GrgbValue":undefined,"colorFamily":'yellow/green',"colorPercentage":0};
+
+
 	for(var i=0; i<companies.length;i++){
+
 		var currentCompany = companies[i];
 		var currentColors = currentCompany.associatedColors;
-		var currentCountry = currentCompany.country;
 
-		for(var color in currentColors){
-			var currentColorName = currentColors[color].shade + " " + currentColors[color].colorFamily;
-
-			if(colorsByGeography.hasOwnProperty(currentCountry) && colorsByGeography[currentCountry].hasOwnProperty(currentColorName)){
-				colorsByGeography[currentCountry].currentColorName.freq += currentColors[color].colorPercentage;  
-			}
-			else{
-				colorsByGeography[currentCountry] = {};
-				colorsByGeography[currentCountry][currentColorName].freq =  currentColors[color].colorPercentage;
-				colorsByGeography[currentCountry][currentColorName].city = currentCompany.city;
-			}
-		}
+		for(j=0; j< currentColors.length;j++){
+			var currentColorFamily = currentColors[j].colorFamily;
+			colorFamilyObjectMap[currentColorFamily].colorPercentage += currentColors[j].colorPercentage;
+		}		
 	}
 
-	console.log(colorsByGeography);
+	var sortedColorFamilyObjectMap = _.sortBy(colorFamilyObjectMap,'colorPercentage').reverse();
 
+	addRgbData(0,sortedColorFamilyObjectMap,function(err, unNormalizedColorFamilyObjMap){
+
+		outOf100(unNormalizedColorFamilyObjMap, 'colorPercentage', function(obj){
+			callback(obj);
+		}) 
+
+	})
+/*	for(var c in sortedColorFamilyObjectMap){
+		sortedColorFamilyObjectMap[c] = addRgbData(sortedColorFamilyObjectMap[c]);
+	}*/
+	
+
+
+	function addRgbData(index, cMap, callback){
+		if(index === cMap.length){
+			callback(null, cMap);
+			return;
+		}
+
+		console.log("cmap[index]")
+		console.log(cMap[index]);
+		var colorMapObject = cMap[index];
+		var cName = "medium "+colorMapObject.colorFamily;
+		color.Color.findOne({"colorName":cName},function(err, doc){
+			if(err){
+				callback(err);
+			}
+			doc = doc.toObject();
+			colorMapObject.RrgbValue = doc.RrgbValue;
+			colorMapObject.GrgbValue = doc.GrgbValue;
+			colorMapObject.BrgbValue = doc.BrgbValue;
+
+			cMap[index] = colorMapObject;
+			addRgbData(++index,cMap,callback);
+		})
+
+	}
+
+
+}
+
+
+var outOf100 = function(arr, valueToNormalize, cb){
+	var total = 0;
+	for(var i=0; i<arr.length;i++){
+		total += arr[i][valueToNormalize];
+	}
+
+	for(var j=0;j<arr.length;j++){
+		arr[j][valueToNormalize] = parseFloat(((arr[j][valueToNormalize]/total)*100).toFixed(2),10);
+	}
+
+	cb(arr);
 
 }
 

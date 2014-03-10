@@ -39,10 +39,11 @@ try{
 					res.render('landing', emptyPayload);
 				}
 				else if(attributeObj){
-					
+						
 					getTopColorsForAttributes(attributeObj, function(sortedTopColors){
 						getColorDataForTopColors(sortedTopColors,function(sortedTopColorsWithData){
-
+							getTopColors(companies, mainColor, function(topColorsForIndustry){
+								
 								res.render('attribute', {
 									"queryType" : "brand",
 									"topColors" : sortedTopColorsWithData,
@@ -53,10 +54,12 @@ try{
 									"queryName" : req.params.query,
 									"allCompanies" : bloom.AllCompanies,
 									"topCountries" : {},
+									"topColorsForIndustry":{},
 									"searchType" : "attribute"
 
 								});
-							})
+							});
+						})
 					});
 				}
 			});
@@ -74,6 +77,101 @@ try{
 													})
 	}
 }
+
+var getTopColors = function( colorCompanies, mainColor, callback ){
+
+	var colorNameMap = [];
+
+
+	//build object of {colorName : totalPercentage} for all colors that match the colorFamily
+	for(var i=0; i<colorCompanies.length;i++){
+
+		for(var aColor in colorCompanies[i].associatedColors){
+
+			if(!(colorCompanies[i].associatedColors[aColor].colorPercentage === 'undefined')){
+				if(colorNameMap.indexOf(colorCompanies[i].associatedColors[aColor].colorName)>=0)
+				{
+					colorNameMap[colorCompanies[i].associatedColors[aColor].colorName].colorPercentage += colorCompanies[i].associatedColors[aColor].colorPercentage;
+				}
+				else if(colorCompanies[i].associatedColors[aColor].colorFamily === mainColor.colorFamily)
+				{
+					colorNameMap[colorCompanies[i].associatedColors[aColor].colorName] = {
+						"colorPercentage":colorCompanies[i].associatedColors[aColor].colorPercentage,
+						"RrgbValue" : colorCompanies[i].associatedColors[aColor].RrgbValue,
+						"GrgbValue" : colorCompanies[i].associatedColors[aColor].GrgbValue, 
+						"BrgbValue" : colorCompanies[i].associatedColors[aColor].BrgbValue,
+						"hValue" : colorCompanies[i].associatedColors[aColor].hValue,
+						"sValue" : colorCompanies[i].associatedColors[aColor].sValue,
+						"vValue" : colorCompanies[i].associatedColors[aColor].vValue,
+						"lValue" : colorCompanies[i].associatedColors[aColor].lValue
+					}
+				}
+
+			}
+		}
+	}
+
+	var arrayOfColorNames = []
+	//put these into an array for sorting
+	for(var key in colorNameMap){
+		arrayOfColorNames.push({"colorName":key, 
+														"colorPercentage":colorNameMap[key].colorPercentage, 
+														"RrgbValue" : colorNameMap[key].RrgbValue,
+														"GrgbValue" : colorNameMap[key].GrgbValue, 
+														"BrgbValue" : colorNameMap[key].BrgbValue,
+														"hValue" : colorNameMap[key].hValue,
+														"sValue" : colorNameMap[key].sValue,
+														"vValue" : colorNameMap[key].vValue,
+														"lValue" : colorNameMap[key].lValue 
+													});
+	}	
+	//sort
+	arrayOfColorNames.sort(function(x,y){
+		return y["colorPercentage"] - x["colorPercentage"];
+	})
+
+	var topFiveColors = [];
+
+	if(arrayOfColorNames.length>5)
+	{
+		topFiveColors = us.first(arrayOfColorNames,3);
+		outOf100(topFiveColors, "colorPercentage", function(topFiveNormalized){
+					callback(topFiveNormalized);			
+		})
+
+	}
+	else if(arrayOfColorNames.length > 1)
+	{
+		outOf100(arrayOfColorNames, "colorPercentage", function(topNormalized){
+			callback(topNormalized);
+		})
+	}
+	else if(arrayOfColorNames.length === 1)
+	{
+		arrayOfColorNames[0].colorPercentage = 100;
+		callback(arrayOfColorNames);
+	}
+	else
+	{
+
+		callback([{
+			"colorName" : mainColor.colorName,
+			"colorPercentage": 100, 
+			"RrgbValue" : mainColor.RrgbValue,
+			"GrgbValue" : mainColor.GrgbValue, 
+			"BrgbValue" : mainColor.BrgbValue,
+			"hValue" : mainColor.hValue,
+			"sValue" : mainColor.sValue,
+			"vValue" : mainColor.vValue,
+			"lValue" : mainColor.lValue
+		}])
+	}
+
+}
+
+
+
+
 
 function getColorDataForTopColors(cArray, callback){	
 	var modifiedArray = Array();

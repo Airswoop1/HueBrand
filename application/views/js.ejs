@@ -74,9 +74,24 @@
     return hex.length == 1 ? "0" + hex : hex;
   }
 
+  	topColorsForIndustry = []
+
+	<% 
+	for(var m=0; m<topColorsForIndustry.length; m++){%>
+		var hexValue = '#' + componentToHex(<%=topColorsForIndustry[m].RrgbValue%>) + componentToHex(<%=topColorsForIndustry[m].GrgbValue%>) + componentToHex(<%=topColorsForIndustry[m].BrgbValue%>);
+
+		topColorsForIndustry.push({
+			colorPercentage : <%=topColorsForIndustry[m].colorPercentage%>,
+			colorFamily : "<%=topColorsForIndustry[m].colorFamily%>",
+			"hexValue" : hexValue,
+			RrgbValue : <%=topColorsForIndustry[m].RrgbValue%>,
+			GrgbValue : <%=topColorsForIndustry[m].GrgbValue%>,
+			BrgbValue : <%=topColorsForIndustry[m].BrgbValue%>
+		})
 
 
 
+	<%}%>
 	/*****
 		Logo Cloud data input
 	******/

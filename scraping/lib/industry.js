@@ -5,19 +5,16 @@ var bloom = require('./bloombergCompanies.js');
 
 exports.Industry = mongoose.model('Industry', new mongoose.Schema({
 	
-	industryId : String,
-	name: String,
+	"GICSIndName" : String,
+	"description" : String,
+	"descriptionSource" : String,
 	industrySize : Number,
-	colors : [String], //should these be names or Id's?
+	associatedColors : [String],
 	attributes :  [String],
-	colorCombinations : [String],
+	colorCombinations : [String]
 
 }));
 
-var industries = [
-	{industryId:1, name: 'Shipping', industrySize: 1230, colors:['yellow', 'brown'], attributes:['reliable', 'timely'], colorCombinations:[['brown', 'golden'],['red','yellow'],['purple', 'orange']]},
-	{industryId:2, name: 'Beverage', industrySize: 600, colors:['red', 'blue'], attributes:['trustworthy', 'satisfying'], colorCombinations:[['red'],['red','blue']]}
-]
 
 
 exports.seed = function() {
@@ -99,5 +96,37 @@ function updateBloomIndustry(index, indRenames){
 
 
 }
+
+}
+
+exports.populateIndustryDescriptionData = function(){
+
+	csv()
+	.from.path(__dirname+'/industry_descriptions.csv', {delimiter: ','})
+	.transform(function(row){
+		row.unshift(row.pop());
+		return row
+	})
+	.on('record', function(row, index){
+		//var newRow = row.join(",").split(",");
+		var source = row[0];
+		var industry = row[1];
+		var desc = row[2];
+
+		var indObj = {
+			"GICSIndName" : industry,
+			"description" : desc,
+			"descriptionSource" : source
+		}
+
+		var i = new exports.Industry(indObj);
+		i.save();
+	})
+	.on('close', function(count){
+		console.log("number of lines processed "+count)
+	})
+	.on('error', function(error){
+		console.log("there was an error" + error.message)
+	});
 
 }

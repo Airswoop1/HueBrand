@@ -23,65 +23,72 @@
     colorFamilies["gray"] = "GY"
     colorFamilies["white"] = "W"
 
+    
+
+
     var colorsUsed = [];
-    for(var i=0; i<topColor.length;i++){
+    var maxColorValue = 0;
+      for(var i=0; i<topColorsForIndustry.length;i++){
 
-      if(colorFamilies.hasOwnProperty(topColor[i].colorFamily)){
-        colorsUsed.push(topColor[i].colorFamily);
+        if(colorFamilies.hasOwnProperty(topColorsForIndustry[i].colorFamily)){
+          colorsUsed.push(topColorsForIndustry[i].colorFamily);
 
-         var percentToNumber = parseFloat((topColor[i].colorPercentage/100).toFixed(2),10);
-         //if white change border to .1 otherwise remove
-        dataSourceForArrayToData.push([
-          colorFamilies[topColor[i].colorFamily],
-          percentToNumber,
-          'fill-color : ' + topColor[i].hexValue + ';stroke-color: #000000; stroke-width: .1;'
-          ])
+           var percentToNumber = parseFloat((topColorsForIndustry[i].colorPercentage/100).toFixed(2),10);
+           //if white change border to .1 otherwise remove
+           if(percentToNumber > maxColorValue){
+              maxColorValue = percentToNumber;
+           }
+          dataSourceForArrayToData.push([
+            colorFamilies[topColorsForIndustry[i].colorFamily],
+            percentToNumber,
+            'fill-color : ' + topColorsForIndustry[i].hexValue + ';stroke:#000000;stroke-width: .1;'
+            ])
+        }
+
       }
 
-    }
+      /*for(var colors in colorFamilies){
+        if(!colorsUsed.hasOwnProperty(colorFamilies[colors])){
+          dataSourceForArrayToData.push([
+            colorFamilies[colors],
+            0,
+            '' 
+          ]);        
+        }
 
-    for(var colors in colorFamilies){
-      if(!colorsUsed.hasOwnProperty(colorFamilies[colors])){
-        dataSourceForArrayToData.push([
-          colorFamilies[colors],
-          0,
-          '' 
-        ]);        
-      }
-
-    }
+      }*/
 
 
 
 
-    var data = google.visualization.arrayToDataTable(dataSourceForArrayToData);
+      var data = google.visualization.arrayToDataTable(dataSourceForArrayToData);
 
-  var view = new google.visualization.DataView(data);
-  view.setColumns([0, 1,
-    { 
-    calc: "stringify",
-    sourceColumn: 1,
-    type: "string",
-    role: "annotation" },
-    2]);
+    var view = new google.visualization.DataView(data);
+    /*view.setColumns([0, 1,
+      { 
+      calc: "stringify",
+      sourceColumn: 1,
+      type: "string",
+      role: "annotation" },
+      2]);*/
 
-  /*var formatter = new google.visualization.NumberFormat({
-    fractionDigits: 3,
-    pattern:'#,###%',
-    });
-  
-  formatter.format(data, 1);*/
+    /*var formatter = new google.visualization.NumberFormat({
+      fractionDigits: 3,
+      pattern:'#,###%',
+      });
+    
+    formatter.format(data, 1);*/
+    maxColorValue = maxColorValue + .05;
+    var options = {
+      vAxis: {format:'0%', minValue:0, maxValue:maxColorValue, viewWindowMode:'maximized', textStyle:{ fontName: 'Nunito',fontSize: '16' }},
+      hAxis: {textStyle:{ fontName: 'Nunito',fontSize: '16' }},
+      legend: { position: "none" },
+      bar: {groupWidth: "80%"},
+      //tooltip: {trigger: "none", textStyle:{ fontName: 'Nunito',fontSize: '16' }, isHtml: true},
+      };
 
-  var options = {
-    vAxis: {format:'0%', minValue:0, viewWindowMode:'maximized', textStyle:{ fontName: 'Nunito',fontSize: '16' }},
-    hAxis: {textStyle:{ fontName: 'Nunito',fontSize: '16' }},
-    legend: { position: "none" },
-    bar: {groupWidth: "10%"},
-    tooltip: {trigger: "none", textStyle:{ fontName: 'Nunito',fontSize: '16' }, isHtml: true},
-    };
-
-  var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
-  chart.draw(view, options);
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+    chart.draw(view, options);
   }
 
   

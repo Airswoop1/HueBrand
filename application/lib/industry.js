@@ -15,12 +15,13 @@ var emptyPayload = {
 
 exports.Industry = mongoose.model('Industry', new mongoose.Schema({
 	
-	industryId : String,
-	name: String,
+	"GICSIndName" : String,
+	"description" : String,
+	"descriptionSource" : String,
 	industrySize : Number,
-	colors : [String], //should these be names or Id's?
+	associatedColors : [String],
 	attributes :  [String],
-	colorCombinations : [String],
+	colorCombinations : [String]
 
 }));
 
@@ -44,17 +45,22 @@ try{
 				else if(industryResult){
 
 					getTopColorFromInd(industryResult, function(sortedTopColors){
-						console.log(sortedTopColors);
-						res.render('industry',{
-							"queryType" : "brand",
-							"topColors" : sortedTopColors,
-							"brandResult" : {},//brandResult,
-							"industryResult" : industryResult,
-							"colorResult" : {},//colors,
-							"queryName" : req.params.query,
-							'allCompanies' : bloom.AllCompanies,
-							"topCountries" : {},
-							"searchType" : "industry"
+						getIndustryDescriptions(searchTerm, function(industryDescription){
+
+
+							res.render('industry',{
+								"queryType" : "brand",
+								"topColors" : sortedTopColors,
+								"brandResult" : {},//brandResult,
+								"industryResult" : industryResult,
+								"colorResult" : {},//colors,
+								"queryName" : req.params.query,
+								'allCompanies' : bloom.AllCompanies,
+								"topCountries" : {},
+								"topColorsForIndustry": sortedTopColors,
+								"industryDescription" : industryDescription,
+								"searchType" : "industry"
+							})
 						})
 					})
 				}
@@ -71,6 +77,25 @@ try{
 		res.render('landing',emptyPayload)
 	}
 }
+
+
+var getIndustryDescriptions = function(industryName, callback){
+
+	exports.Industry.find({"GICSIndName":industryName},function(err, doc){
+		if(!err){
+			console.log(doc[0]["description"]);
+			callback(doc[0]["description"]);
+		}
+		else{
+			console.log("there was an error looking up the industry");
+			callback(null)
+		}
+
+	})
+
+}
+
+
 
 var getTopColorFromInd = function( colorCompanies, callback ){
 	console.log("Getting top color from Ind");
@@ -96,7 +121,9 @@ var getTopColorFromInd = function( colorCompanies, callback ){
 						"hValue" : colorCompanies[i].associatedColors[aColor].hValue,
 						"sValue" : colorCompanies[i].associatedColors[aColor].sValue,
 						"vValue" : colorCompanies[i].associatedColors[aColor].vValue,
-						"lValue" : colorCompanies[i].associatedColors[aColor].lValue
+						"lValue" : colorCompanies[i].associatedColors[aColor].lValue,
+						"colorFamily" : colorCompanies[i].associatedColors[aColor].colorFamily,
+						"shade" : colorCompanies[i].associatedColors[aColor].shade
 					}
 				}
 
@@ -115,7 +142,9 @@ var getTopColorFromInd = function( colorCompanies, callback ){
 														"hValue" : colorNameMap[key].hValue,
 														"sValue" : colorNameMap[key].sValue,
 														"vValue" : colorNameMap[key].vValue,
-														"lValue" : colorNameMap[key].lValue 
+														"lValue" : colorNameMap[key].lValue,
+														"colorFamily" : colorNameMap[key].colorFamily,
+														"shade" : colorNameMap[key].shade 
 													});
 	}	
 	//sort

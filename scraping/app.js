@@ -212,7 +212,13 @@ import brand manuals if they exist
 function: importAttributesWithoutCountries()
 import attributes
 ************/
-attributes.importAttributesWithoutCountries();
+//attributes.importAttributesWithoutCountries();
+
+/***********
+function: populateIndustryDescriptionData()
+import indsutry descriptions
+************/
+industry.populateIndustryDescriptionData()
 
 /************ 
 	Routers 
