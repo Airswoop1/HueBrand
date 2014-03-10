@@ -15,10 +15,11 @@
     
           <div class="color-combinations-primary">      
             <div class="combination-box" style="background-color: rgb(
-                                                                      <%= colorCombos[colorCombos.length-1].RrgbValue %>,
-                                                                      <%= colorCombos[colorCombos.length-1].GrgbValue %>,
-                                                                      <%= colorCombos[colorCombos.length-1].BrgbValue %>
-                                                                        );">
+                                                                      <%= Math.floor(colorCombos[colorCombos.length-1].RrgbValue) %>,
+                                                                      <%= Math.floor(colorCombos[colorCombos.length-1].GrgbValue) %>,
+                                                                      <%= Math.floor(colorCombos[colorCombos.length-1].BrgbValue) %>
+                                                                        );
+                                                                        border:solid black 1px;">
               <span class="caption fade-caption">
               <%
                 var len = colorCombos.length-1;
@@ -26,9 +27,9 @@
                 if(colorCombos[len].RrgbValue<10 && colorCombos[len].GrgbValue<10 && colorCombos[len].BrgbValue<10){
                   textColor = 'white'
                 }
-
+              
                 %>
-                <p style="color;<%=textColor%>"><%= colorCombos[colorCombos.length-1].colorPercentage %>%</p>
+                <p style="color:<%=textColor%>"><%= colorCombos[colorCombos.length-1].colorPercentage %>%</p>
               </span>
             </div>
           </div>
@@ -42,12 +43,21 @@
             %>
             <% for(var i=0;i<colorCombos.length-1; i++){ 
               var percent = Math.floor(parseFloat(((colorCombos[i].colorPercentage/totesMcgoates)*100).toFixed(0),10));
+                var borderStyle;
+                if(colorCombos[i].RrgbValue>245 && colorCombos[i].GrgbValue>245 && colorCombos[i].BrgbValue>245){
+                  borderStyle = 'solid black 1px';
+                }
+                else{
+                  borderStyle = 'none'
+                }
+
             %>
 
               <div class="combination-box" style="margin-bottom:0px;height: <%=percent%>%;background-color:rgb(
-                                                                      <%= colorCombos[i].RrgbValue %>,
-                                                                      <%= colorCombos[i].GrgbValue %>,
-                                                                      <%= colorCombos[i].BrgbValue %>);"> 
+                                                                      <%= Math.floor(colorCombos[i].RrgbValue) %>,
+                                                                      <%= Math.floor(colorCombos[i].GrgbValue) %>,
+                                                                      <%= Math.floor(colorCombos[i].BrgbValue) %>);
+                                                                      border:<%=borderStyle%>"> 
               <span class="caption fade-caption">
                 <%
                 var textColorSecond = 'black';

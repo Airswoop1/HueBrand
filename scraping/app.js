@@ -218,7 +218,13 @@ import attributes
 function: populateIndustryDescriptionData()
 import indsutry descriptions
 ************/
-industry.populateIndustryDescriptionData()
+//industry.populateIndustryDescriptionData()
+
+/***********
+function: importAttributeDescriptionData()
+import attribute descriptions
+************/
+attributes.importAttributeDescriptionData()
 
 /************ 
 	Routers 

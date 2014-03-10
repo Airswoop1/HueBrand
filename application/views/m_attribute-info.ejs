@@ -10,13 +10,13 @@
           <div class="attribute-container">
             <%   
               var capAttrName = attributeResult.attribute.charAt(0).toUpperCase() + attributeResult.attribute.slice(1);
-
+              console.log(attributeResult.description);
             %>
              <div class="attribute-name"><%=capAttrName%>
              </div>
           </div>
           <div class="attribute-description">
-          <%=attributeResult.attribute%> is considered a mellow color that is highly reflective. It is seen as something with high energy that generates creativity. Although the cover gives off a feeling on enlighteningment when shaded to close to green, it leaves an acidic feeling in consumers minds that is highly unfavorable. Yellow is good to use if you are trying to get consumers attention fast because the eye is immediately drawn to it.
+            <%= attributeResult.description %>
           </div>
         </div>
       </div>

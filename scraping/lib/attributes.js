@@ -8,7 +8,8 @@ var attributes = new mongoose.Schema({
 		shade : String,
 		color : String,
 		country : String,
-		attribute : String
+		attribute : String,
+		description : String
 });
 
 exports.attributeModel = mongoose.model('attributes', attributes);
@@ -79,6 +80,46 @@ exports.importAttributesWithoutCountries = function(){
 			console.log("there was an error" + error.message)
 		});
 
+}
+
+exports.importAttributeDescriptionData = function(){
+		var attributeDescObjectArray = [];
+		csv()
+		.from.path(__dirname+'/attribute_descriptions.csv', {delimiter: ','})
+		.transform(function(row){
+			row.unshift(row.pop());
+			return row
+		})
+		.on('record', function(row, index){
+
+			var descObj = {
+				"attributeName": row[1],
+				"desc" : row[0]
+			}
+			attributeDescObjectArray.push(descObj);
+
+			if(index === 213){
+				updateAttributeDescriptions(0,attributeDescObjectArray)
+			}
+
+		})
+		.on('close', function(count){
+			console.log("number of lines processed "+count)
+		})
+		.on('error', function(error){
+			console.log("there was an error" + error.message)
+		});
+}
 
 
+function updateAttributeDescriptions(i, attrDescList){
+	if(i === attrDescList.length){
+		console.log("DONE POPULATING ATTRIBUTES! ");
+		return;
+	}
+	var attrName = attrDescList[i].attributeName;
+	var attrDesc = attrDescList[i].desc;
+	exports.attributeModel.update({"`":attrName},{"description":attrDesc}, function(err, doc){
+		updateAttributeDescriptions(++i,attrDescList);
+	})
 }

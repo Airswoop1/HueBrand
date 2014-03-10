@@ -17,7 +17,7 @@
           for(var i=0;i<topColors.length; i++){ 
             var colorPercentageWidth = Math.floor(topColors[i].colorPercentage);
             var borderStyle;
-            if(topColors[i].RrgbValue<10 && topColors[i].GrgbValue < 10 && topColors[i].BrgbValue < 10){
+            if(topColors[i].RrgbValue>245 && topColors[i].GrgbValue > 245 && topColors[i].BrgbValue > 245){
                borderStyle = 'solid 1px black';
             }
             else{
@@ -46,7 +46,7 @@
                 var topBorder;
                 if(topColors[j].RrgbValue > 245 && topColors[j].GrgbValue > 245 && topColors[j].BrgbValue > 245){
                    borderStyle = 'solid 1px black';
-                   topBorder = 'solid 2px black'
+                   topBorder = 'solid 2px black;display: block;height: 35px;'
                 }
                 else{
                   borderSyle = 'none';
@@ -76,7 +76,8 @@
                                                     <%=topColors[j].BrgbValue%>);
                                                     width:130px;
                                                     border:<%=borderStyle%>!important;
-                                                    border-top:<%=topBorder%>"></td>
+                                                    border-top:<%=topBorder%>
+                                                    "></td>
                     <td><%=topColors[j].RrgbValue%>,<%=topColors[j].GrgbValue%>,<%=topColors[j].BrgbValue%></td>
                     <td><%
                       function componentToHex(c){

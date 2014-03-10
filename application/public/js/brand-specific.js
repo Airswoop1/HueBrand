@@ -101,7 +101,7 @@ window.onload = function(){
   var currentQuery = pathArray[3];
 
 
-  if(currentQuery === 'attribute' || currentQuery === 'industry'){
+  if( currentQuery === 'industry'){
     //change map and logo cloud width to 48%
     //and apply margin left 2% to map
     $('#logocloud').css('width','47%');
