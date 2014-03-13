@@ -157,44 +157,56 @@ geocoder = new google.maps.Geocoder();
 brandMap = new google.maps.Map(document.getElementById('brand-map-canvas'), mapOptions);
 
 var countryMap = {};
+countryArray = [];
 
-populateCountryMap(0, countryMap, function(updatedCountryMap){
+for(var theCountry in topColorsPerCountry){
+   countryArray.push(theCountry);
+}
 
+
+populateCountryMap(0, countryArray, countryMap, function(updatedCountryMap){
   drawLocations(updatedCountryMap);
 })
   
 }
   
-var populateCountryMap = function(index, theCountryMap, callback){
-  if(index === indObjArray.length)
+var populateCountryMap = function(index, countryArray, theCountryMap, callback){
+  if(index === countryArray.length)
   {
     callback(theCountryMap)
   }
   else
   {
-    
-    if(indObjArray[index].location.state === ''){
-      var address = "'" + indObjArray[index].location.city + ", " + indObjArray[index].location.country + "'"
-    }
-    else{
-      var address = "'" + indObjArray[index].location.city + ", " + indObjArray[index].location.state + ", " + indObjArray[index].location.country + "'"
-    }
-    var logoFileLocation = "../logos/" + indObjArray[index].logoFileName;
+    var currentCountry = countryArray[index];
+
+
+    var address = "'" + topColorsPerCountry[currentCountry].city + ", " + topColorsPerCountry[currentCountry].countryName + "'"
+
+    var cName = topColorsPerCountry[currentCountry].colorName;
 
     geocoder.geocode( { 'address': address }, function(results, status) {
-      if(status == google.maps.GeocoderStatus.OK && !(indObjArray[index].logoFileName === 'undefined')){
-        theCountryMap[indObjArray[index].shortName] = {
+      if(status == google.maps.GeocoderStatus.OK ){
+        theCountryMap[currentCountry] = {
           'center' : results[0].geometry.location,
-          'logoFileLoc' : logoFileLocation
+          'colorName' : cName,
+            "RrgbValue": topColorsPerCountry[currentCountry].RrgbValue,
+            "GrgbValue":topColorsPerCountry[currentCountry].GrgbValue,
+            "BrgbValue":topColorsPerCountry[currentCountry].BrgbValue,
+            "colorPercentage" : topColorsPerCountry[currentCountry].colorPercentage
         }
       }
       else{
         console.log("unable to get geo code due to status code : " + status);
       }
-      populateCountryMap(++index, theCountryMap, callback);
+      populateCountryMap(++index, countryArray, theCountryMap, callback);
 
     });
   }
+}
+
+function componentToHex(c){
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
 }
 
 function drawLocations( countryMap) {
@@ -204,20 +216,26 @@ function drawLocations( countryMap) {
   for(var country in countryMap){
     var lat = countryMap[country].center.lat();
     var lng = countryMap[country].center.lng();
-    
-    var companyImage = {
-      url: countryMap[country].logoFileLoc,
-      scaledSize : new google.maps.Size(50, 50)
-    };
 
-    console.log(companyImage);
+      var hexValue = '#' + componentToHex(countryMap[country].RrgbValue) + componentToHex(countryMap[country].GrgbValue) + componentToHex(countryMap[country].BrgbValue);
 
-    var marker = new google.maps.Marker({
-        "map": brandMap,
-        position: new google.maps.LatLng(lat, lng),
-        icon: companyImage
 
-    });
+      var   magnitude = countryMap[country].colorPercentage * 5000
+
+      var populationOptions = {
+          strokeColor: hexValue,
+          strokeOpacity: 1,
+          strokeWeight: 2,
+          fillColor: hexValue,
+          fillOpacity: 0.95,
+          map: brandMap,
+          center: new google.maps.LatLng(lat, lng),
+          radius: magnitude
+      };
+      // Add the circle for this city to the map.
+      colorCircle = new google.maps.Circle(populationOptions);
+
+
   }
   
 

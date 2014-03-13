@@ -73,6 +73,7 @@ try{
 											"topColorsForIndustry":{},
 											"topIndustries":topIndustries,
 											"colorCombos" : combos,
+                                            "topColorsPerCountry":undefined,
 											"searchType" : "attribute"
 
 										});

@@ -144,7 +144,43 @@
 		<% if(queryType !== ''){ %>
 			google.maps.event.addDomListener(window, 'load', initMaps);
 		<%}%>
-		
+
+
+ /**********
+  *
+  *
+  * brand-map updated color map data input
+  */
+    var topColorsPerCountry = {};
+    var totalCountryColorCount = 0;
+    <%if(topColorsPerCountry){%>
+        <%for(var country in topColorsPerCountry){%>
+            var countryName = "<%=topColorsPerCountry[country].key%>";
+            topColorsPerCountry[countryName] = {
+                "countryName":'',
+                "city":'',
+                topColorName: '',
+                RrgbValue:0,
+                GrgbValue:0,
+                BrgbValue:0,
+                "colorPercentage":0
+            };
+            topColorsPerCountry[countryName].countryName = countryName;
+            topColorsPerCountry[countryName].city = "<%=topColorsPerCountry[country].city%>";
+            topColorsPerCountry[countryName].topColorName = "<%=topColorsPerCountry[country].topColor.shade%>" + " " + "<%=topColorsPerCountry[country].topColor.colorFamily%>";
+            topColorsPerCountry[countryName].RrgbValue = <%=topColorsPerCountry[country].topColor.RrgbValue%>;
+            topColorsPerCountry[countryName].GrgbValue = <%=topColorsPerCountry[country].topColor.GrgbValue%>;
+            topColorsPerCountry[countryName].BrgbValue = <%=topColorsPerCountry[country].topColor.BrgbValue%>;
+            topColorsPerCountry[countryName].colorPercentage = <%=topColorsPerCountry[country].topColor.colorPercentage%>;
+
+            totalCountryColorCount += <%=topColorsPerCountry[country].topColor.colorPercentage%>;
+ <%}}%>
+
+        console.log(topColorsPerCountry);
+
+
+
+
 		</script>
 
 

@@ -1,5 +1,4 @@
-
-
+window.onload = (function(){
   google.load("visualization", "1", {packages:["corechart"]});
   
   google.setOnLoadCallback(drawChart);
@@ -92,7 +91,6 @@
   }
 
   
-window.onload = function(){  
 
   var pathArray = window.location.href.split( '/' );
   var protocol = pathArray[0];
@@ -104,24 +102,27 @@ window.onload = function(){
   if( currentQuery === 'industry'){
     //change map and logo cloud width to 48%
     //and apply margin left 2% to map
-    $('#logocloud').css('width','47%');
-    $('#global-map').css('width','47%').css('margin-right','2%').css('margin-left','2%');
     setTimeout(function(){
-      $('.logoCloudContainer').isotope('reLayout'); 
-    }, 1000);
-
+      $('#logocloud').css('width','47%');
+    $('#global-map').css('width','47%').css('margin-right','2%').css('margin-left','2%');
+        setTimeout(function(){
+          $('.logoCloudContainer').isotope('reLayout');
+        }, 500);
+    },1000);
   } 
   else if(currentQuery === 'brand'){
     if(brandHistoryResultLength < 1){
-    $('#logocloud').css('width','47%');
-    $('#global-map').css('width','47%').css('margin-right','2%').css('margin-left','2%');
-      setTimeout(function(){
-        $('.logoCloudContainer').isotope('reLayout'); 
-      }, 1000);
-      
+        setTimeout(function(){
+        $('#logocloud').css('width','47%');
+        $('#global-map').css('width','47%').css('margin-right','2%').css('margin-left','2%');
+            setTimeout(function(){
+            $('.logoCloudContainer').isotope('reLayout');
+            },500);
+          }, 1000);
+
     }
   }
 
-}
 
 
+}());

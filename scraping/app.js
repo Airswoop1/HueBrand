@@ -224,7 +224,7 @@ import indsutry descriptions
 function: importAttributeDescriptionData()
 import attribute descriptions
 ************/
-attributes.importAttributeDescriptionData()
+//attributes.importAttributeDescriptionData()
 
 /************ 
 	Routers 

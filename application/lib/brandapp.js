@@ -49,12 +49,15 @@ try{
 							}
 
 							getTopColorsForIndustry(industryCompanies, function(topIndustryCompaniesColors){
-								console.log("topIndustryCompaniesColors:########################## ")
-								console.log(topIndustryCompaniesColors);
+
 							//if the colors have yet to be defined
 							if(typeof brandResult.associatedColors[0] !== 'undefined'){
 								var sortedBrandAssociatedColors = _.sortBy(brandResult.associatedColors, 'colorPercentage').reverse();
 								getTopColorsForIndustryByCountry(industryCompanies, function(topColorsByCountry){
+
+
+                                        console.log("topColorsForIndustry:########################## ")
+                                        console.log(topIndustryCompaniesColors);
 
 										res.render('brand',{
 											"queryType" : "brand",
@@ -65,7 +68,8 @@ try{
 											"colorResult" : brandResultTopColor,
 											"queryName" : req.params.query,
 											"allCompanies" : bloom.AllCompanies,
-											"topCountries" : topColorsByCountry,
+											"topColorsPerCountry" : topColorsByCountry,
+                                            "topCountries":{},
 											"topColorsForIndustry":topIndustryCompaniesColors,
 											"searchType" : "brand"
 										});
@@ -102,29 +106,123 @@ function getTopColorsForIndustryByCountry(companies, callback){
 
 	var countryArray = {};
 
-	for(var i=0;i<companies.length;i++){
+    for(var i=0;i<companies.length;i++){
 		var currentCompany = companies[i];
-		var currentCountry = currentCountryompany.country;
+		var currentCountry = currentCompany.country;
 		var currentCity = currentCompany.city;
 		var currentColors = currentCompany.associatedColors;
 
 		if(!countryArray.hasOwnProperty(currentCountry)){
 			countryArray[currentCountry] = {
 				"city": currentCity,
-				"colors":[]
+				"colors": currentColors
 			}
-		
-		}
-		for(var j=0;j<currentColors; j++){
-			console.log(currentColors[j]);
-			countryArray[currentCountry].colors.push(currentColors[j]);
-		}
-		
+
+		}else{
+            for(var j=0;j<currentColors.length; j++){
+                countryArray[currentCountry].colors.push(currentColors[j]);
+            }
+            if(typeof countryArray[currentCountry].city === "undefined"){
+                countryArray[currentCountry].city = currentCity;
+            }
+
+        }
 
 	}
 
+    var colorCountryArray = [];
 
-	callback(countryArray)
+    for(var c in countryArray){
+
+        colorCountryArray.push({
+            "key":c,
+            "city":countryArray[c].city,
+            "freq":{},
+            "total":0
+        });
+    }
+
+    populateColorCountryArray(0, countryArray,colorCountryArray, function(completedColorCountryArray){
+        getTopColorsPerCountry(completedColorCountryArray, function(topCompletedColorCountryArray){
+            callback(topCompletedColorCountryArray);
+        })
+
+    })
+
+    function populateColorCountryArray(index, cMap, cArray, cb){
+
+        if(index === cArray.length){
+            cb(cArray);
+            return;
+        }
+
+        var country = cArray[index].key;
+        var currentArrayObj = cArray[index];
+
+        for(var i=0;i<cMap[country].colors.length;i++){
+
+            var currentColorFamily = cMap[country].colors[i].colorFamily;
+            var currentShade = cMap[country].colors[i].shade;
+            var currentColorPercentage = cMap[country].colors[i].colorPercentage;
+            var currentColorName = currentShade + " " + currentColorFamily;
+            var currentR = cMap[country].colors[i].RrgbValue;
+            var currentG = cMap[country].colors[i].GrgbValue;
+            var currentB = cMap[country].colors[i].BrgbValue;
+
+            if(!currentArrayObj.freq.hasOwnProperty(currentColorName)){
+                currentArrayObj.freq[currentColorName] = {};
+                currentArrayObj.freq[currentColorName].colorFamily = currentColorFamily;
+                currentArrayObj.freq[currentColorName].shade = currentShade;
+                currentArrayObj.freq[currentColorName].colorPercentage = currentColorPercentage;
+                currentArrayObj.freq[currentColorName].RrgbValue = currentR;
+                currentArrayObj.freq[currentColorName].GrgbValue = currentG;
+                currentArrayObj.freq[currentColorName].BrgbValue = currentB;
+
+                currentArrayObj.total += currentColorPercentage;
+            }
+            else{
+                currentArrayObj.freq[currentColorName].colorPercentage += currentColorPercentage;
+                currentArrayObj.total += currentColorPercentage;
+             }
+
+        }
+
+        cArray[index] = currentArrayObj;
+        populateColorCountryArray(++index,cMap,cArray,cb);
+
+
+
+
+    }
+
+
+    function getTopColorsPerCountry(map, cb){
+
+        for(var country in map ){
+
+           var allColors = map[country].freq;
+           map[country].topColor = {};
+
+           var topColorPercentage = 0;
+           var topColorObj = {};
+
+           for(var color in allColors){
+                if(allColors[color].colorPercentage >= topColorPercentage){
+                    topColorPercentage = allColors[color].colorPercentage;
+                    topColorObj = allColors[color];
+                }
+           }
+           map[country].topColor = topColorObj;
+
+        }
+
+        cb(map);
+
+    }
+
+
+
+
 }
 
 
@@ -169,7 +267,8 @@ function getTopColorsForIndustry(companies, callback){
 	addRgbData(0,sortedColorFamilyObjectMap,function(err, unNormalizedColorFamilyObjMap){
 
 		outOf100(unNormalizedColorFamilyObjMap, 'colorPercentage', function(obj){
-			callback(obj);
+
+            callback(obj);
 		}) 
 
 	})
@@ -185,15 +284,15 @@ function getTopColorsForIndustry(companies, callback){
 			return;
 		}
 
-		console.log("cmap[index]")
-		console.log(cMap[index]);
 		var colorMapObject = cMap[index];
 		var cName = "medium "+colorMapObject.colorFamily;
 		color.Color.findOne({"colorName":cName},function(err, doc){
 			if(err){
 				callback(err);
 			}
+
 			doc = doc.toObject();
+			console.log(doc);
 			colorMapObject.RrgbValue = doc.RrgbValue;
 			colorMapObject.GrgbValue = doc.GrgbValue;
 			colorMapObject.BrgbValue = doc.BrgbValue;

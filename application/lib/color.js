@@ -87,12 +87,10 @@ exports.queryColor = function(req,res){
 							exports.getTopColors(companies, colorObj, function(sortedTopColors){
 								getTopIndustries(companies, function(topIndustries){
 									getTopCountries(colorObj, function(topCountries){
-										colorCombination(colorObj, function(combos){					
-											console.log("Inputs : ")
-											console.log(colorObj);
+										colorCombination(colorObj, function(combos){
 
 											console.log("Outputs : ")
-											console.log(combos);
+											console.log(topCountries);
 											/*console.log("colorResult");
 											console.log(colorObj);
 											console.log("companyResult + industryResult");
@@ -117,6 +115,7 @@ exports.queryColor = function(req,res){
 												"topCountries" : topCountries,
 												"colorCombos" : combos,
 												"topColorsForIndustry":{},
+                                                "topColorsPerCountry":undefined,
 												"searchType" : "color"
 											});
 										});

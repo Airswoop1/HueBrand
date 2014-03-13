@@ -59,6 +59,7 @@ try{
 								"topCountries" : {},
 								"topColorsForIndustry": sortedTopColors,
 								"industryDescription" : industryDescription,
+                                "topColorsPerCountry":undefined,
 								"searchType" : "industry"
 							})
 						})
@@ -82,8 +83,8 @@ try{
 var getIndustryDescriptions = function(industryName, callback){
 
 	exports.Industry.find({"GICSIndName":industryName},function(err, doc){
-		if(!err){
-			console.log(doc[0]["description"]);
+		if(!err && doc.length){
+			console.log(doc);
 			callback(doc[0]["description"]);
 		}
 		else{
