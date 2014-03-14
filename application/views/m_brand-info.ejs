@@ -22,8 +22,8 @@
 
         <div class="well-content">
           <div class="logo-container">
-            <a href="../logos/<%= brandResult.logoFileName%>" download="<%= brandResult.logoFileName%>">
-              <img src="../logos/<%= brandResult.logoFileName%>">
+            <a href="http://s3.amazonaws.com/hue-storage/HueBrand/logos/<%= brandResult.logoFileName%>" download="<%= brandResult.logoFileName%>">
+              <img src="http://s3.amazonaws.com/hue-storage/HueBrand/logos/<%= brandResult.logoFileName%>">
              </a>
           </div>
       <div class="brand-info-box">
@@ -49,7 +49,7 @@
             </div>
 
             <%if(brandResult.brandManualFileName || brandResult.brandManualWebURL){
-              var showRightBrand = "../brandManuals/"+brandResult.brandManualFileName
+              var showRightBrand = "http://s3.amazonaws.com/hue-storage/HueBrand/brand_manuals/"+brandResult.brandManualFileName
               if(!brandResult.brandManualFileName || brandResult.brandManualFileName === '' || brandResult.brandManualFileName == 'undefined' ){
                 showRightBrand = brandResult.brandManualWebURL
               }
