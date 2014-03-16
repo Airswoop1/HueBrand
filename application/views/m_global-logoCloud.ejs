@@ -1,12 +1,12 @@
 <!--  Module - Logo Cloud - "Shows a Cloud of Logos associated to the Brand, Attribute, Industry, Color"  -->
      <div class="container-fluid" id="logocloud">
       <div class="span12 well">
-        <div class="moduleTitle" >
+        <div class="title">
           <button type="button" class="btn btn-default">
-              <%    
+              <%
               var moduleTitle = '';
               if(searchType == 'brand'){
-                  moduleTitle = 'Company\'s industry logo cloud;
+                  moduleTitle = 'Company\'s industry logo cloud'
               }
               else if(searchType == 'color'){
                   moduleTitle = 'Logo cloud for companies using this color';
@@ -22,7 +22,7 @@
           </button>
         </div>
         <div class="well-content">
-          <div class="logoCloudContainer" style='height:100%!important;overflow-x:hidden!important;'>
+          <div class="logoCloudContainer" style="height:100%!important;overflow-x:hidden!important;">
             <% for(var i=0; i<industryResult.length; i++){ 
             %>
             <%if(typeof industryResult[i].logoFileName !== 'undefined' && industryResult[i].logoFileName !== ''){%>
