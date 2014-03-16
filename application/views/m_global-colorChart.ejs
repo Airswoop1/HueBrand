@@ -3,8 +3,18 @@
     <div class="container-fluid" id="color-chart">
       <div class="span12 well">
         <div class="title" >
-          <button type="button" class="btn btn-default">      
-            Color Frequency Bar Chart
+          <button type="button" class="btn btn-default">
+              <%
+              var moduleTitle = 'Color frequency';
+              if(searchType === 'brand'){
+                  moduleTitle = "Color frequency of company's industry";
+              }
+              else if(searchType === 'industry'){
+                  moduleTitle = "Color frequency for this industry";
+              }
+
+              %>
+              <%=moduleTitle%>
           </button>
         </div>
         <div class="well-content" style="height: 250px;">

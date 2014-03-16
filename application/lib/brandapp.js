@@ -9,7 +9,9 @@ var emptyPayload = {
 	colorResult : {},
 	topColors : {},
 	industryResult:{},
-	searchType:''
+	searchType:'',
+    'topColorsForIndustry':{},
+    "topColorsPerCountry": {}
 }
 
 exports.queryBrand = function(req,res){
@@ -286,12 +288,13 @@ function getTopColorsForIndustry(companies, callback){
 
 		var colorMapObject = cMap[index];
 		var cName = "medium "+colorMapObject.colorFamily;
-		color.Color.findOne({"colorName":cName},function(err, doc){
+		color.Color.find({"colorName":cName},function(err, doc){
 			if(err){
 				callback(err);
 			}
 
-			doc = doc.toObject();
+			//doc = doc.toObject();
+            doc = doc[0];
 			console.log(doc);
 			colorMapObject.RrgbValue = doc.RrgbValue;
 			colorMapObject.GrgbValue = doc.GrgbValue;

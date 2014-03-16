@@ -10,8 +10,10 @@ var emptyPayload = {
 		colorResult : {},
 		topColors : {},
 		industryResult:{},
-		searchType:''
-	}
+		searchType:'',
+    'topColorsForIndustry':{},
+    "topColorsPerCountry": {}
+}
 exports.Color = mongoose.model('Color', new mongoose.Schema({
 
 	colorName : String,

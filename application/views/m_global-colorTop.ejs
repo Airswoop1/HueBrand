@@ -5,8 +5,24 @@
 
       <div class="span12 well">
         <div class="title" >
-          <button type="button" class="btn btn-default">      
-            Top 3 Colors
+          <button type="button" class="btn btn-default">
+              <%
+                var moduleTitle = 'Top Colors';
+
+                if(searchType === 'brand'){
+                    moduleTitle = "Top logo colors";
+                }
+                  else if(searchType === 'industry'){
+                    moduleTitle = "Top industry colors";
+                }
+                  else if(searchType === 'attribute'){
+                    moduleTitle = 'Color - Attribute Association';
+                }
+                  else if(searchType === 'color'){
+                    moduleTitle = 'Top three shades for this color';
+                }
+                %>
+            <%=moduleTitle%>
           </button>
         </div>
 

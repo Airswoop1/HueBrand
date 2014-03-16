@@ -2,8 +2,18 @@
     <div class="container-fluid" id="industriesTop">
       <div class="span12 well">
         <div class="title" >
-          <button type="button" class="btn btn-default">     
-            Top 3 Industries
+          <button type="button" class="btn btn-default">
+              <%
+              var moduleTitle = 'Top Industries';
+
+              if(searchType === 'attribute'){
+                moduleTitle = 'Top 3 industries using this attribute';
+              }
+              else if(searchType === 'color'){
+                moduleTitle = 'Top 3 industries using this color';
+              }
+              %>
+              <%=moduleTitle%>
           </button>
         </div>
         <div class="well-content">

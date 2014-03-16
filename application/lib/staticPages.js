@@ -6,7 +6,9 @@ var emptyPayload = {
 		colorResult : {},
 		topColors : {},
 		industryResult:{},
-		searchType:''
+		searchType:'',
+        'topColorsForIndustry':{},
+        "topColorsPerCountry": {}
 	}
 
 exports.about = function(req,res){

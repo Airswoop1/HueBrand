@@ -4,8 +4,19 @@
       <div class="span12 well">
 
         <div class="title">
-          <button type="button" class="btn btn-default">      
-            Primary and Secondary Color Combinations Chart
+          <button type="button" class="btn btn-default">
+
+              <%
+              var moduleTitle = 'Color paring frequency chart'
+              if(searchType === 'color'){
+              moduleTitle = "Color paring frequency chart";
+              }
+              else if(searchType === 'attribute'){
+              moduleTitle = "Color paring frequency chart"
+              }
+
+              %>
+              <%=moduleTitle%>
           </button>
         </div>
       

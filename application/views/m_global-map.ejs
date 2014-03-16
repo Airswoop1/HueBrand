@@ -1,23 +1,24 @@
 <!--  Module - Map - "Shows a Map and Attribtues Associated to Top Colors"  -->
-<%    var mapTitle = '';
-    if(queryType == 'brand'){
-      mapTitle = brandResult.shortName + ' Color Attributes Worldwide';
+<%
+    var mapTitle = '';
+    if(searchType == 'brand'){
+      mapTitle = 'Color - Attribute association map';
     }
-    else if(queryType == 'color'){
-      mapTitle = colorResult.colorName + ' Attributes Associations Worldwide';
+    else if(searchType == 'color'){
+      mapTitle = 'Color - Attribute association map';
     }
-    else if(queryType == 'attribute'){
-      mapTitle = attributeResult.attributeName + ' Color Associations Worldwide';
+    else if(searchType == 'attribute'){
+      mapTitle = 'Color - Attribute association map';
     }
-    else if(queryType == 'industry'){
-      mapTitle = industryResult.industryName + ' Attribute Associations WorldWide'
+    else if(searchType == 'industry'){
+      mapTitle = 'Color - Attribute association map';
     }
 %>
     <div class="container-fluid" id="global-map">
       <div class="span12 well">
         <div class="title" >
           <button type="button" class="btn btn-default">      
-            Map<!--    mapTitle  -->
+            <%=mapTitle%>
           </button>
         </div>
         <div class="well-content">
