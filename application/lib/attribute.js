@@ -3,6 +3,7 @@ var mongoose = require('mongoose'),
 	csv = require('csv'),
 	bloom = require('./bloombergCompanies.js'),
 	color = require('./color.js'),
+    brand = require('./brandapp.js'),
 	_ = require('underscore');
 
 var emptyPayload = {
@@ -57,30 +58,43 @@ try{
 							var companyQuery = bloom.bloombergCompany.find({associatedColors : {$elemMatch : {'colorFamily' : topColor.colorFamily, 'shade' : topColor.shade}}});//.limit(20)
 							
 							companyQuery.exec(function(compErr,companies){
+                                brand.getTopColorsForIndustryByCountry(companies,function(topColorsByCountry){
 
-								colorCombination(topColor,function(combos){
-									
-									getTopIndustries(companies, function(topIndustries){
+                                    if(topColorsByCountry.length < 1){
+                                        topColorsByCountry = undefined;
+                                    }
 
-										res.render('attribute', {
-											"queryType" : "brand",
-											"topColors" : sortedTopColorsWithData,
-											"attributeResult" : attributeObj[0],
-											"brandResult" : {},//brandResult,
-											"industryResult" : companies,//industry,
-											"colorResult" : {},//colors,
-											"queryName" : req.params.query,
-											"allCompanies" : bloom.AllCompanies,
-											"topCountries" : {},
-											"topColorsForIndustry":{},
-											"topIndustries":topIndustries,
-											"colorCombos" : combos,
-                                            "topColorsPerCountry":undefined,
-											"searchType" : "attribute"
 
-										});
-									});
-								});
+                                    colorCombination(topColor,function(combos){
+
+                                        if(combos == {}){
+                                            combos = undefined;
+                                        }
+
+                                        getTopIndustries(companies, function(topIndustries){
+                                            console.log("Top Colors By Country");
+                                            console.log(topColorsByCountry);
+
+                                            res.render('attribute', {
+                                                "queryType" : "brand",
+                                                "topColors" : sortedTopColorsWithData,
+                                                "attributeResult" : attributeObj[0],
+                                                "brandResult" : {},//brandResult,
+                                                "industryResult" : companies,//industry,
+                                                "colorResult" : {},//colors,
+                                                "queryName" : req.params.query,
+                                                "allCompanies" : bloom.AllCompanies,
+                                                "topCountries" : {},
+                                                "topColorsForIndustry":{},
+                                                "topIndustries":topIndustries,
+                                                "colorCombos" : combos,
+                                                "topColorsPerCountry":topColorsByCountry,
+                                                "searchType" : "attribute"
+
+                                            });
+                                        });
+                                    });
+                                });
 							});
 						});
 					});
@@ -319,7 +333,9 @@ function colorCombination(colorObject, cb) {
 		else if(!err && combo.length===0){
 
 			calculateCombination(colorObject, function(calcErr, combosObj){
-				if(!calcErr && combosObj.length){
+				console.log(colorObject.colorName);
+
+                if(!calcErr && combosObj.length){
 
 					var newCombo = {
 						colorName : colorObject.colorName,

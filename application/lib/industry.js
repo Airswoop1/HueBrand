@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 		bloom = require('./bloombergCompanies.js'),
 		color = require('./color.js'),
+        brand = require('./brandapp.js'),
 		_ = require('underscore');
 
 
@@ -45,27 +46,28 @@ try{
 					res.send(500, "Something broke!")
 				}
 				else if(industryResult){
+                    brand.getTopColorsForIndustryByCountry(industryResult, function(topColorsByCountry){
+                        getTopColorFromInd(industryResult, function(sortedTopColors){
+                            getIndustryDescriptions(searchTerm, function(industryDescription){
 
-					getTopColorFromInd(industryResult, function(sortedTopColors){
-						getIndustryDescriptions(searchTerm, function(industryDescription){
 
-
-							res.render('industry',{
-								"queryType" : "brand",
-								"topColors" : sortedTopColors,
-								"brandResult" : {},//brandResult,
-								"industryResult" : industryResult,
-								"colorResult" : {},//colors,
-								"queryName" : req.params.query,
-								'allCompanies' : bloom.AllCompanies,
-								"topCountries" : {},
-								"topColorsForIndustry": sortedTopColors,
-								"industryDescription" : industryDescription,
-                                "topColorsPerCountry":undefined,
-								"searchType" : "industry"
-							})
-						})
-					})
+                                res.render('industry',{
+                                    "queryType" : "brand",
+                                    "topColors" : sortedTopColors,
+                                    "brandResult" : {},//brandResult,
+                                    "industryResult" : industryResult,
+                                    "colorResult" : {},//colors,
+                                    "queryName" : req.params.query,
+                                    'allCompanies' : bloom.AllCompanies,
+                                    "topCountries" : {},
+                                    "topColorsForIndustry": sortedTopColors,
+                                    "industryDescription" : industryDescription,
+                                    "topColorsPerCountry":topColorsByCountry,
+                                    "searchType" : "industry"
+                                })
+                            });
+                        });
+                    });
 				}
 				else{
 					console.log("error on industry");

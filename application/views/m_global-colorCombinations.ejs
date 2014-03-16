@@ -35,7 +35,7 @@
               <%
                 var len = colorCombos.length-1;
                 var textColor = 'black';
-                if(colorCombos[len].RrgbValue<10 && colorCombos[len].GrgbValue<10 && colorCombos[len].BrgbValue<10){
+                if(colorCombos[len].RrgbValue<30 && colorCombos[len].GrgbValue<30 && colorCombos[len].BrgbValue<30){
                   textColor = 'white'
                 }
               
@@ -53,7 +53,7 @@
               }
             %>
             <% for(var i=0;i<colorCombos.length-1; i++){ 
-              var percent = Math.floor(parseFloat(((colorCombos[i].colorPercentage/totesMcgoates)*100).toFixed(0),10));
+              var percent = Math.round(parseFloat(((colorCombos[i].colorPercentage/totesMcgoates)*100).toFixed(0),10));
                 var borderStyle;
                 if(colorCombos[i].RrgbValue>245 && colorCombos[i].GrgbValue>245 && colorCombos[i].BrgbValue>245){
                   borderStyle = 'solid black 1px';

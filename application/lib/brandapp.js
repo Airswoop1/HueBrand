@@ -55,7 +55,7 @@ try{
 							//if the colors have yet to be defined
 							if(typeof brandResult.associatedColors[0] !== 'undefined'){
 								var sortedBrandAssociatedColors = _.sortBy(brandResult.associatedColors, 'colorPercentage').reverse();
-								getTopColorsForIndustryByCountry(industryCompanies, function(topColorsByCountry){
+								exports.getTopColorsForIndustryByCountry(industryCompanies, function(topColorsByCountry){
 
 
                                         console.log("topColorsForIndustry:########################## ")
@@ -104,7 +104,7 @@ try{
 }// end Of Function
 
 
-function getTopColorsForIndustryByCountry(companies, callback){
+exports.getTopColorsForIndustryByCountry = function(companies, callback){
 
 	var countryArray = {};
 
