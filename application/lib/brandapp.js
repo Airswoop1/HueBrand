@@ -289,7 +289,9 @@ function getTopColorsForIndustry(companies, callback){
 		var colorMapObject = cMap[index];
 		var cName = "medium "+colorMapObject.colorFamily;
 		color.Color.find({"colorName":cName},function(err, doc){
-			if(err){
+
+            console.log(cName);
+            if(err){
 				callback(err);
 			}
 
